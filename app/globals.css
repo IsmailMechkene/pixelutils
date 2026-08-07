@@ -158,6 +158,47 @@ select {
   background-color: var(--ink-subtle);
 }
 
+.color-range {
+  height: 1.5rem;
+  cursor: pointer;
+  appearance: none;
+  border-radius: 999px;
+  background: var(--line-strong);
+}
+
+.color-range-hue {
+  background: linear-gradient(
+    90deg,
+    #ef4444,
+    #eab308,
+    #22c55e,
+    #06b6d4,
+    #3b82f6,
+    #8b5cf6,
+    #ec4899,
+    #ef4444
+  );
+}
+
+.color-range::-webkit-slider-thumb {
+  width: 1.125rem;
+  height: 1.125rem;
+  appearance: none;
+  border: 2px solid white;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 35%);
+}
+
+.color-range::-moz-range-thumb {
+  width: 0.875rem;
+  height: 0.875rem;
+  border: 2px solid white;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 35%);
+}
+
 .markdown-preview h1,
 .markdown-preview h2,
 .markdown-preview h3 {

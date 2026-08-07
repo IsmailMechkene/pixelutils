@@ -3,30 +3,29 @@
 import { useState } from "react";
 
 import { BidirectionalTextWorkspace } from "@/components/tool-shell/bidirectional-text-workspace";
+import { CustomSelect } from "@/components/ui/custom-select";
 
 import { decodeUrl, encodeUrl, type UrlMode } from "./logic";
+
+const scopeOptions = [
+  { value: "component", label: "Query value or path segment" },
+  { value: "full-url", label: "Full URL (preserve structure)" },
+] as const;
 
 export default function UrlEncoderWorkspace({ slug }: { slug: string }) {
   const [mode, setMode] = useState<UrlMode>("component");
 
   return (
     <div>
-      <label className="text-sm font-semibold text-ink" htmlFor="url-encoding-scope">
-        Encoding scope
-      </label>
-      <select
-        className="mt-2 block min-h-11 w-full rounded-[10px] border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-accent sm:max-w-xs"
+      <CustomSelect
+        className="sm:max-w-xs"
+        description="Component mode escapes separators such as &, =, and /. Full URL mode keeps structural URL characters."
         id="url-encoding-scope"
-        onChange={(event) => setMode(event.target.value as UrlMode)}
+        label="Encoding scope"
+        onChange={setMode}
+        options={scopeOptions}
         value={mode}
-      >
-        <option value="component">Query value or path segment</option>
-        <option value="full-url">Full URL (preserve structure)</option>
-      </select>
-      <p className="mt-2 text-xs leading-5 text-ink-subtle">
-        Component mode escapes separators such as &amp;, =, and /. Full URL mode keeps
-        structural URL characters.
-      </p>
+      />
       <div className="mt-6 border-t border-line pt-6">
         <BidirectionalTextWorkspace
           key={mode}
@@ -40,7 +39,9 @@ export default function UrlEncoderWorkspace({ slug }: { slug: string }) {
           }
           description={`Using ${mode === "component" ? "component" : "full URL"} rules.`}
           encode={(value) => encodeUrl(value, mode)}
-          encodeInputLabel={mode === "component" ? "Text input" : "Full URL input"}
+          encodeInputLabel={
+            mode === "component" ? "Text input" : "Full URL input"
+          }
           encodeOutputLabel="Percent-encoded output"
           encodeSample={
             mode === "component"

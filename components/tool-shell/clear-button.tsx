@@ -12,7 +12,7 @@ export function ClearButton({
   label = "Clear",
 }: ClearButtonProps) {
   return (
-    <ActionButton disabled={disabled} icon="trash" onClick={onClear}>
+    <ActionButton disabled={disabled} onClick={onClear} tone="quiet">
       {label}
     </ActionButton>
   );

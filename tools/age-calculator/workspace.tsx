@@ -98,7 +98,7 @@ export default function AgeCalculatorWorkspace({ slug }: { slug: string }) {
           <ErrorMessage id="age-error" message={error} />
         </div>
       ) : null}
-      <div className="mt-5">
+      <div className="mt-5 border-t border-line pt-4">
         <ToolActions>
           <ActionButton icon="calculator" tone="primary" type="submit">
             Calculate age

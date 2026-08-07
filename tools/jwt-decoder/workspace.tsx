@@ -69,7 +69,7 @@ export default function JwtDecoderWorkspace() {
           value={input}
         />
       </div>
-      <div className="mt-5">
+      <div className="mt-5 border-t border-line pt-4">
         <ToolActions>
           <ActionButton
             disabled={!input}

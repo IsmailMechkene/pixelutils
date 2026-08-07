@@ -39,7 +39,12 @@ export default function UuidGeneratorWorkspace({ slug }: { slug: string }) {
   }
 
   return (
-    <form onSubmit={(event) => { event.preventDefault(); generate(); }}>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        generate();
+      }}
+    >
       <label className="text-sm font-semibold text-ink" htmlFor="uuid-quantity">
         Number of UUIDs
       </label>
@@ -50,28 +55,56 @@ export default function UuidGeneratorWorkspace({ slug }: { slug: string }) {
         id="uuid-quantity"
         max={100}
         min={1}
-        onChange={(event) => { setQuantity(event.target.valueAsNumber); setError(""); }}
+        onChange={(event) => {
+          setQuantity(event.target.valueAsNumber);
+          setError("");
+        }}
         type="number"
         value={Number.isNaN(quantity) ? "" : quantity}
       />
       <p className="mt-2 text-xs text-ink-subtle" id="uuid-quantity-help">
         Generate 1 to 100 cryptographically random UUID version 4 values.
       </p>
-      {error ? <div className="mt-3"><ErrorMessage id="uuid-error" message={error} /></div> : null}
-      <div className="mt-5">
+      {error ? (
+        <div className="mt-3">
+          <ErrorMessage id="uuid-error" message={error} />
+        </div>
+      ) : null}
+      <div className="mt-5 border-t border-line pt-4">
         <ToolActions label="Generator actions">
           <ActionButton icon="sparkles" tone="primary" type="submit">
             Generate UUIDs
           </ActionButton>
-          <ClearButton disabled={!output} onClear={() => { setOutput(""); setError(""); recordToolHistory(slug, "cleared", { sensitive: false }); }} />
+          <ClearButton
+            disabled={!output}
+            onClear={() => {
+              setOutput("");
+              setError("");
+              recordToolHistory(slug, "cleared", { sensitive: false });
+            }}
+          />
         </ToolActions>
       </div>
       <div className="mt-6">
         <TextOutputPanel
-          actions={<ToolActions label="Output actions">
-            <CopyButton value={output} onError={setError} onCopied={() => recordToolHistory(slug, "copied", { sensitive: false })} />
-            <DownloadButton data={output} filename="uuids.txt" onDownloaded={() => recordToolHistory(slug, "downloaded", { sensitive: false })} />
-          </ToolActions>}
+          actions={
+            <ToolActions label="Output actions">
+              <CopyButton
+                value={output}
+                onError={setError}
+                onCopied={() =>
+                  recordToolHistory(slug, "copied", { sensitive: false })
+                }
+              />
+              <DownloadButton
+                data={output}
+                filename="uuids.txt"
+                onDownloaded={() =>
+                  recordToolHistory(slug, "downloaded", { sensitive: false })
+                }
+              />
+            </ToolActions>
+          }
           description="Lowercase RFC 4122 UUID v4 values, one per line."
           id="uuid-output"
           label="Generated UUIDs"

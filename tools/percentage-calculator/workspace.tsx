@@ -11,6 +11,7 @@ import {
   TextOutputPanel,
   ToolActions,
 } from "@/components/tool-shell";
+import { CustomSelect } from "@/components/ui/custom-select";
 import { recordToolHistory } from "@/lib/storage/tool-activity";
 
 import { calculatePercentage, type PercentageMode } from "./logic";
@@ -20,6 +21,11 @@ const modeLabels: Record<PercentageMode, [string, string]> = {
   "what-percent": ["Part", "Total"],
   change: ["Starting value", "Final value"],
 };
+const calculationOptions = [
+  { value: "percent-of", label: "What is X% of Y?" },
+  { value: "what-percent", label: "X is what percent of Y?" },
+  { value: "change", label: "Percentage change from X to Y" },
+] as const;
 
 export default function PercentageCalculatorWorkspace({
   slug,
@@ -65,24 +71,19 @@ export default function PercentageCalculatorWorkspace({
         calculate();
       }}
     >
-      <label className="text-sm font-semibold text-ink">
-        Calculation
-        <select
-          className={controlClass}
-          onChange={(event) => {
-            setMode(event.target.value as PercentageMode);
-            setFirst("");
-            setSecond("");
-            setOutput("");
-            setError("");
-          }}
-          value={mode}
-        >
-          <option value="percent-of">What is X% of Y?</option>
-          <option value="what-percent">X is what percent of Y?</option>
-          <option value="change">Percentage change from X to Y</option>
-        </select>
-      </label>
+      <CustomSelect
+        id="percentage-calculation"
+        label="Calculation"
+        onChange={(value) => {
+          setMode(value);
+          setFirst("");
+          setSecond("");
+          setOutput("");
+          setError("");
+        }}
+        options={calculationOptions}
+        value={mode}
+      />
       <div className="mt-5 grid gap-5 sm:grid-cols-2">
         <label className="text-sm font-semibold text-ink">
           {labels[0]}
@@ -122,7 +123,7 @@ export default function PercentageCalculatorWorkspace({
           <ErrorMessage id="percentage-error" message={error} />
         </div>
       ) : null}
-      <div className="mt-5">
+      <div className="mt-5 border-t border-line pt-4">
         <ToolActions>
           <ActionButton icon="calculator" tone="primary" type="submit">
             Calculate

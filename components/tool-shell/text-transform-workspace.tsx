@@ -90,30 +90,32 @@ export function TextTransformWorkspace({
         void run();
       }}
     >
-      <ToolActions>
-        <ActionButton
-          disabled={processing}
-          icon="refresh"
-          tone="primary"
-          type="submit"
-        >
-          {processing ? processingLabel : actionLabel}
-        </ActionButton>
-        <SampleButton
-          disabled={processing}
-          onSample={() => {
-            setInput(sample);
-            setOutput("");
-            setError("");
-            recordToolHistory(slug, "sampled", { sensitive: false });
-          }}
-        />
-        <ClearButton
-          disabled={processing || (!input && !output)}
-          onClear={clear}
-        />
-      </ToolActions>
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="border-b border-line pb-4">
+        <ToolActions>
+          <ActionButton
+            disabled={processing}
+            icon="refresh"
+            tone="primary"
+            type="submit"
+          >
+            {processing ? processingLabel : actionLabel}
+          </ActionButton>
+          <SampleButton
+            disabled={processing}
+            onSample={() => {
+              setInput(sample);
+              setOutput("");
+              setError("");
+              recordToolHistory(slug, "sampled", { sensitive: false });
+            }}
+          />
+          <ClearButton
+            disabled={processing || (!input && !output)}
+            onClear={clear}
+          />
+        </ToolActions>
+      </div>
+      <div className="mt-5 grid gap-6 lg:grid-cols-2">
         <TextInputPanel
           description={inputDescription}
           error={error}

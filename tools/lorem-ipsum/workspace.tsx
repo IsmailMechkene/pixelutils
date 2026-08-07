@@ -11,9 +11,16 @@ import {
   TextOutputPanel,
   ToolActions,
 } from "@/components/tool-shell";
+import { CustomSelect } from "@/components/ui/custom-select";
 import { recordToolHistory } from "@/lib/storage/tool-activity";
 
 import { generateLorem, type LoremUnit } from "./logic";
+
+const unitOptions = [
+  { value: "paragraphs", label: "Paragraphs" },
+  { value: "sentences", label: "Sentences" },
+  { value: "words", label: "Words" },
+] as const;
 
 function cryptographicIndex(maximum: number) {
   if (!globalThis.crypto?.getRandomValues)
@@ -56,25 +63,17 @@ export default function LoremIpsumWorkspace({ slug }: { slug: string }) {
       }}
     >
       <div className="grid gap-5 sm:grid-cols-2">
-        <label className="text-sm font-semibold text-ink">
-          Generate
-          <select
-            className={controlClass}
-            onChange={(event) => {
-              const next = event.target.value as LoremUnit;
-              setUnit(next);
-              setCount(
-                next === "paragraphs" ? 3 : next === "sentences" ? 5 : 50,
-              );
-              setOutput("");
-            }}
-            value={unit}
-          >
-            <option value="paragraphs">Paragraphs</option>
-            <option value="sentences">Sentences</option>
-            <option value="words">Words</option>
-          </select>
-        </label>
+        <CustomSelect
+          id="lorem-unit"
+          label="Generate"
+          onChange={(next) => {
+            setUnit(next);
+            setCount(next === "paragraphs" ? 3 : next === "sentences" ? 5 : 50);
+            setOutput("");
+          }}
+          options={unitOptions}
+          value={unit}
+        />
         <label className="text-sm font-semibold text-ink">
           Count
           <input
@@ -101,7 +100,7 @@ export default function LoremIpsumWorkspace({ slug }: { slug: string }) {
           <ErrorMessage message={error} />
         </div>
       ) : null}
-      <div className="mt-4">
+      <div className="mt-4 border-t border-line pt-4">
         <ToolActions>
           <ActionButton icon="sparkles" tone="primary" type="submit">
             Generate text

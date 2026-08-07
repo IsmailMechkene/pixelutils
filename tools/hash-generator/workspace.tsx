@@ -12,6 +12,7 @@ import {
   TextOutputPanel,
   ToolActions,
 } from "@/components/tool-shell";
+import { CustomSelect } from "@/components/ui/custom-select";
 
 import {
   generateHash,
@@ -19,6 +20,15 @@ import {
   type HashAlgorithm,
   type HashEncoding,
 } from "./logic";
+
+const algorithmOptions = hashAlgorithms.map((value) => ({
+  value,
+  label: value === "SHA-1" ? "SHA-1 (legacy)" : value,
+}));
+const encodingOptions = [
+  { value: "hex", label: "Hexadecimal" },
+  { value: "base64", label: "Base64" },
+] as const;
 
 export default function HashGeneratorWorkspace() {
   const [input, setInput] = useState("");
@@ -55,8 +65,6 @@ export default function HashGeneratorWorkspace() {
     }
   }
 
-  const controlClass =
-    "min-h-11 rounded-[10px] border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-accent";
   return (
     <form
       onSubmit={(event) => {
@@ -65,39 +73,55 @@ export default function HashGeneratorWorkspace() {
       }}
     >
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="text-sm font-semibold text-ink">
-          Algorithm
-          <select
-            className={`mt-2 w-full ${controlClass}`}
+        <CustomSelect
+          disabled={loading}
+          id="hash-algorithm"
+          label="Algorithm"
+          onChange={(value) => {
+            setAlgorithm(value);
+            setOutput("");
+          }}
+          options={algorithmOptions}
+          value={algorithm}
+        />
+        <CustomSelect
+          disabled={loading}
+          id="hash-encoding"
+          label="Output encoding"
+          onChange={(value) => {
+            setEncoding(value);
+            setOutput("");
+          }}
+          options={encodingOptions}
+          value={encoding}
+        />
+      </div>
+      <div className="mt-5 border-t border-line pt-4">
+        <ToolActions>
+          <ActionButton
             disabled={loading}
-            onChange={(event) => {
-              setAlgorithm(event.target.value as HashAlgorithm);
+            icon="shield"
+            tone="primary"
+            type="submit"
+          >
+            {loading ? "Hashing…" : "Generate hash"}
+          </ActionButton>
+          <SampleButton
+            disabled={loading}
+            onSample={() => {
+              setInput("PixelUtils keeps hashing local.");
               setOutput("");
             }}
-            value={algorithm}
-          >
-            {hashAlgorithms.map((value) => (
-              <option key={value} value={value}>
-                {value === "SHA-1" ? "SHA-1 (legacy)" : value}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className="text-sm font-semibold text-ink">
-          Output encoding
-          <select
-            className={`mt-2 w-full ${controlClass}`}
-            disabled={loading}
-            onChange={(event) => {
-              setEncoding(event.target.value as HashEncoding);
+          />
+          <ClearButton
+            disabled={loading || (!input && !output)}
+            onClear={() => {
+              setInput("");
               setOutput("");
+              setError("");
             }}
-            value={encoding}
-          >
-            <option value="hex">Hexadecimal</option>
-            <option value="base64">Base64</option>
-          </select>
-        </label>
+          />
+        </ToolActions>
       </div>
       <div className="mt-5 grid gap-6 lg:grid-cols-2">
         <TextInputPanel
@@ -127,33 +151,6 @@ export default function HashGeneratorWorkspace() {
             </ToolActions>
           }
         />
-      </div>
-      <div className="mt-5">
-        <ToolActions>
-          <ActionButton
-            disabled={loading}
-            icon="shield"
-            tone="primary"
-            type="submit"
-          >
-            {loading ? "Hashing…" : "Generate hash"}
-          </ActionButton>
-          <SampleButton
-            disabled={loading}
-            onSample={() => {
-              setInput("PixelUtils keeps hashing local.");
-              setOutput("");
-            }}
-          />
-          <ClearButton
-            disabled={loading || (!input && !output)}
-            onClear={() => {
-              setInput("");
-              setOutput("");
-              setError("");
-            }}
-          />
-        </ToolActions>
       </div>
     </form>
   );

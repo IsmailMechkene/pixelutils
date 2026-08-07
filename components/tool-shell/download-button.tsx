@@ -42,6 +42,7 @@ export function DownloadButton({
       disabled={disabled || empty}
       icon="download"
       onClick={download}
+      tone="quiet"
     >
       {label}
     </ActionButton>

@@ -4,9 +4,9 @@ import { Icon } from "@/components/ui/icon";
 import type { IconId } from "@/lib/catalog/types";
 
 interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  icon: IconId;
+  icon?: IconId;
   children: ReactNode;
-  tone?: "default" | "primary";
+  tone?: "default" | "primary" | "quiet" | "danger";
 }
 
 export function ActionButton({
@@ -19,16 +19,20 @@ export function ActionButton({
 }: ActionButtonProps) {
   const toneClass =
     tone === "primary"
-      ? "border-accent bg-accent text-accent-ink hover:bg-accent-hover"
-      : "border-line bg-panel text-ink-muted hover:border-line-strong hover:bg-panel-muted hover:text-ink";
+      ? "bg-accent text-accent-ink hover:bg-accent-hover"
+      : tone === "quiet"
+        ? "bg-transparent text-ink-muted hover:bg-panel-muted hover:text-ink"
+        : tone === "danger"
+          ? "bg-danger-soft text-danger hover:bg-danger-soft/70"
+          : "bg-panel-muted text-ink hover:bg-line";
 
   return (
     <button
-      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-[10px] border px-3.5 text-sm font-semibold transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-50 ${toneClass} ${className}`}
+      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-3.5 text-sm font-medium transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-45 ${toneClass} ${className}`}
       type={type}
       {...props}
     >
-      <Icon className="size-4" name={icon} />
+      {icon ? <Icon className="size-4" name={icon} /> : null}
       {children}
     </button>
   );

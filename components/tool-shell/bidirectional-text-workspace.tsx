@@ -33,7 +33,9 @@ interface BidirectionalTextWorkspaceProps {
   filename: string;
 }
 
-export function BidirectionalTextWorkspace(props: BidirectionalTextWorkspaceProps) {
+export function BidirectionalTextWorkspace(
+  props: BidirectionalTextWorkspaceProps,
+) {
   const [direction, setDirection] = useState<Direction>("encode");
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
@@ -41,7 +43,8 @@ export function BidirectionalTextWorkspace(props: BidirectionalTextWorkspaceProp
   const sensitive = false;
 
   function process() {
-    const result = direction === "encode" ? props.encode(input) : props.decode(input);
+    const result =
+      direction === "encode" ? props.encode(input) : props.decode(input);
     if (!result.ok) {
       setError(result.error);
       setOutput("");
@@ -61,16 +64,21 @@ export function BidirectionalTextWorkspace(props: BidirectionalTextWorkspaceProp
   }
 
   return (
-    <form onSubmit={(event) => { event.preventDefault(); process(); }}>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        process();
+      }}
+    >
       <fieldset>
         <legend className="text-sm font-semibold text-ink">Operation</legend>
-        <div className="mt-2 flex flex-wrap gap-2">
+        <div className="mt-2 inline-flex flex-wrap gap-1 rounded-[10px] bg-panel-muted p-1">
           {(["encode", "decode"] as const).map((value) => (
             <label
-              className={`inline-flex min-h-11 cursor-pointer items-center rounded-[10px] border px-4 text-sm font-semibold ${
+              className={`inline-flex min-h-11 cursor-pointer items-center rounded-lg px-4 text-sm font-medium transition-colors focus-within:outline focus-within:outline-3 focus-within:outline-offset-2 focus-within:outline-accent ${
                 direction === value
-                  ? "border-accent bg-accent-soft text-accent-strong"
-                  : "border-line bg-panel text-ink-muted"
+                  ? "bg-panel text-ink shadow-[0_1px_3px_rgba(0,0,0,0.08)]"
+                  : "text-ink-muted hover:text-ink"
               }`}
               key={value}
             >
@@ -78,7 +86,11 @@ export function BidirectionalTextWorkspace(props: BidirectionalTextWorkspaceProp
                 checked={direction === value}
                 className="sr-only"
                 name={`${props.slug}-direction`}
-                onChange={() => { setDirection(value); setOutput(""); setError(""); }}
+                onChange={() => {
+                  setDirection(value);
+                  setOutput("");
+                  setError("");
+                }}
                 type="radio"
                 value={value}
               />
@@ -87,39 +99,80 @@ export function BidirectionalTextWorkspace(props: BidirectionalTextWorkspaceProp
           ))}
         </div>
       </fieldset>
-      <div className="mt-4">
+      <div className="mt-4 border-t border-line pt-4">
         <ToolActions label="Transform actions">
           <ActionButton icon="refresh" tone="primary" type="submit">
             {direction === "encode" ? "Encode" : "Decode"}
           </ActionButton>
-          <SwapButton disabled={!input && !output} onSwap={swap} label="Swap direction" />
-          <SampleButton onSample={() => {
-            setInput(direction === "encode" ? props.encodeSample : props.decodeSample);
-            setOutput(""); setError("");
-            recordToolHistory(props.slug, "sampled", { sensitive });
-          }} />
-          <ClearButton disabled={!input && !output} onClear={() => {
-            setInput(""); setOutput(""); setError("");
-            recordToolHistory(props.slug, "cleared", { sensitive });
-          }} />
+          <SwapButton
+            disabled={!input && !output}
+            onSwap={swap}
+            label="Swap direction"
+          />
+          <SampleButton
+            onSample={() => {
+              setInput(
+                direction === "encode"
+                  ? props.encodeSample
+                  : props.decodeSample,
+              );
+              setOutput("");
+              setError("");
+              recordToolHistory(props.slug, "sampled", { sensitive });
+            }}
+          />
+          <ClearButton
+            disabled={!input && !output}
+            onClear={() => {
+              setInput("");
+              setOutput("");
+              setError("");
+              recordToolHistory(props.slug, "cleared", { sensitive });
+            }}
+          />
         </ToolActions>
       </div>
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="mt-5 grid gap-6 lg:grid-cols-2">
         <TextInputPanel
           description={props.description}
           error={error}
           id={`${props.slug}-input`}
-          label={direction === "encode" ? props.encodeInputLabel : props.decodeInputLabel}
-          onChange={(value) => { setInput(value); if (error) setError(""); }}
+          label={
+            direction === "encode"
+              ? props.encodeInputLabel
+              : props.decodeInputLabel
+          }
+          onChange={(value) => {
+            setInput(value);
+            if (error) setError("");
+          }}
           value={input}
         />
         <TextOutputPanel
-          actions={<ToolActions label="Output actions">
-            <CopyButton value={output} onError={setError} onCopied={() => recordToolHistory(props.slug, "copied", { sensitive })} />
-            <DownloadButton data={output} filename={props.filename} onDownloaded={() => recordToolHistory(props.slug, "downloaded", { sensitive })} />
-          </ToolActions>}
+          actions={
+            <ToolActions label="Output actions">
+              <CopyButton
+                value={output}
+                onError={setError}
+                onCopied={() =>
+                  recordToolHistory(props.slug, "copied", { sensitive })
+                }
+              />
+              <DownloadButton
+                data={output}
+                filename={props.filename}
+                onDownloaded={() =>
+                  recordToolHistory(props.slug, "downloaded", { sensitive })
+                }
+              />
+            </ToolActions>
+          }
           id={`${props.slug}-output`}
-          label={direction === "encode" ? props.encodeOutputLabel : props.decodeOutputLabel}
+          label={
+            direction === "encode"
+              ? props.encodeOutputLabel
+              : props.decodeOutputLabel
+          }
           value={output}
         />
       </div>

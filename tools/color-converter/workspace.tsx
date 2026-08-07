@@ -64,7 +64,7 @@ export default function ColorConverterWorkspace({ slug }: { slug: string }) {
             rows={5}
             value={input}
           />
-          <div className="mt-4">
+          <div className="mt-4 border-t border-line pt-4">
             <ToolActions>
               <ActionButton
                 disabled={!input}

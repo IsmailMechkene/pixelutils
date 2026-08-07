@@ -13,9 +13,18 @@ import {
   TextInputPanel,
   ToolActions,
 } from "@/components/tool-shell";
+import { CustomColorInput } from "@/components/ui/custom-color-input";
+import { CustomSelect } from "@/components/ui/custom-select";
 import { recordToolHistory } from "@/lib/storage/tool-activity";
 
 import { validateQrOptions, type QrErrorLevel } from "./logic";
+
+const errorLevelOptions = [
+  { value: "L", label: "Low" },
+  { value: "M", label: "Medium" },
+  { value: "Q", label: "Quartile" },
+  { value: "H", label: "High" },
+] as const;
 
 function dataUrlToBlob(dataUrl: string) {
   const [header = "", encoded = ""] = dataUrl.split(",");
@@ -120,44 +129,30 @@ export default function QrCodeGeneratorWorkspace({ slug }: { slug: string }) {
             value={Number.isNaN(margin) ? "" : margin}
           />
         </label>
-        <label className="text-sm font-semibold text-ink">
-          Error correction
-          <select
-            className={`mt-2 ${controlClass}`}
-            disabled={loading}
-            onChange={(event) =>
-              setErrorLevel(event.target.value as QrErrorLevel)
-            }
-            value={errorLevel}
-          >
-            <option value="L">Low</option>
-            <option value="M">Medium</option>
-            <option value="Q">Quartile</option>
-            <option value="H">High</option>
-          </select>
-        </label>
-        <label className="text-sm font-semibold text-ink">
-          Foreground
-          <input
-            className="mt-2 block h-11 w-full rounded-[10px] border border-line-strong bg-canvas p-1"
-            disabled={loading}
-            onChange={(event) => setDarkColor(event.target.value)}
-            type="color"
-            value={darkColor}
-          />
-        </label>
-        <label className="text-sm font-semibold text-ink">
-          Background
-          <input
-            className="mt-2 block h-11 w-full rounded-[10px] border border-line-strong bg-canvas p-1"
-            disabled={loading}
-            onChange={(event) => setLightColor(event.target.value)}
-            type="color"
-            value={lightColor}
-          />
-        </label>
+        <CustomSelect
+          disabled={loading}
+          id="qr-error-level"
+          label="Error correction"
+          onChange={setErrorLevel}
+          options={errorLevelOptions}
+          value={errorLevel}
+        />
+        <CustomColorInput
+          disabled={loading}
+          id="qr-foreground"
+          label="Foreground"
+          onChange={setDarkColor}
+          value={darkColor}
+        />
+        <CustomColorInput
+          disabled={loading}
+          id="qr-background"
+          label="Background"
+          onChange={setLightColor}
+          value={lightColor}
+        />
       </div>
-      <div className="mt-5">
+      <div className="mt-5 border-t border-line pt-4">
         <ToolActions>
           <ActionButton
             disabled={loading}

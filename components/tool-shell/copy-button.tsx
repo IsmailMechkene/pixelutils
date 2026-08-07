@@ -60,6 +60,7 @@ export function CopyButton({
         state === "copied" ? "check" : state === "failed" ? "close" : "copy"
       }
       onClick={copyValue}
+      tone="quiet"
       aria-live="polite"
     >
       {state === "copied"

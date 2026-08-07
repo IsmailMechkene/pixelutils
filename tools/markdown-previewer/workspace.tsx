@@ -63,35 +63,37 @@ export default function MarkdownPreviewerWorkspace({ slug }: { slug: string }) {
         void preview();
       }}
     >
-      <ToolActions>
-        <ActionButton
-          disabled={loading}
-          icon="refresh"
-          tone="primary"
-          type="submit"
-        >
-          {loading ? "Rendering…" : "Preview Markdown"}
-        </ActionButton>
-        <SampleButton
-          disabled={loading}
-          onSample={() => {
-            setInput(sample);
-            setHtml("");
-            setError("");
-            recordToolHistory(slug, "sampled", { sensitive: false });
-          }}
-        />
-        <ClearButton
-          disabled={loading || (!input && !html)}
-          onClear={() => {
-            setInput("");
-            setHtml("");
-            setError("");
-            recordToolHistory(slug, "cleared", { sensitive: false });
-          }}
-        />
-      </ToolActions>
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="border-b border-line pb-4">
+        <ToolActions>
+          <ActionButton
+            disabled={loading}
+            icon="refresh"
+            tone="primary"
+            type="submit"
+          >
+            {loading ? "Rendering…" : "Preview Markdown"}
+          </ActionButton>
+          <SampleButton
+            disabled={loading}
+            onSample={() => {
+              setInput(sample);
+              setHtml("");
+              setError("");
+              recordToolHistory(slug, "sampled", { sensitive: false });
+            }}
+          />
+          <ClearButton
+            disabled={loading || (!input && !html)}
+            onClear={() => {
+              setInput("");
+              setHtml("");
+              setError("");
+              recordToolHistory(slug, "cleared", { sensitive: false });
+            }}
+          />
+        </ToolActions>
+      </div>
+      <div className="mt-5 grid gap-6 lg:grid-cols-2">
         <TextInputPanel
           id="markdown-input"
           label="Markdown input"
