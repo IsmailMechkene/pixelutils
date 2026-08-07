@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ToolCard } from "@/components/catalog/tool-card";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/tool-shell/breadcrumbs";
-import { Icon } from "@/components/ui/icon";
+import { CategoryIcon } from "@/components/ui/icon";
 import {
   findCategory,
   getToolsForCategory,
@@ -55,7 +55,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         />
         <header className="mt-7 max-w-3xl">
           <span className="grid size-11 place-items-center rounded-card bg-accent-soft text-accent">
-            <Icon className="size-5" name={category.icon} />
+            <CategoryIcon className="size-7" name={category.icon} />
           </span>
           <h1 className="mt-5 text-3xl font-semibold tracking-[-0.04em] text-ink sm:text-4xl">
             {category.name} tools

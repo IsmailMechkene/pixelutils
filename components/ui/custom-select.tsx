@@ -2,6 +2,7 @@
 
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 
+import { Icon } from "@/components/ui/icon";
 import {
   findSelectOptionByPrefix,
   getNextSelectIndex,
@@ -202,18 +203,10 @@ export function CustomSelect<Value extends string>({
         <span className="min-w-0 truncate" id={valueId}>
           {selectedOption?.label ?? "Select an option"}
         </span>
-        <svg
-          aria-hidden="true"
+        <Icon
           className={`size-4 shrink-0 text-ink-subtle transition-transform duration-150 ${isOpen ? "rotate-180" : ""}`}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-        >
-          <path d="m6 9 6 6 6-6" />
-        </svg>
+          name="chevron-down"
+        />
       </button>
       {description ? (
         <p
@@ -260,18 +253,10 @@ export function CustomSelect<Value extends string>({
                     </span>
                   ) : null}
                 </span>
-                <svg
-                  aria-hidden="true"
+                <Icon
                   className={`size-4 shrink-0 text-accent ${selected ? "opacity-100" : "opacity-0"}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                >
-                  <path d="m5 12 4 4L19 6" />
-                </svg>
+                  name="check"
+                />
               </button>
             );
           })}

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Icon } from "@/components/ui/icon";
+import { CategoryIcon, Icon } from "@/components/ui/icon";
 import type { CategoryDefinition } from "@/lib/catalog/types";
 
 interface CategoryCardProps {
@@ -16,8 +16,8 @@ export function CategoryCard({
 }: CategoryCardProps) {
   const content = (
     <>
-      <span className="grid size-10 place-items-center rounded-[10px] bg-accent-soft text-accent">
-        <Icon className="size-5" name={category.icon} />
+      <span className="grid size-11 place-items-center rounded-[10px] bg-panel-muted text-ink-muted">
+        <CategoryIcon className="size-[26px]" name={category.icon} />
       </span>
       <div className={compact ? "mt-5" : "mt-8"}>
         <div className="flex items-center justify-between gap-3">
@@ -27,7 +27,7 @@ export function CategoryCard({
           {toolCount > 0 ? (
             <Icon
               className="size-4 -translate-x-1 text-ink-subtle transition-transform duration-150 group-hover:translate-x-0 group-hover:text-accent"
-              name="arrow"
+              name="arrow-right"
             />
           ) : null}
         </div>

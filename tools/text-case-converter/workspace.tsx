@@ -65,7 +65,7 @@ export default function TextCaseConverterWorkspace({ slug }: { slug: string }) {
         <ToolActions label="Conversion actions">
           <ActionButton
             disabled={!input}
-            icon="refresh"
+            icon="refresh-cw"
             tone="primary"
             type="submit"
           >

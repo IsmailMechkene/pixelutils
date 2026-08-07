@@ -16,7 +16,10 @@ export function ToolInstructions({ steps, toolName }: ToolInstructionsProps) {
       </h2>
       <ol className="mt-5 grid gap-3">
         {steps.map((step, index) => (
-          <li className="flex gap-4 text-sm leading-6 text-ink-muted" key={step}>
+          <li
+            className="flex gap-4 text-sm leading-6 text-ink-muted"
+            key={step}
+          >
             <span className="grid size-7 shrink-0 place-items-center rounded-full bg-accent-soft text-xs font-bold text-accent">
               {index + 1}
             </span>

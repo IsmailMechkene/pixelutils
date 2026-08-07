@@ -6,7 +6,7 @@ import { RecentTools } from "@/components/catalog/recent-tools";
 import { SearchShell } from "@/components/catalog/search-shell";
 import { ToolCard } from "@/components/catalog/tool-card";
 import { JsonLd } from "@/components/seo/json-ld";
-import { Icon } from "@/components/ui/icon";
+import { Icon, ToolIcon } from "@/components/ui/icon";
 import {
   categoryRegistry,
   featuredTools,
@@ -15,27 +15,27 @@ import {
   publishedTools,
 } from "@/lib/catalog/registry";
 import { createToolSearchItems } from "@/lib/catalog/search";
-import type { IconId } from "@/lib/catalog/types";
+import type { ActionIconId } from "@/lib/icons/types";
 import { getSiteUrl, siteConfig } from "@/lib/site";
 
 const differences: readonly {
-  icon: IconId;
+  icon: ActionIconId;
   title: string;
   description: string;
 }[] = [
   {
-    icon: "shield",
+    icon: "shield-check",
     title: "Private by default",
     description: "Inputs stay in your browser whenever the task can run there.",
   },
   {
-    icon: "clock",
+    icon: "calendar-clock",
     title: "Fast to the answer",
     description:
       "Static pages and focused tool bundles keep repeat work quick.",
   },
   {
-    icon: "check",
+    icon: "circle-check",
     title: "No account friction",
     description:
       "Open a tool, finish the task, and leave without a sign-up flow.",
@@ -127,7 +127,7 @@ export default function HomePage() {
               href="#categories"
             >
               Browse by category
-              <Icon className="size-4" name="arrow" />
+              <Icon className="size-4" name="arrow-right" />
             </a>
           </div>
           <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -199,14 +199,14 @@ export default function HomePage() {
                     href={`/tools/${tool.slug}`}
                   >
                     <span className="grid size-9 shrink-0 place-items-center rounded-[10px] bg-accent-soft text-accent">
-                      <Icon className="size-[18px]" name={tool.icon} />
+                      <ToolIcon className="size-5" name={tool.icon} />
                     </span>
                     <span className="min-w-0 flex-1 text-sm font-semibold text-ink group-hover:text-accent">
                       {tool.name}
                     </span>
                     <Icon
                       className="size-4 shrink-0 text-ink-subtle"
-                      name="arrow"
+                      name="arrow-right"
                     />
                   </Link>
                 </li>
@@ -222,7 +222,7 @@ export default function HomePage() {
         <div className="grid overflow-hidden rounded-card border border-line bg-panel lg:grid-cols-[1.05fr_0.95fr]">
           <div className="bg-accent-soft p-6 sm:p-8 lg:p-10">
             <span className="grid size-11 place-items-center rounded-card bg-accent text-accent-ink">
-              <Icon className="size-5" name="shield" />
+              <Icon className="size-5" name="shield-check" />
             </span>
             <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-accent">
               Browser processing
@@ -240,7 +240,7 @@ export default function HomePage() {
               href="/privacy"
             >
               Read the privacy approach
-              <Icon className="size-4" name="arrow" />
+              <Icon className="size-4" name="arrow-right" />
             </Link>
           </div>
 
@@ -273,7 +273,7 @@ export default function HomePage() {
               href="/about"
             >
               How the site is built
-              <Icon className="size-4" name="arrow" />
+              <Icon className="size-4" name="arrow-right" />
             </Link>
           </div>
         </div>

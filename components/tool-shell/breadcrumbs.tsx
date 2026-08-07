@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { Icon } from "@/components/ui/icon";
+
 interface BreadcrumbItem {
   href?: string;
   label: string;
@@ -14,10 +16,21 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
     <nav aria-label="Breadcrumb">
       <ol className="flex flex-wrap items-center gap-2 text-sm text-ink-subtle">
         {items.map((item, index) => (
-          <li className="flex items-center gap-2" key={`${item.label}-${index}`}>
-            {index > 0 ? <span aria-hidden="true">/</span> : null}
+          <li
+            className="flex items-center gap-2"
+            key={`${item.label}-${index}`}
+          >
+            {index > 0 ? (
+              <Icon
+                className="size-3.5 shrink-0 text-ink-subtle"
+                name="chevron-right"
+              />
+            ) : null}
             {item.href ? (
-              <Link className="min-h-11 content-center hover:text-ink" href={item.href}>
+              <Link
+                className="min-h-11 content-center hover:text-ink"
+                href={item.href}
+              >
                 {item.label}
               </Link>
             ) : (

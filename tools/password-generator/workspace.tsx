@@ -126,7 +126,7 @@ export default function PasswordGeneratorWorkspace() {
       ) : null}
       <div className="mt-5 border-t border-line pt-4">
         <ToolActions label="Password actions">
-          <ActionButton icon="sparkles" tone="primary" type="submit">
+          <ActionButton icon="key-round" tone="primary" type="submit">
             Generate password
           </ActionButton>
           <ClearButton

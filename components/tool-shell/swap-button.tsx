@@ -12,7 +12,12 @@ export function SwapButton({
   label = "Swap",
 }: SwapButtonProps) {
   return (
-    <ActionButton disabled={disabled} icon="swap" onClick={onSwap} tone="quiet">
+    <ActionButton
+      disabled={disabled}
+      icon="arrow-left-right"
+      onClick={onSwap}
+      tone="quiet"
+    >
       {label}
     </ActionButton>
   );

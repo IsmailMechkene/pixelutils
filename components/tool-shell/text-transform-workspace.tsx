@@ -94,7 +94,7 @@ export function TextTransformWorkspace({
         <ToolActions>
           <ActionButton
             disabled={processing}
-            icon="refresh"
+            icon="refresh-cw"
             tone="primary"
             type="submit"
           >

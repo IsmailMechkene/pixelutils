@@ -101,7 +101,7 @@ export function BidirectionalTextWorkspace(
       </fieldset>
       <div className="mt-4 border-t border-line pt-4">
         <ToolActions label="Transform actions">
-          <ActionButton icon="refresh" tone="primary" type="submit">
+          <ActionButton icon="refresh-cw" tone="primary" type="submit">
             {direction === "encode" ? "Encode" : "Decode"}
           </ActionButton>
           <SwapButton

@@ -146,7 +146,7 @@ export default function UnixTimestampWorkspace({ slug }: { slug: string }) {
       ) : null}
       <div className="mt-5 border-t border-line pt-4">
         <ToolActions label="Converter actions">
-          <ActionButton icon="refresh" tone="primary" type="submit">
+          <ActionButton icon="refresh-cw" tone="primary" type="submit">
             Convert
           </ActionButton>
           <SampleButton

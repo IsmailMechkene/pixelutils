@@ -89,7 +89,7 @@ export function MobileNavigation({ categories }: MobileNavigationProps) {
         aria-label={isOpen ? "Close navigation" : "Open navigation"}
         onClick={() => setIsOpen((open) => !open)}
       >
-        <Icon className="size-5" name={isOpen ? "close" : "menu"} />
+        <Icon className="size-5" name={isOpen ? "x" : "menu"} />
       </button>
 
       {isOpen ? (
@@ -122,7 +122,7 @@ export function MobileNavigation({ categories }: MobileNavigationProps) {
               onClick={() => setIsOpen(false)}
             >
               {category.name}
-              <Icon className="size-4 text-ink-subtle" name="arrow" />
+              <Icon className="size-4 text-ink-subtle" name="arrow-right" />
             </Link>
           ))}
         </nav>

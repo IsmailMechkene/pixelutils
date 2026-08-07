@@ -13,7 +13,10 @@ import {
 } from "@/tools/workspace-registry";
 
 const lazyWorkspaces = Object.fromEntries(
-  Object.entries(toolWorkspaceLoaders).map(([slug, loader]) => [slug, lazy(loader)]),
+  Object.entries(toolWorkspaceLoaders).map(([slug, loader]) => [
+    slug,
+    lazy(loader),
+  ]),
 ) as Readonly<
   Record<string, LazyExoticComponent<ComponentType<ToolWorkspaceProps>>>
 >;
@@ -24,8 +27,8 @@ export function ToolWorkspaceRenderer({ slug }: { slug: string }) {
   if (!Workspace) {
     return (
       <p className="text-sm leading-6 text-ink-muted" role="alert">
-        This tool workspace is not available. Published tools must register a lazy
-        workspace loader.
+        This tool workspace is not available. Published tools must register a
+        lazy workspace loader.
       </p>
     );
   }

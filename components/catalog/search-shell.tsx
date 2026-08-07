@@ -127,7 +127,7 @@ export function SearchShell({ tools }: SearchShellProps) {
                     </span>
                     <Icon
                       className="size-4 shrink-0 text-ink-subtle"
-                      name="arrow"
+                      name="arrow-right"
                     />
                   </Link>
                 </li>

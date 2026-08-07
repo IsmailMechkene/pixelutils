@@ -27,7 +27,7 @@ const category: CategoryDefinition = {
   shortDescription: "Developer tools.",
   description: "Tools for developer workflows.",
   selectionGuide: "Choose the tool that matches the developer task.",
-  icon: "code",
+  icon: "code-2",
   order: 1,
 };
 
@@ -39,7 +39,7 @@ const tool: ToolDefinition = {
   category: "developer",
   keywords: ["json"],
   searchAliases: ["json beautifier"],
-  icon: "code",
+  icon: "braces",
   relatedTools: [],
   featured: true,
   privacyNote: "Your JSON stays in this browser.",

@@ -130,6 +130,11 @@ select {
   font: inherit;
 }
 
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+  appearance: none;
+}
+
 .search-dialog-input:focus-visible {
   outline: none;
 }

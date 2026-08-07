@@ -6,12 +6,19 @@ describe("Base64 text encoding", () => {
   it("round-trips ASCII, accents, emoji, and non-Latin scripts", () => {
     const input = "Hello, café 👋 世界";
     const encoded = encodeBase64(input);
-    expect(encoded).toEqual({ ok: true, value: "SGVsbG8sIGNhZsOpIPCfkYsg5LiW55WM" });
-    if (encoded.ok) expect(decodeBase64(encoded.value)).toEqual({ ok: true, value: input });
+    expect(encoded).toEqual({
+      ok: true,
+      value: "SGVsbG8sIGNhZsOpIPCfkYsg5LiW55WM",
+    });
+    if (encoded.ok)
+      expect(decodeBase64(encoded.value)).toEqual({ ok: true, value: input });
   });
 
   it("rejects empty encoding and ignores decode whitespace", () => {
-    expect(encodeBase64("")).toEqual({ ok: false, error: "Enter text to encode." });
+    expect(encodeBase64("")).toEqual({
+      ok: false,
+      error: "Enter text to encode.",
+    });
     expect(decodeBase64("SGVs\n bG8=")).toEqual({ ok: true, value: "Hello" });
   });
 

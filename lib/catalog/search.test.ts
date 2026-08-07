@@ -16,7 +16,7 @@ const baseTool: ToolDefinition = {
   category: "developer",
   keywords: ["json", "format"],
   searchAliases: ["json beautifier"],
-  icon: "code",
+  icon: "braces",
   relatedTools: [],
   featured: true,
   privacyNote: "Your JSON stays in this browser.",

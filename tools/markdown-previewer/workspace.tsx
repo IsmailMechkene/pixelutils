@@ -67,7 +67,7 @@ export default function MarkdownPreviewerWorkspace({ slug }: { slug: string }) {
         <ToolActions>
           <ActionButton
             disabled={loading}
-            icon="refresh"
+            icon="refresh-cw"
             tone="primary"
             type="submit"
           >

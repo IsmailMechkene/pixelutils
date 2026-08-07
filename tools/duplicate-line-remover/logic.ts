@@ -26,7 +26,9 @@ export function removeDuplicateLines(
       continue;
     }
     const comparison = options.trimForComparison ? trimmed : line;
-    const key = options.caseSensitive ? comparison : comparison.toLocaleLowerCase();
+    const key = options.caseSensitive
+      ? comparison
+      : comparison.toLocaleLowerCase();
     if (seen.has(key)) {
       removed += 1;
       continue;

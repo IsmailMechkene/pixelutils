@@ -33,6 +33,8 @@ describe("Unix timestamp conversion", () => {
   it("rejects ambiguous decimals and invalid dates", () => {
     expect(timestampToDate("1.5", "seconds").ok).toBe(false);
     expect(timestampToDate("nope", "seconds").ok).toBe(false);
-    expect(() => dateToTimestamp(new Date("invalid"), "seconds")).toThrow(/valid date/);
+    expect(() => dateToTimestamp(new Date("invalid"), "seconds")).toThrow(
+      /valid date/,
+    );
   });
 });

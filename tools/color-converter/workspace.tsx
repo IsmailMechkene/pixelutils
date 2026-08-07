@@ -68,7 +68,7 @@ export default function ColorConverterWorkspace({ slug }: { slug: string }) {
             <ToolActions>
               <ActionButton
                 disabled={!input}
-                icon="refresh"
+                icon="refresh-cw"
                 tone="primary"
                 type="submit"
               >

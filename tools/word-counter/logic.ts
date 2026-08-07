@@ -7,7 +7,8 @@ export interface TextCounts {
 }
 
 const wordPattern = /[\p{L}\p{N}]+(?:['’\-][\p{L}\p{N}]+)*/gu;
-const sentencePattern = /[^.!?\s](?:[^.!?]*[^.!?\s])?[.!?]+(?=\s|$)|[^.!?\s](?:[^.!?]*[^.!?\s])?$/gu;
+const sentencePattern =
+  /[^.!?\s](?:[^.!?]*[^.!?\s])?[.!?]+(?=\s|$)|[^.!?\s](?:[^.!?]*[^.!?\s])?$/gu;
 
 export function countText(input: string): TextCounts {
   return {

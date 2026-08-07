@@ -1,10 +1,10 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 import { Icon } from "@/components/ui/icon";
-import type { IconId } from "@/lib/catalog/types";
+import type { ActionIconId } from "@/lib/icons/types";
 
 interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  icon?: IconId;
+  icon?: ActionIconId;
   children: ReactNode;
   tone?: "default" | "primary" | "quiet" | "danger";
 }

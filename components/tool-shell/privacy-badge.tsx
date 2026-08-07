@@ -14,7 +14,7 @@ export function PrivacyBadge({ tool }: PrivacyBadgeProps) {
           : "bg-panel-muted text-ink-muted"
       }`}
     >
-      <Icon className="size-4" name="shield" />
+      <Icon className="size-4" name="shield-check" />
       {tool.privacyNote}
     </div>
   );

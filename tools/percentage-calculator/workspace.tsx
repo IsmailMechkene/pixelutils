@@ -125,7 +125,7 @@ export default function PercentageCalculatorWorkspace({
       ) : null}
       <div className="mt-5 border-t border-line pt-4">
         <ToolActions>
-          <ActionButton icon="calculator" tone="primary" type="submit">
+          <ActionButton icon="percent" tone="primary" type="submit">
             Calculate
           </ActionButton>
           <SampleButton

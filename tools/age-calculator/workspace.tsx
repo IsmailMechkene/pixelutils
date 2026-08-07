@@ -104,7 +104,7 @@ export default function AgeCalculatorWorkspace({ slug }: { slug: string }) {
             Calculate age
           </ActionButton>
           <ActionButton
-            icon="clock"
+            icon="calendar-clock"
             onClick={() => {
               setAsOfDate(localToday());
               setOutput("");

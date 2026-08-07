@@ -8,7 +8,8 @@ export function encodeUrl(input: string, mode: UrlMode): UrlTransformResult {
   try {
     return {
       ok: true,
-      value: mode === "component" ? encodeURIComponent(input) : encodeURI(input),
+      value:
+        mode === "component" ? encodeURIComponent(input) : encodeURI(input),
     };
   } catch (error) {
     const detail = error instanceof Error ? error.message : String(error);
@@ -17,11 +18,13 @@ export function encodeUrl(input: string, mode: UrlMode): UrlTransformResult {
 }
 
 export function decodeUrl(input: string, mode: UrlMode): UrlTransformResult {
-  if (!input) return { ok: false, error: "Enter encoded text or a URL to decode." };
+  if (!input)
+    return { ok: false, error: "Enter encoded text or a URL to decode." };
   try {
     return {
       ok: true,
-      value: mode === "component" ? decodeURIComponent(input) : decodeURI(input),
+      value:
+        mode === "component" ? decodeURIComponent(input) : decodeURI(input),
     };
   } catch (error) {
     const detail = error instanceof Error ? error.message : String(error);

@@ -100,7 +100,7 @@ export default function HashGeneratorWorkspace() {
         <ToolActions>
           <ActionButton
             disabled={loading}
-            icon="shield"
+            icon="hash"
             tone="primary"
             type="submit"
           >

@@ -16,15 +16,16 @@ export default function AboutPage() {
       <div className="mt-8 space-y-6 text-base leading-8 text-ink-muted">
         <p>
           PixelUtils is a collection of focused online utilities for everyday
-          developer, text, encoding, security, date, calculation, and design tasks.
-          It is being built around a simple idea: getting a small job done should
-          not require an account, a confusing page, or an unnecessary upload.
+          developer, text, encoding, security, date, calculation, and design
+          tasks. It is being built around a simple idea: getting a small job
+          done should not require an account, a confusing page, or an
+          unnecessary upload.
         </p>
         <p>
           Tool interfaces are designed mobile-first and supported by clear
-          instructions, useful errors, keyboard access, and tested transformation
-          logic. Tool code is isolated so opening one utility does not load every
-          other utility in the catalog.
+          instructions, useful errors, keyboard access, and tested
+          transformation logic. Tool code is isolated so opening one utility
+          does not load every other utility in the catalog.
         </p>
         <h2 className="pt-4 text-2xl font-semibold tracking-[-0.03em] text-ink">
           The standard for publishing

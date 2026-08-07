@@ -6,9 +6,7 @@ import { categoryRegistry, toolRegistry } from "./registry";
 import type { ToolDefinition } from "./types";
 import { validateRegistry } from "./validation";
 
-function createTool(
-  overrides: Partial<ToolDefinition> = {},
-): ToolDefinition {
+function createTool(overrides: Partial<ToolDefinition> = {}): ToolDefinition {
   return {
     slug: "json-formatter",
     name: "JSON Formatter",
@@ -17,7 +15,7 @@ function createTool(
     category: "developer",
     keywords: ["json", "format"],
     searchAliases: ["json beautifier"],
-    icon: "code",
+    icon: "braces",
     relatedTools: [],
     featured: true,
     popularRank: 1,

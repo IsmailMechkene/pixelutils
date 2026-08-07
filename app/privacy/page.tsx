@@ -13,17 +13,20 @@ export default function PrivacyPage() {
       <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-ink">
         Your work should remain yours.
       </h1>
-      <p className="mt-5 text-sm text-ink-subtle">Last updated: 7 August 2026</p>
+      <p className="mt-5 text-sm text-ink-subtle">
+        Last updated: 7 August 2026
+      </p>
       <div className="mt-8 space-y-8 text-base leading-8 text-ink-muted">
         <section>
           <h2 className="text-2xl font-semibold tracking-[-0.03em] text-ink">
             Tool processing
           </h2>
           <p className="mt-3">
-            PixelUtils is designed to process tool input in your browser whenever
-            technically possible. Published tools state their processing boundary
-            clearly. The current application does not provide server endpoints for
-            processing tool input or uploaded files.
+            PixelUtils is designed to process tool input in your browser
+            whenever technically possible. Published tools state their
+            processing boundary clearly. The current application does not
+            provide server endpoints for processing tool input or uploaded
+            files.
           </p>
         </section>
         <section>
@@ -32,9 +35,10 @@ export default function PrivacyPage() {
           </h2>
           <p className="mt-3">
             Your browser may store your theme preference and recently used tool
-            identifiers. Optional activity history contains only fixed action labels
-            and timestamps, never tool input or output. History is disabled by
-            default for sensitive tools. You can clear browser storage at any time.
+            identifiers. Optional activity history contains only fixed action
+            labels and timestamps, never tool input or output. History is
+            disabled by default for sensitive tools. You can clear browser
+            storage at any time.
           </p>
         </section>
         <section>
@@ -42,10 +46,10 @@ export default function PrivacyPage() {
             Analytics and advertising
           </h2>
           <p className="mt-3">
-            Analytics and advertising are not enabled in this scaffold. If either is
-            configured in the future, this notice will be updated first. Tool input,
-            files, output, passwords, tokens, and clipboard content must never be sent
-            to analytics.
+            Analytics and advertising are not enabled in this scaffold. If
+            either is configured in the future, this notice will be updated
+            first. Tool input, files, output, passwords, tokens, and clipboard
+            content must never be sent to analytics.
           </p>
         </section>
         <section>
@@ -53,10 +57,10 @@ export default function PrivacyPage() {
             Hosting
           </h2>
           <p className="mt-3">
-            Like any website, the hosting platform may process ordinary request data
-            such as an IP address, requested path, user agent, and timestamp to serve
-            and secure the site. PixelUtils does not use that data to inspect tool
-            content.
+            Like any website, the hosting platform may process ordinary request
+            data such as an IP address, requested path, user agent, and
+            timestamp to serve and secure the site. PixelUtils does not use that
+            data to inspect tool content.
           </p>
         </section>
       </div>

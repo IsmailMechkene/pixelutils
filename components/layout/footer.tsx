@@ -34,7 +34,10 @@ export function Footer() {
         </div>
 
         <nav aria-labelledby="footer-product-title">
-          <h2 className="text-sm font-semibold text-ink" id="footer-product-title">
+          <h2
+            className="text-sm font-semibold text-ink"
+            id="footer-product-title"
+          >
             Explore
           </h2>
           <ul className="mt-2 grid gap-0.5">
@@ -59,7 +62,10 @@ export function Footer() {
         </nav>
 
         <nav aria-labelledby="footer-trust-title">
-          <h2 className="text-sm font-semibold text-ink" id="footer-trust-title">
+          <h2
+            className="text-sm font-semibold text-ink"
+            id="footer-trust-title"
+          >
             Trust &amp; legal
           </h2>
           <ul className="mt-2 grid gap-0.5">
@@ -76,7 +82,9 @@ export function Footer() {
 
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5 text-xs leading-5 text-ink-subtle sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
-          <p>{"\u00a9"} {new Date().getFullYear()} PixelUtils.</p>
+          <p>
+            {"\u00a9"} {new Date().getFullYear()} PixelUtils.
+          </p>
           <p>Each tool states clearly where processing happens.</p>
         </div>
       </div>

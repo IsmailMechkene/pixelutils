@@ -32,14 +32,18 @@ export function convertTextCase(input: string, mode: CaseMode) {
   }
   if (mode === "sentence") {
     const lower = input.toLocaleLowerCase();
-    return lower.replace(/(^|[.!?]\s+)(\p{L})/gu, (_, prefix: string, letter: string) =>
-      prefix + letter.toLocaleUpperCase(),
+    return lower.replace(
+      /(^|[.!?]\s+)(\p{L})/gu,
+      (_, prefix: string, letter: string) =>
+        prefix + letter.toLocaleUpperCase(),
     );
   }
 
   const tokens = words(input).map((word) => word.toLocaleLowerCase());
   if (mode === "camel") {
-    return tokens.map((word, index) => (index === 0 ? word : capitalize(word))).join("");
+    return tokens
+      .map((word, index) => (index === 0 ? word : capitalize(word)))
+      .join("");
   }
   if (mode === "pascal") return tokens.map(capitalize).join("");
   return tokens.join(mode === "snake" ? "_" : "-");

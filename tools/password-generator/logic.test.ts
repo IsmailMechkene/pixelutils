@@ -31,7 +31,10 @@ describe("generatePassword", () => {
   });
 
   it("excludes ambiguous characters when requested", () => {
-    const password = generatePassword({ ...defaults, length: 128 }, sequenceSource());
+    const password = generatePassword(
+      { ...defaults, length: 128 },
+      sequenceSource(),
+    );
     expect(password).not.toMatch(/[Il1O0o]/);
   });
 
@@ -49,15 +52,23 @@ describe("generatePassword", () => {
   });
 
   it("rejects invalid options and random sources", () => {
-    expect(() => generatePassword({ ...defaults, length: 7 }, sequenceSource())).toThrow(
-      /8 to 128/,
-    );
+    expect(() =>
+      generatePassword({ ...defaults, length: 7 }, sequenceSource()),
+    ).toThrow(/8 to 128/);
     expect(() =>
       generatePassword(
-        { ...defaults, uppercase: false, lowercase: false, numbers: false, symbols: false },
+        {
+          ...defaults,
+          uppercase: false,
+          lowercase: false,
+          numbers: false,
+          symbols: false,
+        },
         sequenceSource(),
       ),
     ).toThrow(/at least one/);
-    expect(() => generatePassword(defaults, () => new Uint8Array(0))).toThrow(/one byte/);
+    expect(() => generatePassword(defaults, () => new Uint8Array(0))).toThrow(
+      /one byte/,
+    );
   });
 });

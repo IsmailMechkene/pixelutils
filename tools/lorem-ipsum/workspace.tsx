@@ -102,7 +102,7 @@ export default function LoremIpsumWorkspace({ slug }: { slug: string }) {
       ) : null}
       <div className="mt-4 border-t border-line pt-4">
         <ToolActions>
-          <ActionButton icon="sparkles" tone="primary" type="submit">
+          <ActionButton icon="text" tone="primary" type="submit">
             Generate text
           </ActionButton>
           <ClearButton

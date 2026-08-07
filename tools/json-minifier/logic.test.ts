@@ -18,7 +18,10 @@ describe("minifyJson", () => {
   });
 
   it("rejects empty and malformed input with useful parser detail", () => {
-    expect(minifyJson(" ")).toEqual({ ok: false, error: "Enter JSON to minify." });
+    expect(minifyJson(" ")).toEqual({
+      ok: false,
+      error: "Enter JSON to minify.",
+    });
     const result = minifyJson("{broken}");
     expect(result.ok).toBe(false);
     if (!result.ok) expect(result.error).toMatch(/^Invalid JSON: .+/);

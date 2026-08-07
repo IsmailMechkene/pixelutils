@@ -17,6 +17,7 @@ interface RecentToolsProps {
 }
 
 const emptySnapshot = "[]";
+const visibleRecentToolLimit = 3;
 
 export function RecentTools({ tools }: RecentToolsProps) {
   const snapshot = useSyncExternalStore(
@@ -28,7 +29,8 @@ export function RecentTools({ tools }: RecentToolsProps) {
   const toolsBySlug = new Map(tools.map((tool) => [tool.slug, tool]));
   const recentTools = recentSlugs
     .map((slug) => toolsBySlug.get(slug))
-    .filter((tool): tool is ToolDefinition => tool !== undefined);
+    .filter((tool): tool is ToolDefinition => tool !== undefined)
+    .slice(0, visibleRecentToolLimit);
 
   if (recentTools.length === 0) return null;
 

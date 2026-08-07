@@ -72,7 +72,7 @@ export default function UuidGeneratorWorkspace({ slug }: { slug: string }) {
       ) : null}
       <div className="mt-5 border-t border-line pt-4">
         <ToolActions label="Generator actions">
-          <ActionButton icon="sparkles" tone="primary" type="submit">
+          <ActionButton icon="fingerprint" tone="primary" type="submit">
             Generate UUIDs
           </ActionButton>
           <ClearButton

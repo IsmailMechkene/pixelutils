@@ -11,7 +11,9 @@ describe("URL encoding", () => {
   });
 
   it("preserves URL structure in full URL mode", () => {
-    expect(encodeUrl("https://example.com/a path?q=hello world", "full-url")).toEqual({
+    expect(
+      encodeUrl("https://example.com/a path?q=hello world", "full-url"),
+    ).toEqual({
       ok: true,
       value: "https://example.com/a%20path?q=hello%20world",
     });
@@ -24,7 +26,8 @@ describe("URL encoding", () => {
     });
     const invalid = decodeUrl("bad%2", "component");
     expect(invalid.ok).toBe(false);
-    if (!invalid.ok) expect(invalid.error).toMatch(/^Invalid percent-encoding: /);
+    if (!invalid.ok)
+      expect(invalid.error).toMatch(/^Invalid percent-encoding: /);
   });
 
   it("rejects empty input", () => {

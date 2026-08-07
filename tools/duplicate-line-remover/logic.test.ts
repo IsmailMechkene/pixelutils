@@ -10,7 +10,9 @@ const defaults = {
 
 describe("removeDuplicateLines", () => {
   it("keeps the first occurrence and original order", () => {
-    expect(removeDuplicateLines("beta\nalpha\nbeta\ngamma\nalpha", defaults)).toEqual({
+    expect(
+      removeDuplicateLines("beta\nalpha\nbeta\ngamma\nalpha", defaults),
+    ).toEqual({
       value: "beta\nalpha\ngamma",
       removed: 2,
       kept: 3,
@@ -38,6 +40,10 @@ describe("removeDuplicateLines", () => {
 
   it("normalizes line endings and handles empty input", () => {
     expect(removeDuplicateLines("a\r\nb\r\na", defaults).value).toBe("a\nb");
-    expect(removeDuplicateLines("", defaults)).toEqual({ value: "", removed: 0, kept: 0 });
+    expect(removeDuplicateLines("", defaults)).toEqual({
+      value: "",
+      removed: 0,
+      kept: 0,
+    });
   });
 });

@@ -73,7 +73,7 @@ export default function JwtDecoderWorkspace() {
         <ToolActions>
           <ActionButton
             disabled={!input}
-            icon="code"
+            icon="scan-search"
             tone="primary"
             type="submit"
           >

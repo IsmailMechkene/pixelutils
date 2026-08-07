@@ -8,7 +8,8 @@ describe("formatJson", () => {
 
     expect(result).toEqual({
       ok: true,
-      value: '{\n  "name": "PixelUtils",\n  "flags": [\n    true,\n    null\n  ]\n}',
+      value:
+        '{\n  "name": "PixelUtils",\n  "flags": [\n    true,\n    null\n  ]\n}',
     });
   });
 
@@ -27,7 +28,10 @@ describe("formatJson", () => {
   });
 
   it("rejects empty input and invalid indentation", () => {
-    expect(formatJson("  ")).toEqual({ ok: false, error: "Enter JSON to format." });
+    expect(formatJson("  ")).toEqual({
+      ok: false,
+      error: "Enter JSON to format.",
+    });
     expect(formatJson("{}", 11)).toEqual({
       ok: false,
       error: "Indentation must be a whole number from 0 to 10.",

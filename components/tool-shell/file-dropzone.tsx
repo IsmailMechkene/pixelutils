@@ -84,7 +84,7 @@ export function FileDropzone({
         }}
       >
         <span className="grid size-11 place-items-center rounded-card bg-accent-soft text-accent">
-          <Icon className="size-5" name="file" />
+          <Icon className="size-[18px]" name="file-up" />
         </span>
         <span className="mt-4 text-sm font-semibold text-ink">{label}</span>
         <span className="mt-1 text-xs leading-5 text-ink-subtle">

@@ -171,7 +171,7 @@ export default function SearchDialogPanel({
             onClick={() => onClose()}
             type="button"
           >
-            <Icon className="size-5" name="close" />
+            <Icon className="size-[18px]" name="x" />
           </button>
         </div>
         <div
@@ -218,7 +218,7 @@ export default function SearchDialogPanel({
                           </span>
                           <Icon
                             className="size-4 shrink-0 text-ink-subtle"
-                            name="arrow"
+                            name="arrow-right"
                           />
                         </Link>
                       </li>

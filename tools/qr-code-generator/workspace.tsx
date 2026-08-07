@@ -156,7 +156,7 @@ export default function QrCodeGeneratorWorkspace({ slug }: { slug: string }) {
         <ToolActions>
           <ActionButton
             disabled={loading}
-            icon="sparkles"
+            icon="qr-code"
             tone="primary"
             type="submit"
           >

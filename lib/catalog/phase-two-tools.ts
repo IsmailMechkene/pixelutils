@@ -10,7 +10,7 @@ export const phaseTwoTools = [
     category: "web",
     keywords: ["HTML entities", "escape HTML", "unescape", "encode markup"],
     searchAliases: ["HTML encoder", "HTML decoder", "entity converter"],
-    icon: "code",
+    icon: "code-xml",
     relatedTools: [
       "html-formatter",
       "markdown-previewer",
@@ -65,7 +65,7 @@ export const phaseTwoTools = [
     category: "web",
     keywords: ["HTML formatter", "beautify HTML", "indent markup", "Prettier"],
     searchAliases: ["HTML beautifier", "pretty HTML", "format markup"],
-    icon: "brackets",
+    icon: "file-code",
     relatedTools: [
       "html-escape-unescape",
       "markdown-previewer",
@@ -120,7 +120,7 @@ export const phaseTwoTools = [
     category: "text",
     keywords: ["Markdown", "preview", "GFM", "sanitized HTML"],
     searchAliases: ["Markdown viewer", "render Markdown", "Markdown to HTML"],
-    icon: "text",
+    icon: "file-text",
     relatedTools: [
       "html-formatter",
       "html-escape-unescape",
@@ -230,7 +230,7 @@ export const phaseTwoTools = [
     category: "image-conversion",
     keywords: ["QR code", "generator", "PNG", "error correction"],
     searchAliases: ["create QR", "URL QR code", "QR image maker"],
-    icon: "file",
+    icon: "qr-code",
     relatedTools: [
       "url-encoder-decoder",
       "color-converter",
@@ -339,7 +339,7 @@ export const phaseTwoTools = [
     category: "security",
     keywords: ["hash generator", "SHA-256", "SubtleCrypto", "digest"],
     searchAliases: ["SHA hash", "text checksum", "SHA-512 generator"],
-    icon: "shield",
+    icon: "hash",
     relatedTools: [
       "password-generator",
       "jwt-decoder",
@@ -396,7 +396,7 @@ export const phaseTwoTools = [
     category: "developer",
     keywords: ["JWT decoder", "JSON Web Token", "Base64URL", "claims"],
     searchAliases: ["decode token", "JWT viewer", "inspect JWT"],
-    icon: "code",
+    icon: "scan-search",
     relatedTools: [
       "hash-generator",
       "base64-encoder-decoder",
@@ -461,7 +461,7 @@ export const phaseTwoTools = [
       "what percentage",
       "percent increase",
     ],
-    icon: "calculator",
+    icon: "percent",
     relatedTools: [
       "age-calculator",
       "unix-timestamp-converter",
@@ -517,7 +517,7 @@ export const phaseTwoTools = [
     category: "date-time",
     keywords: ["age calculator", "date of birth", "calendar age", "leap year"],
     searchAliases: ["how old am I", "DOB calculator", "age on date"],
-    icon: "clock",
+    icon: "calendar-days",
     relatedTools: [
       "unix-timestamp-converter",
       "percentage-calculator",

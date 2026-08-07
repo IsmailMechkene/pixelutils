@@ -2,7 +2,8 @@ export type Base64Result =
   | { readonly ok: true; readonly value: string }
   | { readonly ok: false; readonly error: string };
 
-const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+const alphabet =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 function stringToUtf8(input: string) {
   const bytes: number[] = [];
@@ -33,7 +34,7 @@ function stringToUtf8(input: string) {
 
 function utf8ToString(bytes: readonly number[]) {
   const points: number[] = [];
-  for (let index = 0; index < bytes.length; ) {
+  for (let index = 0; index < bytes.length;) {
     const first = bytes[index];
     if (first === undefined) break;
     let point: number;
@@ -109,7 +110,10 @@ export function decodeBase64(input: string): Base64Result {
       normalized,
     )
   ) {
-    return { ok: false, error: "Invalid Base64: check the characters and padding." };
+    return {
+      ok: false,
+      error: "Invalid Base64: check the characters and padding.",
+    };
   }
 
   const bytes: number[] = [];
@@ -117,7 +121,9 @@ export function decodeBase64(input: string): Base64Result {
     const values = normalized
       .slice(index, index + 4)
       .split("")
-      .map((character) => (character === "=" ? 0 : alphabet.indexOf(character)));
+      .map((character) =>
+        character === "=" ? 0 : alphabet.indexOf(character),
+      );
     const chunk =
       ((values[0] ?? 0) << 18) |
       ((values[1] ?? 0) << 12) |
@@ -131,6 +137,9 @@ export function decodeBase64(input: string): Base64Result {
   try {
     return { ok: true, value: utf8ToString(bytes) };
   } catch (error) {
-    return { ok: false, error: error instanceof Error ? error.message : String(error) };
+    return {
+      ok: false,
+      error: error instanceof Error ? error.message : String(error),
+    };
   }
 }

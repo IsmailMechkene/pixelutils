@@ -73,7 +73,8 @@ export function ThemeToggle() {
 
   const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
   const label = `Theme: ${theme}. Switch to ${nextTheme}.`;
-  const icon = theme === "light" ? "sun" : theme === "dark" ? "moon" : "system";
+  const icon =
+    theme === "light" ? "sun" : theme === "dark" ? "moon" : "monitor";
 
   return (
     <button

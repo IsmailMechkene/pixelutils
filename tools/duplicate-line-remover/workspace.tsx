@@ -88,7 +88,7 @@ export default function DuplicateLineRemoverWorkspace({
         <ToolActions label="Cleanup actions">
           <ActionButton
             disabled={!input}
-            icon="refresh"
+            icon="refresh-cw"
             tone="primary"
             type="submit"
           >

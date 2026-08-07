@@ -1,3 +1,5 @@
+import type { CategoryIconId, ToolIconId } from "@/lib/icons/types";
+
 export const categorySlugs = [
   "developer",
   "text",
@@ -12,32 +14,6 @@ export const categorySlugs = [
 
 export type CategorySlug = (typeof categorySlugs)[number];
 
-export const iconIds = [
-  "arrow",
-  "brackets",
-  "calculator",
-  "check",
-  "clock",
-  "close",
-  "code",
-  "copy",
-  "download",
-  "file",
-  "menu",
-  "moon",
-  "palette",
-  "refresh",
-  "search",
-  "shield",
-  "sparkles",
-  "sun",
-  "swap",
-  "system",
-  "text",
-  "trash",
-] as const;
-
-export type IconId = (typeof iconIds)[number];
 export type ToolStatus = "draft" | "published";
 
 export const toolDataTypes = [
@@ -75,7 +51,7 @@ export interface ToolDefinition {
   readonly category: CategorySlug;
   readonly keywords: readonly string[];
   readonly searchAliases: readonly string[];
-  readonly icon: IconId;
+  readonly icon: ToolIconId;
   readonly relatedTools: readonly string[];
   readonly featured: boolean;
   readonly popularRank?: number;
@@ -109,7 +85,7 @@ export interface CategoryDefinition {
   readonly shortDescription: string;
   readonly description: string;
   readonly selectionGuide: string;
-  readonly icon: IconId;
+  readonly icon: CategoryIconId;
   readonly order: number;
 }
 

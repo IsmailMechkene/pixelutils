@@ -1,4 +1,4 @@
-import { Icon } from "@/components/ui/icon";
+import { ToolIcon } from "@/components/ui/icon";
 import type { ToolDefinition } from "@/lib/catalog/types";
 
 interface ToolHeaderProps {
@@ -10,7 +10,7 @@ export function ToolHeader({ tool }: ToolHeaderProps) {
     <header className="max-w-3xl">
       <div className="flex items-start gap-4">
         <span className="mt-1 grid size-11 shrink-0 place-items-center rounded-card bg-accent-soft text-accent">
-          <Icon className="size-5" name={tool.icon} />
+          <ToolIcon className="size-[30px]" name={tool.icon} />
         </span>
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">

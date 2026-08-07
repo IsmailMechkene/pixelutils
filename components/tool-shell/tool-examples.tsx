@@ -17,7 +17,10 @@ export function ToolExamples({ examples }: ToolExamplesProps) {
       </h2>
       <div className="mt-5 grid gap-4 md:grid-cols-2">
         {examples.map((example) => (
-          <article className="rounded-card border border-line bg-panel p-5" key={example.name}>
+          <article
+            className="rounded-card border border-line bg-panel p-5"
+            key={example.name}
+          >
             <h3 className="text-base font-semibold text-ink">{example.name}</h3>
             <dl className="mt-4 grid gap-4 text-sm">
               <div>

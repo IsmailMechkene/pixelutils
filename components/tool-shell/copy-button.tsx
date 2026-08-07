@@ -56,9 +56,7 @@ export function CopyButton({
   return (
     <ActionButton
       disabled={disabled || !value}
-      icon={
-        state === "copied" ? "check" : state === "failed" ? "close" : "copy"
-      }
+      icon={state === "copied" ? "check" : state === "failed" ? "x" : "copy"}
       onClick={copyValue}
       tone="quiet"
       aria-live="polite"

@@ -13,7 +13,7 @@ export const categoryRegistry = [
       "Focused utilities for common development tasks, designed to keep pasted data in your browser.",
     selectionGuide:
       "Use formatters when you need readable structure, minifiers when payload size matters, and generators when you need standards-compliant values for development or testing.",
-    icon: "code",
+    icon: "code-2",
     order: 1,
   },
   {
@@ -24,7 +24,7 @@ export const categoryRegistry = [
       "Straightforward text tools for writers, students, marketers, and anyone working with words.",
     selectionGuide:
       "Choose a counter to measure existing copy, a converter to reshape capitalization, or a cleanup tool to normalize lists without uploading the text.",
-    icon: "text",
+    icon: "type",
     order: 2,
   },
   {
@@ -35,7 +35,7 @@ export const categoryRegistry = [
       "Browser-based encoders and decoders with clear errors and careful Unicode handling.",
     selectionGuide:
       "Base64 is useful for representing binary-safe text, while URL encoding is designed for query values, path segments, and complete web addresses.",
-    icon: "brackets",
+    icon: "binary",
     order: 3,
   },
   {
@@ -46,7 +46,7 @@ export const categoryRegistry = [
       "Local utilities for HTML and Markdown workflows with careful output handling and sanitization.",
     selectionGuide:
       "Use escaping for literal HTML characters, formatting for readable markup, and the sanitized previewer when you need to review Markdown output safely.",
-    icon: "code",
+    icon: "globe-2",
     order: 4,
   },
   {
@@ -57,7 +57,7 @@ export const categoryRegistry = [
       "Practical visual conversion tools that keep source content and generated files on your device.",
     selectionGuide:
       "Start with the output you need: QR tools create downloadable codes, while future converters in this category will focus on explicit browser-supported formats.",
-    icon: "file",
+    icon: "image",
     order: 5,
   },
   {
@@ -68,7 +68,7 @@ export const categoryRegistry = [
       "Privacy-conscious security helpers built around modern browser cryptography and safe defaults.",
     selectionGuide:
       "Generate new secrets with cryptographic browser APIs, create one-way digests with the hash tool, and treat decoded tokens as unverified data until a trusted system checks them.",
-    icon: "shield",
+    icon: "shield-check",
     order: 6,
   },
   {
@@ -79,7 +79,7 @@ export const categoryRegistry = [
       "Accurate date and time utilities that explain time zones, units, and calendar assumptions.",
     selectionGuide:
       "Use timestamp conversion for exact instants and units; use calendar-based calculators when years, months, leap days, and date-only comparisons matter.",
-    icon: "clock",
+    icon: "clock-3",
     order: 7,
   },
   {
@@ -118,7 +118,7 @@ export const toolRegistry = [
     category: "developer",
     keywords: ["JSON", "formatter", "validator", "pretty print"],
     searchAliases: ["beautify JSON", "JSON checker", "pretty JSON"],
-    icon: "code",
+    icon: "braces",
     relatedTools: [
       "json-minifier",
       "base64-encoder-decoder",
@@ -176,7 +176,7 @@ export const toolRegistry = [
     category: "developer",
     keywords: ["JSON", "minifier", "compact", "compress"],
     searchAliases: ["minify JSON", "compact JSON", "remove JSON whitespace"],
-    icon: "brackets",
+    icon: "file-json",
     relatedTools: [
       "json-formatter",
       "base64-encoder-decoder",
@@ -232,7 +232,7 @@ export const toolRegistry = [
     category: "encoding",
     keywords: ["Base64", "encode", "decode", "UTF-8"],
     searchAliases: ["Base64 converter", "text to Base64", "Base64 to text"],
-    icon: "brackets",
+    icon: "binary",
     relatedTools: ["url-encoder-decoder", "json-formatter", "json-minifier"],
     featured: true,
     popularRank: 2,
@@ -284,7 +284,7 @@ export const toolRegistry = [
     category: "encoding",
     keywords: ["URL", "percent encoding", "encode", "decode"],
     searchAliases: ["URL escape", "URL unescape", "encodeURIComponent"],
-    icon: "code",
+    icon: "link",
     relatedTools: ["base64-encoder-decoder", "json-formatter", "json-minifier"],
     featured: false,
     popularRank: 7,
@@ -337,7 +337,7 @@ export const toolRegistry = [
     category: "developer",
     keywords: ["UUID", "GUID", "version 4", "identifier"],
     searchAliases: ["UUID v4 generator", "GUID generator", "random ID"],
-    icon: "sparkles",
+    icon: "fingerprint",
     relatedTools: [
       "password-generator",
       "json-formatter",
@@ -398,7 +398,7 @@ export const toolRegistry = [
       "timestamp to date",
       "date to timestamp",
     ],
-    icon: "clock",
+    icon: "clock-3",
     relatedTools: [
       "uuid-generator",
       "json-formatter",
@@ -455,7 +455,7 @@ export const toolRegistry = [
     category: "text",
     keywords: ["word count", "character count", "line count", "sentence count"],
     searchAliases: ["text counter", "letter counter", "count words"],
-    icon: "text",
+    icon: "letter-text",
     relatedTools: [
       "text-case-converter",
       "duplicate-line-remover",
@@ -515,7 +515,7 @@ export const toolRegistry = [
       "title case converter",
       "snake case converter",
     ],
-    icon: "text",
+    icon: "case-sensitive",
     relatedTools: [
       "word-character-counter",
       "duplicate-line-remover",
@@ -580,7 +580,7 @@ export const toolRegistry = [
       "line deduplicator",
       "unique list",
     ],
-    icon: "trash",
+    icon: "list-x",
     relatedTools: [
       "text-case-converter",
       "word-character-counter",
@@ -646,7 +646,7 @@ export const toolRegistry = [
       "random password maker",
       "secure password",
     ],
-    icon: "shield",
+    icon: "key-round",
     relatedTools: [
       "uuid-generator",
       "base64-encoder-decoder",

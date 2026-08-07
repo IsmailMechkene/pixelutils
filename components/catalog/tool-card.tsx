@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Icon } from "@/components/ui/icon";
+import { ToolIcon } from "@/components/ui/icon";
 import type { ToolDefinition } from "@/lib/catalog/types";
 
 interface ToolCardProps {
@@ -15,7 +15,7 @@ export function ToolCard({ tool }: ToolCardProps) {
     >
       <div className="flex items-start justify-between gap-4">
         <span className="grid size-9 place-items-center rounded-[10px] bg-panel-muted text-ink-muted">
-          <Icon className="size-[18px]" name={tool.icon} />
+          <ToolIcon className="size-[22px]" name={tool.icon} />
         </span>
         {tool.browserProcessing ? (
           <span className="rounded-full bg-success-soft px-2.5 py-1 text-[11px] font-semibold text-success">
