@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { normalizeSearchText, searchTools } from "./search";
+import { getNextSearchIndex, normalizeSearchText, searchTools } from "./search";
 import type { ToolDefinition } from "./types";
 
 const baseTool: ToolDefinition = {
@@ -34,6 +34,20 @@ const baseTool: ToolDefinition = {
 describe("normalizeSearchText", () => {
   it("normalizes case and repeated whitespace", () => {
     expect(normalizeSearchText("  JSON   BEAUTIFIER ")).toBe("json beautifier");
+  });
+});
+
+describe("getNextSearchIndex", () => {
+  it("wraps arrow navigation and supports Home and End", () => {
+    expect(getNextSearchIndex(-1, 3, "ArrowDown")).toBe(0);
+    expect(getNextSearchIndex(2, 3, "ArrowDown")).toBe(0);
+    expect(getNextSearchIndex(0, 3, "ArrowUp")).toBe(2);
+    expect(getNextSearchIndex(1, 3, "Home")).toBe(0);
+    expect(getNextSearchIndex(1, 3, "End")).toBe(2);
+  });
+
+  it("returns no selection when there are no results", () => {
+    expect(getNextSearchIndex(0, 0, "ArrowDown")).toBe(-1);
   });
 });
 

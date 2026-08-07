@@ -15,37 +15,38 @@ import {
   publishedTools,
 } from "@/lib/catalog/registry";
 import { createToolSearchItems } from "@/lib/catalog/search";
-import { getSiteUrl, siteConfig } from "@/lib/site";
 import type { IconId } from "@/lib/catalog/types";
+import { getSiteUrl, siteConfig } from "@/lib/site";
 
-const promises: readonly {
+const differences: readonly {
   icon: IconId;
   title: string;
   description: string;
 }[] = [
   {
     icon: "shield",
-    title: "Private by design",
-    description:
-      "Tool input stays on your device whenever the browser can do the work directly.",
-  },
-  {
-    icon: "check",
-    title: "Focused and accurate",
-    description:
-      "Clear inputs, useful errors, and tested logic without distracting account prompts.",
+    title: "Private by default",
+    description: "Inputs stay in your browser whenever the task can run there.",
   },
   {
     icon: "clock",
-    title: "Built to feel instant",
+    title: "Fast to the answer",
     description:
-      "Static pages and small, isolated tool bundles keep the experience responsive.",
+      "Static pages and focused tool bundles keep repeat work quick.",
+  },
+  {
+    icon: "check",
+    title: "No account friction",
+    description:
+      "Open a tool, finish the task, and leave without a sign-up flow.",
   },
 ];
 
 export default function HomePage() {
   const categoryToolCounts = getCategoryToolCounts();
   const searchItems = createToolSearchItems(publishedTools);
+  const displayedFeaturedTools = featuredTools.slice(0, 6);
+  const displayedPopularTools = popularTools.slice(0, 6);
 
   return (
     <>
@@ -58,82 +59,108 @@ export default function HomePage() {
           description: siteConfig.description,
         }}
       />
+
       <section className="relative overflow-hidden border-b border-line">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-[-260px] h-[520px] w-[760px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,var(--accent-soft)_0%,transparent_68%)] opacity-80"
+          className="pointer-events-none absolute left-1/2 top-[-360px] h-[620px] w-[880px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,var(--accent-soft)_0%,transparent_70%)] opacity-90"
         />
-        <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-16 sm:px-6 sm:pb-20 sm:pt-20 lg:px-8 lg:pt-24">
+        <div className="relative mx-auto max-w-7xl px-4 pb-14 pt-12 sm:px-6 sm:pb-16 sm:pt-16 lg:px-8 lg:pb-20">
           <div className="mx-auto max-w-4xl text-center">
-            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+            <p className="inline-flex min-h-8 items-center rounded-full border border-line bg-panel/80 px-3 text-xs font-semibold uppercase tracking-[0.15em] text-accent">
               Fast · Private · No account
             </p>
-            <h1 className="text-4xl font-semibold tracking-[-0.045em] text-ink sm:text-5xl lg:text-[56px] lg:leading-[1.08]">
-              Useful browser tools,
-              <span className="block text-ink-muted">without the usual clutter.</span>
+            <h1 className="mt-5 text-4xl font-semibold tracking-[-0.05em] text-ink sm:text-5xl lg:text-[54px] lg:leading-[1.06]">
+              Free browser tools for the tasks you need done now.
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-ink-muted sm:text-lg sm:leading-8">
-              A focused collection of online utilities built to work quickly and
-              keep your data on your device whenever possible.
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-ink-muted sm:text-lg">
+              Format, convert, calculate, and create without an account. Most
+              tools process your work directly on your device.
             </p>
           </div>
-          <div className="mt-10 sm:mt-12" id="find-a-tool">
+
+          <div className="mt-8 sm:mt-10" id="find-a-tool">
             <SearchShell tools={searchItems} />
           </div>
+
+          <nav
+            aria-label="Quick tool links"
+            className="mx-auto mt-5 flex max-w-3xl flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm"
+          >
+            <span className="mr-1 text-xs font-medium text-ink-subtle">
+              Try:
+            </span>
+            {displayedFeaturedTools.slice(0, 4).map((tool) => (
+              <Link
+                className="inline-flex min-h-9 items-center rounded-lg px-2.5 font-medium text-ink-muted hover:bg-panel-muted hover:text-ink"
+                href={`/tools/${tool.slug}`}
+                key={tool.slug}
+              >
+                {tool.name}
+              </Link>
+            ))}
+          </nav>
         </div>
       </section>
 
-      {featuredTools.length > 0 ? (
-        <section className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 sm:pt-20 lg:px-8" aria-labelledby="featured-tools-title">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-            Start here
-          </p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.035em] text-ink" id="featured-tools-title">
-            Featured tools
-          </h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredTools.map((tool) => (
+      {displayedFeaturedTools.length > 0 ? (
+        <section
+          aria-labelledby="featured-tools-title"
+          className="mx-auto max-w-7xl px-4 pt-14 sm:px-6 sm:pt-16 lg:px-8"
+        >
+          <div className="flex items-end justify-between gap-6">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+                Good places to start
+              </p>
+              <h2
+                className="mt-2 text-3xl font-semibold tracking-[-0.035em] text-ink"
+                id="featured-tools-title"
+              >
+                Featured tools
+              </h2>
+            </div>
+            <a
+              className="hidden min-h-11 items-center gap-2 rounded-lg text-sm font-semibold text-accent hover:text-accent-hover sm:inline-flex"
+              href="#categories"
+            >
+              Browse by category
+              <Icon className="size-4" name="arrow" />
+            </a>
+          </div>
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {displayedFeaturedTools.map((tool) => (
               <ToolCard key={tool.slug} tool={tool} />
             ))}
           </div>
         </section>
       ) : null}
 
-      <RecentTools tools={publishedTools} />
-
       <section
-        className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
-        id="categories"
         aria-labelledby="categories-title"
+        className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8"
+        id="categories"
       >
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-              Explore
-            </p>
-            <h2
-              className="mt-3 text-3xl font-semibold tracking-[-0.035em] text-ink"
-              id="categories-title"
-            >
-              Tools organized around the task
-            </h2>
-            <p className="mt-3 max-w-2xl text-base leading-7 text-ink-muted">
-              A calm catalog structure that makes the right utility easy to find
-              as each tested tool is published.
-            </p>
-          </div>
-          <Link
-            className="inline-flex min-h-11 items-center gap-2 self-start rounded-lg text-sm font-semibold text-accent hover:text-accent-hover sm:self-auto"
-            href="/about"
+        <div className="max-w-2xl">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+            Browse the collection
+          </p>
+          <h2
+            className="mt-2 text-3xl font-semibold tracking-[-0.035em] text-ink"
+            id="categories-title"
           >
-            How PixelUtils is built
-            <Icon className="size-4" name="arrow" />
-          </Link>
+            Find tools by category
+          </h2>
+          <p className="mt-3 text-base leading-7 text-ink-muted">
+            Jump straight into developer, text, encoding, calculator, design,
+            and browser utility workflows.
+          </p>
         </div>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {categoryRegistry.map((category) => (
             <CategoryCard
               category={category}
+              compact
               key={category.slug}
               toolCount={categoryToolCounts[category.slug]}
             />
@@ -141,78 +168,111 @@ export default function HomePage() {
         </div>
       </section>
 
-      {popularTools.length > 0 ? (
-        <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 sm:pb-20 lg:px-8" aria-labelledby="popular-tools-title">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-            Curated order
-          </p>
-          <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-ink" id="popular-tools-title">
-            Popular tools
-          </h2>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {popularTools.map((tool) => (
-              <ToolCard key={tool.slug} tool={tool} />
-            ))}
+      {displayedPopularTools.length > 0 ? (
+        <section
+          aria-labelledby="popular-tools-title"
+          className="border-y border-line bg-panel"
+        >
+          <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 sm:py-16 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14 lg:px-8">
+            <div className="max-w-md">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+                Curated in the catalog
+              </p>
+              <h2
+                className="mt-2 text-3xl font-semibold tracking-[-0.035em] text-ink"
+                id="popular-tools-title"
+              >
+                Popular tools
+              </h2>
+              <p className="mt-4 text-sm leading-6 text-ink-muted">
+                A configurable editorial order for commonly useful tools—not a
+                claim based on tracking or invented usage data.
+              </p>
+            </div>
+            <ol className="grid gap-2 sm:grid-cols-2">
+              {displayedPopularTools.map((tool) => (
+                <li key={tool.slug}>
+                  <Link
+                    className="group flex min-h-16 items-center gap-3 rounded-card border border-line bg-canvas px-4 py-3 hover:border-line-strong"
+                    href={`/tools/${tool.slug}`}
+                  >
+                    <span className="grid size-9 shrink-0 place-items-center rounded-[10px] bg-accent-soft text-accent">
+                      <Icon className="size-[18px]" name={tool.icon} />
+                    </span>
+                    <span className="min-w-0 flex-1 text-sm font-semibold text-ink group-hover:text-accent">
+                      {tool.name}
+                    </span>
+                    <Icon
+                      className="size-4 shrink-0 text-ink-subtle"
+                      name="arrow"
+                    />
+                  </Link>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
       ) : null}
 
       <AdSlot placement="content" />
+      <RecentTools tools={publishedTools} />
 
-      <section className="border-y border-line bg-panel">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-                A better default
-              </p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.035em] text-ink">
-                The utility site, reconsidered.
-              </h2>
-              <p className="mt-4 max-w-lg text-base leading-7 text-ink-muted">
-                No sign-up detours, no fake popularity counters, and no reason to
-                upload routine input when your browser can process it safely.
-              </p>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {promises.map((promise) => (
-                <article
-                  className="rounded-card border border-line bg-canvas p-5"
-                  key={promise.title}
-                >
-                  <span className="grid size-9 place-items-center rounded-[10px] bg-accent-soft text-accent">
-                    <Icon className="size-[18px]" name={promise.icon} />
-                  </span>
-                  <h3 className="mt-5 text-base font-semibold text-ink">
-                    {promise.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-ink-muted">
-                    {promise.description}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-        <div className="rounded-card border border-line bg-accent-soft px-6 py-8 sm:px-8 sm:py-10">
-          <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div className="max-w-2xl">
-              <h2 className="text-2xl font-semibold tracking-[-0.03em] text-ink">
-                Privacy should be visible, not buried.
-              </h2>
-              <p className="mt-3 text-sm leading-6 text-ink-muted sm:text-base">
-                Every tool will explain where processing happens. No tool input,
-                uploaded file, generated password, or output is sent to analytics.
-              </p>
-            </div>
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
+        <div className="grid overflow-hidden rounded-card border border-line bg-panel lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="bg-accent-soft p-6 sm:p-8 lg:p-10">
+            <span className="grid size-11 place-items-center rounded-card bg-accent text-accent-ink">
+              <Icon className="size-5" name="shield" />
+            </span>
+            <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+              Browser processing
+            </p>
+            <h2 className="mt-2 max-w-lg text-3xl font-semibold tracking-[-0.035em] text-ink">
+              Your routine inputs should not need a round trip to a server.
+            </h2>
+            <p className="mt-4 max-w-xl text-base leading-7 text-ink-muted">
+              Every tool explains where its processing happens. Tool input,
+              files, generated passwords, and outputs are never sent to
+              analytics.
+            </p>
             <Link
-              className="inline-flex min-h-11 shrink-0 items-center justify-center rounded-[10px] bg-accent px-5 text-sm font-semibold text-accent-ink transition-colors duration-150 hover:bg-accent-hover"
+              className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-[10px] bg-accent px-4 text-sm font-semibold text-accent-ink hover:bg-accent-hover"
               href="/privacy"
             >
               Read the privacy approach
+              <Icon className="size-4" name="arrow" />
+            </Link>
+          </div>
+
+          <div className="p-6 sm:p-8 lg:p-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+              Why PixelUtils is different
+            </p>
+            <div className="mt-5 divide-y divide-line">
+              {differences.map((difference) => (
+                <article
+                  className="flex gap-4 py-5 first:pt-0 last:pb-0"
+                  key={difference.title}
+                >
+                  <span className="grid size-9 shrink-0 place-items-center rounded-[10px] bg-panel-muted text-ink-muted">
+                    <Icon className="size-[18px]" name={difference.icon} />
+                  </span>
+                  <div>
+                    <h3 className="text-base font-semibold text-ink">
+                      {difference.title}
+                    </h3>
+                    <p className="mt-1 text-sm leading-6 text-ink-muted">
+                      {difference.description}
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <Link
+              className="mt-7 inline-flex min-h-11 items-center gap-2 rounded-lg text-sm font-semibold text-accent hover:text-accent-hover"
+              href="/about"
+            >
+              How the site is built
+              <Icon className="size-4" name="arrow" />
             </Link>
           </div>
         </div>

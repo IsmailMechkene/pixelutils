@@ -6,15 +6,20 @@ import type { CategoryDefinition } from "@/lib/catalog/types";
 interface CategoryCardProps {
   category: CategoryDefinition;
   toolCount: number;
+  compact?: boolean;
 }
 
-export function CategoryCard({ category, toolCount }: CategoryCardProps) {
+export function CategoryCard({
+  category,
+  toolCount,
+  compact = false,
+}: CategoryCardProps) {
   const content = (
     <>
       <span className="grid size-10 place-items-center rounded-[10px] bg-accent-soft text-accent">
         <Icon className="size-5" name={category.icon} />
       </span>
-      <div className="mt-8">
+      <div className={compact ? "mt-5" : "mt-8"}>
         <div className="flex items-center justify-between gap-3">
           <h3 className="text-lg font-semibold tracking-[-0.02em] text-ink">
             {category.name}
@@ -38,8 +43,9 @@ export function CategoryCard({ category, toolCount }: CategoryCardProps) {
     </>
   );
 
-  const className =
-    "group flex min-h-52 flex-col rounded-card border border-line bg-panel p-5 sm:p-6";
+  const className = `group flex flex-col rounded-card border border-line bg-panel p-5 ${
+    compact ? "min-h-0" : "min-h-52 sm:p-6"
+  }`;
 
   return toolCount > 0 ? (
     <Link

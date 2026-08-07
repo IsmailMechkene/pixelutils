@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { SearchDialog } from "@/components/catalog/search-dialog";
-import { publishedTools } from "@/lib/catalog/registry";
+import { publishedCategories, publishedTools } from "@/lib/catalog/registry";
 import { createToolSearchItems } from "@/lib/catalog/search";
 
 import { Logo } from "./logo";
@@ -38,7 +38,12 @@ export function Header() {
           </nav>
           <SearchDialog tools={searchItems} />
           <ThemeToggle />
-          <MobileNavigation />
+          <MobileNavigation
+            categories={publishedCategories.map(({ name, slug }) => ({
+              name,
+              slug,
+            }))}
+          />
         </div>
       </div>
     </header>
