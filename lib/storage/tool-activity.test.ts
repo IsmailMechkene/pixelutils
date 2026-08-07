@@ -5,8 +5,10 @@ import {
   parseRecentToolSlugs,
   parseToolHistory,
   RECENT_TOOLS_STORAGE_KEY,
+  RECENT_TOOL_LIMIT,
   recordRecentTool,
   recordToolHistory,
+  TOOL_HISTORY_LIMIT,
   type StorageLike,
 } from "./tool-activity";
 
@@ -41,6 +43,16 @@ describe("recent tools storage", () => {
   it("recovers safely from malformed storage", () => {
     expect(parseRecentToolSlugs("not-json")).toEqual([]);
   });
+
+  it("deduplicates and limits untrusted stored slugs", () => {
+    const storedSlugs = Array.from(
+      { length: RECENT_TOOL_LIMIT + 4 },
+      (_, index) => `tool-${index}`,
+    );
+    expect(
+      parseRecentToolSlugs(JSON.stringify([storedSlugs[0], ...storedSlugs])),
+    ).toEqual(storedSlugs.slice(0, RECENT_TOOL_LIMIT));
+  });
 });
 
 describe("tool history storage", () => {
@@ -53,7 +65,9 @@ describe("tool history storage", () => {
     });
 
     expect(stored).toBe(false);
-    expect(storage.getItem(getToolHistoryStorageKey("password-generator"))).toBeNull();
+    expect(
+      storage.getItem(getToolHistoryStorageKey("password-generator")),
+    ).toBeNull();
   });
 
   it("stores action names and timestamps without content", () => {
@@ -84,8 +98,25 @@ describe("tool history storage", () => {
           { action: "user content", timestamp: "2026-08-07T12:00:00.000Z" },
         ]),
       ),
-    ).toEqual([
-      { action: "copied", timestamp: "2026-08-07T12:00:00.000Z" },
-    ]);
+    ).toEqual([{ action: "copied", timestamp: "2026-08-07T12:00:00.000Z" }]);
+  });
+
+  it("rejects invalid dates and limits untrusted stored history", () => {
+    const validEntries = Array.from(
+      { length: TOOL_HISTORY_LIMIT + 10 },
+      (_, index) => ({
+        action: "processed",
+        timestamp: new Date(Date.UTC(2026, 0, 1, 0, index)).toISOString(),
+      }),
+    );
+    const parsed = parseToolHistory(
+      JSON.stringify([
+        ...validEntries,
+        { action: "copied", timestamp: "not-a-date" },
+      ]),
+    );
+
+    expect(parsed).toHaveLength(TOOL_HISTORY_LIMIT);
+    expect(parsed).toEqual(validEntries.slice(0, TOOL_HISTORY_LIMIT));
   });
 });

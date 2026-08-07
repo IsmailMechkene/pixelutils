@@ -1,8 +1,8 @@
 export const RECENT_TOOLS_STORAGE_KEY = "pixelutils:recent-tools:v1";
 export const TOOL_ACTIVITY_EVENT = "pixelutils:tool-activity";
 const TOOL_HISTORY_PREFIX = "pixelutils:tool-history:v1:";
-const recentToolLimit = 6;
-const toolHistoryLimit = 20;
+export const RECENT_TOOL_LIMIT = 6;
+export const TOOL_HISTORY_LIMIT = 20;
 
 export interface StorageLike {
   getItem(key: string): string | null;
@@ -56,7 +56,8 @@ function isHistoryEntry(value: unknown): value is ToolHistoryEntry {
   return (
     typeof candidate.action === "string" &&
     toolHistoryActions.includes(candidate.action as ToolHistoryAction) &&
-    typeof candidate.timestamp === "string"
+    typeof candidate.timestamp === "string" &&
+    Number.isFinite(Date.parse(candidate.timestamp))
   );
 }
 
@@ -94,7 +95,13 @@ export function parseRecentToolSlugs(snapshot: string) {
   try {
     const parsed: unknown = JSON.parse(snapshot);
     return Array.isArray(parsed)
-      ? parsed.filter((value): value is string => typeof value === "string")
+      ? [
+          ...new Set(
+            parsed.filter(
+              (value): value is string => typeof value === "string",
+            ),
+          ),
+        ].slice(0, RECENT_TOOL_LIMIT)
       : [];
   } catch {
     return [];
@@ -109,7 +116,7 @@ export function recordRecentTool(slug: string, storage?: StorageLike) {
     const current = readStringArray(RECENT_TOOLS_STORAGE_KEY, resolvedStorage);
     const next = [slug, ...current.filter((value) => value !== slug)].slice(
       0,
-      recentToolLimit,
+      RECENT_TOOL_LIMIT,
     );
     resolvedStorage.setItem(RECENT_TOOLS_STORAGE_KEY, JSON.stringify(next));
     notifyActivityChange();
@@ -122,7 +129,9 @@ export function recordRecentTool(slug: string, storage?: StorageLike) {
 export function parseToolHistory(snapshot: string): ToolHistoryEntry[] {
   try {
     const parsed: unknown = JSON.parse(snapshot);
-    return Array.isArray(parsed) ? parsed.filter(isHistoryEntry) : [];
+    return Array.isArray(parsed)
+      ? parsed.filter(isHistoryEntry).slice(0, TOOL_HISTORY_LIMIT)
+      : [];
   } catch {
     return [];
   }
@@ -154,7 +163,7 @@ export function recordToolHistory(
     const current = parseToolHistory(resolvedStorage.getItem(key) ?? "[]");
     resolvedStorage.setItem(
       key,
-      JSON.stringify([entry, ...current].slice(0, toolHistoryLimit)),
+      JSON.stringify([entry, ...current].slice(0, TOOL_HISTORY_LIMIT)),
     );
     notifyActivityChange();
     return true;
