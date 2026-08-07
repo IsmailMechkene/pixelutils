@@ -8,16 +8,54 @@ export interface LoremOptions {
 }
 
 const vocabulary = [
-  "lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing",
-  "elit", "sed", "do", "eiusmod", "tempor", "incididunt", "labore", "dolore",
-  "magna", "aliqua", "enim", "minim", "veniam", "quis", "nostrud", "exercitation",
-  "ullamco", "laboris", "nisi", "aliquip", "commodo", "consequat", "duis", "aute",
-  "irure", "reprehenderit", "voluptate", "velit", "esse", "cillum", "fugiat",
+  "lorem",
+  "ipsum",
+  "dolor",
+  "sit",
+  "amet",
+  "consectetur",
+  "adipiscing",
+  "elit",
+  "sed",
+  "do",
+  "eiusmod",
+  "tempor",
+  "incididunt",
+  "labore",
+  "dolore",
+  "magna",
+  "aliqua",
+  "enim",
+  "minim",
+  "veniam",
+  "quis",
+  "nostrud",
+  "exercitation",
+  "ullamco",
+  "laboris",
+  "nisi",
+  "aliquip",
+  "commodo",
+  "consequat",
+  "duis",
+  "aute",
+  "irure",
+  "reprehenderit",
+  "voluptate",
+  "velit",
+  "esse",
+  "cillum",
+  "fugiat",
 ] as const;
 
 function validate(options: LoremOptions) {
-  const maximum = options.unit === "words" ? 500 : options.unit === "sentences" ? 50 : 20;
-  if (!Number.isInteger(options.count) || options.count < 1 || options.count > maximum) {
+  const maximum =
+    options.unit === "words" ? 500 : options.unit === "sentences" ? 50 : 20;
+  if (
+    !Number.isInteger(options.count) ||
+    options.count < 1 ||
+    options.count > maximum
+  ) {
     throw new Error(`Count must be a whole number from 1 to ${maximum}.`);
   }
 }
@@ -40,7 +78,9 @@ export function generateLorem(options: LoremOptions, randomIndex: RandomIndex) {
   validate(options);
   let result: string;
   if (options.unit === "words") {
-    result = Array.from({ length: options.count }, () => pick(randomIndex)).join(" ");
+    result = Array.from({ length: options.count }, () =>
+      pick(randomIndex),
+    ).join(" ");
   } else if (options.unit === "sentences") {
     result = Array.from({ length: options.count }, (_, index) =>
       sentence(randomIndex, 8 + (index % 5)),
@@ -57,7 +97,10 @@ export function generateLorem(options: LoremOptions, randomIndex: RandomIndex) {
   const opening = "Lorem ipsum dolor sit amet";
   if (options.unit === "words") {
     const words = result.split(" ");
-    return [...opening.split(" ").slice(0, options.count), ...words.slice(Math.min(5, options.count))].join(" ");
+    return [
+      ...opening.split(" ").slice(0, options.count),
+      ...words.slice(Math.min(5, options.count)),
+    ].join(" ");
   }
   const remainder = result.replace(/^[^.]*\.?/, "").trimStart();
   return `${opening}, consectetur adipiscing elit.${remainder ? ` ${remainder}` : ""}`;

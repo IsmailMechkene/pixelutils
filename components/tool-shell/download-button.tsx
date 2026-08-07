@@ -20,21 +20,29 @@ export function DownloadButton({
   onDownloaded,
 }: DownloadButtonProps) {
   function download() {
-    const blob = data instanceof Blob ? data : new Blob([data], { type: mimeType });
+    const blob =
+      data instanceof Blob ? data : new Blob([data], { type: mimeType });
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
     anchor.download = filename;
     anchor.rel = "noopener";
+    anchor.hidden = true;
+    document.body.append(anchor);
     anchor.click();
-    window.setTimeout(() => URL.revokeObjectURL(url), 0);
+    anchor.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
     onDownloaded?.();
   }
 
   const empty = typeof data === "string" && !data;
 
   return (
-    <ActionButton disabled={disabled || empty} icon="download" onClick={download}>
+    <ActionButton
+      disabled={disabled || empty}
+      icon="download"
+      onClick={download}
+    >
       {label}
     </ActionButton>
   );

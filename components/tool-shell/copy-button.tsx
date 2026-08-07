@@ -19,8 +19,10 @@ export function CopyButton({
   onCopied,
   onError,
 }: CopyButtonProps) {
-  const [copied, setCopied] = useState(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
 
   useEffect(
     () => () => {
@@ -35,25 +37,36 @@ export function CopyButton({
         throw new Error("Clipboard access is not available in this browser.");
       }
       await navigator.clipboard.writeText(value);
-      setCopied(true);
+      setState("copied");
       onCopied?.();
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => setCopied(false), 1800);
+      timeoutRef.current = setTimeout(() => setState("idle"), 1800);
     } catch (error) {
+      setState("failed");
       onError?.(
-        error instanceof Error ? error.message : "The value could not be copied.",
+        error instanceof Error
+          ? error.message
+          : "The value could not be copied.",
       );
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => setState("idle"), 2200);
     }
   }
 
   return (
     <ActionButton
       disabled={disabled || !value}
-      icon={copied ? "check" : "copy"}
+      icon={
+        state === "copied" ? "check" : state === "failed" ? "close" : "copy"
+      }
       onClick={copyValue}
       aria-live="polite"
     >
-      {copied ? "Copied" : label}
+      {state === "copied"
+        ? "Copied"
+        : state === "failed"
+          ? "Copy failed"
+          : label}
     </ActionButton>
   );
 }

@@ -21,10 +21,15 @@ describe("decodeJwt", () => {
   it("rejects missing segments, malformed Base64URL, and non-object JSON", () => {
     expect(decodeJwt("one.two").ok).toBe(false);
     expect(decodeJwt("%%%.e30.signature").ok).toBe(false);
-    expect(decodeJwt(`${segment([])}.${segment({ sub: 1 })}.signature`).ok).toBe(false);
+    expect(
+      decodeJwt(`${segment([])}.${segment({ sub: 1 })}.signature`).ok,
+    ).toBe(false);
   });
 
   it("rejects empty input", () => {
-    expect(decodeJwt(" ")).toEqual({ ok: false, error: "Enter a JWT to decode." });
+    expect(decodeJwt(" ")).toEqual({
+      ok: false,
+      error: "Enter a JWT to decode.",
+    });
   });
 });

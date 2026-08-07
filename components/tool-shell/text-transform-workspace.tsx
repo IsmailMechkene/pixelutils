@@ -53,6 +53,8 @@ export function TextTransformWorkspace({
 
   async function run() {
     setProcessing(true);
+    setError("");
+    setOutput("");
     try {
       const result = await transform(input);
       if (!result.ok) {
@@ -63,6 +65,12 @@ export function TextTransformWorkspace({
       setError("");
       setOutput(result.value);
       recordToolHistory(slug, "processed", { sensitive: false });
+    } catch (caught) {
+      setError(
+        caught instanceof Error
+          ? caught.message
+          : "The input could not be processed.",
+      );
     } finally {
       setProcessing(false);
     }
@@ -83,10 +91,16 @@ export function TextTransformWorkspace({
       }}
     >
       <ToolActions>
-        <ActionButton disabled={processing} icon="refresh" tone="primary" type="submit">
+        <ActionButton
+          disabled={processing}
+          icon="refresh"
+          tone="primary"
+          type="submit"
+        >
           {processing ? processingLabel : actionLabel}
         </ActionButton>
         <SampleButton
+          disabled={processing}
           onSample={() => {
             setInput(sample);
             setOutput("");
@@ -94,12 +108,16 @@ export function TextTransformWorkspace({
             recordToolHistory(slug, "sampled", { sensitive: false });
           }}
         />
-        <ClearButton disabled={!input && !output} onClear={clear} />
+        <ClearButton
+          disabled={processing || (!input && !output)}
+          onClear={clear}
+        />
       </ToolActions>
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <TextInputPanel
           description={inputDescription}
           error={error}
+          disabled={processing}
           id={`${slug}-input`}
           label={inputLabel}
           onChange={(value) => {
@@ -113,7 +131,9 @@ export function TextTransformWorkspace({
           actions={
             <ToolActions label="Output actions">
               <CopyButton
-                onCopied={() => recordToolHistory(slug, "copied", { sensitive: false })}
+                onCopied={() =>
+                  recordToolHistory(slug, "copied", { sensitive: false })
+                }
                 onError={setError}
                 value={output}
               />

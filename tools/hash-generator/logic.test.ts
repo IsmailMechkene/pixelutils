@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { webcrypto } from "node:crypto";
 
 import { formatDigest, generateHash } from "./logic";
 
@@ -26,7 +27,24 @@ describe("hash generation helpers", () => {
 
   it("rejects empty input and unsupported algorithms", async () => {
     const digest = async () => new ArrayBuffer(0);
-    await expect(generateHash(new Uint8Array(), "SHA-256", "hex", digest)).rejects.toThrow(/Enter text/);
-    await expect(generateHash(Uint8Array.of(1), "MD5" as "SHA-256", "hex", digest)).rejects.toThrow(/supported/);
+    await expect(
+      generateHash(new Uint8Array(), "SHA-256", "hex", digest),
+    ).rejects.toThrow(/Enter text/);
+    await expect(
+      generateHash(Uint8Array.of(1), "MD5" as "SHA-256", "hex", digest),
+    ).rejects.toThrow(/supported/);
+  });
+
+  it("matches the known SHA-256 digest for UTF-8 text", async () => {
+    const result = await generateHash(
+      new TextEncoder().encode("hello"),
+      "SHA-256",
+      "hex",
+      (algorithm, data) =>
+        webcrypto.subtle.digest(algorithm, Uint8Array.from(data).buffer),
+    );
+    expect(result).toBe(
+      "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824",
+    );
   });
 });

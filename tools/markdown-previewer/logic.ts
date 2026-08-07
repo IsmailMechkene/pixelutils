@@ -3,9 +3,31 @@ export type MarkdownResult =
   | { readonly ok: false; readonly error: string };
 
 const allowedTags = [
-  "h1", "h2", "h3", "h4", "h5", "h6", "p", "br", "hr", "blockquote",
-  "ul", "ol", "li", "strong", "em", "del", "code", "pre", "a", "table",
-  "thead", "tbody", "tr", "th", "td",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "p",
+  "br",
+  "hr",
+  "blockquote",
+  "ul",
+  "ol",
+  "li",
+  "strong",
+  "em",
+  "del",
+  "code",
+  "pre",
+  "a",
+  "table",
+  "thead",
+  "tbody",
+  "tr",
+  "th",
+  "td",
 ];
 
 export async function renderMarkdown(input: string): Promise<MarkdownResult> {

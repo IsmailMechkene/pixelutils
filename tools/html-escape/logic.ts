@@ -16,14 +16,20 @@ export function escapeHtml(input: string): HtmlEntityResult {
   if (!input) return { ok: false, error: "Enter text or HTML to escape." };
   return {
     ok: true,
-    value: input.replace(/[&<>"']/g, (character) => escapeMap[character] ?? character),
+    value: input.replace(
+      /[&<>"']/g,
+      (character) => escapeMap[character] ?? character,
+    ),
   };
 }
 
 export function unescapeHtml(input: string): HtmlEntityResult {
   if (!input) return { ok: false, error: "Enter HTML entities to unescape." };
   try {
-    return { ok: true, value: decode(input, { isAttributeValue: false, strict: false }) };
+    return {
+      ok: true,
+      value: decode(input, { isAttributeValue: false, strict: false }),
+    };
   } catch (error) {
     return {
       ok: false,
