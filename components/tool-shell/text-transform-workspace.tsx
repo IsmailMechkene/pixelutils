@@ -27,8 +27,9 @@ interface TextTransformWorkspaceProps {
   outputLabel: string;
   outputDescription: string;
   placeholder: string;
-  transform: (input: string) => TransformResult;
+  transform: (input: string) => TransformResult | Promise<TransformResult>;
   mimeType?: string;
+  processingLabel?: string;
 }
 
 export function TextTransformWorkspace({
@@ -43,21 +44,28 @@ export function TextTransformWorkspace({
   placeholder,
   transform,
   mimeType,
+  processingLabel = "Processing…",
 }: TextTransformWorkspaceProps) {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
+  const [processing, setProcessing] = useState(false);
 
-  function run() {
-    const result = transform(input);
-    if (!result.ok) {
-      setError(result.error);
-      setOutput("");
-      return;
+  async function run() {
+    setProcessing(true);
+    try {
+      const result = await transform(input);
+      if (!result.ok) {
+        setError(result.error);
+        setOutput("");
+        return;
+      }
+      setError("");
+      setOutput(result.value);
+      recordToolHistory(slug, "processed", { sensitive: false });
+    } finally {
+      setProcessing(false);
     }
-    setError("");
-    setOutput(result.value);
-    recordToolHistory(slug, "processed", { sensitive: false });
   }
 
   function clear() {
@@ -71,12 +79,12 @@ export function TextTransformWorkspace({
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        run();
+        void run();
       }}
     >
       <ToolActions>
-        <ActionButton icon="refresh" tone="primary" type="submit">
-          {actionLabel}
+        <ActionButton disabled={processing} icon="refresh" tone="primary" type="submit">
+          {processing ? processingLabel : actionLabel}
         </ActionButton>
         <SampleButton
           onSample={() => {

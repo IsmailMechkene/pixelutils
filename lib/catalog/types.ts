@@ -2,6 +2,8 @@ export const categorySlugs = [
   "developer",
   "text",
   "encoding",
+  "web",
+  "image-conversion",
   "security",
   "date-time",
   "calculators",

@@ -1,5 +1,6 @@
 import { toolWorkspaceSlugs } from "@/tools/workspace-registry";
 
+import { phaseTwoTools } from "./phase-two-tools";
 import type { CategoryDefinition, ToolDefinition } from "./types";
 import { assertValidRegistry } from "./validation";
 
@@ -32,13 +33,31 @@ export const categoryRegistry = [
     order: 3,
   },
   {
+    slug: "web",
+    name: "Web",
+    shortDescription: "Prepare and inspect browser-facing markup.",
+    description:
+      "Local utilities for HTML and Markdown workflows with careful output handling and sanitization.",
+    icon: "code",
+    order: 4,
+  },
+  {
+    slug: "image-conversion",
+    name: "Image & Conversion",
+    shortDescription: "Generate visual outputs directly in your browser.",
+    description:
+      "Practical visual conversion tools that keep source content and generated files on your device.",
+    icon: "file",
+    order: 5,
+  },
+  {
     slug: "security",
     name: "Security",
     shortDescription: "Generate and inspect sensitive values locally.",
     description:
       "Privacy-conscious security helpers built around modern browser cryptography and safe defaults.",
     icon: "shield",
-    order: 4,
+    order: 6,
   },
   {
     slug: "date-time",
@@ -47,7 +66,7 @@ export const categoryRegistry = [
     description:
       "Accurate date and time utilities that explain time zones, units, and calendar assumptions.",
     icon: "clock",
-    order: 5,
+    order: 7,
   },
   {
     slug: "calculators",
@@ -56,7 +75,7 @@ export const categoryRegistry = [
     description:
       "Clear calculators for common questions, with visible formulas and careful edge-case handling.",
     icon: "calculator",
-    order: 6,
+    order: 8,
   },
   {
     slug: "color-design",
@@ -65,7 +84,7 @@ export const categoryRegistry = [
     description:
       "Practical visual utilities with accessible output and local browser processing.",
     icon: "palette",
-    order: 7,
+    order: 9,
   },
 ] as const satisfies readonly CategoryDefinition[];
 
@@ -352,6 +371,7 @@ export const toolRegistry = [
     seo: { title: "Secure Password Generator – Private Browser Cryptography", description: "Generate strong passwords locally with crypto.getRandomValues, unbiased selection, custom length and character options. Nothing is stored." },
     status: "published",
   },
+  ...phaseTwoTools,
 ] as const satisfies readonly ToolDefinition[];
 
 assertValidRegistry(categoryRegistry, toolRegistry, toolWorkspaceSlugs);

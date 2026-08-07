@@ -23,6 +23,16 @@ export const toolWorkspaceLoaders: Readonly<
   "text-case-converter": () => import("./text-case-converter/workspace"),
   "duplicate-line-remover": () => import("./duplicate-line-remover/workspace"),
   "password-generator": () => import("./password-generator/workspace"),
+  "html-escape-unescape": () => import("./html-escape/workspace"),
+  "html-formatter": () => import("./html-formatter/workspace"),
+  "markdown-previewer": () => import("./markdown-previewer/workspace"),
+  "lorem-ipsum-generator": () => import("./lorem-ipsum/workspace"),
+  "qr-code-generator": () => import("./qr-code-generator/workspace"),
+  "color-converter": () => import("./color-converter/workspace"),
+  "hash-generator": () => import("./hash-generator/workspace"),
+  "jwt-decoder": () => import("./jwt-decoder/workspace"),
+  "percentage-calculator": () => import("./percentage-calculator/workspace"),
+  "age-calculator": () => import("./age-calculator/workspace"),
 };
 
 export const toolWorkspaceSlugs = Object.freeze(

@@ -1,0 +1,49 @@
+"use client";
+
+import { useState } from "react";
+
+import { ActionButton } from "@/components/tool-shell/action-button";
+import { ClearButton, CopyButton, DownloadButton, SampleButton, TextInputPanel, ToolActions } from "@/components/tool-shell";
+import { recordToolHistory } from "@/lib/storage/tool-activity";
+
+import { renderMarkdown } from "./logic";
+
+const sample = `# Release notes
+
+PixelUtils keeps your content **in the browser**.
+
+- Fast previews
+- Sanitized HTML
+- No account
+
+Read the [privacy page](/privacy).`;
+
+export default function MarkdownPreviewerWorkspace({ slug }: { slug: string }) {
+  const [input, setInput] = useState("");
+  const [html, setHtml] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function preview() {
+    setLoading(true);
+    try {
+      const result = await renderMarkdown(input);
+      if (!result.ok) { setError(result.error); setHtml(""); return; }
+      setError(""); setHtml(result.value);
+      recordToolHistory(slug, "processed", { sensitive: false });
+    } finally { setLoading(false); }
+  }
+
+  return <form onSubmit={(event) => { event.preventDefault(); void preview(); }}>
+    <ToolActions><ActionButton disabled={loading} icon="refresh" tone="primary" type="submit">{loading ? "Rendering…" : "Preview Markdown"}</ActionButton><SampleButton onSample={() => { setInput(sample); setHtml(""); setError(""); recordToolHistory(slug, "sampled", { sensitive: false }); }} /><ClearButton disabled={!input && !html} onClear={() => { setInput(""); setHtml(""); setError(""); recordToolHistory(slug, "cleared", { sensitive: false }); }} /></ToolActions>
+    <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <TextInputPanel id="markdown-input" label="Markdown input" description="Raw HTML is sanitized; scripts, event handlers, remote images, and unsafe links are removed." error={error} onChange={(value) => { setInput(value); setError(""); }} placeholder="# Heading" value={input} />
+      <section aria-labelledby="markdown-preview-label" className="min-w-0">
+        <div className="flex flex-wrap items-end justify-between gap-3"><div><h3 className="text-sm font-semibold text-ink" id="markdown-preview-label">Sanitized preview</h3><p className="mt-1 text-xs leading-5 text-ink-subtle">Rendered HTML cannot execute scripts.</p></div><ToolActions label="Preview actions"><CopyButton label="Copy HTML" value={html} onCopied={() => recordToolHistory(slug, "copied", { sensitive: false })} /><DownloadButton data={html} filename="markdown-preview.html" mimeType="text/html;charset=utf-8" onDownloaded={() => recordToolHistory(slug, "downloaded", { sensitive: false })} /></ToolActions></div>
+        <div aria-live="polite" className="markdown-preview mt-3 min-h-72 overflow-auto rounded-card border border-line-strong bg-canvas px-5 py-4 text-sm leading-7 text-ink" id="markdown-preview" role="status">
+          {html ? <div dangerouslySetInnerHTML={{ __html: html }} /> : <p className="text-ink-subtle">Your sanitized preview will appear here.</p>}
+        </div>
+      </section>
+    </div>
+  </form>;
+}
