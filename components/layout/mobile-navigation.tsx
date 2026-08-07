@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions -- The navigation popup observes optional arrow-key navigation. */
+
 import Link from "next/link";
 import {
   useEffect,
@@ -77,10 +79,10 @@ export function MobileNavigation({ categories }: MobileNavigationProps) {
   }
 
   return (
-    <div className="relative md:hidden" ref={navigationRef}>
+    <div className="relative lg:hidden" ref={navigationRef}>
       <button
         ref={buttonRef}
-        className="inline-flex size-11 items-center justify-center rounded-[10px] border border-line bg-panel text-ink-muted transition-colors duration-150 hover:border-line-strong hover:text-ink"
+        className="inline-flex size-11 items-center justify-center rounded-lg text-ink-muted transition-colors duration-150 hover:bg-panel-muted hover:text-ink"
         type="button"
         aria-controls="mobile-navigation"
         aria-expanded={isOpen}
@@ -95,7 +97,7 @@ export function MobileNavigation({ categories }: MobileNavigationProps) {
           ref={menuRef}
           id="mobile-navigation"
           aria-label="Mobile navigation"
-          className="absolute right-0 top-13 z-50 w-72 rounded-card border border-line bg-panel p-2 shadow-[0_20px_55px_rgba(0,0,0,0.14)]"
+          className="absolute right-0 top-12 z-50 w-72 rounded-card border border-line bg-panel p-2 shadow-[0_20px_55px_rgba(0,0,0,0.14)]"
           onKeyDown={handleMenuKeyDown}
         >
           {links.map((link) => (

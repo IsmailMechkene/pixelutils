@@ -114,7 +114,10 @@ export default function MarkdownPreviewerWorkspace({ slug }: { slug: string }) {
               >
                 Sanitized preview
               </h3>
-              <p className="mt-1 text-xs leading-5 text-ink-subtle">
+              <p
+                className="mt-1 text-xs leading-5 text-ink-subtle"
+                id="markdown-preview-description"
+              >
                 Rendered HTML cannot execute scripts.
               </p>
             </div>
@@ -137,10 +140,11 @@ export default function MarkdownPreviewerWorkspace({ slug }: { slug: string }) {
             </ToolActions>
           </div>
           <div
-            aria-live="polite"
+            aria-describedby="markdown-preview-description"
+            aria-labelledby="markdown-preview-label"
             className="markdown-preview mt-3 min-h-72 overflow-auto rounded-card border border-line-strong bg-canvas px-5 py-4 text-sm leading-7 text-ink"
             id="markdown-preview"
-            role="status"
+            role="region"
           >
             {html ? (
               <div dangerouslySetInnerHTML={{ __html: html }} />
@@ -150,6 +154,9 @@ export default function MarkdownPreviewerWorkspace({ slug }: { slug: string }) {
               </p>
             )}
           </div>
+          <p aria-live="polite" aria-atomic="true" className="sr-only">
+            {html ? "Sanitized Markdown preview updated." : ""}
+          </p>
         </section>
       </div>
     </form>

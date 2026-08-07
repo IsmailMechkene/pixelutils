@@ -19,8 +19,10 @@ interface SearchShellProps {
 export function SearchShell({ tools }: SearchShellProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const results = useMemo(() => searchTools(tools, query), [query, tools]);
+  const showResults = isOpen && Boolean(query);
 
   function selectWithKeyboard(key: SearchNavigationKey) {
     setActiveIndex((current) =>
@@ -29,7 +31,14 @@ export function SearchShell({ tools }: SearchShellProps) {
   }
 
   return (
-    <div className="relative mx-auto max-w-3xl">
+    <div
+      className="relative mx-auto max-w-3xl"
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setIsOpen(false);
+        }
+      }}
+    >
       <div className="relative">
         <Icon
           className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-ink-subtle"
@@ -40,13 +49,13 @@ export function SearchShell({ tools }: SearchShellProps) {
         </label>
         <input
           aria-activedescendant={
-            activeIndex >= 0
+            activeIndex >= 0 && showResults
               ? `homepage-search-option-${activeIndex}`
               : undefined
           }
           aria-autocomplete="list"
-          aria-controls={query ? "homepage-search-results" : undefined}
-          aria-expanded={Boolean(query)}
+          aria-controls={showResults ? "homepage-search-results" : undefined}
+          aria-expanded={showResults}
           id="tool-search"
           className="h-14 w-full rounded-card border border-line-strong bg-panel py-3 pl-12 pr-16 text-base text-ink shadow-[0_14px_40px_rgba(0,0,0,0.07)] outline-none placeholder:text-ink-subtle focus:border-accent sm:h-16 sm:text-lg"
           type="search"
@@ -54,10 +63,12 @@ export function SearchShell({ tools }: SearchShellProps) {
           onChange={(event) => {
             const nextQuery = event.target.value;
             setQuery(nextQuery);
+            setIsOpen(Boolean(nextQuery));
             setActiveIndex(
               nextQuery && searchTools(tools, nextQuery).length > 0 ? 0 : -1,
             );
           }}
+          onFocus={() => setIsOpen(Boolean(query))}
           onKeyDown={(event) => {
             if (
               event.key === "ArrowDown" ||
@@ -72,7 +83,7 @@ export function SearchShell({ tools }: SearchShellProps) {
               const selected = results[activeIndex];
               if (selected) router.push(`/tools/${selected.slug}`);
             } else if (event.key === "Escape") {
-              setQuery("");
+              setIsOpen(false);
               setActiveIndex(-1);
             }
           }}
@@ -85,15 +96,15 @@ export function SearchShell({ tools }: SearchShellProps) {
         </kbd>
       </div>
 
-      {query ? (
+      {showResults ? (
         <div
           id="homepage-search-results"
-          className="absolute inset-x-0 top-[calc(100%+8px)] z-30 max-h-80 overflow-y-auto rounded-card border border-line bg-panel p-2 shadow-[0_20px_55px_rgba(0,0,0,0.14)]"
-          aria-live="polite"
+          className="search-results-scrollbar absolute inset-x-0 top-[calc(100%+8px)] z-30 max-h-80 overflow-y-auto rounded-card border border-line bg-panel p-2 shadow-[0_20px_55px_rgba(0,0,0,0.14)]"
+          aria-label="Tool search results"
           role="listbox"
         >
           {results.length > 0 ? (
-            <ul>
+            <ul role="presentation">
               {results.map((tool, index) => (
                 <li key={tool.slug} role="presentation">
                   <Link
@@ -104,6 +115,7 @@ export function SearchShell({ tools }: SearchShellProps) {
                     onClick={() => setQuery("")}
                     onMouseEnter={() => setActiveIndex(index)}
                     role="option"
+                    tabIndex={-1}
                   >
                     <span>
                       <span className="block text-sm font-semibold text-ink">
@@ -128,6 +140,12 @@ export function SearchShell({ tools }: SearchShellProps) {
           )}
         </div>
       ) : null}
+
+      <p aria-live="polite" aria-atomic="true" className="sr-only">
+        {showResults
+          ? `${results.length} ${results.length === 1 ? "tool" : "tools"} found.`
+          : ""}
+      </p>
 
       <p className="mt-3 text-center text-xs text-ink-subtle">
         Search runs locally. Your query is not sent anywhere.

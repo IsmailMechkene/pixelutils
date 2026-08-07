@@ -1,4 +1,13 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Page not found",
+  description: "The requested PixelUtils page could not be found.",
+  alternates: null,
+  openGraph: null,
+  twitter: null,
+};
 
 export default function NotFound() {
   return (

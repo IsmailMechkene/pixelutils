@@ -1,5 +1,3 @@
-"use client";
-
 import type { ReactNode } from "react";
 
 import { ErrorMessage } from "./error-message";
@@ -33,17 +31,25 @@ export function TextInputPanel({
 }: TextInputPanelProps) {
   const descriptionId = description ? `${id}-description` : undefined;
   const errorId = error ? `${id}-error` : undefined;
-  const describedBy = [descriptionId, errorId].filter(Boolean).join(" ") || undefined;
+  const describedBy =
+    [descriptionId, errorId].filter(Boolean).join(" ") || undefined;
 
   return (
     <section className="min-w-0" aria-labelledby={`${id}-label`}>
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <label className="text-sm font-semibold text-ink" htmlFor={id} id={`${id}-label`}>
+          <label
+            className="text-sm font-semibold text-ink"
+            htmlFor={id}
+            id={`${id}-label`}
+          >
             {label}
           </label>
           {description ? (
-            <p className="mt-1 text-xs leading-5 text-ink-subtle" id={descriptionId}>
+            <p
+              className="mt-1 text-xs leading-5 text-ink-subtle"
+              id={descriptionId}
+            >
               {description}
             </p>
           ) : null}

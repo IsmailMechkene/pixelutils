@@ -14,7 +14,8 @@ import { recordToolHistory } from "@/lib/storage/tool-activity";
 
 import { countText } from "./logic";
 
-const sample = "Clear writing starts with useful feedback. PixelUtils counts words, characters, lines, and sentences as you type.";
+const sample =
+  "Clear writing starts with useful feedback. PixelUtils counts words, characters, lines, and sentences as you type.";
 
 export default function WordCounterWorkspace({ slug }: { slug: string }) {
   const [input, setInput] = useState("");
@@ -31,24 +32,70 @@ export default function WordCounterWorkspace({ slug }: { slug: string }) {
   return (
     <div>
       <ToolActions>
-        <SampleButton onSample={() => { setInput(sample); recordToolHistory(slug, "sampled", { sensitive: false }); }} />
-        <ClearButton disabled={!input} onClear={() => { setInput(""); recordToolHistory(slug, "cleared", { sensitive: false }); }} />
-        <CopyButton label="Copy counts" value={input ? summary : ""} onCopied={() => recordToolHistory(slug, "copied", { sensitive: false })} />
-        <DownloadButton data={input ? summary : ""} filename="text-counts.txt" onDownloaded={() => recordToolHistory(slug, "downloaded", { sensitive: false })} />
+        <SampleButton
+          onSample={() => {
+            setInput(sample);
+            recordToolHistory(slug, "sampled", { sensitive: false });
+          }}
+        />
+        <ClearButton
+          disabled={!input}
+          onClear={() => {
+            setInput("");
+            recordToolHistory(slug, "cleared", { sensitive: false });
+          }}
+        />
+        <CopyButton
+          label="Copy counts"
+          value={input ? summary : ""}
+          onCopied={() =>
+            recordToolHistory(slug, "copied", { sensitive: false })
+          }
+        />
+        <DownloadButton
+          data={input ? summary : ""}
+          filename="text-counts.txt"
+          onDownloaded={() =>
+            recordToolHistory(slug, "downloaded", { sensitive: false })
+          }
+        />
       </ToolActions>
       <div className="mt-6">
-        <TextInputPanel description="Counts update locally as you type. Emoji count as Unicode characters, not words." id="word-counter-input" label="Text to count" monospace={false} onChange={setInput} placeholder="Start typing or paste text…" rows={10} value={input} />
+        <TextInputPanel
+          description="Counts update locally as you type. Emoji count as Unicode characters, not words."
+          id="word-counter-input"
+          label="Text to count"
+          monospace={false}
+          onChange={setInput}
+          placeholder="Start typing or paste text…"
+          rows={10}
+          value={input}
+        />
       </div>
       <section aria-labelledby="count-results-title" className="mt-6">
-        <h3 className="text-sm font-semibold text-ink" id="count-results-title">Text counts</h3>
-        <div aria-live="polite" className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        <h3 className="text-sm font-semibold text-ink" id="count-results-title">
+          Text counts
+        </h3>
+        <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {metrics.map(([label, value]) => (
-            <div className="rounded-card border border-line bg-canvas p-4" key={label}>
-              <div className="text-2xl font-semibold tabular-nums text-ink">{value.toLocaleString()}</div>
-              <div className="mt-1 text-xs leading-5 text-ink-subtle">{label}</div>
+            <div
+              className="rounded-card border border-line bg-canvas p-4"
+              key={label}
+            >
+              <div className="text-2xl font-semibold tabular-nums text-ink">
+                {value.toLocaleString()}
+              </div>
+              <div className="mt-1 text-xs leading-5 text-ink-subtle">
+                {label}
+              </div>
             </div>
           ))}
         </div>
+        <p aria-live="polite" aria-atomic="true" className="sr-only">
+          {input
+            ? `${counts.words} words, ${counts.characters} characters, ${counts.lines} lines, and ${counts.sentences} sentences.`
+            : ""}
+        </p>
       </section>
     </div>
   );

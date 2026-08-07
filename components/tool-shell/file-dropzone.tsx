@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions -- The native file input remains the keyboard control; its label also accepts pointer drops. */
+
 import { useId, useState } from "react";
 
 import { Icon } from "@/components/ui/icon";
@@ -85,7 +87,9 @@ export function FileDropzone({
           <Icon className="size-5" name="file" />
         </span>
         <span className="mt-4 text-sm font-semibold text-ink">{label}</span>
-        <span className="mt-1 text-xs leading-5 text-ink-subtle">{description}</span>
+        <span className="mt-1 text-xs leading-5 text-ink-subtle">
+          {description}
+        </span>
       </label>
       {error ? (
         <div className="mt-3">

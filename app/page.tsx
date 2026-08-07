@@ -60,11 +60,13 @@ export default function HomePage() {
         }}
       />
 
-      <section className="relative overflow-hidden border-b border-line">
+      <section className="relative z-10 border-b border-line">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-[-360px] h-[620px] w-[880px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,var(--accent-soft)_0%,transparent_70%)] opacity-90"
-        />
+          className="pointer-events-none absolute inset-0 overflow-hidden"
+        >
+          <div className="absolute left-1/2 top-[-360px] h-[620px] w-[880px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,var(--accent-soft)_0%,transparent_70%)] opacity-90" />
+        </div>
         <div className="relative mx-auto max-w-7xl px-4 pb-14 pt-12 sm:px-6 sm:pb-16 sm:pt-16 lg:px-8 lg:pb-20">
           <div className="mx-auto max-w-4xl text-center">
             <p className="inline-flex min-h-8 items-center rounded-full border border-line bg-panel/80 px-3 text-xs font-semibold uppercase tracking-[0.15em] text-accent">
@@ -215,7 +217,6 @@ export default function HomePage() {
       ) : null}
 
       <AdSlot placement="content" />
-      <RecentTools tools={publishedTools} />
 
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
         <div className="grid overflow-hidden rounded-card border border-line bg-panel lg:grid-cols-[1.05fr_0.95fr]">
@@ -277,6 +278,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <RecentTools tools={publishedTools} />
     </>
   );
 }

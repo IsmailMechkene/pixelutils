@@ -13,6 +13,13 @@ export function createPageMetadata({
   description,
   canonical,
 }: PageMetadataInput): Metadata {
+  const socialImage = {
+    url: "/opengraph-image",
+    width: 1200,
+    height: 630,
+    alt: `${title} — PixelUtils`,
+  };
+
   return {
     title,
     description,
@@ -22,11 +29,13 @@ export function createPageMetadata({
       title,
       description,
       url: canonical,
+      images: [socialImage],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description,
+      images: [socialImage.url],
     },
   };
 }
@@ -41,9 +50,7 @@ export function createToolMetadata(tool: ToolDefinition): Metadata {
   });
 }
 
-export function createCategoryMetadata(
-  category: CategoryDefinition,
-): Metadata {
+export function createCategoryMetadata(category: CategoryDefinition): Metadata {
   const canonical = `/categories/${category.slug}` as const;
   const title = `${category.name} tools`;
 

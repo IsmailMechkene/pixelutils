@@ -95,7 +95,12 @@ export interface ToolDefinition {
 
 export type ToolSearchItem = Pick<
   ToolDefinition,
-  "slug" | "name" | "shortDescription" | "keywords" | "searchAliases"
+  | "slug"
+  | "name"
+  | "shortDescription"
+  | "category"
+  | "keywords"
+  | "searchAliases"
 >;
 
 export interface CategoryDefinition {
@@ -103,6 +108,7 @@ export interface CategoryDefinition {
   readonly name: string;
   readonly shortDescription: string;
   readonly description: string;
+  readonly selectionGuide: string;
   readonly icon: IconId;
   readonly order: number;
 }

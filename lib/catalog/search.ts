@@ -8,10 +8,11 @@ export function createToolSearchItems(
   tools: readonly ToolDefinition[],
 ): ToolSearchItem[] {
   return tools.map(
-    ({ slug, name, shortDescription, keywords, searchAliases }) => ({
+    ({ slug, name, shortDescription, category, keywords, searchAliases }) => ({
       slug,
       name,
       shortDescription,
+      category,
       keywords,
       searchAliases,
     }),
@@ -35,6 +36,21 @@ export function searchTools<T extends ToolSearchItem>(
 
     return searchableText.includes(normalizedQuery);
   });
+}
+
+export function groupSearchResults<T extends ToolSearchItem>(
+  results: readonly T[],
+  categories: readonly { readonly name: string; readonly slug: string }[],
+) {
+  const indexedResults = results.map((tool, index) => ({ index, tool }));
+  return categories
+    .map((category) => ({
+      ...category,
+      results: indexedResults.filter(
+        ({ tool }) => tool.category === category.slug,
+      ),
+    }))
+    .filter((category) => category.results.length > 0);
 }
 
 export type SearchNavigationKey = "ArrowDown" | "ArrowUp" | "Home" | "End";

@@ -19,6 +19,8 @@ export function TextOutputPanel({
   actions,
   monospace = true,
 }: TextOutputPanelProps) {
+  const descriptionId = description ? `${id}-description` : undefined;
+
   return (
     <section className="min-w-0" aria-labelledby={`${id}-label`}>
       <div className="flex flex-wrap items-end justify-between gap-3">
@@ -27,23 +29,28 @@ export function TextOutputPanel({
             {label}
           </h3>
           {description ? (
-            <p className="mt-1 text-xs leading-5 text-ink-subtle">{description}</p>
+            <p
+              className="mt-1 text-xs leading-5 text-ink-subtle"
+              id={descriptionId}
+            >
+              {description}
+            </p>
           ) : null}
         </div>
         {actions}
       </div>
-      <div
-        aria-live="polite"
-        aria-atomic="true"
-        className={`mt-3 min-h-72 overflow-auto whitespace-pre-wrap break-words rounded-card border border-line-strong bg-canvas px-4 py-3 text-sm leading-6 ${
-          value ? "text-ink" : "text-ink-subtle"
-        } ${monospace ? "font-mono" : "font-sans"}`}
+      <textarea
+        aria-describedby={descriptionId}
+        aria-labelledby={`${id}-label`}
+        className={`mt-3 min-h-72 w-full resize-y overflow-auto whitespace-pre-wrap break-words rounded-card border border-line-strong bg-canvas px-4 py-3 text-sm leading-6 text-ink outline-none placeholder:text-ink-subtle focus:border-accent ${monospace ? "font-mono" : "font-sans"}`}
         id={id}
-        role="status"
-        tabIndex={0}
-      >
-        {value || emptyMessage}
-      </div>
+        placeholder={emptyMessage}
+        readOnly
+        value={value}
+      />
+      <p aria-live="polite" aria-atomic="true" className="sr-only">
+        {value ? `${label} updated.` : ""}
+      </p>
     </section>
   );
 }

@@ -197,7 +197,10 @@ export default function QrCodeGeneratorWorkspace({ slug }: { slug: string }) {
             >
               QR code preview
             </h3>
-            <p className="mt-1 text-xs text-ink-subtle">
+            <p
+              className="mt-1 text-xs text-ink-subtle"
+              id="qr-preview-description"
+            >
               Scan and verify the result before sharing it.
             </p>
           </div>
@@ -214,9 +217,10 @@ export default function QrCodeGeneratorWorkspace({ slug }: { slug: string }) {
           </ToolActions>
         </div>
         <div
-          aria-live="polite"
+          aria-describedby="qr-preview-description"
+          aria-labelledby="qr-preview-label"
           className="mt-3 flex min-h-72 items-center justify-center overflow-auto rounded-card border border-line-strong bg-canvas p-5"
-          role="status"
+          role="region"
         >
           {imageUrl ? (
             <img
@@ -232,6 +236,9 @@ export default function QrCodeGeneratorWorkspace({ slug }: { slug: string }) {
             </p>
           )}
         </div>
+        <p aria-live="polite" aria-atomic="true" className="sr-only">
+          {imageUrl ? "QR code preview generated." : ""}
+        </p>
       </section>
     </form>
   );

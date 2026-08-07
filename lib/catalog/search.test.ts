@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { getNextSearchIndex, normalizeSearchText, searchTools } from "./search";
+import {
+  getNextSearchIndex,
+  groupSearchResults,
+  normalizeSearchText,
+  searchTools,
+} from "./search";
 import type { ToolDefinition } from "./types";
 
 const baseTool: ToolDefinition = {
@@ -63,5 +68,28 @@ describe("searchTools", () => {
 
   it("returns all tools for an empty query", () => {
     expect(searchTools([baseTool], "   ")).toEqual([baseTool]);
+  });
+});
+
+describe("groupSearchResults", () => {
+  it("uses category order while preserving global result indexes", () => {
+    const textTool = {
+      ...baseTool,
+      slug: "word-counter",
+      name: "Word Counter",
+      category: "text" as const,
+    };
+    const groups = groupSearchResults(
+      [textTool, baseTool],
+      [
+        { slug: "developer", name: "Developer" },
+        { slug: "text", name: "Text" },
+        { slug: "security", name: "Security" },
+      ],
+    );
+
+    expect(groups.map((group) => group.name)).toEqual(["Developer", "Text"]);
+    expect(groups[0]?.results[0]?.index).toBe(1);
+    expect(groups[1]?.results[0]?.index).toBe(0);
   });
 });

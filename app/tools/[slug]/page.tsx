@@ -33,7 +33,9 @@ export function generateStaticParams() {
   return publishedTools.map((tool) => ({ slug: tool.slug }));
 }
 
-export async function generateMetadata({ params }: ToolPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: ToolPageProps): Promise<Metadata> {
   const { slug } = await params;
   const tool = findTool(slug);
   return tool ? createToolMetadata(tool) : {};
@@ -61,11 +63,11 @@ export default async function ToolPage({ params }: ToolPageProps) {
         </ToolWorkspace>
 
         <div className="mt-14 grid gap-14">
-          <ToolHistory tool={tool} />
           <ToolInstructions steps={tool.usageSteps} toolName={tool.name} />
           <ToolExamples examples={tool.examples} />
           <ToolFAQ entries={tool.faqs} />
           <RelatedTools tools={relatedTools} />
+          <ToolHistory tool={tool} />
         </div>
       </ToolPageLayout>
     </>

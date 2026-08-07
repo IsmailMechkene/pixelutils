@@ -30,6 +30,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  trailingSlash: false,
   // Codex's preview browser reaches the local dev server through this bridge
   // address. Next.js blocks cross-site dev chunks and HMR by default unless
   // the preview host is explicitly trusted. This option is development-only

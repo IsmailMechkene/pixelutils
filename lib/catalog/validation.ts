@@ -35,7 +35,9 @@ const isoDatePattern = /^\d{4}-\d{2}-\d{2}$/;
 function isValidDate(value: string) {
   if (!isoDatePattern.test(value)) return false;
   const parsed = new Date(`${value}T00:00:00.000Z`);
-  return !Number.isNaN(parsed.valueOf()) && parsed.toISOString().startsWith(value);
+  return (
+    !Number.isNaN(parsed.valueOf()) && parsed.toISOString().startsWith(value)
+  );
 }
 
 function findDuplicates(values: readonly string[]) {
@@ -64,7 +66,9 @@ export function validateRegistry(
   const toolsBySlug = new Map(tools.map((tool) => [tool.slug, tool]));
   const availableWorkspaces = new Set(workspaceSlugs);
 
-  for (const slug of findDuplicates(categories.map((category) => category.slug))) {
+  for (const slug of findDuplicates(
+    categories.map((category) => category.slug),
+  )) {
     issues.push({
       code: "duplicate-category-slug",
       message: `Category slug "${slug}" is used more than once.`,
@@ -102,6 +106,7 @@ export function validateRegistry(
       ["name", category.name],
       ["shortDescription", category.shortDescription],
       ["description", category.description],
+      ["selectionGuide", category.selectionGuide],
     ] as const) {
       if (!value.trim()) {
         issues.push({
@@ -121,8 +126,9 @@ export function validateRegistry(
     });
   }
 
-
-  for (const name of findDuplicates(tools.map((tool) => normalized(tool.name)))) {
+  for (const name of findDuplicates(
+    tools.map((tool) => normalized(tool.name)),
+  )) {
     issues.push({
       code: "duplicate-tool-name",
       message: `Tool name "${name}" is not unique.`,
@@ -309,7 +315,6 @@ export function validateRegistry(
     }
   }
 
-
   for (const workspaceSlug of workspaceSlugs) {
     if (!toolsBySlug.has(workspaceSlug)) {
       issues.push({
@@ -331,6 +336,8 @@ export function assertValidRegistry(
   const issues = validateRegistry(categories, tools, workspaceSlugs);
   if (issues.length === 0) return;
 
-  const details = issues.map((issue) => `- ${issue.path}: ${issue.message}`).join("\n");
+  const details = issues
+    .map((issue) => `- ${issue.path}: ${issue.message}`)
+    .join("\n");
   throw new Error(`Invalid tool registry:\n${details}`);
 }

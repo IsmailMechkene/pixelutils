@@ -73,16 +73,11 @@ export function ThemeToggle() {
 
   const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
   const label = `Theme: ${theme}. Switch to ${nextTheme}.`;
-  const icon =
-    theme === "light"
-      ? "sun"
-      : theme === "dark"
-        ? "moon"
-        : "system";
+  const icon = theme === "light" ? "sun" : theme === "dark" ? "moon" : "system";
 
   return (
     <button
-      className="inline-flex size-11 items-center justify-center rounded-[10px] border border-line bg-panel text-ink-muted transition-colors duration-150 hover:border-line-strong hover:text-ink"
+      className="inline-flex size-11 items-center justify-center rounded-lg text-ink-muted transition-colors duration-150 hover:bg-panel-muted hover:text-ink sm:size-9"
       type="button"
       onClick={cycleTheme}
       aria-label={label}

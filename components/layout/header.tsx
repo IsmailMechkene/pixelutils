@@ -16,34 +16,34 @@ const links = [
 
 export function Header() {
   const searchItems = createToolSearchItems(publishedTools);
+  const categoryItems = publishedCategories.map(({ name, slug }) => ({
+    name,
+    slug,
+  }));
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-canvas/90 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-40 border-b border-line bg-canvas/85 backdrop-blur-lg">
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:px-8">
         <Logo />
-        <div className="flex items-center gap-2">
-          <nav aria-label="Primary navigation" className="mr-2 hidden md:block">
-            <ul className="flex items-center gap-1">
-              {links.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    className="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-ink-muted transition-colors duration-150 hover:bg-panel-muted hover:text-ink"
-                    href={link.href}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <SearchDialog tools={searchItems} />
+        <nav aria-label="Primary navigation" className="hidden lg:block">
+          <ul className="flex items-center gap-0.5 rounded-[10px] bg-panel-muted/70 p-0.5">
+            {links.map((link) => (
+              <li key={link.href}>
+                <Link
+                  className="inline-flex min-h-8 items-center rounded-lg px-3 text-sm font-medium text-ink-muted transition-colors duration-150 hover:bg-panel hover:text-ink"
+                  href={link.href}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="flex items-center justify-self-end rounded-[10px] border border-line bg-panel/80 p-px shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+          <SearchDialog categories={categoryItems} tools={searchItems} />
+          <span aria-hidden="true" className="mx-0.5 h-4 w-px bg-line" />
           <ThemeToggle />
-          <MobileNavigation
-            categories={publishedCategories.map(({ name, slug }) => ({
-              name,
-              slug,
-            }))}
-          />
+          <MobileNavigation categories={categoryItems} />
         </div>
       </div>
     </header>
