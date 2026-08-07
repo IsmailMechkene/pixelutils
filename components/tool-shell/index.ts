@@ -1,4 +1,5 @@
 export { Breadcrumbs } from "./breadcrumbs";
+export { BidirectionalTextWorkspace } from "./bidirectional-text-workspace";
 export { ClearButton } from "./clear-button";
 export { CopyButton } from "./copy-button";
 export { DownloadButton } from "./download-button";
@@ -10,6 +11,7 @@ export { SampleButton } from "./sample-button";
 export { SwapButton } from "./swap-button";
 export { TextInputPanel } from "./text-input-panel";
 export { TextOutputPanel } from "./text-output-panel";
+export { TextTransformWorkspace } from "./text-transform-workspace";
 export { ToolActions } from "./tool-actions";
 export { ToolExamples } from "./tool-examples";
 export { ToolFAQ } from "./tool-faq";

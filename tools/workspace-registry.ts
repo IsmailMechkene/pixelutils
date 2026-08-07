@@ -12,7 +12,18 @@ export type ToolWorkspaceModule = {
 // chunk per tool. Add a loader in the same change that publishes the tool.
 export const toolWorkspaceLoaders: Readonly<
   Record<string, () => Promise<ToolWorkspaceModule>>
-> = {};
+> = {
+  "json-formatter": () => import("./json-formatter/workspace"),
+  "json-minifier": () => import("./json-minifier/workspace"),
+  "base64-encoder-decoder": () => import("./base64/workspace"),
+  "url-encoder-decoder": () => import("./url-encoder/workspace"),
+  "uuid-generator": () => import("./uuid-generator/workspace"),
+  "unix-timestamp-converter": () => import("./unix-timestamp/workspace"),
+  "word-character-counter": () => import("./word-counter/workspace"),
+  "text-case-converter": () => import("./text-case-converter/workspace"),
+  "duplicate-line-remover": () => import("./duplicate-line-remover/workspace"),
+  "password-generator": () => import("./password-generator/workspace"),
+};
 
 export const toolWorkspaceSlugs = Object.freeze(
   Object.keys(toolWorkspaceLoaders),

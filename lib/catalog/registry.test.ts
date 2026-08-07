@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 
+import { toolWorkspaceSlugs } from "@/tools/workspace-registry";
+
 import { categoryRegistry, toolRegistry } from "./registry";
 import type { ToolDefinition } from "./types";
 import { validateRegistry } from "./validation";
@@ -45,7 +47,9 @@ function createTool(
 
 describe("catalog registry", () => {
   it("keeps the production registry valid", () => {
-    expect(validateRegistry(categoryRegistry, toolRegistry, [])).toEqual([]);
+    expect(
+      validateRegistry(categoryRegistry, toolRegistry, toolWorkspaceSlugs),
+    ).toEqual([]);
   });
 
   it("fails a broken related-tool reference", () => {
