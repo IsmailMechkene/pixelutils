@@ -2,12 +2,16 @@ import Link from "next/link";
 
 import { AdSlot } from "@/components/ads/ad-slot";
 import { CategoryCard } from "@/components/catalog/category-card";
+import { RecentTools } from "@/components/catalog/recent-tools";
 import { SearchShell } from "@/components/catalog/search-shell";
+import { ToolCard } from "@/components/catalog/tool-card";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Icon } from "@/components/ui/icon";
 import {
   categoryRegistry,
-  getToolsForCategory,
+  featuredTools,
+  getCategoryToolCounts,
+  popularTools,
   publishedTools,
 } from "@/lib/catalog/registry";
 import { getSiteUrl, siteConfig } from "@/lib/site";
@@ -34,6 +38,8 @@ const promises = [
 ];
 
 export default function HomePage() {
+  const categoryToolCounts = getCategoryToolCounts();
+
   return (
     <>
       <JsonLd
@@ -70,6 +76,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      {featuredTools.length > 0 ? (
+        <section className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 sm:pt-20 lg:px-8" aria-labelledby="featured-tools-title">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+            Start here
+          </p>
+          <h2 className="mt-3 text-3xl font-semibold tracking-[-0.035em] text-ink" id="featured-tools-title">
+            Featured tools
+          </h2>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredTools.map((tool) => (
+              <ToolCard key={tool.slug} tool={tool} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      <RecentTools tools={publishedTools} />
+
       <section
         className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8"
         id="categories"
@@ -104,11 +128,27 @@ export default function HomePage() {
             <CategoryCard
               category={category}
               key={category.slug}
-              toolCount={getToolsForCategory(category.slug).length}
+              toolCount={categoryToolCounts[category.slug]}
             />
           ))}
         </div>
       </section>
+
+      {popularTools.length > 0 ? (
+        <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 sm:pb-20 lg:px-8" aria-labelledby="popular-tools-title">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+            Curated order
+          </p>
+          <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-ink" id="popular-tools-title">
+            Popular tools
+          </h2>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {popularTools.map((tool) => (
+              <ToolCard key={tool.slug} tool={tool} />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <AdSlot placement="content" />
 

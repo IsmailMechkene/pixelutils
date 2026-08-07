@@ -17,7 +17,6 @@ export function searchTools(
   return tools.filter((tool) => {
     const searchableText = [
       tool.name,
-      tool.shortDescription,
       ...tool.keywords,
       ...tool.searchAliases,
     ]

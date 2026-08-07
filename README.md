@@ -47,8 +47,9 @@ npm run validate   # Run lint, types, tests, and the production build
 ## Architecture
 
 - `app/` contains App Router pages, metadata routes, loading states, and the global design system.
-- `components/` contains small shared layout, catalog, SEO, advertising, and tool-shell components.
-- `lib/catalog/` contains the strongly typed tool/category registry and framework-free search helpers.
+- `components/` contains small shared layout, catalog, SEO, advertising, tool-action, input/output, and tool-shell components.
+- `lib/catalog/` contains the strongly typed tool/category registry, framework-free search helpers, derived selectors, and build-time validation.
+- `lib/storage/` contains versioned local-only recent-tool and content-free activity-history adapters.
 - `tools/` is reserved for isolated tool logic, focused tests, and lazily loaded workspaces.
 - `docs/` contains the product, architecture, roadmap, SEO, and UI decisions used by the project.
 
@@ -59,9 +60,10 @@ The registry is the source of truth for published routes. Category and tool page
 1. Read `AGENTS.md` and the documents in `docs/`.
 2. Create a tool folder containing pure TypeScript logic, focused tests, and a client workspace.
 3. Add complete editorial and SEO content to the typed registry.
-4. Add and validate related-tool relationships.
-5. Confirm processing and privacy claims match the implementation.
-6. Run `npm run validate` before changing the tool status to `published`.
+4. Register the workspace with a direct dynamic import in `tools/workspace-registry.ts`.
+5. Add and validate related-tool relationships.
+6. Confirm processing and privacy claims match the implementation.
+7. Run `npm run validate` before changing the tool status to `published`.
 
 Do not put React, browser globals, storage, telemetry, or network calls in deterministic tool logic.
 
@@ -90,5 +92,5 @@ The GitHub Actions workflow installs the lockfile and runs ESLint, strict type c
 
 - The scaffold makes no external API calls and includes no analytics provider.
 - The `AdSlot` component renders nothing and contains no provider script.
-- Theme preference is the only current browser storage use.
+- Theme preference, recent-tool slugs, and optional content-free tool activity are stored locally. Sensitive-tool history is disabled by default.
 - Future telemetry must never include tool input, uploaded files, output, passwords, tokens, hashes, or clipboard content.

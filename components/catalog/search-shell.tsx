@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { Icon } from "@/components/ui/icon";
 import { searchTools } from "@/lib/catalog/search";
@@ -13,20 +13,7 @@ interface SearchShellProps {
 
 export function SearchShell({ tools }: SearchShellProps) {
   const [query, setQuery] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
   const results = useMemo(() => searchTools(tools, query), [query, tools]);
-
-  useEffect(() => {
-    const focusSearch = (event: KeyboardEvent) => {
-      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
-        event.preventDefault();
-        inputRef.current?.focus();
-      }
-    };
-
-    window.addEventListener("keydown", focusSearch);
-    return () => window.removeEventListener("keydown", focusSearch);
-  }, []);
 
   return (
     <div className="relative mx-auto max-w-3xl">
@@ -39,7 +26,6 @@ export function SearchShell({ tools }: SearchShellProps) {
           Search tools
         </label>
         <input
-          ref={inputRef}
           id="tool-search"
           className="h-14 w-full rounded-card border border-line-strong bg-panel py-3 pl-12 pr-16 text-base text-ink shadow-[0_14px_40px_rgba(0,0,0,0.07)] outline-none placeholder:text-ink-subtle focus:border-accent sm:h-16 sm:text-lg"
           type="search"

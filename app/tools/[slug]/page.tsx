@@ -1,16 +1,28 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { ToolCard } from "@/components/catalog/tool-card";
 import { JsonLd } from "@/components/seo/json-ld";
+import { RelatedTools } from "@/components/tool-shell/related-tools";
+import { ToolExamples } from "@/components/tool-shell/tool-examples";
+import { ToolFAQ } from "@/components/tool-shell/tool-faq";
+import { ToolHistory } from "@/components/tool-shell/tool-history";
+import { ToolInstructions } from "@/components/tool-shell/tool-instructions";
 import { ToolPageLayout } from "@/components/tool-shell/tool-page-layout";
 import { ToolWorkspace } from "@/components/tool-shell/tool-workspace";
+import { ToolWorkspaceRenderer } from "@/components/tool-shell/tool-workspace-renderer";
+import { TrackRecentTool } from "@/components/tool-shell/track-recent-tool";
 import {
   findCategory,
   findTool,
+  getRelatedTools,
   publishedTools,
 } from "@/lib/catalog/registry";
-import { getSiteUrl } from "@/lib/site";
+import { createToolMetadata } from "@/lib/seo/metadata";
+import {
+  createToolApplicationData,
+  createToolBreadcrumbData,
+  createToolFaqData,
+} from "@/lib/seo/structured-data";
 
 interface ToolPageProps {
   params: Promise<{ slug: string }>;
@@ -25,18 +37,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: ToolPageProps): Promise<Metadata> {
   const { slug } = await params;
   const tool = findTool(slug);
-  if (!tool) return {};
-
-  return {
-    title: tool.seo.title,
-    description: tool.seo.description,
-    alternates: { canonical: `/tools/${tool.slug}` },
-    openGraph: {
-      title: tool.seo.title,
-      description: tool.seo.description,
-      url: `/tools/${tool.slug}`,
-    },
-  };
+  return tool ? createToolMetadata(tool) : {};
 }
 
 export default async function ToolPage({ params }: ToolPageProps) {
@@ -47,51 +48,27 @@ export default async function ToolPage({ params }: ToolPageProps) {
   const category = findCategory(tool.category);
   if (!category) notFound();
 
-  const relatedTools = tool.relatedTools
-    .map(findTool)
-    .filter((relatedTool) => relatedTool !== undefined);
+  const relatedTools = getRelatedTools(tool);
+  const faqData = createToolFaqData(tool);
 
   return (
     <>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "WebApplication",
-          name: tool.name,
-          description: tool.shortDescription,
-          url: new URL(`/tools/${tool.slug}`, getSiteUrl()).toString(),
-          applicationCategory: "UtilitiesApplication",
-          operatingSystem: "Any modern web browser",
-          offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-        }}
-      />
-      <ToolPageLayout
-        categoryName={category.name}
-        relatedTools={
-          relatedTools.length > 0 ? (
-            <section aria-labelledby="related-tools-title">
-              <h2
-                className="text-2xl font-semibold tracking-[-0.03em] text-ink"
-                id="related-tools-title"
-              >
-                Related tools
-              </h2>
-              <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {relatedTools.map((relatedTool) => (
-                  <ToolCard key={relatedTool.slug} tool={relatedTool} />
-                ))}
-              </div>
-            </section>
-          ) : null
-        }
-        tool={tool}
-      >
+      <JsonLd data={createToolApplicationData(tool)} />
+      <JsonLd data={createToolBreadcrumbData(tool, category)} />
+      {faqData ? <JsonLd data={faqData} /> : null}
+      <TrackRecentTool slug={tool.slug} />
+      <ToolPageLayout category={category} tool={tool}>
         <ToolWorkspace>
-          <p className="text-sm leading-6 text-ink-muted">
-            The tool-specific client workspace is loaded here. Published tools
-            replace this scaffold with an isolated, tested implementation.
-          </p>
+          <ToolWorkspaceRenderer slug={tool.slug} />
         </ToolWorkspace>
+
+        <div className="mt-14 grid gap-14">
+          <ToolHistory tool={tool} />
+          <ToolInstructions steps={tool.usageSteps} toolName={tool.name} />
+          <ToolExamples examples={tool.examples} />
+          <ToolFAQ entries={tool.faqs} />
+          <RelatedTools tools={relatedTools} />
+        </div>
       </ToolPageLayout>
     </>
   );

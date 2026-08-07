@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ToolCard } from "@/components/catalog/tool-card";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/tool-shell/breadcrumbs";
 import { Icon } from "@/components/ui/icon";
 import {
@@ -10,6 +11,8 @@ import {
   findCategory,
   getToolsForCategory,
 } from "@/lib/catalog/registry";
+import { createCategoryMetadata } from "@/lib/seo/metadata";
+import { createCategoryCollectionData } from "@/lib/seo/structured-data";
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
@@ -29,19 +32,10 @@ export async function generateMetadata({
 
   if (!category) return {};
 
-  const hasPublishedTools = getToolsForCategory(category.slug).length > 0;
-
-  return {
-    title: `${category.name} tools`,
-    description: category.description,
-    alternates: { canonical: `/categories/${category.slug}` },
-    robots: hasPublishedTools ? undefined : { index: false, follow: true },
-    openGraph: {
-      title: `${category.name} tools`,
-      description: category.description,
-      url: `/categories/${category.slug}`,
-    },
-  };
+  return createCategoryMetadata(
+    category,
+    getToolsForCategory(category.slug).length,
+  );
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
@@ -52,7 +46,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const tools = getToolsForCategory(category.slug);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <>
+      {tools.length > 0 ? (
+        <JsonLd data={createCategoryCollectionData(category, tools)} />
+      ) : null}
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
       <Breadcrumbs
         items={[{ href: "/", label: "Home" }, { label: category.name }]}
       />
@@ -99,6 +97,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </Link>
         </section>
       )}
-    </div>
+      </div>
+    </>
   );
 }

@@ -1,5 +1,8 @@
 import Link from "next/link";
 
+import { SearchDialog } from "@/components/catalog/search-dialog";
+import { publishedTools } from "@/lib/catalog/registry";
+
 import { Logo } from "./logo";
 import { MobileNavigation } from "./mobile-navigation";
 import { ThemeToggle } from "./theme-toggle";
@@ -30,6 +33,7 @@ export function Header() {
               ))}
             </ul>
           </nav>
+          <SearchDialog tools={publishedTools} />
           <ThemeToggle />
           <MobileNavigation />
         </div>
