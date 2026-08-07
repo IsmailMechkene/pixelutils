@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 
 import { Icon } from "@/components/ui/icon";
 
 type ThemePreference = "light" | "dark" | "system";
 
 const themes: readonly ThemePreference[] = ["system", "light", "dark"];
+const themeChangeEvent = "pixelutils:theme-change";
 
 function getStoredTheme(): ThemePreference {
   if (typeof window === "undefined") return "system";
@@ -32,8 +33,21 @@ function applyTheme(theme: ThemePreference) {
   document.documentElement.style.colorScheme = resolved;
 }
 
+function subscribeToTheme(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener(themeChangeEvent, callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(themeChangeEvent, callback);
+  };
+}
+
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<ThemePreference>(getStoredTheme);
+  const theme = useSyncExternalStore<ThemePreference>(
+    subscribeToTheme,
+    getStoredTheme,
+    (): ThemePreference => "system",
+  );
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-color-scheme: dark)");
@@ -47,19 +61,24 @@ export function ThemeToggle() {
   }, [theme]);
 
   function cycleTheme() {
-    const currentIndex = themes.indexOf(theme);
+    const currentIndex = themes.indexOf(theme ?? "system");
     const nextTheme = themes[(currentIndex + 1) % themes.length];
     try {
       window.localStorage.setItem("pixelutils-theme", nextTheme);
     } catch {
       // Theme selection still works for this page when storage is unavailable.
     }
-    setTheme(nextTheme);
+    window.dispatchEvent(new Event(themeChangeEvent));
   }
 
   const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
   const label = `Theme: ${theme}. Switch to ${nextTheme}.`;
-  const icon = theme === "light" ? "sun" : theme === "dark" ? "moon" : "system";
+  const icon =
+    theme === "light"
+      ? "sun"
+      : theme === "dark"
+        ? "moon"
+        : "system";
 
   return (
     <button
@@ -68,7 +87,6 @@ export function ThemeToggle() {
       onClick={cycleTheme}
       aria-label={label}
       title={label}
-      suppressHydrationWarning
     >
       <Icon className="size-[18px]" name={icon} />
     </button>
