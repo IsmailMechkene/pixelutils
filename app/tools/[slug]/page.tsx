@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+import { AdSlot } from "@/components/ads/ad-slot";
 import { JsonLd } from "@/components/seo/json-ld";
 import { RelatedTools } from "@/components/tool-shell/related-tools";
 import { ToolExamples } from "@/components/tool-shell/tool-examples";
@@ -62,7 +63,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
       <ToolPageLayout category={category} tool={tool}>
         <ToolWorkspace>
           <Suspense fallback={<LoadingState label="Loading tool workspace" />}>
-            <ToolWorkspaceRenderer slug={tool.slug} />
+            <ToolWorkspaceRenderer category={tool.category} slug={tool.slug} />
           </Suspense>
         </ToolWorkspace>
 
@@ -72,6 +73,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
           <ToolFAQ entries={tool.faqs} />
           <RelatedTools tools={relatedTools} />
           <ToolHistory tool={tool} />
+          <AdSlot placement="tool-after-content" />
         </div>
       </ToolPageLayout>
     </>

@@ -1,3 +1,6 @@
+"use client";
+
+import { useToolAnalytics } from "@/components/analytics/tool-analytics-boundary";
 import { ActionButton } from "./action-button";
 
 interface SwapButtonProps {
@@ -11,11 +14,15 @@ export function SwapButton({
   disabled = false,
   label = "Swap",
 }: SwapButtonProps) {
+  const analytics = useToolAnalytics();
   return (
     <ActionButton
       disabled={disabled}
       icon="arrow-left-right"
-      onClick={onSwap}
+      onClick={() => {
+        onSwap();
+        analytics?.action("swap");
+      }}
       tone="quiet"
     >
       {label}

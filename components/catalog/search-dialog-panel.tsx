@@ -26,6 +26,8 @@ import {
 } from "@/lib/catalog/search";
 import type { CatalogSearchIndex } from "@/lib/catalog/types";
 import { recordSearchQuery } from "@/lib/storage/catalog-preferences";
+import { trackSearchPerformed } from "@/lib/analytics/client";
+import type { CategorySlug } from "@/lib/catalog/types";
 
 import { RecentSearches } from "./recent-searches";
 
@@ -73,8 +75,14 @@ export default function SearchDialogPanel({ onClose }: SearchDialogPanelProps) {
     );
   }
 
-  function commitSearch() {
+  function commitSearch(openedToolSlug: string) {
     if (query) recordSearchQuery(query);
+    trackSearchPerformed({
+      surface: "header",
+      openedToolSlug,
+      categoryFilter:
+        category === ALL_CATEGORIES ? undefined : (category as CategorySlug),
+    });
   }
 
   function selectWithKeyboard(key: SearchNavigationKey) {
@@ -218,7 +226,7 @@ export default function SearchDialogPanel({ onClose }: SearchDialogPanelProps) {
                 event.preventDefault();
                 const selected = results[activeIndex];
                 if (selected) {
-                  commitSearch();
+                  commitSearch(selected.slug);
                   onClose(false);
                   router.push(`/tools/${selected.slug}`);
                 }
@@ -300,7 +308,7 @@ export default function SearchDialogPanel({ onClose }: SearchDialogPanelProps) {
                           href={`/tools/${tool.slug}`}
                           id={`dialog-search-option-${index}`}
                           onClick={() => {
-                            commitSearch();
+                            commitSearch(tool.slug);
                             onClose(false);
                           }}
                           onMouseEnter={() => setActiveIndex(index)}

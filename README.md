@@ -23,11 +23,15 @@ Open [http://localhost:3000](http://localhost:3000). The application does not re
 
 ## Environment variables
 
-| Variable                  | Required    | Purpose                                                                                    |
-| ------------------------- | ----------- | ------------------------------------------------------------------------------------------ |
-| `SITE_URL`                | Production  | Absolute canonical origin, for example `https://www.example.com`                           |
-| `CONTACT_EMAIL`           | Recommended | Address used by the contact page's `mailto:` link                                          |
-| `NEXT_PUBLIC_ADS_ENABLED` | No          | Reserved for future advertising; keep `false` until a provider and policies are configured |
+| Variable                         | Required    | Purpose                                                                 |
+| -------------------------------- | ----------- | ----------------------------------------------------------------------- |
+| `SITE_URL`                       | Production  | Absolute canonical origin, for example `https://www.example.com`        |
+| `CONTACT_EMAIL`                  | Recommended | Address used by the contact page's `mailto:` link                       |
+| `NEXT_PUBLIC_ANALYTICS_ENABLED`  | No          | Enables the analytics boundary only in production; defaults to `false`  |
+| `NEXT_PUBLIC_ANALYTICS_PROVIDER` | No          | Public identifier that must match an explicitly registered adapter      |
+| `ADS_ENABLED`                    | No          | Allows completely configured ad slots to render; defaults to `false`    |
+| `ADS_PROVIDER`                   | No          | Server-side provider identifier; no provider is included by default     |
+| `AD_SLOT_*`                      | No          | Verified placement identifiers supplied by a future advertising partner |
 
 Do not place secrets in `NEXT_PUBLIC_*` variables because Next.js includes them in browser-accessible output. Site and contact configuration remain server-side.
 
@@ -50,6 +54,8 @@ npm run validate   # Run lint, types, tests, and the production build
 - `app/` contains App Router pages, metadata routes, loading states, and the global design system.
 - `components/` contains small shared layout, catalog, SEO, advertising, tool-action, input/output, and tool-shell components.
 - `lib/catalog/` contains the strongly typed tool/category registry, framework-free search helpers, derived selectors, and build-time validation.
+- `lib/analytics/` contains the allow-listed event schema, inert dispatcher, and provider registration contract.
+- `lib/ads/` contains server-only advertising configuration and placement identifiers.
 - `lib/storage/` contains bounded, versioned adapters for local-only recents, favorites, committed search history, and content-free activity history.
 - `hooks/` contains small client adapters for subscribing to defensive local preferences without duplicating hydration logic.
 - `tools/` is reserved for isolated tool logic, focused tests, and lazily loaded workspaces.
@@ -77,7 +83,7 @@ Do not put React, browser globals, storage, telemetry, or network calls in deter
 2. Use the detected Next.js framework settings.
 3. Set `SITE_URL` to the final HTTPS origin.
 4. Set `CONTACT_EMAIL` to the monitored contact address.
-5. Leave `NEXT_PUBLIC_ADS_ENABLED=false`.
+5. Leave analytics and advertising variables disabled unless audited adapters and policies have been added.
 6. Deploy, then verify the homepage, category pages, privacy page, `robots.txt`, `sitemap.xml`, and `manifest.webmanifest`.
 
 The ordinary tool architecture does not require Vercel Functions, a database, or paid services.
@@ -90,9 +96,11 @@ Use Cloudflare's current supported Next.js deployment adapter and verify its han
 
 The GitHub Actions workflow installs the lockfile and runs ESLint, strict type checking, Vitest, and the production build for pushes to `main` and pull requests.
 
-## Privacy and advertising
+## Analytics, privacy, and advertising
 
-- The scaffold makes no external API calls and includes no analytics provider.
-- The `AdSlot` component renders nothing and contains no provider script.
+- No analytics or advertising provider is installed. The application makes no analytics or advertising requests under default configuration.
+- Analytics is production-only, requires complete public configuration and an explicitly registered adapter, and accepts only the categorical events documented in `docs/analytics-advertising.md`.
+- `AdSlot` requires advertising to be enabled, a provider identifier, and a placement identifier. Otherwise it returns `null` and reserves no space.
+- `public` advertising authorization is represented by `/ads.txt`, which currently states that no sellers are authorized and contains no invented publisher ID.
 - Theme preference, recent/favorite tool slugs, committed catalog searches, and optional content-free tool activity are stored locally. Search history is bounded and clearable; sensitive-tool history is disabled by default.
-- Future telemetry must never include tool input, uploaded files, output, passwords, tokens, hashes, or clipboard content.
+- Telemetry must never include search text, tool input, uploaded files or filenames, output, passwords, tokens, hashes, clipboard content, or full URLs.

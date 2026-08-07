@@ -1,3 +1,6 @@
+"use client";
+
+import { useToolAnalytics } from "@/components/analytics/tool-analytics-boundary";
 import { ActionButton } from "./action-button";
 
 interface UploadButtonProps {
@@ -11,11 +14,15 @@ export function UploadButton({
   disabled = false,
   label = "Upload",
 }: UploadButtonProps) {
+  const analytics = useToolAnalytics();
   return (
     <ActionButton
       disabled={disabled}
       icon="file-up"
-      onClick={onUpload}
+      onClick={() => {
+        onUpload();
+        analytics?.action("upload");
+      }}
       tone="quiet"
     >
       {label}

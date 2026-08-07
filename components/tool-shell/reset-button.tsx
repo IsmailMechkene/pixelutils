@@ -1,3 +1,6 @@
+"use client";
+
+import { useToolAnalytics } from "@/components/analytics/tool-analytics-boundary";
 import { ActionButton } from "./action-button";
 
 interface ResetButtonProps {
@@ -11,11 +14,15 @@ export function ResetButton({
   disabled = false,
   label = "Reset",
 }: ResetButtonProps) {
+  const analytics = useToolAnalytics();
   return (
     <ActionButton
       disabled={disabled}
       icon="rotate-ccw"
-      onClick={onReset}
+      onClick={() => {
+        onReset();
+        analytics?.action("reset");
+      }}
       tone="quiet"
     >
       {label}

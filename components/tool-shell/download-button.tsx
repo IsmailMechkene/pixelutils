@@ -1,5 +1,8 @@
 "use client";
 
+import { useToolAnalytics } from "@/components/analytics/tool-analytics-boundary";
+import type { AnalyticsDownloadKind } from "@/lib/analytics/schema";
+
 import { ActionButton } from "./action-button";
 
 interface DownloadButtonProps {
@@ -8,6 +11,7 @@ interface DownloadButtonProps {
   mimeType?: string;
   disabled?: boolean;
   label?: string;
+  analyticsKind?: AnalyticsDownloadKind;
   onDownloaded?: () => void;
 }
 
@@ -17,8 +21,10 @@ export function DownloadButton({
   mimeType = "text/plain;charset=utf-8",
   disabled = false,
   label = "Download",
+  analyticsKind = "text",
   onDownloaded,
 }: DownloadButtonProps) {
+  const analytics = useToolAnalytics();
   function download() {
     const blob =
       data instanceof Blob ? data : new Blob([data], { type: mimeType });
@@ -32,6 +38,7 @@ export function DownloadButton({
     anchor.click();
     anchor.remove();
     window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    analytics?.download(analyticsKind);
     onDownloaded?.();
   }
 

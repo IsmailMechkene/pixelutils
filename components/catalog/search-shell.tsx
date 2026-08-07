@@ -14,6 +14,8 @@ import {
 } from "@/lib/catalog/search";
 import type { ToolSearchItem } from "@/lib/catalog/types";
 import { recordSearchQuery } from "@/lib/storage/catalog-preferences";
+import { trackSearchPerformed } from "@/lib/analytics/client";
+import type { CategorySlug } from "@/lib/catalog/types";
 
 interface SearchShellProps {
   tools: readonly ToolSearchItem[];
@@ -101,6 +103,14 @@ export function SearchShell({ tools, categories }: SearchShellProps) {
               const selected = results[activeIndex];
               if (selected) {
                 recordSearchQuery(query);
+                trackSearchPerformed({
+                  surface: "homepage",
+                  openedToolSlug: selected.slug,
+                  categoryFilter:
+                    category === ALL_CATEGORIES
+                      ? undefined
+                      : (category as CategorySlug),
+                });
                 router.push(`/tools/${selected.slug}`);
               }
             } else if (event.key === "Escape") {
@@ -135,6 +145,14 @@ export function SearchShell({ tools, categories }: SearchShellProps) {
                     id={`homepage-search-option-${index}`}
                     onClick={() => {
                       recordSearchQuery(query);
+                      trackSearchPerformed({
+                        surface: "homepage",
+                        openedToolSlug: tool.slug,
+                        categoryFilter:
+                          category === ALL_CATEGORIES
+                            ? undefined
+                            : (category as CategorySlug),
+                      });
                       setQuery("");
                     }}
                     onMouseEnter={() => setActiveIndex(index)}

@@ -39,6 +39,16 @@ export default function TermsPage() {
             platform.
           </p>
         </section>
+        <section>
+          <h2 className="content-title">Analytics and advertising</h2>
+          <p className="mt-3">
+            The current application does not include an analytics or advertising
+            provider. Future providers may be enabled only through explicit
+            deployment configuration and must follow the published privacy
+            policy. Advertising, if introduced, will remain separate from tool
+            controls and will not be required to use the tools.
+          </p>
+        </section>
       </div>
     </article>
   );

@@ -1,13 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { AnalyticsCopyTarget } from "@/lib/analytics/schema";
 
 import { ActionButton } from "./action-button";
+import { useToolAnalytics } from "@/components/analytics/tool-analytics-boundary";
 
 interface CopyButtonProps {
   value: string;
   disabled?: boolean;
   label?: string;
+  analyticsTarget?: AnalyticsCopyTarget;
   onCopied?: () => void;
   onError?: (message: string) => void;
 }
@@ -16,9 +19,11 @@ export function CopyButton({
   value,
   disabled = false,
   label = "Copy",
+  analyticsTarget = "output",
   onCopied,
   onError,
 }: CopyButtonProps) {
+  const analytics = useToolAnalytics();
   const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
     undefined,
@@ -37,6 +42,7 @@ export function CopyButton({
         throw new Error("Clipboard access is not available in this browser.");
       }
       await navigator.clipboard.writeText(value);
+      analytics?.copy(analyticsTarget);
       setState("copied");
       onCopied?.();
       if (timeoutRef.current) clearTimeout(timeoutRef.current);

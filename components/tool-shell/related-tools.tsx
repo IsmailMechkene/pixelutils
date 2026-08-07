@@ -18,7 +18,9 @@ export function RelatedTools({ tools }: RelatedToolsProps) {
       </p>
       <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {tools.map((tool) => (
-          <ToolCard key={tool.slug} tool={tool} />
+          <div data-related-tool-slug={tool.slug} key={tool.slug}>
+            <ToolCard tool={tool} />
+          </div>
         ))}
       </div>
     </section>

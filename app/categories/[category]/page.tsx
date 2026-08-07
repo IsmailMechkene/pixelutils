@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { AdSlot } from "@/components/ads/ad-slot";
 import { ToolCard } from "@/components/catalog/tool-card";
 import { CatalogSidebar } from "@/components/catalog/catalog-sidebar";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -77,6 +78,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 ))}
               </div>
             </section>
+
+            <div className="mt-12">
+              <AdSlot placement="category-content" />
+            </div>
 
             <section
               aria-labelledby="category-guide-title"

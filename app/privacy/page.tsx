@@ -36,12 +36,27 @@ export default function PrivacyPage() {
           </p>
         </section>
         <section>
-          <h2 className="content-title">Analytics and advertising</h2>
+          <h2 className="content-title">Analytics</h2>
           <p className="mt-3">
-            Analytics and advertising are not enabled in this scaffold. If
-            either is configured in the future, this notice will be updated
-            first. Tool input, files, output, passwords, tokens, and clipboard
-            content must never be sent to analytics.
+            No analytics provider is installed or configured in the current
+            application. The analytics interface is disabled during local
+            development and does not make requests when configuration or a
+            provider adapter is absent. If enabled in a future deployment, it
+            may receive only categorical events such as a tool identifier,
+            category, action name, search surface, or related-tool navigation.
+            It must never receive search text, tool input or output, uploaded
+            files or filenames, passwords, JWTs, tokens, hashes, clipboard
+            content, or full URLs.
+          </p>
+        </section>
+        <section>
+          <h2 className="content-title">Advertising</h2>
+          <p className="mt-3">
+            Advertisements and advertising provider code are not enabled in the
+            current application. Disabled ad slots render nothing and reserve no
+            space. The published ads.txt placeholder authorizes no sellers.
+            Before advertising is enabled, this notice and any consent controls
+            required for the selected provider and regions must be updated.
           </p>
         </section>
         <section>
