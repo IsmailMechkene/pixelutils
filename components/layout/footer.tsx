@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { categoryRegistry } from "@/lib/catalog/registry";
+import { publishedCategories } from "@/lib/catalog/registry";
 
 export function Footer() {
   return (
@@ -14,8 +14,9 @@ export function Footer() {
         </div>
         <div>
           <h2 className="text-sm font-semibold text-ink">Categories</h2>
-          <ul className="mt-3 grid gap-1 text-sm text-ink-muted">
-            {categoryRegistry.slice(0, 4).map((category) => (
+          {publishedCategories.length > 0 ? (
+            <ul className="mt-3 grid gap-1 text-sm text-ink-muted">
+            {publishedCategories.slice(0, 4).map((category) => (
               <li key={category.slug}>
                 <Link
                   className="inline-flex min-h-11 items-center hover:text-ink"
@@ -25,7 +26,12 @@ export function Footer() {
                 </Link>
               </li>
             ))}
-          </ul>
+            </ul>
+          ) : (
+            <p className="mt-3 text-sm leading-6 text-ink-muted">
+              Tested tools are being prepared for publication.
+            </p>
+          )}
         </div>
         <div>
           <h2 className="text-sm font-semibold text-ink">PixelUtils</h2>
@@ -51,7 +57,7 @@ export function Footer() {
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-5 text-xs text-ink-subtle sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <p>© {new Date().getFullYear()} PixelUtils.</p>
-          <p>No account required. Tool data stays in your browser.</p>
+          <p>No account required. Each tool states where processing happens.</p>
         </div>
       </div>
     </footer>

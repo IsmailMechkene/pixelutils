@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { SearchDialog } from "@/components/catalog/search-dialog";
 import { publishedTools } from "@/lib/catalog/registry";
+import { createToolSearchItems } from "@/lib/catalog/search";
 
 import { Logo } from "./logo";
 import { MobileNavigation } from "./mobile-navigation";
@@ -14,6 +15,8 @@ const links = [
 ];
 
 export function Header() {
+  const searchItems = createToolSearchItems(publishedTools);
+
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-canvas/90 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
@@ -33,7 +36,7 @@ export function Header() {
               ))}
             </ul>
           </nav>
-          <SearchDialog tools={publishedTools} />
+          <SearchDialog tools={searchItems} />
           <ThemeToggle />
           <MobileNavigation />
         </div>

@@ -91,3 +91,24 @@ export function createCategoryCollectionData(
     },
   };
 }
+
+export function createCategoryBreadcrumbData(category: CategoryDefinition) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: absoluteUrl("/"),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: category.name,
+        item: absoluteUrl(`/categories/${category.slug}`),
+      },
+    ],
+  };
+}

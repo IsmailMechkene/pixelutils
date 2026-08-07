@@ -14,9 +14,15 @@ import {
   popularTools,
   publishedTools,
 } from "@/lib/catalog/registry";
+import { createToolSearchItems } from "@/lib/catalog/search";
 import { getSiteUrl, siteConfig } from "@/lib/site";
+import type { IconId } from "@/lib/catalog/types";
 
-const promises = [
+const promises: readonly {
+  icon: IconId;
+  title: string;
+  description: string;
+}[] = [
   {
     icon: "shield",
     title: "Private by design",
@@ -39,6 +45,7 @@ const promises = [
 
 export default function HomePage() {
   const categoryToolCounts = getCategoryToolCounts();
+  const searchItems = createToolSearchItems(publishedTools);
 
   return (
     <>
@@ -71,7 +78,7 @@ export default function HomePage() {
             </p>
           </div>
           <div className="mt-10 sm:mt-12" id="find-a-tool">
-            <SearchShell tools={publishedTools} />
+            <SearchShell tools={searchItems} />
           </div>
         </div>
       </section>

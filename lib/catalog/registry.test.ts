@@ -71,6 +71,31 @@ describe("catalog registry", () => {
     expect(issues).toEqual(
       expect.arrayContaining([
         expect.objectContaining({ code: "duplicate-tool-slug" }),
+        expect.objectContaining({ code: "duplicate-tool-name" }),
+        expect.objectContaining({ code: "duplicate-seo-title" }),
+        expect.objectContaining({ code: "duplicate-seo-description" }),
+      ]),
+    );
+  });
+
+  it("normalizes metadata before checking uniqueness", () => {
+    const first = createTool();
+    const second = createTool({
+      slug: "json-minifier",
+      name: "JSON Minifier",
+      seo: {
+        title: `  ${first.seo.title.toUpperCase()}  `,
+        description: first.seo.description.toUpperCase(),
+      },
+    });
+    const issues = validateRegistry(
+      categoryRegistry,
+      [first, second],
+      [first.slug, second.slug],
+    );
+
+    expect(issues).toEqual(
+      expect.arrayContaining([
         expect.objectContaining({ code: "duplicate-seo-title" }),
         expect.objectContaining({ code: "duplicate-seo-description" }),
       ]),
@@ -124,6 +149,16 @@ describe("catalog registry", () => {
     expect(issues).toEqual(
       expect.arrayContaining([
         expect.objectContaining({ code: "invalid-date-order" }),
+      ]),
+    );
+  });
+
+  it("rejects a workspace without a registry definition", () => {
+    const issues = validateRegistry(categoryRegistry, [], ["orphan-workspace"]);
+
+    expect(issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "unknown-workspace" }),
       ]),
     );
   });

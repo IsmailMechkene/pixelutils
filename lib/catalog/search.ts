@@ -1,13 +1,25 @@
-import type { ToolDefinition } from "./types";
+import type { ToolDefinition, ToolSearchItem } from "./types";
 
 export function normalizeSearchText(value: string) {
-  return value.trim().toLocaleLowerCase().replace(/\s+/g, " ");
+  return value.normalize("NFKC").trim().toLowerCase().replace(/\s+/g, " ");
 }
 
-export function searchTools(
+export function createToolSearchItems(
   tools: readonly ToolDefinition[],
+): ToolSearchItem[] {
+  return tools.map(({ slug, name, shortDescription, keywords, searchAliases }) => ({
+    slug,
+    name,
+    shortDescription,
+    keywords,
+    searchAliases,
+  }));
+}
+
+export function searchTools<T extends ToolSearchItem>(
+  tools: readonly T[],
   query: string,
-): ToolDefinition[] {
+): T[] {
   const normalizedQuery = normalizeSearchText(query);
 
   if (!normalizedQuery) {

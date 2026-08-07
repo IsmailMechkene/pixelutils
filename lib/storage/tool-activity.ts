@@ -11,15 +11,29 @@ export interface StorageLike {
 }
 
 export interface ToolHistoryEntry {
-  id: string;
-  action: string;
+  action: ToolHistoryAction;
   timestamp: string;
 }
+
+export const toolHistoryActions = [
+  "processed",
+  "copied",
+  "downloaded",
+  "cleared",
+  "sampled",
+  "swapped",
+] as const;
+
+export type ToolHistoryAction = (typeof toolHistoryActions)[number];
 
 function resolveStorage(storage?: StorageLike) {
   if (storage) return storage;
   if (typeof window === "undefined") return undefined;
-  return window.localStorage;
+  try {
+    return window.localStorage;
+  } catch {
+    return undefined;
+  }
 }
 
 function readStringArray(key: string, storage?: StorageLike): string[] {
@@ -40,8 +54,8 @@ function isHistoryEntry(value: unknown): value is ToolHistoryEntry {
   if (!value || typeof value !== "object") return false;
   const candidate = value as Partial<ToolHistoryEntry>;
   return (
-    typeof candidate.id === "string" &&
     typeof candidate.action === "string" &&
+    toolHistoryActions.includes(candidate.action as ToolHistoryAction) &&
     typeof candidate.timestamp === "string"
   );
 }
@@ -116,7 +130,7 @@ export function parseToolHistory(snapshot: string): ToolHistoryEntry[] {
 
 export function recordToolHistory(
   slug: string,
-  action: string,
+  action: ToolHistoryAction,
   options: {
     sensitive: boolean;
     enabled?: boolean;
@@ -131,7 +145,6 @@ export function recordToolHistory(
   if (!resolvedStorage) return false;
   const timestamp = (options.now ?? new Date()).toISOString();
   const entry: ToolHistoryEntry = {
-    id: `${timestamp}:${action}`,
     action,
     timestamp,
   };

@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo/metadata";
+import { staticPageSeo } from "@/lib/seo/static-pages";
 
-export const metadata: Metadata = {
-  title: "Privacy",
-  description:
-    "How PixelUtils approaches local browser processing, storage, analytics, and advertising.",
-  alternates: { canonical: "/privacy" },
-};
+export const metadata: Metadata = createPageMetadata(staticPageSeo.privacy);
 
 export default function PrivacyPage() {
   return (
@@ -34,9 +31,10 @@ export default function PrivacyPage() {
             Local storage
           </h2>
           <p className="mt-3">
-            Your browser may store your theme preference. Future recently used tool
-            history will contain tool identifiers only, not input or output. You can
-            clear browser storage at any time.
+            Your browser may store your theme preference and recently used tool
+            identifiers. Optional activity history contains only fixed action labels
+            and timestamps, never tool input or output. History is disabled by
+            default for sensitive tools. You can clear browser storage at any time.
           </p>
         </section>
         <section>

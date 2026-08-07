@@ -27,7 +27,7 @@ export function DownloadButton({
     anchor.download = filename;
     anchor.rel = "noopener";
     anchor.click();
-    URL.revokeObjectURL(url);
+    window.setTimeout(() => URL.revokeObjectURL(url), 0);
     onDownloaded?.();
   }
 

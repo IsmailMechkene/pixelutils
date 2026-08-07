@@ -10,7 +10,6 @@ import { ToolInstructions } from "@/components/tool-shell/tool-instructions";
 import { ToolPageLayout } from "@/components/tool-shell/tool-page-layout";
 import { ToolWorkspace } from "@/components/tool-shell/tool-workspace";
 import { ToolWorkspaceRenderer } from "@/components/tool-shell/tool-workspace-renderer";
-import { TrackRecentTool } from "@/components/tool-shell/track-recent-tool";
 import {
   findCategory,
   findTool,
@@ -56,7 +55,6 @@ export default async function ToolPage({ params }: ToolPageProps) {
       <JsonLd data={createToolApplicationData(tool)} />
       <JsonLd data={createToolBreadcrumbData(tool, category)} />
       {faqData ? <JsonLd data={faqData} /> : null}
-      <TrackRecentTool slug={tool.slug} />
       <ToolPageLayout category={category} tool={tool}>
         <ToolWorkspace>
           <ToolWorkspaceRenderer slug={tool.slug} />

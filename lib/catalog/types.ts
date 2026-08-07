@@ -91,6 +91,11 @@ export interface ToolDefinition {
   readonly status: ToolStatus;
 }
 
+export type ToolSearchItem = Pick<
+  ToolDefinition,
+  "slug" | "name" | "shortDescription" | "keywords" | "searchAliases"
+>;
+
 export interface CategoryDefinition {
   readonly slug: CategorySlug;
   readonly name: string;

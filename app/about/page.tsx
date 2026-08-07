@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo/metadata";
+import { staticPageSeo } from "@/lib/seo/static-pages";
 
-export const metadata: Metadata = {
-  title: "About",
-  description:
-    "Why PixelUtils is building a calmer, faster, and more private collection of browser tools.",
-  alternates: { canonical: "/about" },
-};
+export const metadata: Metadata = createPageMetadata(staticPageSeo.about);
 
 export default function AboutPage() {
   return (

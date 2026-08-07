@@ -46,7 +46,7 @@ describe("recent tools storage", () => {
 describe("tool history storage", () => {
   it("is disabled by default for sensitive tools", () => {
     const storage = new MemoryStorage();
-    const stored = recordToolHistory("password-generator", "Generated password", {
+    const stored = recordToolHistory("password-generator", "processed", {
       sensitive: true,
       storage,
       now: new Date("2026-08-07T12:00:00.000Z"),
@@ -58,7 +58,7 @@ describe("tool history storage", () => {
 
   it("stores action names and timestamps without content", () => {
     const storage = new MemoryStorage();
-    recordToolHistory("json-formatter", "Formatted JSON", {
+    recordToolHistory("json-formatter", "processed", {
       sensitive: false,
       storage,
       now: new Date("2026-08-07T12:00:00.000Z"),
@@ -69,10 +69,23 @@ describe("tool history storage", () => {
     );
     expect(history).toHaveLength(1);
     expect(history[0]).toMatchObject({
-      action: "Formatted JSON",
+      action: "processed",
       timestamp: "2026-08-07T12:00:00.000Z",
     });
     expect(JSON.stringify(history)).not.toContain("input");
     expect(JSON.stringify(history)).not.toContain("output");
+  });
+
+  it("drops unrecognized action values from browser storage", () => {
+    expect(
+      parseToolHistory(
+        JSON.stringify([
+          { action: "copied", timestamp: "2026-08-07T12:00:00.000Z" },
+          { action: "user content", timestamp: "2026-08-07T12:00:00.000Z" },
+        ]),
+      ),
+    ).toEqual([
+      { action: "copied", timestamp: "2026-08-07T12:00:00.000Z" },
+    ]);
   });
 });

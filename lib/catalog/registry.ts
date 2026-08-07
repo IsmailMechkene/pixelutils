@@ -81,6 +81,10 @@ export const publishedTools: readonly ToolDefinition[] = allTools.filter(
   (tool) => tool.status === "published",
 );
 
+export const publishedCategories = categoryRegistry.filter((category) =>
+  publishedTools.some((tool) => tool.category === category.slug),
+);
+
 export const featuredTools = publishedTools.filter((tool) => tool.featured);
 
 export const popularTools = publishedTools

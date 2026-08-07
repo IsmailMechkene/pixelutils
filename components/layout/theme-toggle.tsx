@@ -10,10 +10,14 @@ const themes: readonly ThemePreference[] = ["system", "light", "dark"];
 
 function getStoredTheme(): ThemePreference {
   if (typeof window === "undefined") return "system";
-  const stored = window.localStorage.getItem("pixelutils-theme");
-  return themes.includes(stored as ThemePreference)
-    ? (stored as ThemePreference)
-    : "system";
+  try {
+    const stored = window.localStorage.getItem("pixelutils-theme");
+    return themes.includes(stored as ThemePreference)
+      ? (stored as ThemePreference)
+      : "system";
+  } catch {
+    return "system";
+  }
 }
 
 function applyTheme(theme: ThemePreference) {
@@ -45,12 +49,17 @@ export function ThemeToggle() {
   function cycleTheme() {
     const currentIndex = themes.indexOf(theme);
     const nextTheme = themes[(currentIndex + 1) % themes.length];
-    window.localStorage.setItem("pixelutils-theme", nextTheme);
+    try {
+      window.localStorage.setItem("pixelutils-theme", nextTheme);
+    } catch {
+      // Theme selection still works for this page when storage is unavailable.
+    }
     setTheme(nextTheme);
   }
 
   const nextTheme = themes[(themes.indexOf(theme) + 1) % themes.length];
   const label = `Theme: ${theme}. Switch to ${nextTheme}.`;
+  const icon = theme === "light" ? "sun" : theme === "dark" ? "moon" : "system";
 
   return (
     <button
@@ -61,7 +70,7 @@ export function ThemeToggle() {
       title={label}
       suppressHydrationWarning
     >
-      <Icon className="size-[18px]" name={theme} />
+      <Icon className="size-[18px]" name={icon} />
     </button>
   );
 }

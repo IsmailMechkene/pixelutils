@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 
 import { siteConfig } from "@/lib/site";
+import { createPageMetadata } from "@/lib/seo/metadata";
+import { staticPageSeo } from "@/lib/seo/static-pages";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: "Contact PixelUtils with feedback or a verified tool issue.",
-  alternates: { canonical: "/contact" },
-};
+export const metadata: Metadata = createPageMetadata(staticPageSeo.contact);
 
 export default function ContactPage() {
   return (

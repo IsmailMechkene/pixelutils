@@ -1,10 +1,11 @@
 import type { ReactNode, SVGProps } from "react";
+import type { IconId } from "@/lib/catalog/types";
 
 type IconProps = SVGProps<SVGSVGElement> & {
-  name: string;
+  name: IconId;
 };
 
-const paths: Record<string, ReactNode> = {
+const paths: Record<IconId, ReactNode> = {
   arrow: <path d="m9 18 6-6-6-6M3 12h12" />,
   brackets: <path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3M14 8l-4 8" />,
   calculator: <path d="M5 3h14v18H5zM8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01" />,
@@ -44,7 +45,7 @@ export function Icon({ name, className, ...props }: IconProps) {
       strokeWidth="1.8"
       {...props}
     >
-      {paths[name] ?? paths.code}
+      {paths[name]}
     </svg>
   );
 }

@@ -3,7 +3,9 @@ import type { CategoryDefinition, ToolDefinition } from "./types";
 export type RegistryIssueCode =
   | "duplicate-category-slug"
   | "duplicate-category-order"
+  | "invalid-category-definition"
   | "duplicate-tool-slug"
+  | "duplicate-tool-name"
   | "duplicate-seo-title"
   | "duplicate-seo-description"
   | "invalid-slug"
@@ -18,7 +20,8 @@ export type RegistryIssueCode =
   | "self-related-tool"
   | "duplicate-related-tool"
   | "draft-featured-tool"
-  | "missing-workspace";
+  | "missing-workspace"
+  | "unknown-workspace";
 
 export interface RegistryValidationIssue {
   code: RegistryIssueCode;
@@ -45,6 +48,10 @@ function findDuplicates(values: readonly string[]) {
   }
 
   return duplicates;
+}
+
+function normalized(value: string) {
+  return value.normalize("NFKC").trim().toLowerCase();
 }
 
 export function validateRegistry(
@@ -75,6 +82,37 @@ export function validateRegistry(
     });
   }
 
+  for (const category of categories) {
+    const path = `categories.${category.slug || "unknown"}`;
+    if (!slugPattern.test(category.slug)) {
+      issues.push({
+        code: "invalid-category-definition",
+        message: `Category slug "${category.slug}" must use lowercase kebab-case.`,
+        path: `${path}.slug`,
+      });
+    }
+    if (!Number.isInteger(category.order) || category.order < 1) {
+      issues.push({
+        code: "invalid-category-definition",
+        message: `Category "${category.slug}" must have a positive integer order.`,
+        path: `${path}.order`,
+      });
+    }
+    for (const [field, value] of [
+      ["name", category.name],
+      ["shortDescription", category.shortDescription],
+      ["description", category.description],
+    ] as const) {
+      if (!value.trim()) {
+        issues.push({
+          code: "invalid-category-definition",
+          message: `Category "${category.slug}" is missing ${field}.`,
+          path: `${path}.${field}`,
+        });
+      }
+    }
+  }
+
   for (const slug of findDuplicates(tools.map((tool) => tool.slug))) {
     issues.push({
       code: "duplicate-tool-slug",
@@ -83,9 +121,20 @@ export function validateRegistry(
     });
   }
 
+
+  for (const name of findDuplicates(tools.map((tool) => normalized(tool.name)))) {
+    issues.push({
+      code: "duplicate-tool-name",
+      message: `Tool name "${name}" is not unique.`,
+      path: "tools.name",
+    });
+  }
+
   const publishedTools = tools.filter((tool) => tool.status === "published");
 
-  for (const title of findDuplicates(publishedTools.map((tool) => tool.seo.title))) {
+  for (const title of findDuplicates(
+    publishedTools.map((tool) => normalized(tool.seo.title)),
+  )) {
     issues.push({
       code: "duplicate-seo-title",
       message: `Published SEO title "${title}" is not unique.`,
@@ -94,7 +143,7 @@ export function validateRegistry(
   }
 
   for (const description of findDuplicates(
-    publishedTools.map((tool) => tool.seo.description),
+    publishedTools.map((tool) => normalized(tool.seo.description)),
   )) {
     issues.push({
       code: "duplicate-seo-description",
@@ -257,6 +306,17 @@ export function validateRegistry(
           path: `${path}.relatedTools`,
         });
       }
+    }
+  }
+
+
+  for (const workspaceSlug of workspaceSlugs) {
+    if (!toolsBySlug.has(workspaceSlug)) {
+      issues.push({
+        code: "unknown-workspace",
+        message: `Workspace "${workspaceSlug}" has no registry definition.`,
+        path: `workspaces.${workspaceSlug}`,
+      });
     }
   }
 

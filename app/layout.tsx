@@ -4,31 +4,36 @@ import type { ReactNode } from "react";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { getSiteUrl, siteConfig } from "@/lib/site";
+import { publishedCategories, publishedTools } from "@/lib/catalog/registry";
+import { staticPageSeo } from "@/lib/seo/static-pages";
+import { assertValidSeoCatalog } from "@/lib/seo/validation";
 
 import "./globals.css";
 
 const themeScript = `(()=>{try{const key="pixelutils-theme";const stored=localStorage.getItem(key);const preference=stored==="light"||stored==="dark"||stored==="system"?stored:"system";const resolved=preference==="system"?(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):preference;document.documentElement.dataset.theme=resolved;document.documentElement.style.colorScheme=resolved}catch{}})();`;
 
+assertValidSeoCatalog(publishedTools, publishedCategories);
+
 export const metadata: Metadata = {
   metadataBase: getSiteUrl(),
   title: {
-    default: "PixelUtils — Fast, private browser tools",
+    default: staticPageSeo.home.title,
     template: "%s | PixelUtils",
   },
-  description: siteConfig.description,
+  description: staticPageSeo.home.description,
   applicationName: siteConfig.name,
-  alternates: { canonical: "/" },
+  alternates: { canonical: staticPageSeo.home.canonical },
   openGraph: {
     type: "website",
     siteName: siteConfig.name,
-    title: "PixelUtils — Fast, private browser tools",
-    description: siteConfig.description,
-    url: "/",
+    title: staticPageSeo.home.title,
+    description: staticPageSeo.home.description,
+    url: staticPageSeo.home.canonical,
   },
   twitter: {
     card: "summary",
-    title: "PixelUtils — Fast, private browser tools",
-    description: siteConfig.description,
+    title: staticPageSeo.home.title,
+    description: staticPageSeo.home.description,
   },
 };
 

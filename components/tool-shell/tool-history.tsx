@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 
 import type { ToolDefinition } from "@/lib/catalog/types";
 import {
@@ -9,6 +9,8 @@ import {
   getToolHistoryStorageKey,
   parseToolHistory,
   subscribeToToolActivity,
+  recordRecentTool,
+  type ToolHistoryAction,
 } from "@/lib/storage/tool-activity";
 
 import { ClearButton } from "./clear-button";
@@ -19,6 +21,14 @@ interface ToolHistoryProps {
 }
 
 const emptySnapshot = "[]";
+const actionLabels: Record<ToolHistoryAction, string> = {
+  processed: "Processed input",
+  copied: "Copied output",
+  downloaded: "Downloaded output",
+  cleared: "Cleared workspace",
+  sampled: "Loaded sample",
+  swapped: "Swapped input and output",
+};
 
 export function ToolHistory({ tool, enabled = !tool.sensitive }: ToolHistoryProps) {
   const storageKey = getToolHistoryStorageKey(tool.slug);
@@ -28,6 +38,10 @@ export function ToolHistory({ tool, enabled = !tool.sensitive }: ToolHistoryProp
     () => emptySnapshot,
   );
   const entries = parseToolHistory(snapshot);
+
+  useEffect(() => {
+    recordRecentTool(tool.slug);
+  }, [tool.slug]);
 
   if (!enabled) {
     return (
@@ -54,9 +68,12 @@ export function ToolHistory({ tool, enabled = !tool.sensitive }: ToolHistoryProp
         <ClearButton label="Clear history" onClear={() => clearToolHistory(tool.slug)} />
       </div>
       <ol className="mt-4 divide-y divide-line rounded-card border border-line bg-panel px-4">
-        {entries.map((entry) => (
-          <li className="flex items-center justify-between gap-4 py-3 text-sm" key={entry.id}>
-            <span className="font-medium text-ink">{entry.action}</span>
+        {entries.map((entry, index) => (
+          <li
+            className="flex items-center justify-between gap-4 py-3 text-sm"
+            key={`${entry.timestamp}-${entry.action}-${index}`}
+          >
+            <span className="font-medium text-ink">{actionLabels[entry.action]}</span>
             <time className="shrink-0 text-xs text-ink-subtle" dateTime={entry.timestamp}>
               {new Intl.DateTimeFormat(undefined, {
                 dateStyle: "medium",

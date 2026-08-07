@@ -1,46 +1,58 @@
 "use client";
 
 import Link from "next/link";
+import { createPortal } from "react-dom";
 import {
   useEffect,
   useMemo,
   useRef,
   useState,
   type KeyboardEvent as ReactKeyboardEvent,
-  type MouseEvent as ReactMouseEvent,
 } from "react";
 
 import { Icon } from "@/components/ui/icon";
 import { searchTools } from "@/lib/catalog/search";
-import type { ToolDefinition } from "@/lib/catalog/types";
+import type { ToolSearchItem } from "@/lib/catalog/types";
 
 interface SearchDialogProps {
-  tools: readonly ToolDefinition[];
+  tools: readonly ToolSearchItem[];
 }
 
 export function SearchDialog({ tools }: SearchDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const triggerRef = useRef<HTMLButtonElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const results = useMemo(() => searchTools(tools, query), [query, tools]);
 
-  function openDialog(event: ReactMouseEvent<HTMLButtonElement>) {
-    triggerRef.current = event.currentTarget;
+  function openDialog() {
+    returnFocusRef.current =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
     setIsOpen(true);
   }
 
   function closeDialog() {
     setIsOpen(false);
     setQuery("");
-    window.setTimeout(() => triggerRef.current?.focus(), 0);
+    window.setTimeout(() => returnFocusRef.current?.focus(), 0);
   }
 
   useEffect(() => {
     const handleShortcut = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
+        const homepageSearch = document.getElementById("tool-search");
+        if (homepageSearch instanceof HTMLInputElement) {
+          homepageSearch.focus();
+          return;
+        }
+        returnFocusRef.current =
+          document.activeElement instanceof HTMLElement
+            ? document.activeElement
+            : null;
         setIsOpen(true);
       }
     };
@@ -106,7 +118,8 @@ export function SearchDialog({ tools }: SearchDialogProps) {
         <Icon className="size-[18px]" name="search" />
       </button>
 
-      {isOpen ? (
+      {isOpen
+        ? createPortal(
         <div
           className="fixed inset-0 z-[80] flex items-start justify-center bg-black/45 px-4 pt-[10vh] backdrop-blur-sm"
           onMouseDown={(event) => {
@@ -131,7 +144,7 @@ export function SearchDialog({ tools }: SearchDialogProps) {
                 className="h-14 min-w-0 flex-1 bg-transparent text-base text-ink outline-none placeholder:text-ink-subtle"
                 id="search-dialog-input"
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search by name, keyword, or alias…"
+                placeholder="Search tools…"
                 type="search"
                 value={query}
               />
@@ -152,7 +165,10 @@ export function SearchDialog({ tools }: SearchDialogProps) {
                       <Link
                         className="flex min-h-14 items-center justify-between gap-3 rounded-lg px-3 py-2 hover:bg-panel-muted"
                         href={`/tools/${tool.slug}`}
-                        onClick={() => setIsOpen(false)}
+                        onClick={() => {
+                          setIsOpen(false);
+                          setQuery("");
+                        }}
                       >
                         <span>
                           <span className="block text-sm font-semibold text-ink">
@@ -179,8 +195,10 @@ export function SearchDialog({ tools }: SearchDialogProps) {
               )}
             </div>
           </div>
-        </div>
-      ) : null}
+        </div>,
+        document.body,
+      )
+        : null}
     </>
   );
 }

@@ -2,49 +2,54 @@ import type { Metadata } from "next";
 
 import type { CategoryDefinition, ToolDefinition } from "@/lib/catalog/types";
 
-export function createToolMetadata(tool: ToolDefinition): Metadata {
-  const canonical = `/tools/${tool.slug}`;
+interface PageMetadataInput {
+  title: string;
+  description: string;
+  canonical: `/${string}` | "/";
+}
 
+export function createPageMetadata({
+  title,
+  description,
+  canonical,
+}: PageMetadataInput): Metadata {
   return {
-    title: tool.seo.title,
-    description: tool.seo.description,
+    title,
+    description,
     alternates: { canonical },
     openGraph: {
       type: "website",
-      title: tool.seo.title,
-      description: tool.seo.description,
+      title,
+      description,
       url: canonical,
     },
     twitter: {
       card: "summary",
-      title: tool.seo.title,
-      description: tool.seo.description,
+      title,
+      description,
     },
   };
 }
 
+export function createToolMetadata(tool: ToolDefinition): Metadata {
+  const canonical = `/tools/${tool.slug}` as const;
+
+  return createPageMetadata({
+    title: tool.seo.title,
+    description: tool.seo.description,
+    canonical,
+  });
+}
+
 export function createCategoryMetadata(
   category: CategoryDefinition,
-  toolCount: number,
 ): Metadata {
-  const canonical = `/categories/${category.slug}`;
+  const canonical = `/categories/${category.slug}` as const;
   const title = `${category.name} tools`;
 
-  return {
+  return createPageMetadata({
     title,
     description: category.description,
-    alternates: { canonical },
-    robots: toolCount > 0 ? undefined : { index: false, follow: true },
-    openGraph: {
-      type: "website",
-      title,
-      description: category.description,
-      url: canonical,
-    },
-    twitter: {
-      card: "summary",
-      title,
-      description: category.description,
-    },
-  };
+    canonical,
+  });
 }

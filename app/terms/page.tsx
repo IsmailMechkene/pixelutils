@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo/metadata";
+import { staticPageSeo } from "@/lib/seo/static-pages";
 
-export const metadata: Metadata = {
-  title: "Terms",
-  description: "Terms for using the free PixelUtils browser tools.",
-  alternates: { canonical: "/terms" },
-};
+export const metadata: Metadata = createPageMetadata(staticPageSeo.terms);
 
 export default function TermsPage() {
   return (

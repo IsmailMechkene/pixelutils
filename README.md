@@ -25,11 +25,11 @@ Open [http://localhost:3000](http://localhost:3000). The application does not re
 
 | Variable | Required | Purpose |
 |---|---|---|
-| `NEXT_PUBLIC_SITE_URL` | Production | Absolute canonical origin, for example `https://www.example.com` |
-| `NEXT_PUBLIC_CONTACT_EMAIL` | Recommended | Address used by the contact page's `mailto:` link |
+| `SITE_URL` | Production | Absolute canonical origin, for example `https://www.example.com` |
+| `CONTACT_EMAIL` | Recommended | Address used by the contact page's `mailto:` link |
 | `NEXT_PUBLIC_ADS_ENABLED` | No | Reserved for future advertising; keep `false` until a provider and policies are configured |
 
-Do not place secrets in `NEXT_PUBLIC_*` variables because Next.js includes them in browser-accessible output.
+Do not place secrets in `NEXT_PUBLIC_*` variables because Next.js includes them in browser-accessible output. Site and contact configuration remain server-side.
 
 ## Commands
 
@@ -73,8 +73,8 @@ Do not put React, browser globals, storage, telemetry, or network calls in deter
 
 1. Import the repository into Vercel.
 2. Use the detected Next.js framework settings.
-3. Set `NEXT_PUBLIC_SITE_URL` to the final HTTPS origin.
-4. Set `NEXT_PUBLIC_CONTACT_EMAIL` to the monitored contact address.
+3. Set `SITE_URL` to the final HTTPS origin.
+4. Set `CONTACT_EMAIL` to the monitored contact address.
 5. Leave `NEXT_PUBLIC_ADS_ENABLED=false`.
 6. Deploy, then verify the homepage, category pages, privacy page, `robots.txt`, `sitemap.xml`, and `manifest.webmanifest`.
 

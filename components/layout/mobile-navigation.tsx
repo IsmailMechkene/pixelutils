@@ -15,6 +15,7 @@ const links = [
 export function MobileNavigation() {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const navigationRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -25,13 +26,25 @@ export function MobileNavigation() {
         buttonRef.current?.focus();
       }
     };
+    const handlePointerDown = (event: PointerEvent) => {
+      if (
+        event.target instanceof Node &&
+        !navigationRef.current?.contains(event.target)
+      ) {
+        setIsOpen(false);
+      }
+    };
 
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("pointerdown", handlePointerDown);
+    };
   }, [isOpen]);
 
   return (
-    <div className="relative md:hidden">
+    <div className="relative md:hidden" ref={navigationRef}>
       <button
         ref={buttonRef}
         className="inline-flex size-11 items-center justify-center rounded-[10px] border border-line bg-panel text-ink-muted transition-colors duration-150 hover:border-line-strong hover:text-ink"

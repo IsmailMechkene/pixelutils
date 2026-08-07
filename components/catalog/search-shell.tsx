@@ -5,10 +5,10 @@ import { useMemo, useState } from "react";
 
 import { Icon } from "@/components/ui/icon";
 import { searchTools } from "@/lib/catalog/search";
-import type { ToolDefinition } from "@/lib/catalog/types";
+import type { ToolSearchItem } from "@/lib/catalog/types";
 
 interface SearchShellProps {
-  tools: readonly ToolDefinition[];
+  tools: readonly ToolSearchItem[];
 }
 
 export function SearchShell({ tools }: SearchShellProps) {
@@ -31,7 +31,10 @@ export function SearchShell({ tools }: SearchShellProps) {
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search tools by name or task…"
+          onKeyDown={(event) => {
+            if (event.key === "Escape") setQuery("");
+          }}
+          placeholder="Search tools…"
           autoComplete="off"
         />
         <kbd className="pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 rounded-md border border-line bg-panel-muted px-2 py-1 font-sans text-xs font-medium text-ink-subtle sm:block">
@@ -41,6 +44,7 @@ export function SearchShell({ tools }: SearchShellProps) {
 
       {query ? (
         <div
+          id="homepage-search-results"
           className="absolute inset-x-0 top-[calc(100%+8px)] z-30 max-h-80 overflow-y-auto rounded-card border border-line bg-panel p-2 shadow-[0_20px_55px_rgba(0,0,0,0.14)]"
           aria-live="polite"
         >
@@ -51,6 +55,7 @@ export function SearchShell({ tools }: SearchShellProps) {
                   <Link
                     className="flex min-h-14 items-center justify-between gap-3 rounded-lg px-3 py-2 hover:bg-panel-muted"
                     href={`/tools/${tool.slug}`}
+                    onClick={() => setQuery("")}
                   >
                     <span>
                       <span className="block text-sm font-semibold text-ink">
