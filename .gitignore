@@ -2,3 +2,24 @@ prompts/
 ui-prompts/
 AGENTS.md
 docs/
+
+# Dependencies
+node_modules/
+node_modules-partial-install*/
+
+# Next.js output
+.next/
+out/
+
+# Tests and generated output
+coverage/
+dist/
+*.tsbuildinfo
+
+# Environment files (the documented example remains tracked)
+.env*
+!.env.example
+
+# Logs and local deployment metadata
+*.log
+.vercel/

@@ -1,0 +1,66 @@
+import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
+
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
+import { getSiteUrl, siteConfig } from "@/lib/site";
+
+import "./globals.css";
+
+const themeScript = `(()=>{try{const key="pixelutils-theme";const stored=localStorage.getItem(key);const preference=stored==="light"||stored==="dark"||stored==="system"?stored:"system";const resolved=preference==="system"?(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):preference;document.documentElement.dataset.theme=resolved;document.documentElement.style.colorScheme=resolved}catch{}})();`;
+
+export const metadata: Metadata = {
+  metadataBase: getSiteUrl(),
+  title: {
+    default: "PixelUtils — Fast, private browser tools",
+    template: "%s | PixelUtils",
+  },
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    title: "PixelUtils — Fast, private browser tools",
+    description: siteConfig.description,
+    url: "/",
+  },
+  twitter: {
+    card: "summary",
+    title: "PixelUtils — Fast, private browser tools",
+    description: siteConfig.description,
+  },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f7f7f8" },
+    { media: "(prefers-color-scheme: dark)", color: "#101014" },
+  ],
+};
+
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className="min-h-screen bg-canvas text-ink antialiased">
+        <a
+          className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-accent-ink transition-transform focus:translate-y-0"
+          href="#main-content"
+        >
+          Skip to main content
+        </a>
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <main className="flex-1" id="main-content">
+            {children}
+          </main>
+          <Footer />
+        </div>
+      </body>
+    </html>
+  );
+}
