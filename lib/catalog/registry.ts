@@ -1,5 +1,3 @@
-import { toolWorkspaceSlugs } from "@/tools/workspace-registry";
-
 import { phaseTwoTools } from "./phase-two-tools";
 import type { CategoryDefinition, ToolDefinition } from "./types";
 import { assertValidRegistry } from "./validation";
@@ -117,7 +115,7 @@ export const toolRegistry = [
       "Paste JSON to check its syntax and turn compact or uneven data into a clean, two-space-indented result. Parser errors retain the browser's original detail so you can find malformed input quickly.",
     category: "developer",
     keywords: ["JSON", "formatter", "validator", "pretty print"],
-    searchAliases: ["beautify JSON", "JSON checker", "pretty JSON"],
+    aliases: ["beautify JSON", "JSON checker", "pretty JSON"],
     icon: "braces",
     relatedTools: [
       "json-minifier",
@@ -125,6 +123,7 @@ export const toolRegistry = [
       "url-encoder-decoder",
     ],
     featured: true,
+    searchWeight: 100,
     popularRank: 1,
     privacyNote:
       "Your JSON is parsed and formatted entirely in this browser tab.",
@@ -175,7 +174,7 @@ export const toolRegistry = [
       "Turn formatted JSON into a compact representation after a full syntax check. Spaces inside quoted values stay intact while indentation, line breaks, and structural spacing are removed.",
     category: "developer",
     keywords: ["JSON", "minifier", "compact", "compress"],
-    searchAliases: ["minify JSON", "compact JSON", "remove JSON whitespace"],
+    aliases: ["minify JSON", "compact JSON", "remove JSON whitespace"],
     icon: "file-json",
     relatedTools: [
       "json-formatter",
@@ -183,6 +182,7 @@ export const toolRegistry = [
       "url-encoder-decoder",
     ],
     featured: false,
+    searchWeight: 76,
     popularRank: 6,
     privacyNote:
       "Minification runs locally; the JSON never leaves your browser.",
@@ -231,10 +231,11 @@ export const toolRegistry = [
       "Convert UTF-8 text to Base64 and decode Base64 back to readable Unicode. The decoder checks padding and rejects byte sequences that are not valid UTF-8 text.",
     category: "encoding",
     keywords: ["Base64", "encode", "decode", "UTF-8"],
-    searchAliases: ["Base64 converter", "text to Base64", "Base64 to text"],
+    aliases: ["Base64 converter", "text to Base64", "Base64 to text"],
     icon: "binary",
     relatedTools: ["url-encoder-decoder", "json-formatter", "json-minifier"],
     featured: true,
+    searchWeight: 96,
     popularRank: 2,
     privacyNote:
       "Encoding and decoding happen locally, including Unicode conversion.",
@@ -283,10 +284,11 @@ export const toolRegistry = [
       "Percent-encode query values and path segments, or preserve separators while encoding a full URL. Clear modes prevent structural characters from being escaped by accident.",
     category: "encoding",
     keywords: ["URL", "percent encoding", "encode", "decode"],
-    searchAliases: ["URL escape", "URL unescape", "encodeURIComponent"],
+    aliases: ["URL escape", "URL unescape", "encodeURIComponent"],
     icon: "link",
     relatedTools: ["base64-encoder-decoder", "json-formatter", "json-minifier"],
     featured: false,
+    searchWeight: 74,
     popularRank: 7,
     privacyNote:
       "URLs and text are transformed in memory in your browser only.",
@@ -336,7 +338,7 @@ export const toolRegistry = [
       "Create up to 100 lowercase UUID version 4 identifiers at once. Version and variant bits are set correctly, while random bytes come from the browser's cryptographic generator.",
     category: "developer",
     keywords: ["UUID", "GUID", "version 4", "identifier"],
-    searchAliases: ["UUID v4 generator", "GUID generator", "random ID"],
+    aliases: ["UUID v4 generator", "GUID generator", "random ID"],
     icon: "fingerprint",
     relatedTools: [
       "password-generator",
@@ -344,6 +346,7 @@ export const toolRegistry = [
       "unix-timestamp-converter",
     ],
     featured: false,
+    searchWeight: 86,
     popularRank: 4,
     privacyNote:
       "UUIDs are generated locally with the browser's secure random source.",
@@ -393,11 +396,7 @@ export const toolRegistry = [
       "Translate Unix seconds or milliseconds into explicit UTC and local dates, or convert a local date and time in the opposite direction. Units are always selected rather than guessed.",
     category: "date-time",
     keywords: ["Unix timestamp", "epoch", "date converter", "milliseconds"],
-    searchAliases: [
-      "epoch converter",
-      "timestamp to date",
-      "date to timestamp",
-    ],
+    aliases: ["epoch converter", "timestamp to date", "date to timestamp"],
     icon: "clock-3",
     relatedTools: [
       "uuid-generator",
@@ -405,6 +404,7 @@ export const toolRegistry = [
       "word-character-counter",
     ],
     featured: true,
+    searchWeight: 82,
     popularRank: 5,
     privacyNote:
       "Date conversion uses your browser's clock and time-zone settings only.",
@@ -454,7 +454,7 @@ export const toolRegistry = [
       "Measure text as you type or paste it, with separate totals for words, Unicode characters, non-whitespace characters, lines, and sentences. Punctuation and whitespace follow clear, practical rules.",
     category: "text",
     keywords: ["word count", "character count", "line count", "sentence count"],
-    searchAliases: ["text counter", "letter counter", "count words"],
+    aliases: ["text counter", "letter counter", "count words"],
     icon: "letter-text",
     relatedTools: [
       "text-case-converter",
@@ -462,6 +462,7 @@ export const toolRegistry = [
       "unix-timestamp-converter",
     ],
     featured: true,
+    searchWeight: 90,
     popularRank: 3,
     privacyNote:
       "Your text is counted live in memory and is not sent or saved.",
@@ -510,11 +511,7 @@ export const toolRegistry = [
       "Convert text to uppercase, lowercase, title case, sentence case, camelCase, PascalCase, snake_case, or kebab-case. Natural-language modes retain punctuation while identifier modes normalize separators.",
     category: "text",
     keywords: ["text case", "uppercase", "lowercase", "camel case"],
-    searchAliases: [
-      "case changer",
-      "title case converter",
-      "snake case converter",
-    ],
+    aliases: ["case changer", "title case converter", "snake case converter"],
     icon: "case-sensitive",
     relatedTools: [
       "word-character-counter",
@@ -522,6 +519,7 @@ export const toolRegistry = [
       "url-encoder-decoder",
     ],
     featured: false,
+    searchWeight: 72,
     popularRank: 8,
     privacyNote: "Case conversion runs locally without storing your text.",
     browserProcessing: true,
@@ -575,11 +573,7 @@ export const toolRegistry = [
       "deduplicate",
       "list cleaner",
     ],
-    searchAliases: [
-      "remove repeated lines",
-      "line deduplicator",
-      "unique list",
-    ],
+    aliases: ["remove repeated lines", "line deduplicator", "unique list"],
     icon: "list-x",
     relatedTools: [
       "text-case-converter",
@@ -587,6 +581,7 @@ export const toolRegistry = [
       "json-minifier",
     ],
     featured: false,
+    searchWeight: 68,
     popularRank: 9,
     privacyNote:
       "Line comparison and cleanup take place entirely in your browser.",
@@ -641,7 +636,7 @@ export const toolRegistry = [
       "random password",
       "cryptography",
     ],
-    searchAliases: [
+    aliases: [
       "strong password generator",
       "random password maker",
       "secure password",
@@ -653,6 +648,7 @@ export const toolRegistry = [
       "url-encoder-decoder",
     ],
     featured: false,
+    searchWeight: 84,
     popularRank: 10,
     privacyNote:
       "Passwords are generated with crypto.getRandomValues and are never stored in history.",
@@ -697,13 +693,41 @@ export const toolRegistry = [
   ...phaseTwoTools,
 ] as const satisfies readonly ToolDefinition[];
 
-assertValidRegistry(categoryRegistry, toolRegistry, toolWorkspaceSlugs);
+export type ToolSlug = (typeof toolRegistry)[number]["slug"];
+export type RegisteredTool = (typeof toolRegistry)[number];
 
-const allTools: readonly ToolDefinition[] = toolRegistry;
+// Structural/content validation remains a build-time failure without importing
+// the React workspace loader manifest. The manifest is independently enforced
+// as Record<ToolSlug, Loader> and cross-checked in registry validation tests.
+assertValidRegistry(
+  categoryRegistry,
+  toolRegistry,
+  toolRegistry
+    .filter((tool) => tool.status === "published")
+    .map((tool) => tool.slug),
+);
 
-export const publishedTools: readonly ToolDefinition[] = allTools.filter(
+const allTools: readonly RegisteredTool[] = toolRegistry;
+const categoriesBySlug = new Map(
+  categoryRegistry.map((category) => [category.slug, category]),
+);
+const toolsBySlug = new Map(allTools.map((tool) => [tool.slug, tool]));
+
+export const publishedTools = allTools.filter(
   (tool) => tool.status === "published",
 );
+const publishedToolsBySlug = new Map(
+  publishedTools.map((tool) => [tool.slug, tool]),
+);
+const publishedToolsByCategory = new Map<
+  RegisteredTool["category"],
+  RegisteredTool[]
+>();
+for (const tool of publishedTools) {
+  const categoryTools = publishedToolsByCategory.get(tool.category) ?? [];
+  categoryTools.push(tool);
+  publishedToolsByCategory.set(tool.category, categoryTools);
+}
 
 export const publishedCategories = categoryRegistry.filter((category) =>
   publishedTools.some((tool) => tool.category === category.slug),
@@ -711,33 +735,50 @@ export const publishedCategories = categoryRegistry.filter((category) =>
 
 export const featuredTools = publishedTools.filter((tool) => tool.featured);
 
+export const publishedToolCards = publishedTools.map(
+  ({ slug, name, shortDescription, category, icon, browserProcessing }) => ({
+    slug,
+    name,
+    shortDescription,
+    category,
+    icon,
+    browserProcessing,
+  }),
+);
+
 export const popularTools = publishedTools
-  .filter((tool) => tool.popularRank !== undefined)
-  .toSorted(
-    (left, right) => (left.popularRank ?? 0) - (right.popularRank ?? 0),
-  );
+  .filter(
+    (tool): tool is RegisteredTool & { readonly popularRank: number } =>
+      "popularRank" in tool && tool.popularRank !== undefined,
+  )
+  .toSorted((left, right) => left.popularRank - right.popularRank);
 
 export function findCategory(slug: string) {
-  return categoryRegistry.find((category) => category.slug === slug);
+  return categoriesBySlug.get(
+    slug as (typeof categoryRegistry)[number]["slug"],
+  );
 }
 
 export function findRegisteredTool(slug: string) {
-  return allTools.find((tool) => tool.slug === slug);
+  return toolsBySlug.get(slug as ToolSlug);
 }
 
 export function findTool(slug: string) {
-  return publishedTools.find((tool) => tool.slug === slug);
+  return publishedToolsBySlug.get(slug as ToolSlug);
 }
 
 export function getToolsForCategory(categorySlug: string) {
-  return publishedTools.filter((tool) => tool.category === categorySlug);
+  return (
+    publishedToolsByCategory.get(categorySlug as RegisteredTool["category"]) ??
+    []
+  );
 }
 
 export function getRelatedTools(tool: ToolDefinition) {
   return tool.relatedTools
     .map(findTool)
     .filter(
-      (relatedTool): relatedTool is ToolDefinition => relatedTool !== undefined,
+      (relatedTool): relatedTool is RegisteredTool => relatedTool !== undefined,
     );
 }
 

@@ -10,10 +10,7 @@ export function RelatedTools({ tools }: RelatedToolsProps) {
 
   return (
     <section aria-labelledby="related-tools-title">
-      <h2
-        className="text-2xl font-semibold tracking-[-0.03em] text-ink"
-        id="related-tools-title"
-      >
+      <h2 className="content-title" id="related-tools-title">
         Related tools
       </h2>
       <p className="mt-2 text-sm leading-6 text-ink-muted">

@@ -7,20 +7,14 @@ export const metadata: Metadata = createPageMetadata(staticPageSeo.privacy);
 export default function PrivacyPage() {
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-        Privacy
-      </p>
-      <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-ink">
-        Your work should remain yours.
-      </h1>
+      <p className="page-eyebrow">Privacy</p>
+      <h1 className="page-title">Your work should remain yours.</h1>
       <p className="mt-5 text-sm text-ink-subtle">
         Last updated: 7 August 2026
       </p>
       <div className="mt-8 space-y-8 text-base leading-8 text-ink-muted">
         <section>
-          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-ink">
-            Tool processing
-          </h2>
+          <h2 className="content-title">Tool processing</h2>
           <p className="mt-3">
             PixelUtils is designed to process tool input in your browser
             whenever technically possible. Published tools state their
@@ -30,21 +24,19 @@ export default function PrivacyPage() {
           </p>
         </section>
         <section>
-          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-ink">
-            Local storage
-          </h2>
+          <h2 className="content-title">Local storage</h2>
           <p className="mt-3">
-            Your browser may store your theme preference and recently used tool
-            identifiers. Optional activity history contains only fixed action
-            labels and timestamps, never tool input or output. History is
-            disabled by default for sensitive tools. You can clear browser
-            storage at any time.
+            Your browser may store your theme preference, favorite and recently
+            used tool identifiers, and search terms only after you open a
+            matching result. Search history can be cleared inside search.
+            Optional activity history contains only fixed action labels and
+            timestamps, never tool input or output. History is disabled by
+            default for sensitive tools. You can clear browser storage at any
+            time.
           </p>
         </section>
         <section>
-          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-ink">
-            Analytics and advertising
-          </h2>
+          <h2 className="content-title">Analytics and advertising</h2>
           <p className="mt-3">
             Analytics and advertising are not enabled in this scaffold. If
             either is configured in the future, this notice will be updated
@@ -53,9 +45,7 @@ export default function PrivacyPage() {
           </p>
         </section>
         <section>
-          <h2 className="text-2xl font-semibold tracking-[-0.03em] text-ink">
-            Hosting
-          </h2>
+          <h2 className="content-title">Hosting</h2>
           <p className="mt-3">
             Like any website, the hosting platform may process ordinary request
             data such as an IP address, requested path, user agent, and

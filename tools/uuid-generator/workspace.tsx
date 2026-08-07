@@ -51,7 +51,7 @@ export default function UuidGeneratorWorkspace({ slug }: { slug: string }) {
       <input
         aria-describedby={error ? "uuid-error" : "uuid-quantity-help"}
         aria-invalid={Boolean(error)}
-        className="mt-2 block min-h-11 w-full rounded-[10px] border border-line-strong bg-canvas px-3 text-ink outline-none focus:border-accent sm:max-w-48"
+        className="mt-2 block min-h-11 w-full rounded-control border border-line-strong bg-canvas px-3 text-ink outline-none focus:border-accent sm:max-w-48"
         id="uuid-quantity"
         max={100}
         min={1}

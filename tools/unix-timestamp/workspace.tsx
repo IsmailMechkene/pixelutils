@@ -76,11 +76,11 @@ export default function UnixTimestampWorkspace({ slug }: { slug: string }) {
         <legend className="text-sm font-semibold text-ink">
           Conversion direction
         </legend>
-        <div className="mt-2 inline-flex flex-wrap gap-1 rounded-[10px] bg-panel-muted p-1">
+        <div className="mt-2 inline-flex flex-wrap gap-1 rounded-control bg-panel-muted p-1">
           {(["timestamp-to-date", "date-to-timestamp"] as const).map(
             (value) => (
               <label
-                className={`inline-flex min-h-11 cursor-pointer items-center rounded-lg px-4 text-sm font-medium transition-colors focus-within:outline focus-within:outline-3 focus-within:outline-offset-2 focus-within:outline-accent ${direction === value ? "bg-panel text-ink shadow-[0_1px_3px_rgba(0,0,0,0.08)]" : "text-ink-muted hover:text-ink"}`}
+                className={`inline-flex min-h-11 cursor-pointer items-center rounded-control px-4 text-sm font-medium transition-colors focus-within:outline focus-within:outline-3 focus-within:outline-offset-2 focus-within:outline-accent ${direction === value ? "bg-panel text-ink shadow-sm" : "text-ink-muted hover:text-ink"}`}
                 key={value}
               >
                 <input
@@ -111,7 +111,7 @@ export default function UnixTimestampWorkspace({ slug }: { slug: string }) {
           <input
             aria-describedby={error ? "timestamp-error" : "timestamp-help"}
             aria-invalid={Boolean(error)}
-            className="mt-2 min-h-11 w-full rounded-[10px] border border-line-strong bg-canvas px-3 font-mono text-sm text-ink outline-none focus:border-accent"
+            className="mt-2 min-h-11 w-full rounded-control border border-line-strong bg-canvas px-3 font-mono text-sm text-ink outline-none focus:border-accent"
             id="timestamp-input"
             onChange={(event) => {
               setInput(event.target.value);

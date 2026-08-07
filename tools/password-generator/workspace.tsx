@@ -85,7 +85,7 @@ export default function PasswordGeneratorWorkspace() {
           </label>
           <input
             aria-describedby="password-length-help"
-            className="mt-2 min-h-11 w-full rounded-[10px] border border-line-strong bg-canvas px-3 text-ink outline-none focus:border-accent"
+            className="mt-2 min-h-11 w-full rounded-control border border-line-strong bg-canvas px-3 text-ink outline-none focus:border-accent"
             id="password-length"
             max={128}
             min={8}

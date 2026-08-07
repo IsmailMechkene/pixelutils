@@ -54,7 +54,7 @@ export default function LoremIpsumWorkspace({ slug }: { slug: string }) {
   }
   const max = unit === "words" ? 500 : unit === "sentences" ? 50 : 20;
   const controlClass =
-    "mt-2 min-h-11 w-full rounded-[10px] border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-accent";
+    "mt-2 min-h-11 w-full rounded-control border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-accent";
   return (
     <form
       onSubmit={(event) => {

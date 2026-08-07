@@ -1,24 +1,24 @@
 import Link from "next/link";
 
 import { ToolIcon } from "@/components/ui/icon";
-import type { ToolDefinition } from "@/lib/catalog/types";
+import type { ToolCardItem } from "@/lib/catalog/types";
 
 interface ToolCardProps {
-  tool: ToolDefinition;
+  tool: ToolCardItem;
 }
 
 export function ToolCard({ tool }: ToolCardProps) {
   return (
     <Link
-      className="group flex h-full flex-col rounded-card border border-line bg-panel p-5 transition-[border-color,box-shadow] duration-150 hover:border-line-strong hover:shadow-[0_12px_30px_rgba(0,0,0,0.06)]"
+      className="group flex h-full flex-col rounded-card border border-line bg-panel p-5 transition duration-150 hover:border-line-strong hover:shadow-card"
       href={`/tools/${tool.slug}`}
     >
       <div className="flex items-start justify-between gap-4">
-        <span className="grid size-9 place-items-center rounded-[10px] bg-panel-muted text-ink-muted">
-          <ToolIcon className="size-[22px]" name={tool.icon} />
+        <span className="grid size-9 place-items-center rounded-control bg-panel-muted text-ink-muted">
+          <ToolIcon className="size-6" name={tool.icon} />
         </span>
         {tool.browserProcessing ? (
-          <span className="rounded-full bg-success-soft px-2.5 py-1 text-[11px] font-semibold text-success">
+          <span className="rounded-full bg-success-soft px-2.5 py-1 text-xs font-semibold text-success">
             Runs locally
           </span>
         ) : null}

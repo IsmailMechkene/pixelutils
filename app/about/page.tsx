@@ -7,12 +7,8 @@ export const metadata: Metadata = createPageMetadata(staticPageSeo.about);
 export default function AboutPage() {
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-        About PixelUtils
-      </p>
-      <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-ink">
-        Small tools deserve thoughtful design.
-      </h1>
+      <p className="page-eyebrow">About PixelUtils</p>
+      <h1 className="page-title">Small tools deserve thoughtful design.</h1>
       <div className="mt-8 space-y-6 text-base leading-8 text-ink-muted">
         <p>
           PixelUtils is a collection of focused online utilities for everyday
@@ -27,9 +23,7 @@ export default function AboutPage() {
           transformation logic. Tool code is isolated so opening one utility
           does not load every other utility in the catalog.
         </p>
-        <h2 className="pt-4 text-2xl font-semibold tracking-[-0.03em] text-ink">
-          The standard for publishing
-        </h2>
+        <h2 className="content-title pt-4">The standard for publishing</h2>
         <p>
           A tool is published only when its core logic, privacy boundary,
           accessibility, content, metadata, and edge cases have been reviewed.

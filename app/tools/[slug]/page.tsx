@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 import { JsonLd } from "@/components/seo/json-ld";
 import { RelatedTools } from "@/components/tool-shell/related-tools";
@@ -10,6 +11,7 @@ import { ToolInstructions } from "@/components/tool-shell/tool-instructions";
 import { ToolPageLayout } from "@/components/tool-shell/tool-page-layout";
 import { ToolWorkspace } from "@/components/tool-shell/tool-workspace";
 import { ToolWorkspaceRenderer } from "@/components/tool-shell/tool-workspace-renderer";
+import { LoadingState } from "@/components/ui/states";
 import {
   findCategory,
   findTool,
@@ -59,7 +61,9 @@ export default async function ToolPage({ params }: ToolPageProps) {
       {faqData ? <JsonLd data={faqData} /> : null}
       <ToolPageLayout category={category} tool={tool}>
         <ToolWorkspace>
-          <ToolWorkspaceRenderer slug={tool.slug} />
+          <Suspense fallback={<LoadingState label="Loading tool workspace" />}>
+            <ToolWorkspaceRenderer slug={tool.slug} />
+          </Suspense>
         </ToolWorkspace>
 
         <div className="mt-14 grid gap-14">

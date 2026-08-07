@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { ToolOutput } from "./tool-output";
+
 interface TextOutputPanelProps {
   id: string;
   label: string;
@@ -22,23 +24,13 @@ export function TextOutputPanel({
   const descriptionId = description ? `${id}-description` : undefined;
 
   return (
-    <section className="min-w-0" aria-labelledby={`${id}-label`}>
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h3 className="text-sm font-semibold text-ink" id={`${id}-label`}>
-            {label}
-          </h3>
-          {description ? (
-            <p
-              className="mt-1 text-xs leading-5 text-ink-subtle"
-              id={descriptionId}
-            >
-              {description}
-            </p>
-          ) : null}
-        </div>
-        {actions}
-      </div>
+    <ToolOutput
+      actions={actions}
+      announcement={value ? `${label} updated.` : ""}
+      description={description}
+      id={id}
+      label={label}
+    >
       <textarea
         aria-describedby={descriptionId}
         aria-labelledby={`${id}-label`}
@@ -48,9 +40,6 @@ export function TextOutputPanel({
         readOnly
         value={value}
       />
-      <p aria-live="polite" aria-atomic="true" className="sr-only">
-        {value ? `${label} updated.` : ""}
-      </p>
-    </section>
+    </ToolOutput>
   );
 }

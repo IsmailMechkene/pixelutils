@@ -72,12 +72,12 @@ export function BidirectionalTextWorkspace(
     >
       <fieldset>
         <legend className="text-sm font-semibold text-ink">Operation</legend>
-        <div className="mt-2 inline-flex flex-wrap gap-1 rounded-[10px] bg-panel-muted p-1">
+        <div className="mt-2 inline-flex flex-wrap gap-1 rounded-control bg-panel-muted p-1">
           {(["encode", "decode"] as const).map((value) => (
             <label
               className={`inline-flex min-h-11 cursor-pointer items-center rounded-lg px-4 text-sm font-medium transition-colors focus-within:outline focus-within:outline-3 focus-within:outline-offset-2 focus-within:outline-accent ${
                 direction === value
-                  ? "bg-panel text-ink shadow-[0_1px_3px_rgba(0,0,0,0.08)]"
+                  ? "bg-panel text-ink shadow-sm"
                   : "text-ink-muted hover:text-ink"
               }`}
               key={value}

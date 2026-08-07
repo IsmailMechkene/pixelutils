@@ -3,16 +3,9 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 
 import { Icon } from "@/components/ui/icon";
-import type { ToolSearchItem } from "@/lib/catalog/types";
-
 const SearchDialogPanel = lazy(() => import("./search-dialog-panel"));
 
-interface SearchDialogProps {
-  tools: readonly ToolSearchItem[];
-  categories: readonly { readonly name: string; readonly slug: string }[];
-}
-
-export function SearchDialog({ tools, categories }: SearchDialogProps) {
+export function SearchDialog() {
   const [isOpen, setIsOpen] = useState(false);
   const returnFocusRef = useRef<HTMLElement | null>(null);
 
@@ -63,7 +56,7 @@ export function SearchDialog({ tools, categories }: SearchDialogProps) {
       >
         <Icon className="size-4" name="search" />
         Search tools
-        <kbd className="ml-1 hidden rounded border border-line bg-canvas px-1.5 py-0.5 font-sans text-[10px] text-ink-subtle xl:inline-flex">
+        <kbd className="ml-1 hidden rounded-small border border-line bg-canvas px-1.5 py-0.5 font-sans text-xs text-ink-subtle xl:inline-flex">
           Ctrl K
         </kbd>
       </button>
@@ -75,7 +68,7 @@ export function SearchDialog({ tools, categories }: SearchDialogProps) {
         onClick={openDialog}
         type="button"
       >
-        <Icon className="size-[18px]" name="search" />
+        <Icon className="size-4" name="search" />
       </button>
 
       {isOpen ? (
@@ -92,11 +85,7 @@ export function SearchDialog({ tools, categories }: SearchDialogProps) {
             </div>
           }
         >
-          <SearchDialogPanel
-            categories={categories}
-            onClose={closeDialog}
-            tools={tools}
-          />
+          <SearchDialogPanel onClose={closeDialog} />
         </Suspense>
       ) : null}
     </>

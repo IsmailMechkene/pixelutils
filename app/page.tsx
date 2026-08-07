@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import { AdSlot } from "@/components/ads/ad-slot";
 import { CategoryCard } from "@/components/catalog/category-card";
+import { FavoriteTools } from "@/components/catalog/favorite-tools";
 import { RecentTools } from "@/components/catalog/recent-tools";
 import { SearchShell } from "@/components/catalog/search-shell";
 import { ToolCard } from "@/components/catalog/tool-card";
@@ -12,6 +13,7 @@ import {
   featuredTools,
   getCategoryToolCounts,
   popularTools,
+  publishedToolCards,
   publishedTools,
 } from "@/lib/catalog/registry";
 import { createToolSearchItems } from "@/lib/catalog/search";
@@ -69,10 +71,10 @@ export default function HomePage() {
         </div>
         <div className="relative mx-auto max-w-7xl px-4 pb-14 pt-12 sm:px-6 sm:pb-16 sm:pt-16 lg:px-8 lg:pb-20">
           <div className="mx-auto max-w-4xl text-center">
-            <p className="inline-flex min-h-8 items-center rounded-full border border-line bg-panel/80 px-3 text-xs font-semibold uppercase tracking-[0.15em] text-accent">
+            <p className="section-eyebrow inline-flex min-h-8 items-center rounded-full border border-line bg-panel/80 px-3">
               Fast · Private · No account
             </p>
-            <h1 className="mt-5 text-4xl font-semibold tracking-[-0.05em] text-ink sm:text-5xl lg:text-[54px] lg:leading-[1.06]">
+            <h1 className="hero-title">
               Free browser tools for the tasks you need done now.
             </h1>
             <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-ink-muted sm:text-lg">
@@ -82,7 +84,13 @@ export default function HomePage() {
           </div>
 
           <div className="mt-8 sm:mt-10" id="find-a-tool">
-            <SearchShell tools={searchItems} />
+            <SearchShell
+              categories={categoryRegistry.map(({ name, slug }) => ({
+                name,
+                slug,
+              }))}
+              tools={searchItems}
+            />
           </div>
 
           <nav
@@ -112,13 +120,8 @@ export default function HomePage() {
         >
           <div className="flex items-end justify-between gap-6">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-                Good places to start
-              </p>
-              <h2
-                className="mt-2 text-3xl font-semibold tracking-[-0.035em] text-ink"
-                id="featured-tools-title"
-              >
+              <p className="section-eyebrow">Good places to start</p>
+              <h2 className="section-title" id="featured-tools-title">
                 Featured tools
               </h2>
             </div>
@@ -144,13 +147,8 @@ export default function HomePage() {
         id="categories"
       >
         <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-            Browse the collection
-          </p>
-          <h2
-            className="mt-2 text-3xl font-semibold tracking-[-0.035em] text-ink"
-            id="categories-title"
-          >
+          <p className="section-eyebrow">Browse the collection</p>
+          <h2 className="section-title" id="categories-title">
             Find tools by category
           </h2>
           <p className="mt-3 text-base leading-7 text-ink-muted">
@@ -177,13 +175,8 @@ export default function HomePage() {
         >
           <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 sm:py-16 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14 lg:px-8">
             <div className="max-w-md">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-                Curated in the catalog
-              </p>
-              <h2
-                className="mt-2 text-3xl font-semibold tracking-[-0.035em] text-ink"
-                id="popular-tools-title"
-              >
+              <p className="section-eyebrow">Curated in the catalog</p>
+              <h2 className="section-title" id="popular-tools-title">
                 Popular tools
               </h2>
               <p className="mt-4 text-sm leading-6 text-ink-muted">
@@ -198,7 +191,7 @@ export default function HomePage() {
                     className="group flex min-h-16 items-center gap-3 rounded-card border border-line bg-canvas px-4 py-3 hover:border-line-strong"
                     href={`/tools/${tool.slug}`}
                   >
-                    <span className="grid size-9 shrink-0 place-items-center rounded-[10px] bg-accent-soft text-accent">
+                    <span className="grid size-9 shrink-0 place-items-center rounded-control bg-accent-soft text-accent">
                       <ToolIcon className="size-5" name={tool.icon} />
                     </span>
                     <span className="min-w-0 flex-1 text-sm font-semibold text-ink group-hover:text-accent">
@@ -224,10 +217,8 @@ export default function HomePage() {
             <span className="grid size-11 place-items-center rounded-card bg-accent text-accent-ink">
               <Icon className="size-5" name="shield-check" />
             </span>
-            <p className="mt-6 text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-              Browser processing
-            </p>
-            <h2 className="mt-2 max-w-lg text-3xl font-semibold tracking-[-0.035em] text-ink">
+            <p className="section-eyebrow mt-6">Browser processing</p>
+            <h2 className="section-title max-w-lg">
               Your routine inputs should not need a round trip to a server.
             </h2>
             <p className="mt-4 max-w-xl text-base leading-7 text-ink-muted">
@@ -236,7 +227,7 @@ export default function HomePage() {
               analytics.
             </p>
             <Link
-              className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-[10px] bg-accent px-4 text-sm font-semibold text-accent-ink hover:bg-accent-hover"
+              className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-control bg-accent px-4 text-sm font-semibold text-accent-ink hover:bg-accent-hover"
               href="/privacy"
             >
               Read the privacy approach
@@ -245,17 +236,15 @@ export default function HomePage() {
           </div>
 
           <div className="p-6 sm:p-8 lg:p-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-              Why PixelUtils is different
-            </p>
+            <p className="section-eyebrow">Why PixelUtils is different</p>
             <div className="mt-5 divide-y divide-line">
               {differences.map((difference) => (
                 <article
                   className="flex gap-4 py-5 first:pt-0 last:pb-0"
                   key={difference.title}
                 >
-                  <span className="grid size-9 shrink-0 place-items-center rounded-[10px] bg-panel-muted text-ink-muted">
-                    <Icon className="size-[18px]" name={difference.icon} />
+                  <span className="grid size-9 shrink-0 place-items-center rounded-control bg-panel-muted text-ink-muted">
+                    <Icon className="size-4" name={difference.icon} />
                   </span>
                   <div>
                     <h3 className="text-base font-semibold text-ink">
@@ -279,7 +268,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <RecentTools tools={publishedTools} />
+      <FavoriteTools tools={publishedToolCards} />
+      <RecentTools tools={publishedToolCards} />
     </>
   );
 }

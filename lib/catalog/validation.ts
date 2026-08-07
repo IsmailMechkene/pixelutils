@@ -13,7 +13,9 @@ export type RegistryIssueCode =
   | "invalid-date"
   | "invalid-date-order"
   | "invalid-popular-rank"
+  | "invalid-search-weight"
   | "duplicate-popular-rank"
+  | "invalid-publication-status"
   | "missing-content"
   | "broken-related-tool"
   | "related-tool-unpublished"
@@ -21,7 +23,9 @@ export type RegistryIssueCode =
   | "duplicate-related-tool"
   | "draft-featured-tool"
   | "missing-workspace"
-  | "unknown-workspace";
+  | "unknown-workspace"
+  | "orphan-tool"
+  | "broken-route";
 
 export interface RegistryValidationIssue {
   code: RegistryIssueCode;
@@ -92,6 +96,17 @@ export function validateRegistry(
       issues.push({
         code: "invalid-category-definition",
         message: `Category slug "${category.slug}" must use lowercase kebab-case.`,
+        path: `${path}.slug`,
+      });
+    }
+    if (
+      !/^\/categories\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(
+        `/categories/${category.slug}`,
+      )
+    ) {
+      issues.push({
+        code: "broken-route",
+        message: `Category "${category.slug}" cannot generate a valid canonical route.`,
         path: `${path}.slug`,
       });
     }
@@ -180,6 +195,22 @@ export function validateRegistry(
       });
     }
 
+    if (!/^\/tools\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(`/tools/${tool.slug}`)) {
+      issues.push({
+        code: "broken-route",
+        message: `Tool "${tool.slug}" cannot generate a valid canonical route.`,
+        path: `${path}.slug`,
+      });
+    }
+
+    if (tool.status !== "draft" && tool.status !== "published") {
+      issues.push({
+        code: "invalid-publication-status",
+        message: `Tool "${tool.slug}" has unsupported publication status "${String(tool.status)}".`,
+        path: `${path}.status`,
+      });
+    }
+
     if (!categorySlugs.has(tool.category)) {
       issues.push({
         code: "invalid-category",
@@ -208,6 +239,7 @@ export function validateRegistry(
     if (tool.status === "published") {
       for (const [field, values] of [
         ["keywords", tool.keywords],
+        ["aliases", tool.aliases],
         ["usageSteps", tool.usageSteps],
         ["examples", tool.examples],
         ["faqs", tool.faqs],
@@ -261,11 +293,39 @@ export function validateRegistry(
       });
     }
 
+    if (
+      !Number.isInteger(tool.searchWeight) ||
+      tool.searchWeight < 0 ||
+      tool.searchWeight > 100
+    ) {
+      issues.push({
+        code: "invalid-search-weight",
+        message: `Tool "${tool.slug}" must have an integer search weight from 0 to 100.`,
+        path: `${path}.searchWeight`,
+      });
+    }
+
     if (tool.status === "draft" && tool.featured) {
       issues.push({
         code: "draft-featured-tool",
         message: `Draft tool "${tool.slug}" cannot be featured.`,
         path: `${path}.featured`,
+      });
+    }
+
+    if (tool.status === "draft" && tool.popularRank !== undefined) {
+      issues.push({
+        code: "invalid-publication-status",
+        message: `Draft tool "${tool.slug}" cannot have a popular rank.`,
+        path: `${path}.popularRank`,
+      });
+    }
+
+    if (tool.status === "published" && !categorySlugs.has(tool.category)) {
+      issues.push({
+        code: "orphan-tool",
+        message: `Published tool "${tool.slug}" has no discoverable category route.`,
+        path: `${path}.category`,
       });
     }
 

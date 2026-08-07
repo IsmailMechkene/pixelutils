@@ -81,7 +81,7 @@ export default function QrCodeGeneratorWorkspace({ slug }: { slug: string }) {
   }
 
   const controlClass =
-    "min-h-11 w-full rounded-[10px] border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-accent";
+    "min-h-11 w-full rounded-control border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-accent";
   return (
     <form
       onSubmit={(event) => {

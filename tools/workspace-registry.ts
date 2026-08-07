@@ -1,7 +1,9 @@
 import type { ComponentType } from "react";
 
+import type { ToolSlug } from "@/lib/catalog/registry";
+
 export interface ToolWorkspaceProps {
-  slug: string;
+  slug: ToolSlug;
 }
 
 export type ToolWorkspaceModule = {
@@ -10,9 +12,7 @@ export type ToolWorkspaceModule = {
 
 // Each entry must use a direct dynamic import so Next.js creates one isolated
 // chunk per tool. Add a loader in the same change that publishes the tool.
-export const toolWorkspaceLoaders: Readonly<
-  Record<string, () => Promise<ToolWorkspaceModule>>
-> = {
+export const toolWorkspaceLoaders = {
   "json-formatter": () => import("./json-formatter/workspace"),
   "json-minifier": () => import("./json-minifier/workspace"),
   "base64-encoder-decoder": () => import("./base64/workspace"),
@@ -33,8 +33,8 @@ export const toolWorkspaceLoaders: Readonly<
   "jwt-decoder": () => import("./jwt-decoder/workspace"),
   "percentage-calculator": () => import("./percentage-calculator/workspace"),
   "age-calculator": () => import("./age-calculator/workspace"),
-};
+} satisfies Record<ToolSlug, () => Promise<ToolWorkspaceModule>>;
 
 export const toolWorkspaceSlugs = Object.freeze(
-  Object.keys(toolWorkspaceLoaders),
+  Object.keys(toolWorkspaceLoaders) as ToolSlug[],
 );

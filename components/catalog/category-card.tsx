@@ -16,12 +16,12 @@ export function CategoryCard({
 }: CategoryCardProps) {
   const content = (
     <>
-      <span className="grid size-11 place-items-center rounded-[10px] bg-panel-muted text-ink-muted">
-        <CategoryIcon className="size-[26px]" name={category.icon} />
+      <span className="grid size-11 place-items-center rounded-control bg-panel-muted text-ink-muted">
+        <CategoryIcon className="size-7" name={category.icon} />
       </span>
       <div className={compact ? "mt-5" : "mt-8"}>
         <div className="flex items-center justify-between gap-3">
-          <h3 className="text-lg font-semibold tracking-[-0.02em] text-ink">
+          <h3 className="text-lg font-semibold tracking-tight text-ink">
             {category.name}
           </h3>
           {toolCount > 0 ? (
@@ -34,7 +34,7 @@ export function CategoryCard({
         <p className="mt-2 text-sm leading-6 text-ink-muted">
           {category.shortDescription}
         </p>
-        <p className="mt-4 text-xs font-medium uppercase tracking-[0.12em] text-ink-subtle">
+        <p className="mt-4 text-xs font-medium uppercase tracking-wider text-ink-subtle">
           {toolCount === 0
             ? "Tools in preparation"
             : `${toolCount} ${toolCount === 1 ? "tool" : "tools"}`}
@@ -49,7 +49,7 @@ export function CategoryCard({
 
   return toolCount > 0 ? (
     <Link
-      className={`${className} transition-[border-color,box-shadow,transform] duration-150 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_16px_36px_rgba(0,0,0,0.07)]`}
+      className={`${className} transition duration-150 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-card`}
       href={`/categories/${category.slug}`}
     >
       {content}

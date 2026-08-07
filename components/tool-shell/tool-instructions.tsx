@@ -8,10 +8,7 @@ export function ToolInstructions({ steps, toolName }: ToolInstructionsProps) {
 
   return (
     <section aria-labelledby="tool-instructions-title">
-      <h2
-        className="text-2xl font-semibold tracking-[-0.03em] text-ink"
-        id="tool-instructions-title"
-      >
+      <h2 className="content-title" id="tool-instructions-title">
         How to use {toolName}
       </h2>
       <ol className="mt-5 grid gap-3">

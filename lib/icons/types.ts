@@ -69,6 +69,7 @@ export const actionIconIds = [
   "settings-2",
   "shield-check",
   "sparkles",
+  "star",
   "sun",
   "text",
   "trash-2",

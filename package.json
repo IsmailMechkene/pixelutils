@@ -15,7 +15,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "validate": "npm run lint && npm run typecheck && npm run test && npm run build"
+    "validate:registry": "vitest run lib/catalog/registry.test.ts lib/seo/seo.test.ts",
+    "validate": "npm run lint && npm run typecheck && npm run test && npm run validate:registry && npm run build"
   },
   "dependencies": {
     "he": "^1.2.0",

@@ -9,7 +9,7 @@ export const phaseTwoTools = [
       "Escape ampersands, angle brackets, quotes, and apostrophes for safe display as text, or decode named and numeric HTML entities without executing the resulting markup.",
     category: "web",
     keywords: ["HTML entities", "escape HTML", "unescape", "encode markup"],
-    searchAliases: ["HTML encoder", "HTML decoder", "entity converter"],
+    aliases: ["HTML encoder", "HTML decoder", "entity converter"],
     icon: "code-xml",
     relatedTools: [
       "html-formatter",
@@ -17,6 +17,7 @@ export const phaseTwoTools = [
       "url-encoder-decoder",
     ],
     featured: false,
+    searchWeight: 70,
     privacyNote:
       "Entity conversion happens locally and decoded markup is displayed only as text.",
     browserProcessing: true,
@@ -64,7 +65,7 @@ export const phaseTwoTools = [
       "Turn compact or uneven HTML into consistently indented markup using a standards-aware formatter that preserves meaningful inline whitespace and reports malformed structures.",
     category: "web",
     keywords: ["HTML formatter", "beautify HTML", "indent markup", "Prettier"],
-    searchAliases: ["HTML beautifier", "pretty HTML", "format markup"],
+    aliases: ["HTML beautifier", "pretty HTML", "format markup"],
     icon: "file-code",
     relatedTools: [
       "html-escape-unescape",
@@ -72,6 +73,7 @@ export const phaseTwoTools = [
       "json-formatter",
     ],
     featured: true,
+    searchWeight: 82,
     privacyNote:
       "The formatter loads on this route and processes HTML entirely in your browser.",
     browserProcessing: true,
@@ -119,7 +121,7 @@ export const phaseTwoTools = [
       "Preview headings, lists, links, code, tables, and other common Markdown while sanitizing the generated HTML. Scripts, event handlers, remote images, and unsafe URL schemes are removed.",
     category: "text",
     keywords: ["Markdown", "preview", "GFM", "sanitized HTML"],
-    searchAliases: ["Markdown viewer", "render Markdown", "Markdown to HTML"],
+    aliases: ["Markdown viewer", "render Markdown", "Markdown to HTML"],
     icon: "file-text",
     relatedTools: [
       "html-formatter",
@@ -127,6 +129,7 @@ export const phaseTwoTools = [
       "word-character-counter",
     ],
     featured: true,
+    searchWeight: 86,
     privacyNote:
       "Markdown parsing and HTML sanitization run locally; remote images are not rendered.",
     browserProcessing: true,
@@ -174,7 +177,7 @@ export const phaseTwoTools = [
       "Create a controlled amount of varied placeholder copy for layouts and prototypes. Choose words, sentences, or paragraphs and optionally begin with the familiar Lorem ipsum opening.",
     category: "text",
     keywords: ["Lorem ipsum", "placeholder text", "dummy copy", "generator"],
-    searchAliases: ["dummy text generator", "filler text", "placeholder copy"],
+    aliases: ["dummy text generator", "filler text", "placeholder copy"],
     icon: "text",
     relatedTools: [
       "word-character-counter",
@@ -182,6 +185,7 @@ export const phaseTwoTools = [
       "markdown-previewer",
     ],
     featured: false,
+    searchWeight: 58,
     privacyNote:
       "Placeholder text is assembled locally using browser randomness.",
     browserProcessing: true,
@@ -229,7 +233,7 @@ export const phaseTwoTools = [
       "Generate a customizable PNG QR code from text or a URL with selectable size, margin, colors, and error correction. Scan the preview before sharing to confirm the encoded content.",
     category: "image-conversion",
     keywords: ["QR code", "generator", "PNG", "error correction"],
-    searchAliases: ["create QR", "URL QR code", "QR image maker"],
+    aliases: ["create QR", "URL QR code", "QR image maker"],
     icon: "qr-code",
     relatedTools: [
       "url-encoder-decoder",
@@ -237,6 +241,7 @@ export const phaseTwoTools = [
       "base64-encoder-decoder",
     ],
     featured: true,
+    searchWeight: 78,
     privacyNote:
       "QR encoding and PNG generation happen entirely in your browser.",
     browserProcessing: true,
@@ -284,7 +289,7 @@ export const phaseTwoTools = [
       "Enter a color in common HEX, RGB, or HSL syntax and receive normalized values in all three formats. Short hex, alpha channels, hue wrapping, and range validation are supported.",
     category: "color-design",
     keywords: ["color converter", "HEX", "RGB", "HSL"],
-    searchAliases: ["HEX to RGB", "RGB to HSL", "HSL to HEX"],
+    aliases: ["HEX to RGB", "RGB to HSL", "HSL to HEX"],
     icon: "palette",
     relatedTools: [
       "qr-code-generator",
@@ -292,6 +297,7 @@ export const phaseTwoTools = [
       "url-encoder-decoder",
     ],
     featured: true,
+    searchWeight: 74,
     privacyNote: "Color parsing, conversion, and previewing happen locally.",
     browserProcessing: true,
     sensitive: false,
@@ -338,7 +344,7 @@ export const phaseTwoTools = [
       "Create SHA-256, SHA-384, SHA-512, or legacy SHA-1 digests from UTF-8 text using native browser cryptography. Choose hexadecimal or Base64 output without storing the source.",
     category: "security",
     keywords: ["hash generator", "SHA-256", "SubtleCrypto", "digest"],
-    searchAliases: ["SHA hash", "text checksum", "SHA-512 generator"],
+    aliases: ["SHA hash", "text checksum", "SHA-512 generator"],
     icon: "hash",
     relatedTools: [
       "password-generator",
@@ -346,6 +352,7 @@ export const phaseTwoTools = [
       "base64-encoder-decoder",
     ],
     featured: true,
+    searchWeight: 80,
     privacyNote:
       "Hash source text stays in memory and is never stored in tool history.",
     browserProcessing: true,
@@ -395,7 +402,7 @@ export const phaseTwoTools = [
       "Inspect the Base64URL-encoded header and payload of a three-part JSON Web Token. Decoding reveals claims but does not verify the signature, issuer, audience, expiry, or trustworthiness.",
     category: "developer",
     keywords: ["JWT decoder", "JSON Web Token", "Base64URL", "claims"],
-    searchAliases: ["decode token", "JWT viewer", "inspect JWT"],
+    aliases: ["decode token", "JWT viewer", "inspect JWT"],
     icon: "scan-search",
     relatedTools: [
       "hash-generator",
@@ -403,6 +410,7 @@ export const phaseTwoTools = [
       "json-formatter",
     ],
     featured: false,
+    searchWeight: 76,
     privacyNote:
       "JWTs are decoded in memory and are never requested, uploaded, logged, or stored.",
     browserProcessing: true,
@@ -456,11 +464,7 @@ export const phaseTwoTools = [
       "percentage change",
       "ratio",
     ],
-    searchAliases: [
-      "percent calculator",
-      "what percentage",
-      "percent increase",
-    ],
+    aliases: ["percent calculator", "what percentage", "percent increase"],
     icon: "percent",
     relatedTools: [
       "age-calculator",
@@ -468,6 +472,7 @@ export const phaseTwoTools = [
       "word-character-counter",
     ],
     featured: false,
+    searchWeight: 66,
     privacyNote:
       "Percentage calculations run locally and use only the numbers you enter.",
     browserProcessing: true,
@@ -516,7 +521,7 @@ export const phaseTwoTools = [
       "Compare a birth date with any date using date-only calendar arithmetic. Results are independent of time zones and daylight saving, with an explicit February 29 policy and future-date validation.",
     category: "date-time",
     keywords: ["age calculator", "date of birth", "calendar age", "leap year"],
-    searchAliases: ["how old am I", "DOB calculator", "age on date"],
+    aliases: ["how old am I", "DOB calculator", "age on date"],
     icon: "calendar-days",
     relatedTools: [
       "unix-timestamp-converter",
@@ -524,6 +529,7 @@ export const phaseTwoTools = [
       "word-character-counter",
     ],
     featured: false,
+    searchWeight: 64,
     privacyNote:
       "Birth and comparison dates are calculated locally and are not stored.",
     browserProcessing: true,

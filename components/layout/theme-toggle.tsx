@@ -84,7 +84,7 @@ export function ThemeToggle() {
       aria-label={label}
       title={label}
     >
-      <Icon className="size-[18px]" name={icon} />
+      <Icon className="size-4" name={icon} />
     </button>
   );
 }

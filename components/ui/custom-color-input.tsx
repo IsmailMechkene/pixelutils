@@ -106,7 +106,7 @@ export function CustomColorInput({
         {label}
       </span>
       <div
-        className={`mt-2 flex min-h-11 items-stretch overflow-hidden rounded-[10px] border bg-canvas transition-[border-color,box-shadow] focus-within:border-accent ${
+        className={`mt-2 flex min-h-11 items-stretch overflow-hidden rounded-control border bg-canvas transition focus-within:border-accent ${
           invalid ? "border-danger-line" : "border-line-strong"
         } ${disabled ? "opacity-55" : ""}`}
       >
@@ -123,7 +123,7 @@ export function CustomColorInput({
         >
           <span
             aria-hidden="true"
-            className="size-6 rounded-md border border-black/15 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.2)] dark:border-white/20"
+            className="color-swatch-preview size-6 rounded-small border"
             style={{ backgroundColor: value }}
           />
         </button>
@@ -158,7 +158,7 @@ export function CustomColorInput({
       {isOpen ? (
         <div
           aria-label={`Choose ${label.toLowerCase()} color`}
-          className="search-results-scrollbar absolute right-0 top-[calc(100%+8px)] z-[80] max-h-[min(24rem,calc(100vh-2rem))] w-[min(18rem,calc(100vw-2rem))] overflow-y-auto rounded-card border border-line bg-panel p-3.5 shadow-[0_20px_55px_rgba(0,0,0,0.22)] outline-none"
+          className="search-results-scrollbar absolute right-0 top-[calc(100%+8px)] z-[80] max-h-[min(24rem,calc(100vh-2rem))] w-[min(18rem,calc(100vw-2rem))] overflow-y-auto rounded-card border border-line bg-panel p-3.5 shadow-overlay outline-none"
           id={popoverId}
           role="dialog"
         >
@@ -231,7 +231,7 @@ export function CustomColorInput({
           </div>
 
           <button
-            className="mt-4 min-h-11 w-full rounded-[10px] bg-panel-muted px-3 text-sm font-semibold text-ink transition-colors hover:bg-accent-soft"
+            className="mt-4 min-h-11 w-full rounded-control bg-panel-muted px-3 text-sm font-semibold text-ink transition-colors hover:bg-accent-soft"
             onClick={() => {
               setIsOpen(false);
               window.setTimeout(() => triggerRef.current?.focus(), 0);

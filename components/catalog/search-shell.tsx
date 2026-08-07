@@ -5,23 +5,38 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 
 import { Icon } from "@/components/ui/icon";
+import { CustomSelect } from "@/components/ui/custom-select";
 import {
   getNextSearchIndex,
+  ALL_CATEGORIES,
   searchTools,
   type SearchNavigationKey,
 } from "@/lib/catalog/search";
 import type { ToolSearchItem } from "@/lib/catalog/types";
+import { recordSearchQuery } from "@/lib/storage/catalog-preferences";
 
 interface SearchShellProps {
   tools: readonly ToolSearchItem[];
+  categories: readonly { readonly name: string; readonly slug: string }[];
 }
 
-export function SearchShell({ tools }: SearchShellProps) {
+export function SearchShell({ tools, categories }: SearchShellProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
-  const results = useMemo(() => searchTools(tools, query), [query, tools]);
+  const [category, setCategory] = useState<string>(ALL_CATEGORIES);
+  const results = useMemo(
+    () => searchTools(tools, query, { category }),
+    [category, query, tools],
+  );
+  const categoryOptions = useMemo(
+    () => [
+      { value: ALL_CATEGORIES, label: "All categories" },
+      ...categories.map(({ name, slug }) => ({ value: slug, label: name })),
+    ],
+    [categories],
+  );
   const showResults = isOpen && Boolean(query);
 
   function selectWithKeyboard(key: SearchNavigationKey) {
@@ -57,7 +72,7 @@ export function SearchShell({ tools }: SearchShellProps) {
           aria-controls={showResults ? "homepage-search-results" : undefined}
           aria-expanded={showResults}
           id="tool-search"
-          className="h-14 w-full rounded-card border border-line-strong bg-panel py-3 pl-12 pr-16 text-base text-ink shadow-[0_14px_40px_rgba(0,0,0,0.07)] outline-none placeholder:text-ink-subtle focus:border-accent sm:h-16 sm:text-lg"
+          className="h-14 w-full rounded-card border border-line-strong bg-panel py-3 pl-12 pr-16 text-base text-ink shadow-card outline-none placeholder:text-ink-subtle focus:border-accent sm:h-16 sm:text-lg"
           type="search"
           value={query}
           onChange={(event) => {
@@ -65,7 +80,10 @@ export function SearchShell({ tools }: SearchShellProps) {
             setQuery(nextQuery);
             setIsOpen(Boolean(nextQuery));
             setActiveIndex(
-              nextQuery && searchTools(tools, nextQuery).length > 0 ? 0 : -1,
+              nextQuery &&
+                searchTools(tools, nextQuery, { category }).length > 0
+                ? 0
+                : -1,
             );
           }}
           onFocus={() => setIsOpen(Boolean(query))}
@@ -81,7 +99,10 @@ export function SearchShell({ tools }: SearchShellProps) {
             } else if (event.key === "Enter" && activeIndex >= 0) {
               event.preventDefault();
               const selected = results[activeIndex];
-              if (selected) router.push(`/tools/${selected.slug}`);
+              if (selected) {
+                recordSearchQuery(query);
+                router.push(`/tools/${selected.slug}`);
+              }
             } else if (event.key === "Escape") {
               setIsOpen(false);
               setActiveIndex(-1);
@@ -99,7 +120,7 @@ export function SearchShell({ tools }: SearchShellProps) {
       {showResults ? (
         <div
           id="homepage-search-results"
-          className="search-results-scrollbar absolute inset-x-0 top-[calc(100%+8px)] z-30 max-h-80 overflow-y-auto rounded-card border border-line bg-panel p-2 shadow-[0_20px_55px_rgba(0,0,0,0.14)]"
+          className="search-results-scrollbar absolute inset-x-0 top-[calc(100%+8px)] z-30 max-h-80 overflow-y-auto rounded-card border border-line bg-panel p-2 shadow-overlay"
           aria-label="Tool search results"
           role="listbox"
         >
@@ -112,7 +133,10 @@ export function SearchShell({ tools }: SearchShellProps) {
                     className="flex min-h-14 items-center justify-between gap-3 rounded-lg px-3 py-2 hover:bg-panel-muted aria-selected:bg-panel-muted"
                     href={`/tools/${tool.slug}`}
                     id={`homepage-search-option-${index}`}
-                    onClick={() => setQuery("")}
+                    onClick={() => {
+                      recordSearchQuery(query);
+                      setQuery("");
+                    }}
                     onMouseEnter={() => setActiveIndex(index)}
                     role="option"
                     tabIndex={-1}
@@ -140,6 +164,23 @@ export function SearchShell({ tools }: SearchShellProps) {
           )}
         </div>
       ) : null}
+
+      <div className="mx-auto mt-3 max-w-xs text-left">
+        <CustomSelect
+          id="homepage-category-filter"
+          label="Filter by category"
+          onChange={(value) => {
+            setCategory(value);
+            setActiveIndex(
+              query && searchTools(tools, query, { category: value }).length > 0
+                ? 0
+                : -1,
+            );
+          }}
+          options={categoryOptions}
+          value={category}
+        />
+      </div>
 
       <p aria-live="polite" aria-atomic="true" className="sr-only">
         {showResults

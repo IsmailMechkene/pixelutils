@@ -23,11 +23,11 @@ Open [http://localhost:3000](http://localhost:3000). The application does not re
 
 ## Environment variables
 
-| Variable | Required | Purpose |
-|---|---|---|
-| `SITE_URL` | Production | Absolute canonical origin, for example `https://www.example.com` |
-| `CONTACT_EMAIL` | Recommended | Address used by the contact page's `mailto:` link |
-| `NEXT_PUBLIC_ADS_ENABLED` | No | Reserved for future advertising; keep `false` until a provider and policies are configured |
+| Variable                  | Required    | Purpose                                                                                    |
+| ------------------------- | ----------- | ------------------------------------------------------------------------------------------ |
+| `SITE_URL`                | Production  | Absolute canonical origin, for example `https://www.example.com`                           |
+| `CONTACT_EMAIL`           | Recommended | Address used by the contact page's `mailto:` link                                          |
+| `NEXT_PUBLIC_ADS_ENABLED` | No          | Reserved for future advertising; keep `false` until a provider and policies are configured |
 
 Do not place secrets in `NEXT_PUBLIC_*` variables because Next.js includes them in browser-accessible output. Site and contact configuration remain server-side.
 
@@ -39,6 +39,7 @@ npm run lint       # Run ESLint
 npm run typecheck  # Run strict TypeScript checks
 npm run test       # Run Vitest once
 npm run test:watch # Run Vitest in watch mode
+npm run validate:registry # Run catalog, route, workspace, and SEO integrity tests
 npm run build      # Create a production build
 npm run start      # Serve a production build locally
 npm run validate   # Run lint, types, tests, and the production build
@@ -49,7 +50,8 @@ npm run validate   # Run lint, types, tests, and the production build
 - `app/` contains App Router pages, metadata routes, loading states, and the global design system.
 - `components/` contains small shared layout, catalog, SEO, advertising, tool-action, input/output, and tool-shell components.
 - `lib/catalog/` contains the strongly typed tool/category registry, framework-free search helpers, derived selectors, and build-time validation.
-- `lib/storage/` contains versioned local-only recent-tool and content-free activity-history adapters.
+- `lib/storage/` contains bounded, versioned adapters for local-only recents, favorites, committed search history, and content-free activity history.
+- `hooks/` contains small client adapters for subscribing to defensive local preferences without duplicating hydration logic.
 - `tools/` is reserved for isolated tool logic, focused tests, and lazily loaded workspaces.
 - `docs/` contains the product, architecture, roadmap, SEO, and UI decisions used by the project.
 
@@ -60,7 +62,7 @@ The registry is the source of truth for published routes. Category and tool page
 1. Read `AGENTS.md` and the documents in `docs/`.
 2. Create a tool folder containing pure TypeScript logic, focused tests, and a client workspace.
 3. Add complete editorial and SEO content to the typed registry.
-4. Register the workspace with a direct dynamic import in `tools/workspace-registry.ts`.
+4. Register the workspace with a direct dynamic import in `tools/workspace-registry.ts`; its exhaustive `ToolSlug` map fails type checking for missing or extra implementations.
 5. Add and validate related-tool relationships.
 6. Confirm processing and privacy claims match the implementation.
 7. Run `npm run validate` before changing the tool status to `published`.
@@ -92,5 +94,5 @@ The GitHub Actions workflow installs the lockfile and runs ESLint, strict type c
 
 - The scaffold makes no external API calls and includes no analytics provider.
 - The `AdSlot` component renders nothing and contains no provider script.
-- Theme preference, recent-tool slugs, and optional content-free tool activity are stored locally. Sensitive-tool history is disabled by default.
+- Theme preference, recent/favorite tool slugs, committed catalog searches, and optional content-free tool activity are stored locally. Search history is bounded and clearable; sensitive-tool history is disabled by default.
 - Future telemetry must never include tool input, uploaded files, output, passwords, tokens, hashes, or clipboard content.

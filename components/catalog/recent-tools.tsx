@@ -8,12 +8,12 @@ import {
   RECENT_TOOLS_STORAGE_KEY,
   subscribeToToolActivity,
 } from "@/lib/storage/tool-activity";
-import type { ToolDefinition } from "@/lib/catalog/types";
+import type { ToolCardItem } from "@/lib/catalog/types";
 
 import { ToolCard } from "./tool-card";
 
 interface RecentToolsProps {
-  tools: readonly ToolDefinition[];
+  tools: readonly ToolCardItem[];
 }
 
 const emptySnapshot = "[]";
@@ -29,7 +29,7 @@ export function RecentTools({ tools }: RecentToolsProps) {
   const toolsBySlug = new Map(tools.map((tool) => [tool.slug, tool]));
   const recentTools = recentSlugs
     .map((slug) => toolsBySlug.get(slug))
-    .filter((tool): tool is ToolDefinition => tool !== undefined)
+    .filter((tool): tool is ToolCardItem => tool !== undefined)
     .slice(0, visibleRecentToolLimit);
 
   if (recentTools.length === 0) return null;
@@ -40,13 +40,8 @@ export function RecentTools({ tools }: RecentToolsProps) {
       className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 sm:pt-20 lg:px-8"
     >
       <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-          Stored on this device
-        </p>
-        <h2
-          className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-ink"
-          id="recent-tools-title"
-        >
+        <p className="section-eyebrow">Stored on this device</p>
+        <h2 className="content-title mt-3" id="recent-tools-title">
           Recently used
         </h2>
       </div>

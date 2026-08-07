@@ -7,6 +7,7 @@ import { useId, useState } from "react";
 import { Icon } from "@/components/ui/icon";
 
 import { ErrorMessage } from "./error-message";
+import { DragOverlay } from "./drag-overlay";
 
 interface FileDropzoneProps {
   onFiles: (files: readonly File[]) => void;
@@ -65,7 +66,7 @@ export function FileDropzone({
         type="file"
       />
       <label
-        className={`flex min-h-48 cursor-pointer flex-col items-center justify-center rounded-card border border-dashed px-6 py-8 text-center transition-colors duration-150 peer-focus-visible:outline peer-focus-visible:outline-3 peer-focus-visible:outline-offset-3 peer-focus-visible:outline-accent ${
+        className={`relative flex min-h-48 cursor-pointer flex-col items-center justify-center rounded-card border border-dashed px-6 py-8 text-center transition-colors duration-150 peer-focus-visible:outline peer-focus-visible:outline-3 peer-focus-visible:outline-offset-3 peer-focus-visible:outline-accent ${
           isDragging
             ? "border-accent bg-accent-soft"
             : "border-line-strong bg-canvas hover:border-accent"
@@ -84,12 +85,13 @@ export function FileDropzone({
         }}
       >
         <span className="grid size-11 place-items-center rounded-card bg-accent-soft text-accent">
-          <Icon className="size-[18px]" name="file-up" />
+          <Icon className="size-4" name="file-up" />
         </span>
         <span className="mt-4 text-sm font-semibold text-ink">{label}</span>
         <span className="mt-1 text-xs leading-5 text-ink-subtle">
           {description}
         </span>
+        <DragOverlay visible={isDragging} />
       </label>
       {error ? (
         <div className="mt-3">

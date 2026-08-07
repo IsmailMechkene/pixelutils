@@ -8,7 +8,7 @@ export function ErrorMessage({ message, id }: ErrorMessageProps) {
 
   return (
     <p
-      className="rounded-[10px] border border-danger-line bg-danger-soft px-3.5 py-3 text-sm leading-6 text-danger"
+      className="rounded-control border border-danger-line bg-danger-soft px-3.5 py-3 text-sm leading-6 text-danger"
       id={id}
       role="alert"
     >

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ToolCard } from "@/components/catalog/tool-card";
+import { CatalogSidebar } from "@/components/catalog/catalog-sidebar";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/tool-shell/breadcrumbs";
 import { CategoryIcon } from "@/components/ui/icon";
@@ -53,43 +54,43 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <Breadcrumbs
           items={[{ href: "/", label: "Home" }, { label: category.name }]}
         />
-        <header className="mt-7 max-w-3xl">
-          <span className="grid size-11 place-items-center rounded-card bg-accent-soft text-accent">
-            <CategoryIcon className="size-7" name={category.icon} />
-          </span>
-          <h1 className="mt-5 text-3xl font-semibold tracking-[-0.04em] text-ink sm:text-4xl">
-            {category.name} tools
-          </h1>
-          <p className="mt-4 text-base leading-7 text-ink-muted sm:text-lg">
-            {category.description}
-          </p>
-        </header>
+        <div className="mt-7 grid gap-8 lg:grid-cols-[15rem_minmax(0,1fr)]">
+          <CatalogSidebar currentCategory={category.slug} />
+          <div className="min-w-0">
+            <header className="max-w-3xl">
+              <span className="grid size-11 place-items-center rounded-card bg-accent-soft text-accent">
+                <CategoryIcon className="size-7" name={category.icon} />
+              </span>
+              <h1 className="page-title mt-5">{category.name} tools</h1>
+              <p className="mt-4 text-base leading-7 text-ink-muted sm:text-lg">
+                {category.description}
+              </p>
+            </header>
 
-        <section className="mt-10" aria-labelledby="category-tools-title">
-          <h2 className="sr-only" id="category-tools-title">
-            Available {category.name.toLocaleLowerCase()} tools
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {tools.map((tool) => (
-              <ToolCard key={tool.slug} tool={tool} />
-            ))}
+            <section className="mt-10" aria-labelledby="category-tools-title">
+              <h2 className="sr-only" id="category-tools-title">
+                Available {category.name.toLocaleLowerCase()} tools
+              </h2>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {tools.map((tool) => (
+                  <ToolCard key={tool.slug} tool={tool} />
+                ))}
+              </div>
+            </section>
+
+            <section
+              aria-labelledby="category-guide-title"
+              className="mt-12 max-w-3xl border-t border-line pt-10"
+            >
+              <h2 className="content-title" id="category-guide-title">
+                Choosing a {category.name.toLocaleLowerCase()} tool
+              </h2>
+              <p className="mt-3 text-base leading-7 text-ink-muted">
+                {category.selectionGuide}
+              </p>
+            </section>
           </div>
-        </section>
-
-        <section
-          aria-labelledby="category-guide-title"
-          className="mt-12 max-w-3xl border-t border-line pt-10"
-        >
-          <h2
-            className="text-2xl font-semibold tracking-[-0.03em] text-ink"
-            id="category-guide-title"
-          >
-            Choosing a {category.name.toLocaleLowerCase()} tool
-          </h2>
-          <p className="mt-3 text-base leading-7 text-ink-muted">
-            {category.selectionGuide}
-          </p>
-        </section>
+        </div>
       </div>
     </>
   );

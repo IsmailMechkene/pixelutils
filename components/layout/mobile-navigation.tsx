@@ -97,7 +97,7 @@ export function MobileNavigation({ categories }: MobileNavigationProps) {
           ref={menuRef}
           id="mobile-navigation"
           aria-label="Mobile navigation"
-          className="absolute right-0 top-12 z-50 w-72 rounded-card border border-line bg-panel p-2 shadow-[0_20px_55px_rgba(0,0,0,0.14)]"
+          className="absolute right-0 top-12 z-50 w-72 rounded-card border border-line bg-panel p-2 shadow-overlay"
           onKeyDown={handleMenuKeyDown}
         >
           {links.map((link) => (
@@ -111,20 +111,22 @@ export function MobileNavigation({ categories }: MobileNavigationProps) {
             </Link>
           ))}
           <div className="my-2 border-t border-line" />
-          <p className="px-3 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-subtle">
+          <p className="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wider text-ink-subtle">
             Browse categories
           </p>
-          {categories.slice(0, 4).map((category) => (
-            <Link
-              className="flex min-h-11 items-center justify-between rounded-lg px-3 text-sm font-medium text-ink-muted hover:bg-panel-muted hover:text-ink"
-              href={`/categories/${category.slug}`}
-              key={category.slug}
-              onClick={() => setIsOpen(false)}
-            >
-              {category.name}
-              <Icon className="size-4 text-ink-subtle" name="arrow-right" />
-            </Link>
-          ))}
+          <div className="search-results-scrollbar max-h-64 overflow-y-auto">
+            {categories.map((category) => (
+              <Link
+                className="flex min-h-11 items-center justify-between rounded-lg px-3 text-sm font-medium text-ink-muted hover:bg-panel-muted hover:text-ink"
+                href={`/categories/${category.slug}`}
+                key={category.slug}
+                onClick={() => setIsOpen(false)}
+              >
+                {category.name}
+                <Icon className="size-4 text-ink-subtle" name="arrow-right" />
+              </Link>
+            ))}
+          </div>
         </nav>
       ) : null}
     </div>

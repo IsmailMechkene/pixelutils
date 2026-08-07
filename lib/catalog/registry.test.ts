@@ -14,10 +14,11 @@ function createTool(overrides: Partial<ToolDefinition> = {}): ToolDefinition {
     longDescription: "Format structured data without uploading it.",
     category: "developer",
     keywords: ["json", "format"],
-    searchAliases: ["json beautifier"],
+    aliases: ["json beautifier"],
     icon: "braces",
     relatedTools: [],
     featured: true,
+    searchWeight: 100,
     popularRank: 1,
     privacyNote: "Your JSON stays in this browser.",
     browserProcessing: true,
@@ -161,6 +162,46 @@ describe("catalog registry", () => {
     expect(issues).toEqual(
       expect.arrayContaining([
         expect.objectContaining({ code: "unknown-workspace" }),
+      ]),
+    );
+  });
+
+  it("rejects invalid publication states and search weights", () => {
+    const tool = createTool({
+      status: "archived" as ToolDefinition["status"],
+      searchWeight: 101,
+    });
+    const issues = validateRegistry(categoryRegistry, [tool], [tool.slug]);
+
+    expect(issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "invalid-publication-status" }),
+        expect.objectContaining({ code: "invalid-search-weight" }),
+      ]),
+    );
+  });
+
+  it("flags published tools without a discoverable category route", () => {
+    const tool = createTool({
+      category: "missing" as ToolDefinition["category"],
+    });
+    const issues = validateRegistry(categoryRegistry, [tool], [tool.slug]);
+
+    expect(issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "invalid-category" }),
+        expect.objectContaining({ code: "orphan-tool" }),
+      ]),
+    );
+  });
+
+  it("requires aliases on published tools", () => {
+    const tool = createTool({ aliases: [] });
+    const issues = validateRegistry(categoryRegistry, [tool], [tool.slug]);
+
+    expect(issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ code: "missing-content" }),
       ]),
     );
   });

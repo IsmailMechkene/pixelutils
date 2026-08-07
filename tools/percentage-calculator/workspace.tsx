@@ -63,7 +63,7 @@ export default function PercentageCalculatorWorkspace({
     recordToolHistory(slug, "cleared", { sensitive: false });
   }
   const controlClass =
-    "mt-2 min-h-11 w-full rounded-[10px] border border-line-strong bg-canvas px-3 text-ink outline-none focus:border-accent";
+    "mt-2 min-h-11 w-full rounded-control border border-line-strong bg-canvas px-3 text-ink outline-none focus:border-accent";
   return (
     <form
       onSubmit={(event) => {

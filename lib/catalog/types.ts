@@ -23,6 +23,10 @@ export const toolDataTypes = [
   "date",
   "file",
   "image",
+  "audio",
+  "video",
+  "binary",
+  "color",
 ] as const;
 
 export type ToolDataType = (typeof toolDataTypes)[number];
@@ -50,7 +54,8 @@ export interface ToolDefinition {
   readonly longDescription: string;
   readonly category: CategorySlug;
   readonly keywords: readonly string[];
-  readonly searchAliases: readonly string[];
+  readonly aliases: readonly string[];
+  readonly searchWeight: number;
   readonly icon: ToolIconId;
   readonly relatedTools: readonly string[];
   readonly featured: boolean;
@@ -76,7 +81,26 @@ export type ToolSearchItem = Pick<
   | "shortDescription"
   | "category"
   | "keywords"
-  | "searchAliases"
+  | "aliases"
+  | "searchWeight"
+>;
+
+export interface CatalogSearchIndex {
+  readonly categories: readonly {
+    readonly name: string;
+    readonly slug: CategorySlug;
+  }[];
+  readonly tools: readonly ToolSearchItem[];
+}
+
+export type ToolCardItem = Pick<
+  ToolDefinition,
+  | "slug"
+  | "name"
+  | "shortDescription"
+  | "category"
+  | "icon"
+  | "browserProcessing"
 >;
 
 export interface CategoryDefinition {

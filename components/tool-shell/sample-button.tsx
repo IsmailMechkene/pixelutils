@@ -12,7 +12,12 @@ export function SampleButton({
   label = "Use sample",
 }: SampleButtonProps) {
   return (
-    <ActionButton disabled={disabled} onClick={onSample} tone="quiet">
+    <ActionButton
+      disabled={disabled}
+      icon="sparkles"
+      onClick={onSample}
+      tone="quiet"
+    >
       {label}
     </ActionButton>
   );

@@ -10,10 +10,7 @@ export function ToolFAQ({ entries }: ToolFaqProps) {
 
   return (
     <section aria-labelledby="tool-faq-title">
-      <h2
-        className="text-2xl font-semibold tracking-[-0.03em] text-ink"
-        id="tool-faq-title"
-      >
+      <h2 className="content-title" id="tool-faq-title">
         Frequently asked questions
       </h2>
       <div className="mt-5 divide-y divide-line rounded-card border border-line bg-panel px-5">
@@ -22,7 +19,7 @@ export function ToolFAQ({ entries }: ToolFaqProps) {
             <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-ink marker:content-none">
               {entry.question}
               <Icon
-                className="size-[18px] shrink-0 text-ink-subtle transition-transform group-open:rotate-180"
+                className="size-4 shrink-0 text-ink-subtle transition-transform group-open:rotate-180"
                 name="chevron-down"
               />
             </summary>

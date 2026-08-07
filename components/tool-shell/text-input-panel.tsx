@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { ErrorMessage } from "./error-message";
+import { ToolInput } from "./tool-input";
 
 interface TextInputPanelProps {
   id: string;
@@ -35,27 +35,13 @@ export function TextInputPanel({
     [descriptionId, errorId].filter(Boolean).join(" ") || undefined;
 
   return (
-    <section className="min-w-0" aria-labelledby={`${id}-label`}>
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <label
-            className="text-sm font-semibold text-ink"
-            htmlFor={id}
-            id={`${id}-label`}
-          >
-            {label}
-          </label>
-          {description ? (
-            <p
-              className="mt-1 text-xs leading-5 text-ink-subtle"
-              id={descriptionId}
-            >
-              {description}
-            </p>
-          ) : null}
-        </div>
-        {actions}
-      </div>
+    <ToolInput
+      actions={actions}
+      description={description}
+      error={error}
+      id={id}
+      label={label}
+    >
       <textarea
         aria-describedby={describedBy}
         aria-invalid={Boolean(error)}
@@ -70,11 +56,6 @@ export function TextInputPanel({
         spellCheck={!monospace}
         value={value}
       />
-      {error ? (
-        <div className="mt-3">
-          <ErrorMessage id={errorId} message={error} />
-        </div>
-      ) : null}
-    </section>
+    </ToolInput>
   );
 }

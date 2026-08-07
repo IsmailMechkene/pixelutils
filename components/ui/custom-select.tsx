@@ -160,7 +160,7 @@ export function CustomSelect<Value extends string>({
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         aria-labelledby={`${labelId} ${valueId}`}
-        className="mt-2 flex min-h-11 w-full items-center justify-between gap-3 rounded-[10px] border border-line-strong bg-canvas px-3 text-left text-sm font-medium text-ink transition-[border-color,background-color,box-shadow] duration-150 hover:border-accent/60 hover:bg-panel focus-visible:border-accent disabled:cursor-not-allowed disabled:opacity-55"
+        className="mt-2 flex min-h-11 w-full items-center justify-between gap-3 rounded-control border border-line-strong bg-canvas px-3 text-left text-sm font-medium text-ink transition duration-150 hover:border-accent/60 hover:bg-panel focus-visible:border-accent disabled:cursor-not-allowed disabled:opacity-55"
         disabled={disabled}
         id={id}
         onClick={() => {
@@ -222,7 +222,7 @@ export function CustomSelect<Value extends string>({
           ref={listboxRef}
           aria-activedescendant={`${generatedId}-option-${activeIndex}`}
           aria-labelledby={labelId}
-          className="search-results-scrollbar absolute inset-x-0 top-[calc(100%+6px)] z-[70] max-h-64 min-w-48 overflow-y-auto rounded-card border border-line bg-panel p-1.5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] outline-none"
+          className="search-results-scrollbar absolute inset-x-0 top-[calc(100%+6px)] z-[70] max-h-64 min-w-48 overflow-y-auto rounded-card border border-line bg-panel p-1.5 shadow-overlay outline-none"
           id={listboxId}
           onKeyDown={handleListboxKeyDown}
           role="listbox"

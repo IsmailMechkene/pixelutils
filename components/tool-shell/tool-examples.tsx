@@ -9,10 +9,7 @@ export function ToolExamples({ examples }: ToolExamplesProps) {
 
   return (
     <section aria-labelledby="tool-examples-title">
-      <h2
-        className="text-2xl font-semibold tracking-[-0.03em] text-ink"
-        id="tool-examples-title"
-      >
+      <h2 className="content-title" id="tool-examples-title">
         Examples
       </h2>
       <div className="mt-5 grid gap-4 md:grid-cols-2">
@@ -24,7 +21,7 @@ export function ToolExamples({ examples }: ToolExamplesProps) {
             <h3 className="text-base font-semibold text-ink">{example.name}</h3>
             <dl className="mt-4 grid gap-4 text-sm">
               <div>
-                <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-ink-subtle">
+                <dt className="text-xs font-semibold uppercase tracking-wider text-ink-subtle">
                   Input
                 </dt>
                 <dd className="mt-2 overflow-auto whitespace-pre-wrap break-words rounded-lg bg-canvas p-3 font-mono leading-6 text-ink-muted">
@@ -32,7 +29,7 @@ export function ToolExamples({ examples }: ToolExamplesProps) {
                 </dd>
               </div>
               <div>
-                <dt className="text-xs font-semibold uppercase tracking-[0.12em] text-ink-subtle">
+                <dt className="text-xs font-semibold uppercase tracking-wider text-ink-subtle">
                   Output
                 </dt>
                 <dd className="mt-2 overflow-auto whitespace-pre-wrap break-words rounded-lg bg-canvas p-3 font-mono leading-6 text-ink-muted">

@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   getNextSearchIndex,
   groupSearchResults,
+  isCatalogSearchIndex,
   normalizeSearchText,
   searchTools,
 } from "./search";
@@ -15,10 +16,11 @@ const baseTool: ToolDefinition = {
   longDescription: "Format structured data without uploading it.",
   category: "developer",
   keywords: ["json", "format"],
-  searchAliases: ["json beautifier"],
+  aliases: ["json beautifier"],
   icon: "braces",
   relatedTools: [],
   featured: true,
+  searchWeight: 100,
   privacyNote: "Your JSON stays in this browser.",
   browserProcessing: true,
   sensitive: false,
@@ -39,6 +41,20 @@ const baseTool: ToolDefinition = {
 describe("normalizeSearchText", () => {
   it("normalizes case and repeated whitespace", () => {
     expect(normalizeSearchText("  JSON   BEAUTIFIER ")).toBe("json beautifier");
+  });
+});
+
+describe("catalog search index validation", () => {
+  it("accepts the minimal serializable projection and rejects rich/invalid data", () => {
+    expect(
+      isCatalogSearchIndex({
+        categories: [{ name: "Developer", slug: "developer" }],
+        tools: [baseTool],
+      }),
+    ).toBe(true);
+    expect(
+      isCatalogSearchIndex({ categories: [], tools: [{ slug: "bad" }] }),
+    ).toBe(false);
   });
 });
 
@@ -68,6 +84,29 @@ describe("searchTools", () => {
 
   it("returns all tools for an empty query", () => {
     expect(searchTools([baseTool], "   ")).toEqual([baseTool]);
+  });
+
+  it("filters by category without a backend", () => {
+    expect(searchTools([baseTool], "json", { category: "text" })).toEqual([]);
+    expect(searchTools([baseTool], "json", { category: "developer" })).toEqual([
+      baseTool,
+    ]);
+  });
+
+  it("ranks exact names and configured search weight deterministically", () => {
+    const lowerWeight = {
+      ...baseTool,
+      slug: "json-minifier",
+      name: "JSON Minifier",
+      searchWeight: 1,
+    };
+    expect(searchTools([lowerWeight, baseTool], "JSON Formatter")).toEqual([
+      baseTool,
+    ]);
+    expect(searchTools([lowerWeight, baseTool], "json")).toEqual([
+      baseTool,
+      lowerWeight,
+    ]);
   });
 });
 
