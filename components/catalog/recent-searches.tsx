@@ -22,7 +22,7 @@ export function RecentSearches({ onSelect }: RecentSearchesProps) {
   return (
     <section
       aria-labelledby="recent-searches-title"
-      className="border-b border-line px-4 py-3"
+      className="search-results-scrollbar max-h-36 shrink-0 overflow-y-auto border-b border-line px-4 py-3"
     >
       <div className="flex items-center justify-between gap-3">
         <h3
@@ -48,7 +48,7 @@ export function RecentSearches({ onSelect }: RecentSearchesProps) {
             type="button"
           >
             <Icon className="size-3.5" name="history" />
-            {query}
+            <span className="truncate">{query}</span>
           </button>
         ))}
       </div>

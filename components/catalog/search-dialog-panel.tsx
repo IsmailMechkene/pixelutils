@@ -30,7 +30,10 @@ import { trackSearchPerformed } from "@/lib/analytics/client";
 import type { CategorySlug } from "@/lib/catalog/types";
 
 import { RecentSearches } from "./recent-searches";
-import { SearchResultsSkeleton } from "./search-dialog-skeleton";
+import {
+  searchDialogFrameClassName,
+  SearchResultsSkeleton,
+} from "./search-dialog-skeleton";
 
 interface SearchDialogPanelProps {
   onClose: (restoreFocus?: boolean) => void;
@@ -179,7 +182,7 @@ export default function SearchDialogPanel({ onClose }: SearchDialogPanelProps) {
         aria-describedby="search-dialog-description"
         aria-labelledby="search-dialog-title"
         aria-modal="true"
-        className="relative flex max-h-[calc(100dvh-2rem)] w-full max-w-2xl flex-col overflow-hidden rounded-card border border-line bg-panel shadow-overlay"
+        className={searchDialogFrameClassName}
         onKeyDown={handleDialogKeyDown}
         role="dialog"
       >
@@ -189,7 +192,7 @@ export default function SearchDialogPanel({ onClose }: SearchDialogPanelProps) {
         <p className="sr-only" id="search-dialog-description">
           Search by tool name, keyword, or alias. Results stay in your browser.
         </p>
-        <div className="group/search flex items-center gap-3 border-b border-line px-4 transition-colors focus-within:bg-panel-muted/50">
+        <div className="group/search flex shrink-0 items-center gap-3 border-b border-line px-4 transition-colors focus-within:bg-panel-muted/50">
           <Icon
             className="size-5 shrink-0 text-ink-subtle transition-colors group-focus-within/search:text-accent"
             name="search"
@@ -247,7 +250,7 @@ export default function SearchDialogPanel({ onClose }: SearchDialogPanelProps) {
             <Icon className="size-4" name="x" />
           </button>
         </div>
-        <div className="border-b border-line px-4 py-3">
+        <div className="shrink-0 border-b border-line px-4 py-3">
           <CustomSelect
             className="max-w-xs"
             disabled={!catalog}

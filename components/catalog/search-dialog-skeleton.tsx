@@ -1,12 +1,19 @@
+"use client";
+
+import { createPortal } from "react-dom";
+
 const skeletonGroups = ["primary", "secondary"] as const;
 const skeletonRows = ["first", "second", "third"] as const;
+
+export const searchDialogFrameClassName =
+  "search-dialog-frame relative flex flex-col overflow-hidden rounded-card border border-line bg-panel shadow-overlay";
 
 export function SearchResultsSkeleton() {
   return (
     <div
       aria-busy="true"
       aria-live="polite"
-      className="min-h-72 p-2"
+      className="min-h-72 flex-1 p-2"
       role="status"
     >
       <span className="sr-only">Loading tool catalog</span>
@@ -49,19 +56,19 @@ export function SearchResultsSkeleton() {
   );
 }
 
-export function SearchDialogSkeleton() {
+export function SearchDialogSkeletonContent() {
   return (
     <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/45 p-4 backdrop-blur-sm sm:p-6">
       <div
         aria-busy="true"
         aria-live="polite"
-        className="relative flex max-h-[calc(100dvh-2rem)] w-full max-w-2xl flex-col overflow-hidden rounded-card border border-line bg-panel shadow-overlay"
+        className={searchDialogFrameClassName}
         role="status"
       >
         <span className="sr-only">Loading search</span>
         <div
           aria-hidden="true"
-          className="animate-pulse motion-reduce:animate-none"
+          className="shrink-0 animate-pulse motion-reduce:animate-none"
         >
           <div className="flex h-14 items-center gap-3 border-b border-line px-4">
             <div className="size-5 rounded-full bg-panel-muted" />
@@ -77,4 +84,8 @@ export function SearchDialogSkeleton() {
       </div>
     </div>
   );
+}
+
+export function SearchDialogSkeleton() {
+  return createPortal(<SearchDialogSkeletonContent />, document.body);
 }

@@ -263,6 +263,12 @@ input[type="search"]::-webkit-search-cancel-button {
   outline: none;
 }
 
+.search-dialog-frame {
+  width: 100%;
+  max-width: 42rem;
+  height: min(38rem, calc(100dvh - 2rem));
+}
+
 .search-results-scrollbar {
   scrollbar-color: var(--line-strong) transparent;
   scrollbar-width: thin;

@@ -2,15 +2,17 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 
 import {
-  SearchDialogSkeleton,
+  searchDialogFrameClassName,
+  SearchDialogSkeletonContent,
   SearchResultsSkeleton,
 } from "./search-dialog-skeleton";
 
 describe("search dialog skeleton", () => {
   it("announces loading without exposing fake controls", () => {
-    const markup = renderToStaticMarkup(SearchDialogSkeleton());
+    const markup = renderToStaticMarkup(SearchDialogSkeletonContent());
 
     expect(markup).toContain('aria-busy="true"');
+    expect(markup).toContain(searchDialogFrameClassName);
     expect(markup).toContain("Loading search");
     expect(markup).toContain("motion-reduce:animate-none");
     expect(markup).not.toContain("<button");
