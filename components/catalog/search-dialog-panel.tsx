@@ -30,6 +30,7 @@ import { trackSearchPerformed } from "@/lib/analytics/client";
 import type { CategorySlug } from "@/lib/catalog/types";
 
 import { RecentSearches } from "./recent-searches";
+import { SearchResultsSkeleton } from "./search-dialog-skeleton";
 
 interface SearchDialogPanelProps {
   onClose: (restoreFocus?: boolean) => void;
@@ -268,16 +269,13 @@ export default function SearchDialogPanel({ onClose }: SearchDialogPanelProps) {
         {!query ? <RecentSearches onSelect={updateQuery} /> : null}
         <div
           aria-label="Tool search results"
+          aria-busy={!catalog && !loadError}
           className="search-results-scrollbar min-h-0 flex-1 overflow-y-auto p-2"
           id="dialog-search-results"
-          role="listbox"
+          role={catalog && !loadError ? "listbox" : undefined}
         >
           {!catalog && !loadError ? (
-            <div className="p-4" role="status">
-              <div className="h-40 animate-pulse rounded-card bg-panel-muted motion-reduce:animate-none">
-                <span className="sr-only">Loading tool catalog</span>
-              </div>
-            </div>
+            <SearchResultsSkeleton />
           ) : loadError ? (
             <EmptyState
               description={loadError}

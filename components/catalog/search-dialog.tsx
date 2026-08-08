@@ -3,6 +3,9 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 
 import { Icon } from "@/components/ui/icon";
+
+import { SearchDialogSkeleton } from "./search-dialog-skeleton";
+
 const SearchDialogPanel = lazy(() => import("./search-dialog-panel"));
 
 export function SearchDialog() {
@@ -72,19 +75,7 @@ export function SearchDialog() {
       </button>
 
       {isOpen ? (
-        <Suspense
-          fallback={
-            <div
-              aria-live="polite"
-              className="fixed inset-0 z-[80] grid place-items-center bg-black/45 p-4 backdrop-blur-sm"
-              role="status"
-            >
-              <span className="rounded-card border border-line bg-panel px-5 py-4 text-sm font-medium text-ink">
-                Loading search…
-              </span>
-            </div>
-          }
-        >
+        <Suspense fallback={<SearchDialogSkeleton />}>
           <SearchDialogPanel onClose={closeDialog} />
         </Suspense>
       ) : null}

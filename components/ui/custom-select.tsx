@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 
 import { Icon } from "@/components/ui/icon";
+import type { ActionIconId } from "@/lib/icons/types";
 import {
   findSelectOptionByPrefix,
   getNextSelectIndex,
@@ -13,6 +14,7 @@ export interface CustomSelectOption<Value extends string> {
   readonly value: Value;
   readonly label: string;
   readonly description?: string;
+  readonly separatorBefore?: boolean;
 }
 
 interface CustomSelectProps<Value extends string> {
@@ -24,6 +26,8 @@ interface CustomSelectProps<Value extends string> {
   className?: string;
   description?: string;
   disabled?: boolean;
+  appearance?: "field" | "compact";
+  leadingIcon?: ActionIconId;
 }
 
 const navigationKeys: readonly SelectNavigationKey[] = [
@@ -42,6 +46,8 @@ export function CustomSelect<Value extends string>({
   className = "",
   description,
   disabled = false,
+  appearance = "field",
+  leadingIcon,
 }: CustomSelectProps<Value>) {
   const generatedId = useId();
   const labelId = `${id}-label`;
@@ -61,6 +67,7 @@ export function CustomSelect<Value extends string>({
   const [activeIndex, setActiveIndex] = useState(
     selectedIndex >= 0 ? selectedIndex : 0,
   );
+  const compact = appearance === "compact";
 
   useEffect(() => {
     if (!isOpen) return;
@@ -150,7 +157,10 @@ export function CustomSelect<Value extends string>({
 
   return (
     <div className={`relative ${className}`} ref={containerRef}>
-      <span className="block text-sm font-semibold text-ink" id={labelId}>
+      <span
+        className={compact ? "sr-only" : "block text-sm font-semibold text-ink"}
+        id={labelId}
+      >
         {label}
       </span>
       <button
@@ -160,7 +170,7 @@ export function CustomSelect<Value extends string>({
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         aria-labelledby={`${labelId} ${valueId}`}
-        className="mt-2 flex min-h-11 w-full items-center justify-between gap-3 rounded-control border border-line-strong bg-canvas px-3 text-left text-sm font-medium text-ink transition duration-150 hover:border-accent/60 hover:bg-panel focus-visible:border-accent disabled:cursor-not-allowed disabled:opacity-55"
+        className={`${compact ? "flex min-h-10 rounded-full border-line bg-panel px-3.5 shadow-sm" : "mt-2 flex min-h-11 rounded-control border-line-strong bg-canvas px-3"} w-full items-center justify-between gap-3 border text-left text-sm font-medium text-ink transition duration-150 hover:border-accent/60 hover:bg-panel focus-visible:border-accent disabled:cursor-not-allowed disabled:opacity-55`}
         disabled={disabled}
         id={id}
         onClick={() => {
@@ -200,8 +210,16 @@ export function CustomSelect<Value extends string>({
         }}
         type="button"
       >
-        <span className="min-w-0 truncate" id={valueId}>
-          {selectedOption?.label ?? "Select an option"}
+        <span className="flex min-w-0 items-center gap-2">
+          {leadingIcon ? (
+            <Icon
+              className="size-4 shrink-0 text-ink-subtle"
+              name={leadingIcon}
+            />
+          ) : null}
+          <span className="truncate" id={valueId}>
+            {selectedOption?.label ?? "Select an option"}
+          </span>
         </span>
         <Icon
           className={`size-4 shrink-0 text-ink-subtle transition-transform duration-150 ${isOpen ? "rotate-180" : ""}`}
@@ -222,7 +240,7 @@ export function CustomSelect<Value extends string>({
           ref={listboxRef}
           aria-activedescendant={`${generatedId}-option-${activeIndex}`}
           aria-labelledby={labelId}
-          className="search-results-scrollbar absolute inset-x-0 top-[calc(100%+6px)] z-[70] max-h-64 min-w-48 overflow-y-auto rounded-card border border-line bg-panel p-1.5 shadow-overlay outline-none"
+          className={`custom-select-listbox search-results-scrollbar absolute top-[calc(100%+8px)] z-[70] max-h-72 overflow-y-auto rounded-card border border-line bg-panel p-2 shadow-overlay outline-none ${compact ? "left-1/2 w-[min(22rem,calc(100vw-2rem))] -translate-x-1/2" : "inset-x-0 min-w-48"}`}
           id={listboxId}
           onKeyDown={handleListboxKeyDown}
           role="listbox"
@@ -232,32 +250,36 @@ export function CustomSelect<Value extends string>({
             const selected = option.value === value;
             const active = index === activeIndex;
             return (
-              <button
-                aria-selected={selected}
-                className={`flex min-h-11 w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors ${
-                  active ? "bg-panel-muted text-ink" : "text-ink-muted"
-                } ${selected ? "font-semibold" : "font-medium"}`}
-                id={`${generatedId}-option-${index}`}
-                key={option.value}
-                onClick={() => commit(index)}
-                onMouseEnter={() => setActiveIndex(index)}
-                role="option"
-                tabIndex={-1}
-                type="button"
-              >
-                <span className="min-w-0">
-                  <span className="block">{option.label}</span>
-                  {option.description ? (
-                    <span className="mt-0.5 block text-xs font-normal leading-5 text-ink-subtle">
-                      {option.description}
-                    </span>
-                  ) : null}
-                </span>
-                <Icon
-                  className={`size-4 shrink-0 text-accent ${selected ? "opacity-100" : "opacity-0"}`}
-                  name="check"
-                />
-              </button>
+              <div key={option.value} role="presentation">
+                {option.separatorBefore ? (
+                  <div className="mx-2 my-1 h-px bg-line" role="presentation" />
+                ) : null}
+                <button
+                  aria-selected={selected}
+                  className={`flex min-h-11 w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-left text-sm transition-colors ${
+                    active ? "bg-panel-muted text-ink" : "text-ink-muted"
+                  } ${selected ? "font-semibold text-accent" : "font-medium"}`}
+                  id={`${generatedId}-option-${index}`}
+                  onClick={() => commit(index)}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  role="option"
+                  tabIndex={-1}
+                  type="button"
+                >
+                  <span className="min-w-0">
+                    <span className="block">{option.label}</span>
+                    {option.description ? (
+                      <span className="mt-0.5 block text-xs font-normal leading-5 text-ink-subtle">
+                        {option.description}
+                      </span>
+                    ) : null}
+                  </span>
+                  <Icon
+                    className={`size-4 shrink-0 text-accent ${selected ? "opacity-100" : "opacity-0"}`}
+                    name="check"
+                  />
+                </button>
+              </div>
             );
           })}
         </div>

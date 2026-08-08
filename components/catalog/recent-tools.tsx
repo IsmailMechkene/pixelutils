@@ -37,7 +37,7 @@ export function RecentTools({ tools }: RecentToolsProps) {
   return (
     <section
       aria-labelledby="recent-tools-title"
-      className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 sm:pt-20 lg:px-8"
+      className="mx-auto max-w-7xl px-4 pb-16 pt-16 sm:px-6 sm:pb-20 sm:pt-20 lg:px-8 lg:pb-24"
     >
       <div>
         <p className="section-eyebrow">Stored on this device</p>

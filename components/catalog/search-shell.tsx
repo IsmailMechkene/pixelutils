@@ -35,7 +35,11 @@ export function SearchShell({ tools, categories }: SearchShellProps) {
   const categoryOptions = useMemo(
     () => [
       { value: ALL_CATEGORIES, label: "All categories" },
-      ...categories.map(({ name, slug }) => ({ value: slug, label: name })),
+      ...categories.map(({ name, slug }, index) => ({
+        value: slug,
+        label: name,
+        separatorBefore: index === 0,
+      })),
     ],
     [categories],
   );
@@ -183,10 +187,12 @@ export function SearchShell({ tools, categories }: SearchShellProps) {
         </div>
       ) : null}
 
-      <div className="mx-auto mt-3 max-w-xs text-left">
+      <div className="mx-auto mt-4 w-52 text-left">
         <CustomSelect
+          appearance="compact"
           id="homepage-category-filter"
           label="Filter by category"
+          leadingIcon="settings-2"
           onChange={(value) => {
             setCategory(value);
             setActiveIndex(
@@ -206,7 +212,7 @@ export function SearchShell({ tools, categories }: SearchShellProps) {
           : ""}
       </p>
 
-      <p className="mt-3 text-center text-xs text-ink-subtle">
+      <p className="mt-2 text-center text-xs text-ink-subtle">
         Search runs locally. Your query is not sent anywhere.
       </p>
     </div>
