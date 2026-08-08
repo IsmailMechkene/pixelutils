@@ -22,12 +22,15 @@ export function resolveSiteUrl(environment: SiteEnvironment) {
   }
 
   const url = new URL(value);
+
   if (!/^https?:$/.test(url.protocol) || url.username || url.password) {
     throw new Error("SITE_URL must be an HTTP(S) origin without credentials.");
   }
+
   if (environment.NODE_ENV === "production" && url.protocol !== "https:") {
     throw new Error("SITE_URL must use HTTPS in production.");
   }
+
   if (url.pathname !== "/" || url.search || url.hash) {
     throw new Error(
       "SITE_URL must contain only an origin, without a path or query.",
@@ -38,5 +41,14 @@ export function resolveSiteUrl(environment: SiteEnvironment) {
 }
 
 export function getSiteUrl() {
+  console.log("ENV DEBUG", {
+    hasSiteUrl: Boolean(process.env.SITE_URL),
+    siteUrl: process.env.SITE_URL, // Safe to log; this isn't a secret.
+    nodeEnv: process.env.NODE_ENV,
+    keys: Object.keys(process.env).filter(
+      (k) => k.includes("SITE") || k.includes("URL"),
+    ),
+  });
+
   return resolveSiteUrl(process.env);
 }
