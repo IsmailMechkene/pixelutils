@@ -16,12 +16,18 @@ export default function ContactPage() {
         browser you used. Do not email passwords, tokens, confidential files, or
         sensitive tool input.
       </p>
-      <a
-        className="mt-8 inline-flex min-h-11 items-center justify-center rounded-control bg-accent px-5 text-sm font-semibold text-accent-ink hover:bg-accent-hover"
-        href={`mailto:${siteConfig.contactEmail}?subject=PixelUtils%20feedback`}
-      >
-        Email {siteConfig.contactEmail}
-      </a>
+      {siteConfig.contactEmail ? (
+        <a
+          className="mt-8 inline-flex min-h-11 items-center justify-center rounded-control bg-accent px-5 text-sm font-semibold text-accent-ink hover:bg-accent-hover"
+          href={`mailto:${siteConfig.contactEmail}?subject=PixelUtils%20feedback`}
+        >
+          Email {siteConfig.contactEmail}
+        </a>
+      ) : (
+        <p className="mt-8 rounded-card border border-line bg-panel px-5 py-4 text-sm leading-6 text-ink-muted">
+          Contact is not configured for this deployment yet.
+        </p>
+      )}
     </div>
   );
 }

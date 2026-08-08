@@ -12,6 +12,8 @@ export default defineConfig([
   },
   globalIgnores([
     ".next/**",
+    ".open-next/**",
+    ".wrangler/**",
     "coverage/**",
     "out/**",
     "node_modules-partial-install*/**",

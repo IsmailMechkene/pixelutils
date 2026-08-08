@@ -9,6 +9,7 @@ node_modules-partial-install*/
 
 # Next.js output
 .next/
+.open-next/
 out/
 
 # Tests and generated output
@@ -23,3 +24,4 @@ dist/
 # Logs and local deployment metadata
 *.log
 .vercel/
+.wrangler/

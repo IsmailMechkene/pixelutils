@@ -9,16 +9,25 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
+    "build:production": "opennextjs-cloudflare build && npm run validate:build-output",
+    "preview:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "validate:registry": "vitest run lib/catalog/registry.test.ts lib/seo/seo.test.ts",
-    "validate": "npm run lint && npm run typecheck && npm run test && npm run validate:registry && npm run build"
+    "validate:metadata": "vitest run lib/seo/seo.test.ts lib/site.test.ts",
+    "validate:registry": "vitest run lib/catalog/registry.test.ts",
+    "validate:deployment": "vitest run lib/deployment/security-headers.test.ts lib/ads/config.test.ts lib/analytics/analytics.test.ts",
+    "validate:build-output": "node scripts/validate-production-build.mjs",
+    "validate:full": "npm run lint && npm run typecheck && npm run test && npm run validate:registry && npm run validate:metadata && npm run validate:deployment && npm run build:production",
+    "validate": "npm run validate:full"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.20.2",
     "he": "^1.2.0",
     "lucide-react": "^1.30.0",
     "marked": "^18.0.9",
@@ -44,6 +53,7 @@
     "postcss": "8.5.26",
     "tailwindcss": "4.3.3",
     "typescript": "6.0.3",
-    "vitest": "4.1.10"
+    "vitest": "4.1.10",
+    "wrangler": "^4.120.0"
   }
 }

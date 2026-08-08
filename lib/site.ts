@@ -2,19 +2,17 @@ export const siteConfig = {
   name: "PixelUtils",
   description:
     "Fast, private browser tools with no account required and no unnecessary uploads.",
-  contactEmail: process.env.CONTACT_EMAIL ?? "hello@pixelutils.app",
+  contactEmail: process.env.CONTACT_EMAIL?.trim() || null,
 };
 
 interface SiteEnvironment {
   SITE_URL?: string;
-  VERCEL_PROJECT_PRODUCTION_URL?: string;
   NODE_ENV?: string;
 }
 
 export function resolveSiteUrl(environment: SiteEnvironment) {
   const configuredUrl = environment.SITE_URL;
-  const vercelUrl = environment.VERCEL_PROJECT_PRODUCTION_URL;
-  const value = configuredUrl ?? (vercelUrl ? `https://${vercelUrl}` : undefined);
+  const value = configuredUrl;
 
   if (!value) {
     if (environment.NODE_ENV === "production") {
@@ -31,7 +29,9 @@ export function resolveSiteUrl(environment: SiteEnvironment) {
     throw new Error("SITE_URL must use HTTPS in production.");
   }
   if (url.pathname !== "/" || url.search || url.hash) {
-    throw new Error("SITE_URL must contain only an origin, without a path or query.");
+    throw new Error(
+      "SITE_URL must contain only an origin, without a path or query.",
+    );
   }
 
   return url;

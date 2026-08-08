@@ -32,6 +32,7 @@ Open [http://localhost:3000](http://localhost:3000). The application does not re
 | `ADS_ENABLED`                    | No          | Allows completely configured ad slots to render; defaults to `false`    |
 | `ADS_PROVIDER`                   | No          | Server-side provider identifier; no provider is included by default     |
 | `AD_SLOT_*`                      | No          | Verified placement identifiers supplied by a future advertising partner |
+| `ENABLE_BROWSER_SOURCE_MAPS`     | No          | Emits public browser source maps only when explicitly set to `true`     |
 
 Do not place secrets in `NEXT_PUBLIC_*` variables because Next.js includes them in browser-accessible output. Site and contact configuration remain server-side.
 
@@ -43,10 +44,13 @@ npm run lint       # Run ESLint
 npm run typecheck  # Run strict TypeScript checks
 npm run test       # Run Vitest once
 npm run test:watch # Run Vitest in watch mode
-npm run validate:registry # Run catalog, route, workspace, and SEO integrity tests
-npm run build      # Create a production build
+npm run validate:registry # Run catalog, route, and workspace integrity tests
+npm run validate:metadata # Run metadata, canonical, sitemap, and SEO tests
+npm run validate:deployment # Run deployment configuration tests
+npm run build      # Create the framework production build with Webpack
+npm run build:production # Build and validate Cloudflare/OpenNext output
 npm run start      # Serve a production build locally
-npm run validate   # Run lint, types, tests, and the production build
+npm run validate   # Run the complete suite and Cloudflare production build
 ```
 
 ## Architecture
@@ -88,9 +92,22 @@ Do not put React, browser globals, storage, telemetry, or network calls in deter
 
 The ordinary tool architecture does not require Vercel Functions, a database, or paid services.
 
-### Cloudflare
+### Cloudflare Workers (primary)
 
-Use Cloudflare's current supported Next.js deployment adapter and verify its handling of App Router metadata routes and response headers. The application avoids platform-specific APIs in core product code, but Cloudflare compatibility should be revalidated against the current adapter before launch.
+The checked-in OpenNext and Wrangler configuration targets Cloudflare Workers. Tool processing remains client-side; there is no database, upload service, R2 bucket, paid API, or required application server for ordinary tool operations.
+
+1. Create a Workers project from this repository in the Cloudflare dashboard.
+2. Use Node.js 22 and `npm ci` for dependency installation.
+3. Add `SITE_URL` as a build variable using the final HTTPS origin. Add `CONTACT_EMAIL` if the contact link should be active.
+4. Set the build command to `npm run build:production` and deploy command to `npx wrangler deploy` if the dashboard requests separate commands. Alternatively, use `npm run deploy:cloudflare` from an authenticated CI environment.
+5. Leave R2 and all other bindings unconfigured. The current application does not need them.
+6. Follow the complete pre- and post-deployment checks in [DEPLOYMENT.md](./DEPLOYMENT.md).
+
+For local runtime parity, run `npm run preview:cloudflare` after setting `SITE_URL=https://example.test`. Standard development should continue to use `npm run dev`.
+
+The setup follows the official [Cloudflare Next.js Workers guide](https://developers.cloudflare.com/workers/framework-guides/web-apps/nextjs/) and [OpenNext Cloudflare guide](https://opennext.js.org/cloudflare/get-started). OpenNext supports Next.js 16, but its Windows support is best-effort; CI and Cloudflare builds run on Linux.
+
+Production builds use Next.js's supported `--webpack` mode. This avoids an OpenNext/Turbopack traced-dependency symlink failure on Windows while producing the same route architecture for the Linux Cloudflare build.
 
 ## Continuous integration
 
