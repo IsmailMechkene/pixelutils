@@ -112,7 +112,3 @@ export interface CategoryDefinition {
   readonly icon: CategoryIconId;
   readonly order: number;
 }
-
-export function defineTool<const T extends ToolDefinition>(tool: T): T {
-  return tool;
-}

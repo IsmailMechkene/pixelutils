@@ -711,8 +711,6 @@ const allTools: readonly RegisteredTool[] = toolRegistry;
 const categoriesBySlug = new Map(
   categoryRegistry.map((category) => [category.slug, category]),
 );
-const toolsBySlug = new Map(allTools.map((tool) => [tool.slug, tool]));
-
 export const publishedTools = allTools.filter(
   (tool) => tool.status === "published",
 );
@@ -757,10 +755,6 @@ export function findCategory(slug: string) {
   return categoriesBySlug.get(
     slug as (typeof categoryRegistry)[number]["slug"],
   );
-}
-
-export function findRegisteredTool(slug: string) {
-  return toolsBySlug.get(slug as ToolSlug);
 }
 
 export function findTool(slug: string) {

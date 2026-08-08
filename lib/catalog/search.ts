@@ -145,15 +145,36 @@ export function groupSearchResults<T extends ToolSearchItem>(
   results: readonly T[],
   categories: readonly { readonly name: string; readonly slug: string }[],
 ) {
-  const indexedResults = results.map((tool, index) => ({ index, tool }));
-  return categories
-    .map((category) => ({
-      ...category,
-      results: indexedResults.filter(
-        ({ tool }) => tool.category === category.slug,
-      ),
-    }))
-    .filter((category) => category.results.length > 0);
+  const categoryNames = new Map(
+    categories.map((category) => [category.slug, category.name]),
+  );
+  const grouped = new Map<
+    string,
+    {
+      name: string;
+      slug: string;
+      results: { index: number; tool: T }[];
+    }
+  >();
+
+  results.forEach((tool, index) => {
+    const existing = grouped.get(tool.category);
+    const result = { index, tool };
+    if (existing) {
+      existing.results.push(result);
+      return;
+    }
+
+    grouped.set(tool.category, {
+      name: categoryNames.get(tool.category) ?? tool.category,
+      slug: tool.category,
+      results: [result],
+    });
+  });
+
+  // Preserve ranked result order across category groups so visual order and
+  // arrow-key selection always describe the same item.
+  return [...grouped.values()];
 }
 
 export type SearchNavigationKey = "ArrowDown" | "ArrowUp" | "Home" | "End";

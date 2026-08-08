@@ -111,7 +111,7 @@ describe("searchTools", () => {
 });
 
 describe("groupSearchResults", () => {
-  it("uses category order while preserving global result indexes", () => {
+  it("keeps grouped visual order aligned with keyboard result indexes", () => {
     const textTool = {
       ...baseTool,
       slug: "word-counter",
@@ -127,8 +127,9 @@ describe("groupSearchResults", () => {
       ],
     );
 
-    expect(groups.map((group) => group.name)).toEqual(["Developer", "Text"]);
-    expect(groups[0]?.results[0]?.index).toBe(1);
-    expect(groups[1]?.results[0]?.index).toBe(0);
+    expect(groups.map((group) => group.name)).toEqual(["Text", "Developer"]);
+    expect(
+      groups.flatMap((group) => group.results.map(({ index }) => index)),
+    ).toEqual([0, 1]);
   });
 });
