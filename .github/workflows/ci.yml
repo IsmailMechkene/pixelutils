@@ -28,4 +28,4 @@ jobs:
       - name: Full validation and Cloudflare production build
         run: npm run validate
         env:
-          SITE_URL: https://example.test
+          SITE_URL: https://pixelutils.app
