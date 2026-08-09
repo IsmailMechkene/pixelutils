@@ -20,27 +20,25 @@ import { createToolSearchItems } from "@/lib/catalog/search";
 import type { ActionIconId } from "@/lib/icons/types";
 import { getSiteUrl, siteConfig } from "@/lib/site";
 
-const differences: readonly {
-  icon: ActionIconId;
-  title: string;
-  description: string;
+const privacySignals: readonly {
+  readonly icon: ActionIconId;
+  readonly label: string;
+  readonly detail: string;
 }[] = [
   {
+    icon: "monitor",
+    label: "Browser processing",
+    detail: "Most routine work stays in this tab.",
+  },
+  {
     icon: "shield-check",
-    title: "Private by default",
-    description: "Inputs stay in your browser whenever the task can run there.",
+    label: "No input analytics",
+    detail: "Tool input and output are never analytics data.",
   },
   {
-    icon: "calendar-clock",
-    title: "Fast to the answer",
-    description:
-      "Static pages and focused tool bundles keep repeat work quick.",
-  },
-  {
-    icon: "circle-check",
-    title: "No account friction",
-    description:
-      "Open a tool, finish the task, and leave without a sign-up flow.",
+    icon: "key-round",
+    label: "No account wall",
+    detail: "Open a published tool and use it directly.",
   },
 ];
 
@@ -62,12 +60,10 @@ export default function HomePage() {
         }}
       />
 
-      <section className="relative z-10 border-b border-line">
-        <div className="relative mx-auto max-w-7xl px-4 pb-14 pt-12 sm:px-6 sm:pb-16 sm:pt-16 lg:px-8 lg:pb-20">
+      <section className="border-b border-line">
+        <div className="mx-auto max-w-7xl px-4 pb-14 pt-12 sm:px-6 sm:pb-16 sm:pt-16 lg:px-8 lg:pb-20">
           <div className="max-w-4xl">
-            <p className="mono-label text-accent">
-              Fast · Private · No account
-            </p>
+            <p className="mono-label text-accent">Fast · Private · No account</p>
             <h1 className="hero-title">
               Free browser tools for the tasks you need done now.
             </h1>
@@ -79,51 +75,85 @@ export default function HomePage() {
 
           <div className="mt-8 sm:mt-10" id="find-a-tool">
             <SearchShell
-              categories={categoryRegistry.map(({ name, slug }) => ({
-                name,
-                slug,
-              }))}
               tools={searchItems}
             />
           </div>
 
-          <nav
-            aria-label="Quick tool links"
-            className="mt-5 flex max-w-3xl flex-wrap items-center gap-x-2 gap-y-1 text-sm"
-          >
-            <span className="mono-label mr-1 text-ink-subtle">
-              Try:
-            </span>
-            {displayedFeaturedTools.slice(0, 4).map((tool) => (
-              <Link
-                className="inline-flex min-h-9 items-center border-b border-transparent px-2.5 font-medium text-ink-muted hover:border-accent hover:text-ink"
-                href={`/tools/${tool.slug}`}
-                key={tool.slug}
-              >
-                {tool.name}
-              </Link>
-            ))}
+          <nav aria-label="Quick tool links" className="mt-5">
+            <p className="mono-label text-ink-subtle">Quick starts</p>
+            <div className="mt-2 flex max-w-3xl flex-wrap gap-x-1 gap-y-2">
+              {displayedFeaturedTools.slice(0, 4).map((tool) => (
+                <Link
+                  className="inline-flex min-h-10 items-center border-b border-transparent px-2 font-medium text-ink-muted hover:border-accent hover:text-ink"
+                  href={`/tools/${tool.slug}`}
+                  key={tool.slug}
+                >
+                  {tool.name}
+                </Link>
+              ))}
+            </div>
           </nav>
         </div>
       </section>
 
+      {displayedPopularTools.length > 0 ? (
+        <section
+          aria-labelledby="quick-starts-title"
+          className="border-y border-line bg-panel"
+        >
+          <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[0.72fr_1.28fr] lg:gap-14 lg:px-8">
+            <div className="max-w-md">
+              <p className="section-eyebrow">Start with a useful tool</p>
+              <h2 className="section-title" id="quick-starts-title">
+                Good places to begin.
+              </h2>
+              <p className="mt-4 text-sm leading-6 text-ink-muted">
+                An editorial set of common jobs, chosen for usefulness rather
+                than implied tracking or popularity.
+              </p>
+            </div>
+            <ol className="grid gap-2 sm:grid-cols-2">
+              {displayedPopularTools.map((tool, index) => (
+                <li key={tool.slug}>
+                  <Link
+                    className="group flex min-h-20 items-center gap-3 rounded-card border border-line bg-canvas px-4 py-3 hover:border-accent hover:bg-panel-muted"
+                    href={`/tools/${tool.slug}`}
+                  >
+                    <span className="font-mono text-xs tabular-nums text-accent">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className="grid size-9 shrink-0 place-items-center rounded-control border border-line bg-accent-soft text-accent">
+                      <ToolIcon className="size-5" name={tool.icon} />
+                    </span>
+                    <span className="min-w-0 flex-1 text-sm font-semibold text-ink group-hover:text-accent">
+                      {tool.name}
+                    </span>
+                    <Icon className="size-4 shrink-0 text-ink-subtle" name="arrow-right" />
+                  </Link>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      ) : null}
+
       {displayedFeaturedTools.length > 0 ? (
         <section
           aria-labelledby="featured-tools-title"
-          className="mx-auto max-w-7xl px-4 pt-14 sm:px-6 sm:pt-16 lg:px-8"
+          className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8"
         >
           <div className="flex items-end justify-between gap-6 border-b border-line pb-4">
             <div>
               <p className="section-eyebrow">Selected utilities</p>
               <h2 className="section-title" id="featured-tools-title">
-                Featured tools
+                Built for repeat work.
               </h2>
             </div>
             <a
-              className="hidden min-h-11 items-center gap-2 rounded-lg text-sm font-semibold text-accent hover:text-accent-hover sm:inline-flex"
+              className="hidden min-h-11 items-center gap-2 font-mono text-xs font-semibold uppercase tracking-wider text-accent hover:text-accent-hover sm:inline-flex"
               href="#categories"
             >
-              Browse by category
+              See the directory
               <Icon className="size-4" name="arrow-right" />
             </a>
           </div>
@@ -137,93 +167,56 @@ export default function HomePage() {
 
       <section
         aria-labelledby="categories-title"
-        className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8"
+        className="border-y border-line bg-panel-muted/55"
         id="categories"
       >
-        <div className="max-w-2xl border-b border-line pb-4">
-          <p className="section-eyebrow">Browse the collection</p>
-          <h2 className="section-title" id="categories-title">
-            Find tools by category
-          </h2>
-          <p className="mt-3 text-base leading-7 text-ink-muted">
-            Jump straight into developer, text, encoding, calculator, design,
-            and browser utility workflows.
-          </p>
-        </div>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {categoryRegistry.map((category) => (
-            <CategoryCard
-              category={category}
-              compact
-              key={category.slug}
-              toolCount={categoryToolCounts[category.slug]}
-            />
-          ))}
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+          <div className="grid gap-6 border-b border-line pb-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+            <div>
+              <p className="section-eyebrow">Browse by workflow</p>
+              <h2 className="section-title" id="categories-title">
+                Find the right kind of tool.
+              </h2>
+            </div>
+            <p className="max-w-2xl text-base leading-7 text-ink-muted">
+              Jump directly into developer, text, encoding, security, date, or
+              design work. Every published category leads to a crawlable list
+              of its real tools.
+            </p>
+          </div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {categoryRegistry.map((category) => (
+              <CategoryCard
+                category={category}
+                compact
+                key={category.slug}
+                toolCount={categoryToolCounts[category.slug]}
+              />
+            ))}
+          </div>
         </div>
       </section>
-
-      {displayedPopularTools.length > 0 ? (
-        <section
-          aria-labelledby="popular-tools-title"
-          className="border-y border-line bg-panel"
-        >
-          <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 sm:py-16 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14 lg:px-8">
-            <div className="max-w-md">
-          <p className="section-eyebrow">Editor’s selection</p>
-              <h2 className="section-title" id="popular-tools-title">
-                Useful right now
-              </h2>
-              <p className="mt-4 text-sm leading-6 text-ink-muted">
-                A configurable editorial order for commonly useful tools—not a
-                claim based on tracking or invented usage data.
-              </p>
-            </div>
-            <ol className="grid gap-2 sm:grid-cols-2">
-              {displayedPopularTools.map((tool) => (
-                <li key={tool.slug}>
-                  <Link
-                    className="group flex min-h-16 items-center gap-3 rounded-card border border-line bg-canvas px-4 py-3 hover:border-accent hover:bg-panel-muted"
-                    href={`/tools/${tool.slug}`}
-                  >
-                    <span className="grid size-9 shrink-0 place-items-center rounded-control border border-line bg-accent-soft text-accent">
-                      <ToolIcon className="size-5" name={tool.icon} />
-                    </span>
-                    <span className="min-w-0 flex-1 text-sm font-semibold text-ink group-hover:text-accent">
-                      {tool.name}
-                    </span>
-                    <Icon
-                      className="size-4 shrink-0 text-ink-subtle"
-                      name="arrow-right"
-                    />
-                  </Link>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-      ) : null}
 
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <AdSlot placement="homepage-content" />
       </div>
 
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
-        <div className="workbench-panel grid overflow-hidden rounded-card lg:grid-cols-[1.05fr_0.95fr]">
+      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+        <div className="workbench-panel grid overflow-hidden rounded-card lg:grid-cols-[0.78fr_1.22fr]">
           <div className="bg-accent-soft p-6 sm:p-8 lg:p-10">
             <span className="grid size-11 place-items-center rounded-control border border-accent bg-accent text-accent-ink">
               <Icon className="size-5" name="shield-check" />
             </span>
-            <p className="section-eyebrow mt-6">Browser processing</p>
-            <h2 className="section-title max-w-lg">
-              Your routine inputs should not need a round trip to a server.
+            <p className="section-eyebrow mt-6">A calmer way to use utilities</p>
+            <h2 className="section-title mt-3">
+              Useful tools should stay out of your way.
             </h2>
-            <p className="mt-4 max-w-xl text-base leading-7 text-ink-muted">
-              Every tool explains where its processing happens. Tool input,
-              files, generated passwords, and outputs are never sent to
-              analytics.
+            <p className="mt-4 text-base leading-7 text-ink-muted">
+              Do the job, keep control of your data, and leave without a sign-up
+              flow or a trail of unnecessary tracking.
             </p>
             <Link
-              className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-control bg-accent px-4 font-mono text-xs font-semibold uppercase tracking-wider text-accent-ink hover:bg-accent-hover"
+              className="mt-7 inline-flex min-h-11 items-center gap-2 rounded-control bg-accent px-4 font-mono text-xs font-semibold uppercase tracking-wider text-accent-ink hover:bg-accent-hover"
               href="/privacy"
             >
               Read the privacy approach
@@ -232,34 +225,26 @@ export default function HomePage() {
           </div>
 
           <div className="p-6 sm:p-8 lg:p-10">
-            <p className="section-eyebrow">Designed for the task</p>
-            <div className="mt-5 divide-y divide-line">
-              {differences.map((difference) => (
-                <article
-                  className="flex gap-4 py-5 first:pt-0 last:pb-0"
-                  key={difference.title}
-                >
-                  <span className="grid size-9 shrink-0 place-items-center rounded-control border border-line bg-panel-muted text-ink-muted">
-                    <Icon className="size-4" name={difference.icon} />
+            <p className="mono-label text-ink-subtle">The practical bit</p>
+            <div className="mt-5 grid divide-y divide-line border-y border-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+              {privacySignals.map((signal) => (
+                <article className="p-4 first:pl-0 last:pr-0 sm:first:pl-0" key={signal.label}>
+                  <span className="grid size-9 place-items-center rounded-control border border-line bg-panel-muted text-accent">
+                    <Icon className="size-4" name={signal.icon} />
                   </span>
-                  <div>
-                    <h3 className="text-base font-semibold text-ink">
-                      {difference.title}
-                    </h3>
-                    <p className="mt-1 text-sm leading-6 text-ink-muted">
-                      {difference.description}
-                    </p>
-                  </div>
+                  <h3 className="mt-5 text-sm font-semibold text-ink">
+                    {signal.label}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-ink-muted">
+                    {signal.detail}
+                  </p>
                 </article>
               ))}
             </div>
-            <Link
-              className="mt-7 inline-flex min-h-11 items-center gap-2 rounded-lg text-sm font-semibold text-accent hover:text-accent-hover"
-              href="/about"
-            >
-              How the site is built
-              <Icon className="size-4" name="arrow-right" />
-            </Link>
+            <p className="mt-6 max-w-2xl text-sm leading-6 text-ink-muted">
+              Each tool states its own processing boundary so you can make an
+              informed choice before you use it.
+            </p>
           </div>
         </div>
       </section>

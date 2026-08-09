@@ -41,14 +41,5 @@ export function resolveSiteUrl(environment: SiteEnvironment) {
 }
 
 export function getSiteUrl() {
-  console.log("ENV DEBUG", {
-    hasSiteUrl: Boolean(process.env.SITE_URL),
-    siteUrl: process.env.SITE_URL, // Safe to log; this isn't a secret.
-    nodeEnv: process.env.NODE_ENV,
-    keys: Object.keys(process.env).filter(
-      (k) => k.includes("SITE") || k.includes("URL"),
-    ),
-  });
-
   return resolveSiteUrl(process.env);
 }

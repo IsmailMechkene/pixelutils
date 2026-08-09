@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Fast, private browser tools with no account required.",
     start_url: "/",
     display: "standalone",
-    background_color: "#f7f7f8",
-    theme_color: "#5b4de8",
+    background_color: "#faf9f7",
+    theme_color: "#3a31e7",
     icons: [
       {
         src: "/icon.svg",
