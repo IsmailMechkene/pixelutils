@@ -45,9 +45,9 @@ export function TextInputPanel({
       <textarea
         aria-describedby={describedBy}
         aria-invalid={Boolean(error)}
-        className={`mt-3 w-full resize-y rounded-card border bg-canvas px-4 py-3 text-sm leading-6 text-ink outline-none placeholder:text-ink-subtle focus:border-accent disabled:cursor-not-allowed disabled:opacity-60 ${
+        className={`mt-3 w-full resize-y rounded-control border bg-canvas px-4 py-3 font-mono text-sm leading-6 text-ink outline-none placeholder:text-ink-subtle focus:border-accent disabled:cursor-not-allowed disabled:opacity-60 ${
           error ? "border-red-500" : "border-line-strong"
-        } ${monospace ? "font-mono" : "font-sans"}`}
+        } ${monospace ? "" : "font-sans"}`}
         disabled={disabled}
         id={id}
         onChange={(event) => onChange(event.target.value)}

@@ -10,15 +10,15 @@ export function ToolHeader({ tool }: ToolHeaderProps) {
   return (
     <header className="max-w-3xl">
       <div className="flex items-start gap-4">
-        <span className="mt-1 grid size-11 shrink-0 place-items-center rounded-card bg-accent-soft text-accent">
-          <ToolIcon className="size-8" name={tool.icon} />
+        <span className="mt-1 grid size-11 shrink-0 place-items-center rounded-control border border-line bg-panel-muted text-accent">
+          <ToolIcon className="size-6" name={tool.icon} />
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="section-eyebrow">Free online tool</p>
+            <p className="mono-label text-ink-subtle">Tool / local browser processing</p>
             <FavoriteButton slug={tool.slug} />
           </div>
-          <h1 className="page-title mt-2">{tool.name}</h1>
+          <h1 className="page-title mt-3">{tool.name}</h1>
           <p className="mt-3 text-base leading-7 text-ink-muted sm:text-lg">
             {tool.longDescription}
           </p>

@@ -53,7 +53,7 @@ export function SearchShell({ tools, categories }: SearchShellProps) {
 
   return (
     <div
-      className="relative mx-auto max-w-3xl"
+      className="relative max-w-3xl"
       onBlurCapture={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) {
           setIsOpen(false);
@@ -78,7 +78,7 @@ export function SearchShell({ tools, categories }: SearchShellProps) {
           aria-controls={showResults ? "homepage-search-results" : undefined}
           aria-expanded={showResults}
           id="tool-search"
-          className="h-14 w-full rounded-card border border-line-strong bg-panel py-3 pl-12 pr-16 text-base text-ink shadow-card outline-none placeholder:text-ink-subtle focus:border-accent sm:h-16 sm:text-lg"
+          className="h-14 w-full rounded-control border border-line-strong bg-panel py-3 pl-12 pr-16 font-mono text-base text-ink shadow-overlay outline-none placeholder:text-ink-subtle focus:border-accent sm:h-16 sm:text-lg"
           type="search"
           value={query}
           onChange={(event) => {
@@ -126,7 +126,7 @@ export function SearchShell({ tools, categories }: SearchShellProps) {
           autoComplete="off"
           role="combobox"
         />
-        <kbd className="pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 rounded-md border border-line bg-panel-muted px-2 py-1 font-sans text-xs font-medium text-ink-subtle sm:block">
+        <kbd className="pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 rounded-small border border-line bg-panel-muted px-2 py-1 font-mono text-xs font-medium text-ink-subtle sm:block">
           Ctrl K
         </kbd>
       </div>
@@ -134,7 +134,7 @@ export function SearchShell({ tools, categories }: SearchShellProps) {
       {showResults ? (
         <div
           id="homepage-search-results"
-          className="search-results-scrollbar absolute inset-x-0 top-[calc(100%+8px)] z-30 max-h-80 overflow-y-auto rounded-card border border-line bg-panel p-2 shadow-overlay"
+          className="search-results-scrollbar absolute inset-x-0 top-[calc(100%+8px)] z-30 max-h-80 overflow-y-auto rounded-control border border-line bg-panel p-2 shadow-overlay"
           aria-label="Tool search results"
           role="listbox"
         >
@@ -187,7 +187,7 @@ export function SearchShell({ tools, categories }: SearchShellProps) {
         </div>
       ) : null}
 
-      <div className="mx-auto mt-4 w-52 text-left">
+      <div className="mt-4 w-52 text-left">
         <CustomSelect
           appearance="compact"
           id="homepage-category-filter"
@@ -212,7 +212,7 @@ export function SearchShell({ tools, categories }: SearchShellProps) {
           : ""}
       </p>
 
-      <p className="mt-2 text-center text-xs text-ink-subtle">
+      <p className="mt-2 text-xs text-ink-subtle">
         Search runs locally. Your query is not sent anywhere.
       </p>
     </div>

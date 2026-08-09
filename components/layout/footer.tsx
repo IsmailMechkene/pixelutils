@@ -21,19 +21,19 @@ const footerLinkClass =
 
 export function Footer() {
   return (
-    <footer className="border-t border-line bg-panel">
+    <footer className="border-t border-line bg-panel-muted/60">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-10 sm:px-6 sm:py-12 md:grid-cols-2 lg:grid-cols-[1.2fr_1fr_1fr_1fr] lg:gap-12 lg:px-8">
         <div className="max-w-md">
           <Logo />
           <p className="mt-4 max-w-sm text-sm leading-6 text-ink-muted">
             Thoughtful browser tools that put speed, clarity, and privacy first.
           </p>
-          <p className="section-eyebrow mt-4">Fast / Private / No account</p>
+          <p className="mono-label mt-4 text-ink-subtle">Fast / Private / No account</p>
         </div>
 
         <nav aria-labelledby="footer-product-title">
           <h2
-            className="text-sm font-semibold text-ink"
+            className="mono-label text-ink"
             id="footer-product-title"
           >
             Explore
@@ -51,7 +51,7 @@ export function Footer() {
 
         <nav aria-labelledby="footer-categories-title">
           <h2
-            className="text-sm font-semibold text-ink"
+            className="mono-label text-ink"
             id="footer-categories-title"
           >
             Categories
@@ -72,7 +72,7 @@ export function Footer() {
 
         <nav aria-labelledby="footer-trust-title">
           <h2
-            className="text-sm font-semibold text-ink"
+            className="mono-label text-ink"
             id="footer-trust-title"
           >
             Trust &amp; legal

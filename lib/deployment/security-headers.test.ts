@@ -19,6 +19,7 @@ describe("production security headers", () => {
       "strict-origin-when-cross-origin",
     );
     expect(headers.get("X-Frame-Options")).toBe("DENY");
+    expect(headers.get("Cross-Origin-Opener-Policy")).toBe("same-origin");
     expect(headers.get("Permissions-Policy")).toBe(permissionsPolicy);
   });
 
@@ -27,6 +28,7 @@ describe("production security headers", () => {
 
     expect(headerNames).not.toContain("Content-Security-Policy");
     expect(headerNames).not.toContain("Strict-Transport-Security");
+    expect(headerNames).not.toContain("Cross-Origin-Opener-Policy");
   });
 
   it("keeps the CSP compatible with local tools without allowing frames", () => {

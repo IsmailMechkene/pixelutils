@@ -16,12 +16,12 @@ export function CategoryCard({
 }: CategoryCardProps) {
   const content = (
     <>
-      <span className="grid size-11 place-items-center rounded-control bg-panel-muted text-ink-muted">
-        <CategoryIcon className="size-7" name={category.icon} />
+      <span className="grid size-11 place-items-center rounded-control border border-line bg-panel-muted text-ink-muted">
+        <CategoryIcon className="size-6" name={category.icon} />
       </span>
       <div className={compact ? "mt-5" : "mt-8"}>
         <div className="flex items-center justify-between gap-3">
-          <h3 className="text-lg font-semibold tracking-tight text-ink">
+          <h3 className="font-display text-lg font-bold tracking-tight text-ink">
             {category.name}
           </h3>
           {toolCount > 0 ? (
@@ -34,7 +34,7 @@ export function CategoryCard({
         <p className="mt-2 text-sm leading-6 text-ink-muted">
           {category.shortDescription}
         </p>
-        <p className="mt-4 text-xs font-medium uppercase tracking-wider text-ink-subtle">
+        <p className="mono-label mt-4 text-ink-subtle">
           {toolCount === 0
             ? "Tools in preparation"
             : `${toolCount} ${toolCount === 1 ? "tool" : "tools"}`}
@@ -49,7 +49,7 @@ export function CategoryCard({
 
   return toolCount > 0 ? (
     <Link
-      className={`${className} transition duration-150 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-card`}
+      className={`${className} transition duration-150 hover:border-accent hover:bg-panel-muted`}
       href={`/categories/${category.slug}`}
     >
       {content}

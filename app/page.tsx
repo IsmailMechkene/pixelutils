@@ -63,21 +63,15 @@ export default function HomePage() {
       />
 
       <section className="relative z-10 border-b border-line">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 overflow-hidden"
-        >
-          <div className="absolute left-1/2 top-[-360px] h-[620px] w-[880px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,var(--accent-soft)_0%,transparent_70%)] opacity-90" />
-        </div>
         <div className="relative mx-auto max-w-7xl px-4 pb-14 pt-12 sm:px-6 sm:pb-16 sm:pt-16 lg:px-8 lg:pb-20">
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="section-eyebrow inline-flex min-h-8 items-center rounded-full border border-line bg-panel/80 px-3">
+          <div className="max-w-4xl">
+            <p className="mono-label text-accent">
               Fast · Private · No account
             </p>
             <h1 className="hero-title">
               Free browser tools for the tasks you need done now.
             </h1>
-            <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-ink-muted sm:text-lg">
+            <p className="mt-5 max-w-2xl text-base leading-7 text-ink-muted sm:text-lg">
               Format, convert, calculate, and create without an account. Most
               tools process your work directly on your device.
             </p>
@@ -95,14 +89,14 @@ export default function HomePage() {
 
           <nav
             aria-label="Quick tool links"
-            className="mx-auto mt-5 flex max-w-3xl flex-wrap items-center justify-center gap-x-2 gap-y-1 text-sm"
+            className="mt-5 flex max-w-3xl flex-wrap items-center gap-x-2 gap-y-1 text-sm"
           >
-            <span className="mr-1 text-xs font-medium text-ink-subtle">
+            <span className="mono-label mr-1 text-ink-subtle">
               Try:
             </span>
             {displayedFeaturedTools.slice(0, 4).map((tool) => (
               <Link
-                className="inline-flex min-h-9 items-center rounded-lg px-2.5 font-medium text-ink-muted hover:bg-panel-muted hover:text-ink"
+                className="inline-flex min-h-9 items-center border-b border-transparent px-2.5 font-medium text-ink-muted hover:border-accent hover:text-ink"
                 href={`/tools/${tool.slug}`}
                 key={tool.slug}
               >
@@ -118,9 +112,9 @@ export default function HomePage() {
           aria-labelledby="featured-tools-title"
           className="mx-auto max-w-7xl px-4 pt-14 sm:px-6 sm:pt-16 lg:px-8"
         >
-          <div className="flex items-end justify-between gap-6">
+          <div className="flex items-end justify-between gap-6 border-b border-line pb-4">
             <div>
-              <p className="section-eyebrow">Good places to start</p>
+              <p className="section-eyebrow">Selected utilities</p>
               <h2 className="section-title" id="featured-tools-title">
                 Featured tools
               </h2>
@@ -133,7 +127,7 @@ export default function HomePage() {
               <Icon className="size-4" name="arrow-right" />
             </a>
           </div>
-          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {displayedFeaturedTools.map((tool) => (
               <ToolCard key={tool.slug} tool={tool} />
             ))}
@@ -146,7 +140,7 @@ export default function HomePage() {
         className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8"
         id="categories"
       >
-        <div className="max-w-2xl">
+        <div className="max-w-2xl border-b border-line pb-4">
           <p className="section-eyebrow">Browse the collection</p>
           <h2 className="section-title" id="categories-title">
             Find tools by category
@@ -156,7 +150,7 @@ export default function HomePage() {
             and browser utility workflows.
           </p>
         </div>
-        <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {categoryRegistry.map((category) => (
             <CategoryCard
               category={category}
@@ -175,9 +169,9 @@ export default function HomePage() {
         >
           <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 sm:py-16 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14 lg:px-8">
             <div className="max-w-md">
-              <p className="section-eyebrow">Curated in the catalog</p>
+          <p className="section-eyebrow">Editor’s selection</p>
               <h2 className="section-title" id="popular-tools-title">
-                Popular tools
+                Useful right now
               </h2>
               <p className="mt-4 text-sm leading-6 text-ink-muted">
                 A configurable editorial order for commonly useful tools—not a
@@ -188,10 +182,10 @@ export default function HomePage() {
               {displayedPopularTools.map((tool) => (
                 <li key={tool.slug}>
                   <Link
-                    className="group flex min-h-16 items-center gap-3 rounded-card border border-line bg-canvas px-4 py-3 hover:border-line-strong"
+                    className="group flex min-h-16 items-center gap-3 rounded-card border border-line bg-canvas px-4 py-3 hover:border-accent hover:bg-panel-muted"
                     href={`/tools/${tool.slug}`}
                   >
-                    <span className="grid size-9 shrink-0 place-items-center rounded-control bg-accent-soft text-accent">
+                    <span className="grid size-9 shrink-0 place-items-center rounded-control border border-line bg-accent-soft text-accent">
                       <ToolIcon className="size-5" name={tool.icon} />
                     </span>
                     <span className="min-w-0 flex-1 text-sm font-semibold text-ink group-hover:text-accent">
@@ -214,9 +208,9 @@ export default function HomePage() {
       </div>
 
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8">
-        <div className="grid overflow-hidden rounded-card border border-line bg-panel lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="workbench-panel grid overflow-hidden rounded-card lg:grid-cols-[1.05fr_0.95fr]">
           <div className="bg-accent-soft p-6 sm:p-8 lg:p-10">
-            <span className="grid size-11 place-items-center rounded-card bg-accent text-accent-ink">
+            <span className="grid size-11 place-items-center rounded-control border border-accent bg-accent text-accent-ink">
               <Icon className="size-5" name="shield-check" />
             </span>
             <p className="section-eyebrow mt-6">Browser processing</p>
@@ -229,7 +223,7 @@ export default function HomePage() {
               analytics.
             </p>
             <Link
-              className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-control bg-accent px-4 text-sm font-semibold text-accent-ink hover:bg-accent-hover"
+              className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-control bg-accent px-4 font-mono text-xs font-semibold uppercase tracking-wider text-accent-ink hover:bg-accent-hover"
               href="/privacy"
             >
               Read the privacy approach
@@ -238,14 +232,14 @@ export default function HomePage() {
           </div>
 
           <div className="p-6 sm:p-8 lg:p-10">
-            <p className="section-eyebrow">Why PixelUtils is different</p>
+            <p className="section-eyebrow">Designed for the task</p>
             <div className="mt-5 divide-y divide-line">
               {differences.map((difference) => (
                 <article
                   className="flex gap-4 py-5 first:pt-0 last:pb-0"
                   key={difference.title}
                 >
-                  <span className="grid size-9 shrink-0 place-items-center rounded-control bg-panel-muted text-ink-muted">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-control border border-line bg-panel-muted text-ink-muted">
                     <Icon className="size-4" name={difference.icon} />
                   </span>
                   <div>

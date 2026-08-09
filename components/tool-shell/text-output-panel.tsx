@@ -34,7 +34,7 @@ export function TextOutputPanel({
       <textarea
         aria-describedby={descriptionId}
         aria-labelledby={`${id}-label`}
-        className={`mt-3 min-h-72 w-full resize-y overflow-auto whitespace-pre-wrap break-words rounded-card border border-line-strong bg-canvas px-4 py-3 text-sm leading-6 text-ink outline-none placeholder:text-ink-subtle focus:border-accent ${monospace ? "font-mono" : "font-sans"}`}
+        className={`mt-3 min-h-72 w-full resize-y overflow-auto whitespace-pre-wrap break-words rounded-control border border-line-strong bg-canvas px-4 py-3 font-mono text-sm leading-6 text-ink outline-none placeholder:text-ink-subtle focus:border-accent ${monospace ? "" : "font-sans"}`}
         id={id}
         placeholder={emptyMessage}
         readOnly

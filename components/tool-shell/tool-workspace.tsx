@@ -11,7 +11,7 @@ export function ToolWorkspace({
 }: ToolWorkspaceProps) {
   return (
     <section
-      className="rounded-card border border-line bg-panel shadow-card"
+      className="workbench-panel rounded-card"
       aria-labelledby="workspace-title"
     >
       <h2 className="sr-only" id="workspace-title">

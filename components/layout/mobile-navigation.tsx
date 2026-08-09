@@ -82,7 +82,7 @@ export function MobileNavigation({ categories }: MobileNavigationProps) {
     <div className="relative lg:hidden" ref={navigationRef}>
       <button
         ref={buttonRef}
-        className="inline-flex size-11 items-center justify-center rounded-lg text-ink-muted transition-colors duration-150 hover:bg-panel-muted hover:text-ink"
+        className="inline-flex size-11 items-center justify-center rounded-control border border-line text-ink-muted transition-colors duration-150 hover:border-accent hover:bg-panel-muted hover:text-ink"
         type="button"
         aria-controls="mobile-navigation"
         aria-expanded={isOpen}
@@ -102,7 +102,7 @@ export function MobileNavigation({ categories }: MobileNavigationProps) {
         >
           {links.map((link) => (
             <Link
-              className="flex min-h-11 items-center rounded-lg px-3 text-sm font-medium text-ink-muted hover:bg-panel-muted hover:text-ink"
+              className="flex min-h-11 items-center rounded-control px-3 font-mono text-xs font-medium uppercase tracking-wider text-ink-muted hover:bg-panel-muted hover:text-ink"
               href={link.href}
               key={link.href}
               onClick={() => setIsOpen(false)}
@@ -111,13 +111,13 @@ export function MobileNavigation({ categories }: MobileNavigationProps) {
             </Link>
           ))}
           <div className="my-2 border-t border-line" />
-          <p className="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wider text-ink-subtle">
+          <p className="mono-label border-t border-line px-3 pb-2 pt-3">
             Browse categories
           </p>
           <div className="search-results-scrollbar max-h-64 overflow-y-auto">
             {categories.map((category) => (
               <Link
-                className="flex min-h-11 items-center justify-between rounded-lg px-3 text-sm font-medium text-ink-muted hover:bg-panel-muted hover:text-ink"
+                className="flex min-h-11 items-center justify-between rounded-control px-3 text-sm font-medium text-ink-muted hover:bg-panel-muted hover:text-ink"
                 href={`/categories/${category.slug}`}
                 key={category.slug}
                 onClick={() => setIsOpen(false)}

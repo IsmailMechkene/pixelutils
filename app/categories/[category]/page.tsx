@@ -59,7 +59,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           <CatalogSidebar currentCategory={category.slug} />
           <div className="min-w-0">
             <header className="max-w-3xl">
-              <span className="grid size-11 place-items-center rounded-card bg-accent-soft text-accent">
+              <span className="grid size-11 place-items-center border border-accent bg-accent-soft text-accent">
                 <CategoryIcon className="size-7" name={category.icon} />
               </span>
               <h1 className="page-title mt-5">{category.name} tools</h1>
@@ -68,7 +68,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </p>
             </header>
 
-            <section className="mt-10" aria-labelledby="category-tools-title">
+            <section className="mt-10 border-t border-line pt-6" aria-labelledby="category-tools-title">
               <h2 className="sr-only" id="category-tools-title">
                 Available {category.name.toLocaleLowerCase()} tools
               </h2>

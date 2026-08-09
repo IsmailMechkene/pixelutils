@@ -91,6 +91,7 @@ export function TextTransformWorkspace({
       }}
     >
       <div className="border-b border-line pb-4">
+        <p className="mono-label mb-3">Workspace controls</p>
         <ToolActions>
           <ActionButton
             disabled={processing}
@@ -115,7 +116,7 @@ export function TextTransformWorkspace({
           />
         </ToolActions>
       </div>
-      <div className="mt-5 grid gap-6 lg:grid-cols-2">
+      <div className="mt-5 grid gap-4 lg:grid-cols-2">
         <TextInputPanel
           description={inputDescription}
           error={error}

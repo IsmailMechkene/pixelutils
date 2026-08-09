@@ -20,15 +20,15 @@ export function Header() {
   }));
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-canvas/85 backdrop-blur-lg">
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:px-8">
+    <header className="sticky top-0 z-40 border-b border-line bg-canvas/95 backdrop-blur-sm">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:px-8">
         <Logo />
         <nav aria-label="Primary navigation" className="hidden lg:block">
-          <ul className="flex items-center gap-0.5 rounded-control bg-panel-muted/70 p-0.5">
+          <ul className="flex items-center gap-8">
             {links.map((link) => (
               <li key={link.href}>
                 <Link
-                  className="inline-flex min-h-8 items-center rounded-lg px-3 text-sm font-medium text-ink-muted transition-colors duration-150 hover:bg-panel hover:text-ink"
+                  className={`inline-flex min-h-10 items-center border-b-2 px-0 font-mono text-xs font-medium uppercase tracking-wider transition-colors duration-150 hover:text-ink ${link.label === "Tools" ? "border-accent text-accent" : "border-transparent text-ink-muted"}`}
                   href={link.href}
                 >
                   {link.label}
@@ -37,9 +37,8 @@ export function Header() {
             ))}
           </ul>
         </nav>
-        <div className="flex items-center justify-self-end rounded-control border border-line bg-panel/80 p-px shadow-sm">
+        <div className="flex items-center justify-self-end gap-1">
           <SearchDialog />
-          <span aria-hidden="true" className="mx-0.5 h-4 w-px bg-line" />
           <ThemeToggle />
           <MobileNavigation categories={categoryItems} />
         </div>

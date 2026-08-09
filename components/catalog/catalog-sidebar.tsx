@@ -20,7 +20,7 @@ export function CatalogSidebar({ currentCategory }: CatalogSidebarProps) {
       className="lg:sticky lg:top-20 lg:self-start"
     >
       <nav className="rounded-card border border-line bg-panel p-2">
-        <p className="px-3 pb-2 pt-1 text-xs font-semibold uppercase tracking-wider text-ink-subtle">
+        <p className="mono-label border-b border-line px-3 pb-3 pt-2">
           Categories
         </p>
         <ul className="grid gap-1 sm:grid-cols-2 lg:grid-cols-1">
@@ -38,7 +38,7 @@ export function CatalogSidebar({ currentCategory }: CatalogSidebarProps) {
                   name={category.icon}
                 />
                 <span className="min-w-0 flex-1 truncate">{category.name}</span>
-                <span className="text-xs tabular-nums text-ink-subtle">
+                <span className="font-mono text-xs tabular-nums text-ink-subtle">
                   {counts[category.slug]}
                 </span>
               </Link>

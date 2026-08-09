@@ -28,7 +28,7 @@ export function ActionButton({
 
   return (
     <button
-      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-control px-3.5 text-sm font-medium transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-45 ${toneClass} ${className}`}
+      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-control border border-transparent px-3.5 font-mono text-xs font-medium uppercase tracking-wider transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-45 ${toneClass} ${className}`}
       type={type}
       {...props}
     >

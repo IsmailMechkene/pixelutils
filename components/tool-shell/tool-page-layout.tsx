@@ -18,7 +18,7 @@ export function ToolPageLayout({
   children,
 }: ToolPageLayoutProps) {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
       <Breadcrumbs
         items={[
           { href: "/", label: "Home" },
@@ -29,10 +29,10 @@ export function ToolPageLayout({
       <div className="mt-7">
         <ToolHeader tool={tool} />
       </div>
-      <div className="mt-6">
+      <div className="mt-5">
         <PrivacyBadge tool={tool} />
       </div>
-      <div className="mt-8">{children}</div>
+      <div className="mt-7">{children}</div>
     </div>
   );
 }
