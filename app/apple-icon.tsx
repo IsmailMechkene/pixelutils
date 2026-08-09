@@ -8,18 +8,27 @@ export default function AppleIcon() {
     <div
       style={{
         alignItems: "center",
-        background: "#5b4de8",
-        color: "#ffffff",
+        background: "#1a1c1b",
         display: "flex",
-        fontFamily: "Arial, sans-serif",
-        fontSize: 94,
-        fontWeight: 800,
         height: "100%",
         justifyContent: "center",
         width: "100%",
       }}
     >
-      P
+      <div style={{ display: "flex", height: 99, width: 99 }}>
+        <div
+          style={{
+            background: "#e7e5ff",
+            height: 66,
+            width: 66,
+          }}
+        />
+        <div style={{ display: "flex", flexDirection: "column", height: 99, width: 33 }}>
+          <div style={{ background: "#8f89ff", height: 33, width: 33 }} />
+          <div style={{ height: 33, width: 33 }} />
+          <div style={{ background: "#5e54ff", height: 33, width: 33 }} />
+        </div>
+      </div>
     </div>,
     size,
   );
