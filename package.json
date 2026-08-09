@@ -11,9 +11,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build --webpack",
-    "build:production": "opennextjs-cloudflare build && npm run validate:build-output",
-    "preview:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy:cloudflare": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "clean:production": "node scripts/clean-production-build.mjs",
+    "build:production": "node scripts/build-cloudflare-production.mjs",
+    "preview:cloudflare": "npm run build:production && opennextjs-cloudflare preview",
+    "deploy:cloudflare": "npm run build:production && opennextjs-cloudflare deploy",
     "cf:typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "start": "next start",
     "lint": "eslint .",

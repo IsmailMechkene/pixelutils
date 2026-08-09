@@ -1,7 +1,8 @@
-import { readFile, readdir, stat } from "node:fs/promises";
+import { access, readFile, readdir, stat } from "node:fs/promises";
 import { join, relative } from "node:path";
 
 const outputRoot = join(process.cwd(), ".open-next");
+const nextRoot = join(process.cwd(), ".next");
 const workerPath = join(outputRoot, "worker.js");
 const assetsPath = join(outputRoot, "assets");
 
@@ -24,6 +25,43 @@ async function collectFiles(directory) {
 try {
   const worker = await stat(workerPath);
   if (!worker.isFile()) throw new Error("Cloudflare worker output is missing.");
+
+  const [nextBuildId, openNextBuildId, prerenderManifest] = await Promise.all([
+    readFile(join(nextRoot, "BUILD_ID"), "utf8"),
+    readFile(join(assetsPath, "BUILD_ID"), "utf8"),
+    readFile(join(nextRoot, "prerender-manifest.json"), "utf8").then(JSON.parse),
+  ]);
+  const buildId = nextBuildId.trim();
+  if (!buildId || buildId !== openNextBuildId.trim()) {
+    throw new Error(
+      "OpenNext assets do not match the current Next.js production build.",
+    );
+  }
+
+  const catalogRoutes = Object.keys(prerenderManifest.routes).filter(
+    (route) => route.startsWith("/tools/") || route.startsWith("/categories/"),
+  );
+  if (catalogRoutes.length === 0) {
+    throw new Error("Next.js production build did not prerender catalog routes.");
+  }
+
+  await Promise.all(
+    catalogRoutes.map(async (route) => {
+      const cachePath = join(
+        outputRoot,
+        "cache",
+        buildId,
+        `${route.slice(1)}.cache`,
+      );
+      try {
+        await access(cachePath);
+      } catch {
+        throw new Error(
+          `OpenNext cache is missing the current prerendered route: ${route}`,
+        );
+      }
+    }),
+  );
 
   const assetFiles = await collectFiles(assetsPath);
   if (assetFiles.length === 0) {
@@ -66,7 +104,7 @@ try {
   }
 
   console.log(
-    `Validated Cloudflare output: ${assetFiles.length} static assets and ${
+    `Validated Cloudflare output: ${catalogRoutes.length} current catalog routes, ${assetFiles.length} static assets and ${
       publicSourceMaps.length === 0
         ? "no public source maps"
         : `${publicSourceMaps.length} deliberately enabled public source maps`
