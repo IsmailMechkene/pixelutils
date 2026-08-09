@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import type { CategoryDefinition, ToolDefinition } from "@/lib/catalog/types";
+import type { GuideDefinition } from "@/lib/guides/types";
 
 import { staticPageSeo } from "./static-pages";
 
@@ -8,6 +9,7 @@ export function createSitemapEntries(
   siteUrl: URL,
   tools: readonly ToolDefinition[],
   categories: readonly CategoryDefinition[],
+  guides: readonly GuideDefinition[] = [],
 ): MetadataRoute.Sitemap {
   const publishedTools = tools.filter((tool) => tool.status === "published");
   const toUrl = (path: string) => new URL(path, siteUrl).toString();
@@ -44,5 +46,12 @@ export function createSitemapEntries(
     priority: tool.featured ? 0.9 : 0.8,
   }));
 
-  return [...staticEntries, ...categoryEntries, ...toolEntries];
+  const guideEntries: MetadataRoute.Sitemap = guides.map((guide) => ({
+    url: toUrl(`/guides/${guide.slug}`),
+    lastModified: guide.updatedAt,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticEntries, ...categoryEntries, ...toolEntries, ...guideEntries];
 }

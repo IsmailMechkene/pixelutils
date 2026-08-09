@@ -17,6 +17,12 @@ export const staticPageSeo = {
     description: "Contact PixelUtils with feedback or a verified tool issue.",
     canonical: "/contact",
   },
+  guides: {
+    title: "Guides",
+    description:
+      "Practical, privacy-first guides for using PixelUtils browser tools with confidence.",
+    canonical: "/guides",
+  },
   privacy: {
     title: "Privacy",
     description:

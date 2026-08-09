@@ -1,4 +1,5 @@
 import type { CategoryDefinition, ToolDefinition } from "@/lib/catalog/types";
+import type { GuideDefinition } from "@/lib/guides/types";
 
 import { staticPageSeo } from "./static-pages";
 
@@ -39,6 +40,7 @@ function duplicateValues(
 export function validateSeoCatalog(
   tools: readonly ToolDefinition[],
   categories: readonly CategoryDefinition[],
+  guides: readonly GuideDefinition[] = [],
 ) {
   const entries: SeoEntry[] = [
     ...staticSeoEntries,
@@ -53,6 +55,12 @@ export function validateSeoCatalog(
       title: `${category.name} tools`,
       description: category.description,
       canonical: `/categories/${category.slug}`,
+    })),
+    ...guides.map((guide) => ({
+      id: `guide:${guide.slug}`,
+      title: guide.title,
+      description: guide.description,
+      canonical: `/guides/${guide.slug}`,
     })),
   ];
 
@@ -101,8 +109,9 @@ export function validateSeoCatalog(
 export function assertValidSeoCatalog(
   tools: readonly ToolDefinition[],
   categories: readonly CategoryDefinition[],
+  guides: readonly GuideDefinition[] = [],
 ) {
-  const issues = validateSeoCatalog(tools, categories);
+  const issues = validateSeoCatalog(tools, categories, guides);
   if (issues.length > 0) {
     throw new Error(
       `Invalid SEO catalog:\n${issues.map((issue) => `- ${issue}`).join("\n")}`,

@@ -1,4 +1,5 @@
 import type { CategoryDefinition, ToolDefinition } from "@/lib/catalog/types";
+import type { GuideDefinition } from "@/lib/guides/types";
 import { getSiteUrl } from "@/lib/site";
 
 function absoluteUrl(path: string) {
@@ -108,6 +109,50 @@ export function createCategoryBreadcrumbData(category: CategoryDefinition) {
         position: 2,
         name: category.name,
         item: absoluteUrl(`/categories/${category.slug}`),
+      },
+    ],
+  };
+}
+
+export function createGuideArticleData(guide: GuideDefinition) {
+  const canonical = `/guides/${guide.slug}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: guide.title,
+    description: guide.description,
+    datePublished: guide.publishedAt,
+    dateModified: guide.updatedAt,
+    author: { "@type": "Organization", name: guide.byline },
+    publisher: { "@type": "Organization", name: "PixelUtils" },
+    mainEntityOfPage: absoluteUrl(canonical),
+    url: absoluteUrl(canonical),
+  };
+}
+
+export function createGuideBreadcrumbData(guide: GuideDefinition) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: absoluteUrl("/"),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Guides",
+        item: absoluteUrl("/guides"),
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: guide.title,
+        item: absoluteUrl(`/guides/${guide.slug}`),
       },
     ],
   };

@@ -38,15 +38,21 @@ try {
     );
   }
 
-  const catalogRoutes = Object.keys(prerenderManifest.routes).filter(
-    (route) => route.startsWith("/tools/") || route.startsWith("/categories/"),
+  const indexableContentRoutes = Object.keys(prerenderManifest.routes).filter(
+    (route) =>
+      route.startsWith("/tools/") ||
+      route.startsWith("/categories/") ||
+      route === "/guides" ||
+      route.startsWith("/guides/"),
   );
-  if (catalogRoutes.length === 0) {
-    throw new Error("Next.js production build did not prerender catalog routes.");
+  if (indexableContentRoutes.length === 0) {
+    throw new Error(
+      "Next.js production build did not prerender indexable content routes.",
+    );
   }
 
   await Promise.all(
-    catalogRoutes.map(async (route) => {
+    indexableContentRoutes.map(async (route) => {
       const cachePath = join(
         outputRoot,
         "cache",
@@ -104,7 +110,7 @@ try {
   }
 
   console.log(
-    `Validated Cloudflare output: ${catalogRoutes.length} current catalog routes, ${assetFiles.length} static assets and ${
+    `Validated Cloudflare output: ${indexableContentRoutes.length} current indexable content routes, ${assetFiles.length} static assets and ${
       publicSourceMaps.length === 0
         ? "no public source maps"
         : `${publicSourceMaps.length} deliberately enabled public source maps`

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import type { CategoryDefinition, ToolDefinition } from "@/lib/catalog/types";
+import type { GuideDefinition } from "@/lib/guides/types";
 
 interface PageMetadataInput {
   title: string;
@@ -57,6 +58,16 @@ export function createCategoryMetadata(category: CategoryDefinition): Metadata {
   return createPageMetadata({
     title,
     description: category.description,
+    canonical,
+  });
+}
+
+export function createGuideMetadata(guide: GuideDefinition): Metadata {
+  const canonical = `/guides/${guide.slug}` as const;
+
+  return createPageMetadata({
+    title: guide.title,
+    description: guide.description,
     canonical,
   });
 }

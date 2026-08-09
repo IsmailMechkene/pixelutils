@@ -3,17 +3,22 @@ import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
 import type { CategoryDefinition, ToolDefinition } from "@/lib/catalog/types";
+import type { GuideDefinition } from "@/lib/guides/types";
 import { JsonLd } from "@/components/seo/json-ld";
 import { publishedCategories, publishedTools } from "@/lib/catalog/registry";
+import { publishedGuides } from "@/lib/guides/registry";
 
 import {
   createCategoryMetadata,
+  createGuideMetadata,
   createPageMetadata,
   createToolMetadata,
 } from "./metadata";
 import {
   createCategoryBreadcrumbData,
   createCategoryCollectionData,
+  createGuideArticleData,
+  createGuideBreadcrumbData,
   createToolApplicationData,
   createToolBreadcrumbData,
   createToolFaqData,
@@ -60,9 +65,33 @@ const tool: ToolDefinition = {
   status: "published",
 };
 
+const guide: GuideDefinition = {
+  slug: "format-json-safely",
+  title: "How to format JSON safely",
+  description: "Learn how to format valid JSON safely in your browser.",
+  summary: "A practical JSON formatting guide.",
+  category: "Developer guide",
+  readingTime: "3 min read",
+  byline: "PixelUtils editorial team",
+  publishedAt: "2026-08-09",
+  updatedAt: "2026-08-09",
+  primaryToolSlug: "json-formatter",
+  relatedToolSlugs: ["json-minifier"],
+  relatedGuideSlugs: [],
+  sections: [
+    {
+      id: "format",
+      heading: "Format JSON",
+      paragraphs: ["Format valid JSON before you review it."],
+    },
+  ],
+};
+
 describe("SEO metadata", () => {
   it("keeps the complete production SEO catalog valid", () => {
-    expect(validateSeoCatalog(publishedTools, publishedCategories)).toEqual([]);
+    expect(
+      validateSeoCatalog(publishedTools, publishedCategories, publishedGuides),
+    ).toEqual([]);
   });
 
   it("keeps canonical, Open Graph, and Twitter metadata aligned", () => {
@@ -98,6 +127,12 @@ describe("SEO metadata", () => {
   it("uses a canonical category path consistently", () => {
     expect(createCategoryMetadata(category).alternates).toEqual({
       canonical: "/categories/developer",
+    });
+  });
+
+  it("uses a canonical guide path consistently", () => {
+    expect(createGuideMetadata(guide).alternates).toEqual({
+      canonical: "/guides/format-json-safely",
     });
   });
 
@@ -202,6 +237,20 @@ describe("structured data", () => {
     );
   });
 
+  it("describes guide content and breadcrumbs with visible fields", () => {
+    expect(createGuideArticleData(guide)).toMatchObject({
+      headline: guide.title,
+      description: guide.description,
+      datePublished: guide.publishedAt,
+      dateModified: guide.updatedAt,
+    });
+    expect(createGuideBreadcrumbData(guide).itemListElement.map((item) => item.name)).toEqual([
+      "Home",
+      "Guides",
+      guide.title,
+    ]);
+  });
+
   it("describes the visible category collection", () => {
     expect(createCategoryCollectionData(category, [tool])).toMatchObject({
       "@type": "CollectionPage",
@@ -247,5 +296,18 @@ describe("sitemap", () => {
     expect(urls).not.toContain("https://example.test/tools/draft-tool");
     expect(new Set(urls).size).toBe(urls.length);
     expect(urls.every((url) => !new URL(url).search)).toBe(true);
+  });
+
+  it("includes guide index and published guide routes", () => {
+    const entries = createSitemapEntries(
+      new URL("https://example.test"),
+      [tool],
+      [category],
+      [guide],
+    );
+    const urls = entries.map((entry) => entry.url);
+
+    expect(urls).toContain("https://example.test/guides");
+    expect(urls).toContain("https://example.test/guides/format-json-safely");
   });
 });

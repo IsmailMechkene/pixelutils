@@ -15,6 +15,7 @@ import { Icon } from "@/components/ui/icon";
 const links = [
   { href: "/#find-a-tool", label: "Find a tool" },
   { href: "/#categories", label: "Categories" },
+  { href: "/guides", label: "Guides" },
   { href: "/about", label: "About" },
   { href: "/privacy", label: "Privacy" },
 ];

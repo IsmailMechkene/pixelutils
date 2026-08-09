@@ -7,6 +7,7 @@ import { Logo } from "./logo";
 const productLinks = [
   { href: "/#find-a-tool", label: "Find a tool" },
   { href: "/#categories", label: "Browse categories" },
+  { href: "/guides", label: "Guides" },
   { href: "/about", label: "About PixelUtils" },
 ] as const;
 
