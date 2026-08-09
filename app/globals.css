@@ -267,6 +267,10 @@ select {
   font-family: var(--font-display);
 }
 
+.trust-page-content > section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
 .control-icon:hover,
 .control-secondary:hover {
   border-color: var(--line-strong);

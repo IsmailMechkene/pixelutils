@@ -60,7 +60,9 @@ export function TrustPageLayout({
             </p>
             {updated ? <p className="mono-label mt-6 text-ink-subtle">Updated {updated}</p> : null}
           </header>
-          <div className="mt-8 space-y-10 text-base leading-8 text-ink-muted">{children}</div>
+          <div className="trust-page-content mt-8 space-y-10 text-base leading-8 text-ink-muted">
+            {children}
+          </div>
         </div>
       </div>
     </article>
