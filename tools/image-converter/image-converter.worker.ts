@@ -1,0 +1,145 @@
+import {
+  imageHeaderReadBytes,
+  readImageDimensions,
+  type SupportedImageMime,
+  validateImageDimensions,
+} from "../image-compressor/logic";
+
+type InspectRequest = {
+  readonly type: "inspect";
+  readonly id: number;
+  readonly file: File;
+  readonly mimeType: SupportedImageMime;
+};
+
+type ConvertRequest = {
+  readonly type: "convert";
+  readonly id: number;
+  readonly file: File;
+  readonly outputType: SupportedImageMime;
+  readonly quality: number;
+  readonly background: string;
+};
+
+type WorkerRequest = InspectRequest | ConvertRequest;
+
+function send(message: object) {
+  postMessage(message);
+}
+
+function supported() {
+  return (
+    typeof OffscreenCanvas !== "undefined" &&
+    typeof createImageBitmap !== "undefined"
+  );
+}
+
+async function inspect(request: InspectRequest) {
+  if (!supported()) {
+    send({
+      type: "error",
+      id: request.id,
+      message:
+        "This browser cannot inspect images locally. Try a current browser.",
+    });
+    return;
+  }
+  let bitmap: ImageBitmap | undefined;
+  try {
+    const header = new Uint8Array(
+      await request.file.slice(0, imageHeaderReadBytes).arrayBuffer(),
+    );
+    const dimensions = readImageDimensions(header, request.mimeType);
+    const validationError =
+      dimensions &&
+      validateImageDimensions(dimensions.width, dimensions.height);
+    if (!dimensions || validationError) {
+      send({
+        type: "error",
+        id: request.id,
+        message:
+          validationError ??
+          "This image could not be read. Choose a valid PNG, JPG, or WebP file.",
+      });
+      return;
+    }
+    bitmap = await createImageBitmap(request.file, {
+      imageOrientation: "from-image",
+    });
+    const decodedValidationError = validateImageDimensions(
+      bitmap.width,
+      bitmap.height,
+    );
+    if (decodedValidationError) {
+      send({ type: "error", id: request.id, message: decodedValidationError });
+      return;
+    }
+    send({
+      type: "inspected",
+      id: request.id,
+      width: bitmap.width,
+      height: bitmap.height,
+    });
+  } catch {
+    send({
+      type: "error",
+      id: request.id,
+      message:
+        "This image could not be read. Choose a valid PNG, JPG, or WebP file.",
+    });
+  } finally {
+    bitmap?.close();
+  }
+}
+
+async function convert(request: ConvertRequest) {
+  if (!supported()) {
+    send({
+      type: "error",
+      id: request.id,
+      message:
+        "This browser cannot convert images locally. Try a current browser.",
+    });
+    return;
+  }
+  let bitmap: ImageBitmap | undefined;
+  try {
+    bitmap = await createImageBitmap(request.file, {
+      imageOrientation: "from-image",
+    });
+    const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+    const context = canvas.getContext("2d", {
+      alpha: request.outputType !== "image/jpeg",
+    });
+    if (!context) throw new Error();
+    if (request.outputType === "image/jpeg") {
+      context.fillStyle = request.background;
+      context.fillRect(0, 0, bitmap.width, bitmap.height);
+    }
+    context.drawImage(bitmap, 0, 0);
+    const blob = await canvas.convertToBlob({
+      type: request.outputType,
+      quality:
+        request.outputType === "image/png" ? undefined : request.quality / 100,
+    });
+    if (blob.type !== request.outputType) throw new Error();
+    send({ type: "result", id: request.id, blob });
+  } catch {
+    send({
+      type: "error",
+      id: request.id,
+      message:
+        "The image could not be converted. It may be corrupted or unsupported.",
+    });
+  } finally {
+    bitmap?.close();
+  }
+}
+
+addEventListener("message", (event: MessageEvent<WorkerRequest>) => {
+  if (event.data.type === "inspect") {
+    void inspect(event.data);
+  } else {
+    void convert(event.data);
+  }
+});

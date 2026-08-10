@@ -2,6 +2,62 @@ import type { ToolDefinition } from "./types";
 const date = "2026-08-10";
 export const phaseFourTools = [
   {
+    slug: "image-converter",
+    name: "Image Converter",
+    shortDescription: "Convert PNG, JPG, and WebP images locally.",
+    longDescription:
+      "Convert PNG, JPG, JPEG, and WebP images in your browser with clear output choices, local previews, and no uploads.",
+    category: "image-conversion",
+    keywords: ["image converter", "png to jpg", "jpg to png", "webp converter"],
+    aliases: ["convert image format", "PNG converter", "JPG converter"],
+    icon: "image",
+    relatedTools: ["image-compressor", "qr-code-generator", "color-converter"],
+    featured: true,
+    searchWeight: 92,
+    privacyNote:
+      "Your image never leaves your device. Processing happens locally in your browser.",
+    browserProcessing: true,
+    sensitive: false,
+    inputType: "image",
+    outputType: "image",
+    usageSteps: [
+      "Choose or drop a PNG, JPG, JPEG, or WebP image.",
+      "Select a supported output format and adjust quality when available.",
+      "Convert, review the result, and download the new image.",
+    ],
+    examples: [
+      {
+        name: "Convert PNG to JPG",
+        input: "A transparent logo PNG with a white background selected",
+        output: "A JPG using the same pixel dimensions",
+      },
+    ],
+    faqs: [
+      {
+        question: "Are my images uploaded?",
+        answer:
+          "No. Conversion happens locally in your browser and your image never leaves your device.",
+      },
+      {
+        question: "What happens to transparency in JPG?",
+        answer:
+          "JPG cannot preserve transparency. Choose a background color before converting to JPG.",
+      },
+      {
+        question: "Will conversion resize my image?",
+        answer: "No. The converter keeps the original pixel dimensions.",
+      },
+    ],
+    publishedAt: date,
+    updatedAt: date,
+    seo: {
+      title: "Image Converter - PNG, JPG and WebP Online",
+      description:
+        "Convert PNG, JPG and WebP images locally in your browser. Choose an output format, set lossy quality, and download without uploading.",
+    },
+    status: "published",
+  },
+  {
     slug: "image-compressor",
     name: "Image Compressor",
     shortDescription: "Compress PNG, JPG, and WebP images locally.",
