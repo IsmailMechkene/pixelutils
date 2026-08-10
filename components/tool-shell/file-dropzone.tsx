@@ -5,6 +5,7 @@
 import { useId, useState } from "react";
 
 import { Icon } from "@/components/ui/icon";
+import { acceptsFile } from "@/lib/file-tools/acceptance";
 
 import { ErrorMessage } from "./error-message";
 import { DragOverlay } from "./drag-overlay";
@@ -42,6 +43,12 @@ export function FileDropzone({
       setError(
         `${oversizedFile.name} is larger than ${Math.round(maxSizeBytes / 1024 / 1024)} MB.`,
       );
+      return;
+    }
+
+    const unsupportedFile = files.find((file) => !acceptsFile(file, accept));
+    if (unsupportedFile) {
+      setError(`${unsupportedFile.name} is not an accepted file type.`);
       return;
     }
 
