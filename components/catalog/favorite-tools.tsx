@@ -1,10 +1,13 @@
 "use client";
 
-import { useCatalogPreferenceList } from "@/hooks/use-catalog-preference";
+import { useLayoutEffect, useState } from "react";
+
 import type { ToolCardItem } from "@/lib/catalog/types";
 import {
   FAVORITE_TOOLS_STORAGE_KEY,
+  getPreferenceSnapshot,
   parseFavoriteToolSlugs,
+  subscribeToCatalogPreferences,
 } from "@/lib/storage/catalog-preferences";
 
 import { ToolCard } from "./tool-card";
@@ -14,10 +17,19 @@ interface FavoriteToolsProps {
 }
 
 export function FavoriteTools({ tools }: FavoriteToolsProps) {
-  const favoriteSlugs = useCatalogPreferenceList(
-    FAVORITE_TOOLS_STORAGE_KEY,
-    parseFavoriteToolSlugs,
-  );
+  const [favoriteSlugs, setFavoriteSlugs] = useState<string[]>([]);
+
+  useLayoutEffect(() => {
+    const updateFavorites = () => {
+      setFavoriteSlugs(
+        parseFavoriteToolSlugs(getPreferenceSnapshot(FAVORITE_TOOLS_STORAGE_KEY)),
+      );
+    };
+
+    updateFavorites();
+    return subscribeToCatalogPreferences(updateFavorites);
+  }, []);
+
   if (favoriteSlugs.length === 0) return null;
 
   const toolsBySlug = new Map(tools.map((tool) => [tool.slug, tool]));

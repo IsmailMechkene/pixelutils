@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useLayoutEffect, useState } from "react";
 
 import {
   getStorageSnapshot,
@@ -16,16 +16,22 @@ interface RecentToolsProps {
   tools: readonly ToolCardItem[];
 }
 
-const emptySnapshot = "[]";
 const visibleRecentToolLimit = 3;
 
 export function RecentTools({ tools }: RecentToolsProps) {
-  const snapshot = useSyncExternalStore(
-    subscribeToToolActivity,
-    () => getStorageSnapshot(RECENT_TOOLS_STORAGE_KEY),
-    () => emptySnapshot,
-  );
-  const recentSlugs = parseRecentToolSlugs(snapshot);
+  const [recentSlugs, setRecentSlugs] = useState<string[]>([]);
+
+  useLayoutEffect(() => {
+    const updateRecentTools = () => {
+      setRecentSlugs(
+        parseRecentToolSlugs(getStorageSnapshot(RECENT_TOOLS_STORAGE_KEY)),
+      );
+    };
+
+    updateRecentTools();
+    return subscribeToToolActivity(updateRecentTools);
+  }, []);
+
   const toolsBySlug = new Map(tools.map((tool) => [tool.slug, tool]));
   const recentTools = recentSlugs
     .map((slug) => toolsBySlug.get(slug))
