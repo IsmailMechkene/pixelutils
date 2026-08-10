@@ -1,0 +1,3 @@
+"use client";
+import { TextTransformWorkspace } from "@/components/tool-shell"; import { csvToJson } from "./logic";
+export default function Workspace({ slug }: { slug: string }) { return <TextTransformWorkspace slug={slug} actionLabel="Convert CSV to JSON" sample={'name,role\nAda,Engineer\nLin,Designer'} filename="converted.json" mimeType="application/json;charset=utf-8" inputLabel="CSV input" inputDescription="Use a comma-separated header row. Quoted cells and Unicode text are supported." outputLabel="JSON output" outputDescription="An array of objects keyed by the CSV header row." placeholder={'name,email\nAda,ada@example.com'} transform={(input) => { const result = csvToJson(input); return result.ok ? { ok: true as const, value: result.value } : result; }} />; }

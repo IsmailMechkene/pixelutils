@@ -8,6 +8,7 @@ import {
   FileCode2,
   FileJson2,
   FileText,
+  FileSpreadsheet,
   Fingerprint,
   Hash,
   KeyRound,
@@ -19,6 +20,7 @@ import {
   QrCode,
   ScanSearch,
   Text,
+  WandSparkles,
   type LucideIcon,
 } from "lucide-react";
 
@@ -45,4 +47,6 @@ export const toolIcons = {
   "scan-search": ScanSearch,
   percent: Percent,
   "calendar-days": CalendarDays,
+  "file-spreadsheet": FileSpreadsheet,
+  "wand-sparkles": WandSparkles,
 } satisfies Record<ToolIconId, LucideIcon>;

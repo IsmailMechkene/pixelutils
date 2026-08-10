@@ -19,6 +19,8 @@ export const toolIconIds = [
   "scan-search",
   "percent",
   "calendar-days",
+  "file-spreadsheet",
+  "wand-sparkles",
 ] as const;
 
 export type ToolIconId = (typeof toolIconIds)[number];

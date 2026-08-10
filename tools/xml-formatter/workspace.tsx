@@ -1,0 +1,3 @@
+"use client";
+import { TextTransformWorkspace } from "@/components/tool-shell"; import { formatXml } from "./logic";
+export default function Workspace({ slug }: { slug: string }) { return <TextTransformWorkspace slug={slug} actionLabel="Format and validate" sample={'<catalog><item id="1">PixelUtils</item></catalog>'} filename="formatted.xml" mimeType="application/xml;charset=utf-8" inputLabel="XML input" inputDescription="Checks matching element tags and formats source locally." outputLabel="Formatted XML" outputDescription="Indented XML source. This checks well-formed structure, not an XML schema." placeholder="<root><item>Hello</item></root>" transform={formatXml} />; }

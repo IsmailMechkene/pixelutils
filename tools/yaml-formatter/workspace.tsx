@@ -1,0 +1,3 @@
+"use client";
+import { TextTransformWorkspace } from "@/components/tool-shell"; import { formatYaml } from "./logic";
+export default function Workspace({ slug }: { slug: string }) { return <TextTransformWorkspace slug={slug} actionLabel="Format and validate" processingLabel="Loading YAML parser…" sample={"name: PixelUtils\nfeatures: [fast, private]"} filename="formatted.yaml" mimeType="application/yaml;charset=utf-8" inputLabel="YAML input" inputDescription="The YAML parser loads only when you format." outputLabel="Formatted YAML" outputDescription="Syntax-checked YAML with normalized spacing." placeholder="name: example" transform={formatYaml} />; }

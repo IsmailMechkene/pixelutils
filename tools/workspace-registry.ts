@@ -33,6 +33,10 @@ export const toolWorkspaceLoaders = {
   "jwt-decoder": () => import("./jwt-decoder/workspace"),
   "percentage-calculator": () => import("./percentage-calculator/workspace"),
   "age-calculator": () => import("./age-calculator/workspace"),
+  "yaml-formatter-validator": () => import("./yaml-formatter/workspace"),
+  "xml-formatter-validator": () => import("./xml-formatter/workspace"),
+  "csv-to-json-converter": () => import("./csv-to-json/workspace"),
+  "text-cleaner": () => import("./text-cleaner/workspace"),
 } satisfies Record<ToolSlug, () => Promise<ToolWorkspaceModule>>;
 
 export const toolWorkspaceSlugs = Object.freeze(
