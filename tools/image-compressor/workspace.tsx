@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { ActionButton } from "@/components/tool-shell/action-button";
 import { ClearButton } from "@/components/tool-shell/clear-button";
+import { ToolNotice } from "@/components/tool-shell/tool-notice";
 import { ToolActions } from "@/components/tool-shell/tool-actions";
 import {
   FilePicker,
@@ -25,8 +26,14 @@ import {
   imageCompressorAccept,
   maxImageCompressorBytes,
   type SupportedImageMime,
-  validateImageDimensions,
 } from "./logic";
+
+interface InspectionWorkerResult {
+  readonly type: "inspected";
+  readonly id: number;
+  readonly width: number;
+  readonly height: number;
+}
 
 interface CompressionWorkerResult {
   readonly type: "result";
@@ -41,7 +48,7 @@ interface CompressionWorkerError {
 }
 
 type CompressionWorkerMessage =
-  CompressionWorkerResult | CompressionWorkerError;
+  InspectionWorkerResult | CompressionWorkerResult | CompressionWorkerError;
 
 interface ImageDetails {
   readonly width: number;
@@ -93,7 +100,7 @@ export default function ImageCompressorWorkspace({ slug }: { slug: string }) {
     setStatus("idle");
   }
 
-  async function selectFile(nextFiles: readonly File[]) {
+  function selectFile(nextFiles: readonly File[]) {
     if (nextFiles.length === 0) {
       clearAll();
       return;
@@ -120,35 +127,48 @@ export default function ImageCompressorWorkspace({ slug }: { slug: string }) {
     }
 
     try {
-      const bitmap = await createImageBitmap(nextFile, {
-        imageOrientation: "from-image",
-      });
-      const validationError = validateImageDimensions(
-        bitmap.width,
-        bitmap.height,
+      const worker = new Worker(
+        new URL("./image-compressor.worker.ts", import.meta.url),
       );
-      const imageDetails = {
-        width: bitmap.width,
-        height: bitmap.height,
-        mimeType,
-      } satisfies ImageDetails;
-      bitmap.close();
+      workerRef.current = worker;
+      worker.onmessage = (event: MessageEvent<CompressionWorkerMessage>) => {
+        const message = event.data;
+        if (message.id !== selectionId || workerRef.current !== worker) return;
 
-      if (selectionId !== requestId.current) return;
-      if (validationError) {
+        worker.terminate();
+        workerRef.current = undefined;
+        if (message.type === "error") {
+          setStatus("error");
+          setError(message.message);
+          return;
+        }
+        if (message.type !== "inspected") return;
+
+        setDetails({
+          width: message.width,
+          height: message.height,
+          mimeType,
+        });
+        setOriginalUrl(originalUrlHandle.current.replace(nextFile));
+        setStatus("ready");
+      };
+      worker.onerror = () => {
+        if (workerRef.current !== worker) return;
+        worker.terminate();
+        workerRef.current = undefined;
         setStatus("error");
-        setError(validationError);
-        return;
-      }
-
-      setDetails(imageDetails);
-      setOriginalUrl(originalUrlHandle.current.replace(nextFile));
-      setStatus("ready");
+        setError("The image could not be inspected. Please try again.");
+      };
+      worker.postMessage({
+        type: "inspect",
+        id: selectionId,
+        file: nextFile,
+        mimeType,
+      });
     } catch {
-      if (selectionId !== requestId.current) return;
       setStatus("error");
       setError(
-        "This image could not be read. Choose a valid PNG, JPG, or WebP file.",
+        "This browser cannot inspect images locally. Try a current browser.",
       );
     }
   }
@@ -178,6 +198,7 @@ export default function ImageCompressorWorkspace({ slug }: { slug: string }) {
           setStatus("error");
           return;
         }
+        if (message.type !== "result") return;
 
         const sizeChange = getSizeChange(file.size, message.blob.size);
         setCompressedUrl(compressedUrlHandle.current.replace(message.blob));
@@ -249,9 +270,15 @@ export default function ImageCompressorWorkspace({ slug }: { slug: string }) {
         files={file ? [file] : []}
         label="Choose an image or drop it here"
         maxSizeBytes={maxImageCompressorBytes}
-        onFilesChange={(files) => void selectFile(files)}
+        onFilesChange={selectFile}
       />
       <FilePrivacyNotice message="Your image never leaves your device. Processing happens locally in your browser." />
+      <div className="mt-4">
+        <ToolNotice title="Metadata" tone="info">
+          Re-encoding may remove optional metadata, such as camera details and
+          location.
+        </ToolNotice>
+      </div>
       <ProcessingStatus message={error || undefined} status={status} />
 
       {file && details && originalUrl ? (
