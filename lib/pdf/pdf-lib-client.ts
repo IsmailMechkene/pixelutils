@@ -19,3 +19,18 @@ export async function loadPdfDocument(file: File): Promise<PDFDocument> {
 export async function savePdfDocument(document: PDFDocument) {
   return document.save();
 }
+
+export async function mergePdfFiles(
+  files: readonly Pick<File, "arrayBuffer">[],
+) {
+  const { PDFDocument } = await loadPdfLib();
+  const merged = await PDFDocument.create();
+
+  for (const file of files) {
+    const source = await PDFDocument.load(await file.arrayBuffer());
+    const pages = await merged.copyPages(source, source.getPageIndices());
+    for (const page of pages) merged.addPage(page);
+  }
+
+  return merged.save();
+}

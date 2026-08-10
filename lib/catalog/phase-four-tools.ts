@@ -2,6 +2,63 @@ import type { ToolDefinition } from "./types";
 const date = "2026-08-10";
 export const phaseFourTools = [
   {
+    slug: "merge-pdf",
+    name: "Merge PDF",
+    shortDescription: "Combine multiple PDF files locally in your chosen order.",
+    longDescription:
+      "Merge PDF documents directly in your browser. Reorder files, remove any you do not need, and download one PDF without uploading or rasterizing pages.",
+    category: "pdf",
+    keywords: ["merge PDF", "combine PDF", "join PDF files"],
+    aliases: ["PDF merger", "combine PDFs", "join PDFs"],
+    icon: "file-text",
+    relatedTools: [],
+    featured: true,
+    searchWeight: 94,
+    privacyNote:
+      "Your PDFs are merged locally in your browser and never uploaded.",
+    browserProcessing: true,
+    sensitive: false,
+    inputType: "file",
+    outputType: "file",
+    usageSteps: [
+      "Choose or drop at least two PDF files.",
+      "Set the output order by dragging or using the move buttons.",
+      "Merge the files and download the new PDF.",
+    ],
+    examples: [
+      {
+        name: "Combine two reports",
+        input: "January-report.pdf followed by February-report.pdf",
+        output: "merged.pdf with January before February",
+      },
+    ],
+    faqs: [
+      {
+        question: "Are my PDFs uploaded?",
+        answer:
+          "No. The files stay on your device and are merged in your browser.",
+      },
+      {
+        question: "Does merging reduce page quality?",
+        answer:
+          "No. This tool copies PDF pages into a new document and does not convert pages to images.",
+      },
+      {
+        question: "Can I merge password-protected PDFs?",
+        answer:
+          "No. Remove the password or encryption first, then choose the unprotected PDF files.",
+      },
+    ],
+    publishedAt: date,
+    updatedAt: date,
+    seo: {
+      title: "Merge PDF - Combine PDF Files Locally",
+      description:
+        "Merge PDF files locally in your browser. Reorder documents, preserve page quality, and download one combined PDF without uploading.",
+    },
+    status: "published",
+  },
+  {
     slug: "remove-image-metadata",
     name: "Image Metadata Remover",
     shortDescription: "Create a local image export without copied source metadata.",

@@ -5,6 +5,7 @@ import {
   Code2,
   Globe2,
   Image,
+  FileText,
   Palette,
   ShieldCheck,
   Type,
@@ -23,4 +24,5 @@ export const categoryIcons = {
   "clock-3": Clock3,
   calculator: Calculator,
   palette: Palette,
+  "file-text": FileText,
 } satisfies Record<CategoryIconId, LucideIcon>;

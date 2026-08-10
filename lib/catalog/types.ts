@@ -10,6 +10,7 @@ export const categorySlugs = [
   "date-time",
   "calculators",
   "color-design",
+  "pdf",
 ] as const;
 
 export type CategorySlug = (typeof categorySlugs)[number];

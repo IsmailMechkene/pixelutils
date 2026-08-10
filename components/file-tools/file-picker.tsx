@@ -13,6 +13,7 @@ interface FilePickerProps {
   disabled?: boolean;
   label?: string;
   description?: string;
+  showList?: boolean;
 }
 
 export function FilePicker({
@@ -24,6 +25,7 @@ export function FilePicker({
   disabled = false,
   label,
   description,
+  showList = true,
 }: FilePickerProps) {
   function addFiles(incomingFiles: readonly File[]) {
     onFilesChange(
@@ -42,17 +44,19 @@ export function FilePicker({
         multiple={multiple}
         onFiles={addFiles}
       />
-      <FileList
-        files={files}
-        onRemove={
-          disabled
-            ? undefined
-            : (index) =>
-                onFilesChange(
-                  files.filter((_, itemIndex) => itemIndex !== index),
-                )
-        }
-      />
+      {showList ? (
+        <FileList
+          files={files}
+          onRemove={
+            disabled
+              ? undefined
+              : (index) =>
+                  onFilesChange(
+                    files.filter((_, itemIndex) => itemIndex !== index),
+                  )
+          }
+        />
+      ) : null}
     </div>
   );
 }

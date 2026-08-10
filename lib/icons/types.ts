@@ -36,6 +36,7 @@ export const categoryIconIds = [
   "clock-3",
   "calculator",
   "palette",
+  "file-text",
 ] as const;
 
 export type CategoryIconId = (typeof categoryIconIds)[number];

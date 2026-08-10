@@ -105,6 +105,17 @@ export const categoryRegistry = [
     icon: "palette",
     order: 9,
   },
+  {
+    slug: "pdf",
+    name: "PDF Tools",
+    shortDescription: "Combine and prepare PDFs locally in your browser.",
+    description:
+      "Private PDF utilities for combining and reorganizing documents without uploading them to a server.",
+    selectionGuide:
+      "Choose Merge PDF to combine documents in a specific order. Future PDF tools will split, rotate, reorder, and create PDFs from images using the same local document engine.",
+    icon: "file-text",
+    order: 10,
+  },
 ] as const satisfies readonly CategoryDefinition[];
 
 // Add a complete definition only alongside its logic, tests, content, and lazy
