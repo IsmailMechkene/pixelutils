@@ -21,6 +21,7 @@ async function webpToPng(file: File) {
   }
 
   const bitmap = await createImageBitmap(file);
+  let canvas: HTMLCanvasElement | undefined;
   try {
     const dimensionError =
       bitmap.width * bitmap.height > maxImagesToPdfPixels
@@ -28,19 +29,24 @@ async function webpToPng(file: File) {
         : validateImageDimensions(bitmap.width, bitmap.height);
     if (dimensionError) throw new Error(dimensionError);
 
-    const canvas = document.createElement("canvas");
-    canvas.width = bitmap.width;
-    canvas.height = bitmap.height;
-    const context = canvas.getContext("2d");
+    const conversionCanvas = document.createElement("canvas");
+    canvas = conversionCanvas;
+    conversionCanvas.width = bitmap.width;
+    conversionCanvas.height = bitmap.height;
+    const context = conversionCanvas.getContext("2d");
     if (!context) throw new Error("This browser could not prepare the WebP image.");
     context.drawImage(bitmap, 0, 0);
     const blob = await new Promise<Blob | undefined>((resolve) =>
-      canvas.toBlob((blob) => resolve(blob ?? undefined), "image/png"),
+      conversionCanvas.toBlob((blob) => resolve(blob ?? undefined), "image/png"),
     );
     if (!blob) throw new Error("This browser could not convert the WebP image.");
     return new Uint8Array(await blob.arrayBuffer());
   } finally {
     bitmap.close();
+    if (canvas) {
+      canvas.width = 1;
+      canvas.height = 1;
+    }
   }
 }
 

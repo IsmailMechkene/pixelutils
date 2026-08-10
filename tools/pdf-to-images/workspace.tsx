@@ -124,6 +124,7 @@ export default function PdfToImagesWorkspace({ slug }: { slug: string }) {
     setProgress(undefined);
     setStatus("processing");
 
+    const nextPreviews: RenderedImage[] = [];
     try {
       const document = await loadPdfForImageRendering(fileToInspect);
       if (requestVersion.current !== version) {
@@ -135,7 +136,6 @@ export default function PdfToImagesWorkspace({ slug }: { slug: string }) {
       setRangeEnd(String(document.numPages));
 
       const thumbnailCount = Math.min(document.numPages, previewPageLimit);
-      const nextPreviews: RenderedImage[] = [];
       for (let pageNumber = 1; pageNumber <= thumbnailCount; pageNumber += 1) {
         const rendered = await renderPdfPageToImage(
           document,
@@ -165,6 +165,7 @@ export default function PdfToImagesWorkspace({ slug }: { slug: string }) {
       setPreviews(nextPreviews);
       setStatus("ready");
     } catch (inspectError) {
+      nextPreviews.forEach((preview) => URL.revokeObjectURL(preview.url));
       if (requestVersion.current !== version) return;
       const message = getRenderError(inspectError);
       if (message) {

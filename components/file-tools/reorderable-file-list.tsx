@@ -56,7 +56,7 @@ export function ReorderableFileList({
               {fileDetails?.(file) ?? `File · ${formatFileSize(file.size)}`}
             </p>
           </div>
-          <div className="flex shrink-0 items-center gap-1">
+          <div className="flex basis-full flex-wrap items-center justify-end gap-1 sm:basis-auto sm:flex-nowrap">
             <ActionButton
               aria-label={`Drag ${file.name} to a new position`}
               className="px-2.5"
