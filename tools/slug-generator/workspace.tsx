@@ -1,0 +1,3 @@
+"use client";
+import { TextTransformWorkspace } from "@/components/tool-shell"; import { createSlug } from "./logic";
+export default function Workspace({ slug }: { slug: string }) { return <TextTransformWorkspace slug={slug} actionLabel="Generate slug" sample="Fast, Private Browser Tools" filename="slug.txt" inputLabel="Text to convert" inputDescription="Accents are normalized and punctuation becomes hyphens." outputLabel="URL slug" outputDescription="Review availability before using this as a unique URL." placeholder="Page title" transform={(input) => input.trim() ? { ok: true, value: createSlug(input) } : { ok: false, error: "Enter text to convert." }} />; }

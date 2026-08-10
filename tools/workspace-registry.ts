@@ -37,6 +37,10 @@ export const toolWorkspaceLoaders = {
   "xml-formatter-validator": () => import("./xml-formatter/workspace"),
   "csv-to-json-converter": () => import("./csv-to-json/workspace"),
   "text-cleaner": () => import("./text-cleaner/workspace"),
+  "slug-generator": () => import("./slug-generator/workspace"),
+  "color-contrast-checker": () => import("./color-contrast-checker/workspace"),
+  "discount-calculator": () => import("./discount-calculator/workspace"),
+  "date-difference-calculator": () => import("./date-difference-calculator/workspace"),
 } satisfies Record<ToolSlug, () => Promise<ToolWorkspaceModule>>;
 
 export const toolWorkspaceSlugs = Object.freeze(

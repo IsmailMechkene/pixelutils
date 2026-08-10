@@ -1,0 +1,2 @@
+import { describe, expect, it } from "vitest"; import { checkContrast } from "./logic";
+describe("checkContrast", () => { it("calculates the WCAG black-on-white ratio", () => expect(checkContrast("#000", "#fff")).toMatchObject({ ok: true, ratio: 21, normalTextPass: true })); it("flags insufficient contrast", () => expect(checkContrast("#777", "#fff")).toMatchObject({ ok: true, normalTextPass: false })); });

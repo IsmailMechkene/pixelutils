@@ -1,0 +1,2 @@
+export type DiscountResult = { readonly ok: true; readonly saving: number; readonly salePrice: number } | { readonly ok: false; readonly error: string };
+export function calculateDiscount(price: number, percent: number): DiscountResult { if (!Number.isFinite(price) || !Number.isFinite(percent) || price < 0 || percent < 0 || percent > 100) return { ok: false, error: "Enter a price of zero or more and a discount from 0 to 100." }; const saving = price * percent / 100; return { ok: true, saving, salePrice: price - saving }; }

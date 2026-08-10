@@ -1,5 +1,6 @@
 import { phaseTwoTools } from "./phase-two-tools";
 import { phaseThreeTools } from "./phase-three-tools";
+import { phaseFourTools } from "./phase-four-tools";
 import type { CategoryDefinition, ToolDefinition } from "./types";
 import { assertValidRegistry } from "./validation";
 
@@ -693,6 +694,7 @@ export const toolRegistry = [
   },
   ...phaseTwoTools,
   ...phaseThreeTools,
+  ...phaseFourTools,
 ] as const satisfies readonly ToolDefinition[];
 
 export type ToolSlug = (typeof toolRegistry)[number]["slug"];

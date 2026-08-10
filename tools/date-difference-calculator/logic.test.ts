@@ -1,0 +1,2 @@
+import { describe, expect, it } from "vitest"; import { calculateDateDifference } from "./logic";
+describe("calculateDateDifference", () => { it("counts leap days with date-only arithmetic", () => expect(calculateDateDifference("2024-02-28", "2024-03-01")).toEqual({ ok: true, days: 2 })); it("supports years below 100", () => expect(calculateDateDifference("0001-01-01", "0001-01-02")).toEqual({ ok: true, days: 1 })); it("rejects invalid dates", () => expect(calculateDateDifference("2025-02-29", "2025-03-01").ok).toBe(false)); });
