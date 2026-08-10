@@ -12,6 +12,7 @@ export function ToolCard({ tool }: ToolCardProps) {
     <Link
       className="group flex h-full flex-col rounded-card border border-line bg-panel p-5 transition duration-150 hover:border-accent hover:bg-panel-muted"
       href={`/tools/${tool.slug}`}
+      prefetch={false}
     >
       <div className="flex items-start justify-between gap-4">
         <span className="grid size-10 place-items-center rounded-control border border-line bg-panel-muted text-ink-muted">

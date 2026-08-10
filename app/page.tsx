@@ -87,6 +87,7 @@ export default function HomePage() {
                   className="inline-flex min-h-10 items-center border-b border-transparent px-2 font-medium text-ink-muted hover:border-accent hover:text-ink"
                   href={`/tools/${tool.slug}`}
                   key={tool.slug}
+                  prefetch={false}
                 >
                   {tool.name}
                 </Link>
@@ -118,6 +119,7 @@ export default function HomePage() {
                   <Link
                     className="group flex min-h-20 items-center gap-3 rounded-card border border-line bg-canvas px-4 py-3 hover:border-accent hover:bg-panel-muted"
                     href={`/tools/${tool.slug}`}
+                    prefetch={false}
                   >
                     <span className="font-mono text-xs tabular-nums text-accent">
                       {String(index + 1).padStart(2, "0")}
