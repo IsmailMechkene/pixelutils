@@ -2,6 +2,63 @@ import type { ToolDefinition } from "./types";
 const date = "2026-08-10";
 export const phaseFourTools = [
   {
+    slug: "image-resizer",
+    name: "Image Resizer",
+    shortDescription: "Resize PNG, JPG, and WebP images locally.",
+    longDescription:
+      "Resize PNG, JPG, JPEG, and WebP images to exact dimensions in your browser. Keep the aspect ratio by default, choose an output format, and download locally.",
+    category: "image-conversion",
+    keywords: ["image resizer", "resize image", "change image dimensions"],
+    aliases: ["resize PNG", "resize JPG", "resize WebP"],
+    icon: "image",
+    relatedTools: ["image-converter", "image-compressor", "png-to-webp"],
+    featured: true,
+    searchWeight: 91,
+    privacyNote:
+      "Your image never leaves your device. Processing happens locally in your browser.",
+    browserProcessing: true,
+    sensitive: false,
+    inputType: "image",
+    outputType: "image",
+    usageSteps: [
+      "Choose a PNG, JPG, JPEG, or WebP image.",
+      "Set the width and height, keeping the aspect ratio locked when appropriate.",
+      "Resize, review the output size, and download the result.",
+    ],
+    examples: [
+      {
+        name: "Resize a banner without distortion",
+        input: "1600 × 900 JPG resized to 800 px wide with aspect ratio locked",
+        output: "800 × 450 JPG",
+      },
+    ],
+    faqs: [
+      {
+        question: "Will this upscale my image?",
+        answer:
+          "Only if you enter dimensions larger than the original. The tool shows a warning before you resize upward.",
+      },
+      {
+        question: "Can I keep a transparent PNG?",
+        answer:
+          "Yes. Keep PNG as the output format to retain transparent pixels.",
+      },
+      {
+        question: "Does resizing preserve the aspect ratio?",
+        answer:
+          "Yes by default. Unlock the aspect-ratio control only when you intentionally need independent width and height.",
+      },
+    ],
+    publishedAt: date,
+    updatedAt: date,
+    seo: {
+      title: "Image Resizer - Resize PNG, JPG and WebP Locally",
+      description:
+        "Resize PNG, JPG and WebP images locally in your browser. Set exact dimensions, lock aspect ratio, choose output format and download without uploading.",
+    },
+    status: "published",
+  },
+  {
     slug: "image-converter",
     name: "Image Converter",
     shortDescription: "Convert PNG, JPG, and WebP images locally.",

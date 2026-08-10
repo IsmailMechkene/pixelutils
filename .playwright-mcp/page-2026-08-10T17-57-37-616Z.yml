@@ -1,0 +1,169 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "PixelUtils home" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e11]: PixelUtils
+        - generic [ref=e12]:
+          - button "Search tools" [ref=e13]
+          - 'button "Theme: system. Switch to light." [ref=e17]'
+          - button "Open navigation" [ref=e21]
+    - main [ref=e23]:
+      - generic [ref=e24]:
+        - navigation "Breadcrumb" [ref=e25]:
+          - list [ref=e26]:
+            - listitem [ref=e27]:
+              - link "Home" [ref=e28] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e29]:
+              - link "Image & Conversion" [ref=e32] [cursor=pointer]:
+                - /url: /categories/image-conversion
+            - listitem [ref=e33]:
+              - generic [ref=e36]: Image Resizer
+        - generic [ref=e45]:
+          - generic [ref=e46]:
+            - paragraph [ref=e47]: Tool / local browser processing
+            - button "Add to favorites" [ref=e48]
+          - heading "Image Resizer" [level=1] [ref=e51]
+          - paragraph [ref=e52]: Resize PNG, JPG, JPEG, and WebP images to exact dimensions in your browser. Keep the aspect ratio by default, choose an output format, and download locally.
+        - generic [ref=e54]:
+          - generic [ref=e55]: Runs in your browser
+          - paragraph [ref=e59]: Your image never leaves your device. Processing happens locally in your browser.
+        - generic [ref=e60]:
+          - region [ref=e61]:
+            - heading "Workspace" [level=2] [ref=e62]
+            - generic [ref=e64]:
+              - generic [ref=e66]:
+                - button "Choose an image or drop it here PNG, JPG, JPEG, or WebP up to 25 MB." [ref=e67]
+                - generic [ref=e68] [cursor=pointer]:
+                  - generic [ref=e74]: Choose an image or drop it here
+                  - generic [ref=e75]: PNG, JPG, JPEG, or WebP up to 25 MB.
+              - paragraph [ref=e76]:
+                - generic [ref=e80]: Your image never leaves your device. Processing happens locally in your browser.
+              - complementary [ref=e82]:
+                - generic [ref=e85]:
+                  - paragraph [ref=e86]: Metadata
+                  - generic [ref=e87]: Re-encoding may remove optional metadata, such as camera details and location.
+          - generic [ref=e88]:
+            - region [ref=e89]:
+              - heading "How to use Image Resizer" [level=2] [ref=e90]
+              - list [ref=e91]:
+                - listitem [ref=e92]:
+                  - generic [ref=e93]: "1"
+                  - generic [ref=e94]: Choose a PNG, JPG, JPEG, or WebP image.
+                - listitem [ref=e95]:
+                  - generic [ref=e96]: "2"
+                  - generic [ref=e97]: Set the width and height, keeping the aspect ratio locked when appropriate.
+                - listitem [ref=e98]:
+                  - generic [ref=e99]: "3"
+                  - generic [ref=e100]: Resize, review the output size, and download the result.
+            - region [ref=e101]:
+              - heading "Examples" [level=2] [ref=e102]
+              - article [ref=e104]:
+                - heading "Resize a banner without distortion" [level=3] [ref=e105]
+                - generic [ref=e106]:
+                  - generic [ref=e107]:
+                    - term [ref=e108]: Input
+                    - definition [ref=e109]: 1600 × 900 JPG resized to 800 px wide with aspect ratio locked
+                  - generic [ref=e110]:
+                    - term [ref=e111]: Output
+                    - definition [ref=e112]: 800 × 450 JPG
+            - region [ref=e113]:
+              - heading "Frequently asked questions" [level=2] [ref=e114]
+              - generic [ref=e115]:
+                - group [ref=e116]:
+                  - generic "Will this upscale my image?" [ref=e117] [cursor=pointer]
+                - group [ref=e120]:
+                  - generic "Can I keep a transparent PNG?" [ref=e121] [cursor=pointer]
+                - group [ref=e124]:
+                  - generic "Does resizing preserve the aspect ratio?" [ref=e125] [cursor=pointer]
+            - region [ref=e128]:
+              - heading "Related tools" [level=2] [ref=e129]
+              - paragraph [ref=e130]: Continue with another tool that fits the same workflow.
+              - generic [ref=e131]:
+                - link "Runs locally Image Converter Convert PNG, JPG, and WebP images locally." [ref=e133] [cursor=pointer]:
+                  - /url: /tools/image-converter
+                  - generic [ref=e134]: Runs locally
+                  - heading "Image Converter" [level=3] [ref=e141]
+                  - paragraph [ref=e142]: Convert PNG, JPG, and WebP images locally.
+                - link "Runs locally Image Compressor Compress PNG, JPG, and WebP images locally." [ref=e144] [cursor=pointer]:
+                  - /url: /tools/image-compressor
+                  - generic [ref=e145]: Runs locally
+                  - heading "Image Compressor" [level=3] [ref=e152]
+                  - paragraph [ref=e153]: Compress PNG, JPG, and WebP images locally.
+                - link "Runs locally PNG to WebP Converter Convert PNG images to modern WebP files locally." [ref=e155] [cursor=pointer]:
+                  - /url: /tools/png-to-webp
+                  - generic [ref=e156]: Runs locally
+                  - heading "PNG to WebP Converter" [level=3] [ref=e163]
+                  - paragraph [ref=e164]: Convert PNG images to modern WebP files locally.
+    - contentinfo [ref=e165]:
+      - generic [ref=e166]:
+        - generic [ref=e167]:
+          - link "PixelUtils home" [ref=e168] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e173]: PixelUtils
+          - paragraph [ref=e174]: Thoughtful browser tools that put speed, clarity, and privacy first.
+          - paragraph [ref=e175]: Fast / Private / No account
+        - navigation [ref=e176]:
+          - heading "Explore" [level=2] [ref=e177]
+          - list [ref=e178]:
+            - listitem [ref=e179]:
+              - link "Find a tool" [ref=e180] [cursor=pointer]:
+                - /url: /#find-a-tool
+            - listitem [ref=e181]:
+              - link "Browse categories" [ref=e182] [cursor=pointer]:
+                - /url: /#categories
+            - listitem [ref=e183]:
+              - link "Guides" [ref=e184] [cursor=pointer]:
+                - /url: /guides
+            - listitem [ref=e185]:
+              - link "About PixelUtils" [ref=e186] [cursor=pointer]:
+                - /url: /about
+        - navigation [ref=e187]:
+          - heading "Categories" [level=2] [ref=e188]
+          - list [ref=e189]:
+            - listitem [ref=e190]:
+              - link "Developer tools" [ref=e191] [cursor=pointer]:
+                - /url: /categories/developer
+            - listitem [ref=e192]:
+              - link "Text tools" [ref=e193] [cursor=pointer]:
+                - /url: /categories/text
+            - listitem [ref=e194]:
+              - link "Encoding tools" [ref=e195] [cursor=pointer]:
+                - /url: /categories/encoding
+            - listitem [ref=e196]:
+              - link "Web tools" [ref=e197] [cursor=pointer]:
+                - /url: /categories/web
+            - listitem [ref=e198]:
+              - link "Image & Conversion tools" [ref=e199] [cursor=pointer]:
+                - /url: /categories/image-conversion
+            - listitem [ref=e200]:
+              - link "Security tools" [ref=e201] [cursor=pointer]:
+                - /url: /categories/security
+            - listitem [ref=e202]:
+              - link "Date & Time tools" [ref=e203] [cursor=pointer]:
+                - /url: /categories/date-time
+            - listitem [ref=e204]:
+              - link "Calculators tools" [ref=e205] [cursor=pointer]:
+                - /url: /categories/calculators
+            - listitem [ref=e206]:
+              - link "Color & Design tools" [ref=e207] [cursor=pointer]:
+                - /url: /categories/color-design
+        - navigation [ref=e208]:
+          - heading "Trust & legal" [level=2] [ref=e209]
+          - list [ref=e210]:
+            - listitem [ref=e211]:
+              - link "Privacy" [ref=e212] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e213]:
+              - link "Terms" [ref=e214] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e215]:
+              - link "Contact" [ref=e216] [cursor=pointer]:
+                - /url: /contact
+      - generic [ref=e218]:
+        - paragraph [ref=e219]: © 2026 PixelUtils.
+        - paragraph [ref=e220]: Each tool states clearly where processing happens.

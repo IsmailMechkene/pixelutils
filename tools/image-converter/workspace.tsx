@@ -10,7 +10,6 @@ import { ToolActions } from "@/components/tool-shell/tool-actions";
 import { ToolNotice } from "@/components/tool-shell/tool-notice";
 import {
   FilePicker,
-  FilePrivacyNotice,
   FileResult,
   ProcessingStatus,
 } from "@/components/file-tools";
@@ -264,7 +263,6 @@ export function ImageConverterWorkspace({
         maxSizeBytes={maxImageCompressorBytes}
         onFilesChange={selectFile}
       />
-      <FilePrivacyNotice message="Your image never leaves your device. Processing happens locally in your browser." />
       <div className="mt-4">
         <ToolNotice title="Metadata" tone="info">
           Re-encoding may remove optional metadata, such as camera details and

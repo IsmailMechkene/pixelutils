@@ -21,7 +21,18 @@ type ConvertRequest = {
   readonly background: string;
 };
 
-type WorkerRequest = InspectRequest | ConvertRequest;
+type ResizeRequest = {
+  readonly type: "resize";
+  readonly id: number;
+  readonly file: File;
+  readonly outputType: SupportedImageMime;
+  readonly quality: number;
+  readonly background: string;
+  readonly width: number;
+  readonly height: number;
+};
+
+type WorkerRequest = InspectRequest | ConvertRequest | ResizeRequest;
 
 function send(message: object) {
   postMessage(message);
@@ -92,7 +103,11 @@ async function inspect(request: InspectRequest) {
   }
 }
 
-async function convert(request: ConvertRequest) {
+async function render(
+  request: ConvertRequest | ResizeRequest,
+  targetWidth?: number,
+  targetHeight?: number,
+) {
   if (!supported()) {
     send({
       type: "error",
@@ -116,7 +131,13 @@ async function convert(request: ConvertRequest) {
       context.fillStyle = request.background;
       context.fillRect(0, 0, bitmap.width, bitmap.height);
     }
-    context.drawImage(bitmap, 0, 0);
+    context.drawImage(
+      bitmap,
+      0,
+      0,
+      targetWidth ?? bitmap.width,
+      targetHeight ?? bitmap.height,
+    );
     const blob = await canvas.convertToBlob({
       type: request.outputType,
       quality:
@@ -129,7 +150,7 @@ async function convert(request: ConvertRequest) {
       type: "error",
       id: request.id,
       message:
-        "The image could not be converted. It may be corrupted or unsupported.",
+        "The image could not be processed. It may be corrupted or unsupported.",
     });
   } finally {
     bitmap?.close();
@@ -139,7 +160,9 @@ async function convert(request: ConvertRequest) {
 addEventListener("message", (event: MessageEvent<WorkerRequest>) => {
   if (event.data.type === "inspect") {
     void inspect(event.data);
+  } else if (event.data.type === "resize") {
+    void render(event.data, event.data.width, event.data.height);
   } else {
-    void convert(event.data);
+    void render(event.data);
   }
 });

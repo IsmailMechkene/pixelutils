@@ -1,0 +1,242 @@
+- generic [ref=f4e1]:
+  - link "Skip to main content" [ref=f4e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=f4e3]:
+    - banner [ref=f4e4]:
+      - generic [ref=f4e5]:
+        - link "PixelUtils home" [ref=f4e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=f4e11]: PixelUtils
+        - generic [ref=f4e12]:
+          - button "Search tools" [ref=f4e13]
+          - 'button "Theme: system. Switch to light." [ref=f4e17]'
+          - button "Open navigation" [ref=f4e21]
+    - main [ref=f4e23]:
+      - generic [ref=f4e24]:
+        - navigation "Breadcrumb" [ref=f4e25]:
+          - list [ref=f4e26]:
+            - listitem [ref=f4e27]:
+              - link "Home" [ref=f4e28] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=f4e29]:
+              - link "Image & Conversion" [ref=f4e32] [cursor=pointer]:
+                - /url: /categories/image-conversion
+            - listitem [ref=f4e33]:
+              - generic [ref=f4e36]: Image Converter
+        - generic [ref=f4e45]:
+          - generic [ref=f4e46]:
+            - paragraph [ref=f4e47]: Tool / local browser processing
+            - button "Add to favorites" [ref=f4e48]
+          - heading "Image Converter" [level=1] [ref=f4e51]
+          - paragraph [ref=f4e52]: Convert PNG, JPG, JPEG, and WebP images in your browser with clear output choices, local previews, and no uploads.
+        - generic [ref=f4e54]:
+          - generic [ref=f4e55]: Runs in your browser
+          - paragraph [ref=f4e59]: Your image never leaves your device. Processing happens locally in your browser.
+        - generic [ref=f4e60]:
+          - region [ref=f4e61]:
+            - heading "Workspace" [level=2] [ref=f4e62]
+            - generic [ref=f4e64]:
+              - generic [ref=f4e65]:
+                - generic [ref=f4e66]:
+                  - button "Choose an image or drop it here PNG, JPG, JPEG, or WebP up to 25 MB." [ref=f4e67]
+                  - generic [ref=f4e68] [cursor=pointer]:
+                    - generic [ref=f4e74]: Choose an image or drop it here
+                    - generic [ref=f4e75]: PNG, JPG, JPEG, or WebP up to 25 MB.
+                - list [ref=f4e221]:
+                  - listitem [ref=f4e222]:
+                    - generic [ref=f4e227]:
+                      - paragraph [ref=f4e228]: favicon.png
+                      - paragraph [ref=f4e229]: image/png · 445 B
+                    - button "Remove favicon.png" [ref=f4e279]: Remove
+              - complementary [ref=f4e77]:
+                - generic [ref=f4e80]:
+                  - paragraph [ref=f4e81]: Metadata
+                  - generic [ref=f4e82]: Re-encoding may remove optional metadata, such as camera details and location.
+              - status [ref=f4e234]:
+                - generic [ref=f4e237]: Processing complete.
+              - generic [ref=f4e238]:
+                - region [ref=f4e239]:
+                  - generic [ref=f4e240]:
+                    - heading "Source image" [level=2] [ref=f4e241]
+                    - paragraph [ref=f4e242]: 16 × 16 px · 445 B
+                  - img "Source preview of favicon.png" [ref=f4e244]
+                - region [ref=f4e245]:
+                  - heading "Convert to" [level=2] [ref=f4e246]
+                  - generic [ref=f4e248]:
+                    - generic [ref=f4e249]: Output format
+                    - button "Output format JPG" [ref=f4e250]:
+                      - generic [ref=f4e251]: JPG
+                  - paragraph [ref=f4e255]: JPG cannot keep transparent pixels. Choose a background color below.
+                  - generic [ref=f4e256]:
+                    - text: Quality
+                    - status [ref=f4e257]: "82"
+                    - slider "Quality Lower quality usually makes JPG and WebP files smaller." [ref=f4e258]: "82"
+                    - generic [ref=f4e259]: Lower quality usually makes JPG and WebP files smaller.
+                  - group "JPG background" [ref=f4e261]:
+                    - generic [ref=f4e263]:
+                      - button "Choose jpg background color" [ref=f4e264]
+                      - textbox "JPG background HEX value" [ref=f4e266]: "#FFFFFF"
+                  - group "Image conversion actions" [ref=f4e268]:
+                    - button "Convert image" [active] [ref=f4e269]
+                    - button "Clear" [ref=f4e275]
+              - region [ref=f4e291]:
+                - heading "Converted preview" [level=2] [ref=f4e292]
+                - img "Converted preview" [ref=f4e294]
+              - region [ref=f4e295]:
+                - generic [ref=f4e296]:
+                  - generic [ref=f4e297]:
+                    - heading "Result ready" [level=2] [ref=f4e298]
+                    - paragraph [ref=f4e299]: PNG converted to JPG.
+                  - group "Result actions" [ref=f4e300]:
+                    - button "Download result" [ref=f4e301]
+                    - button "Clear result" [ref=f4e305]
+                - generic [ref=f4e309]:
+                  - region "Before" [ref=f4e310]:
+                    - heading "Before" [level=3] [ref=f4e311]
+                    - generic [ref=f4e312]:
+                      - generic [ref=f4e313]:
+                        - term [ref=f4e314]: Dimensions
+                        - definition [ref=f4e315]: 16 × 16 px
+                      - generic [ref=f4e316]:
+                        - term [ref=f4e317]: File size
+                        - definition [ref=f4e318]: 445 B
+                  - region "After" [ref=f4e319]:
+                    - heading "After" [level=3] [ref=f4e320]
+                    - generic [ref=f4e321]:
+                      - generic [ref=f4e322]:
+                        - term [ref=f4e323]: Dimensions
+                        - definition [ref=f4e324]: 16 × 16 px
+                      - generic [ref=f4e325]:
+                        - term [ref=f4e326]: File size
+                        - definition [ref=f4e327]: 915 B
+          - generic [ref=f4e83]:
+            - region [ref=f4e84]:
+              - heading "How to use Image Converter" [level=2] [ref=f4e85]
+              - list [ref=f4e86]:
+                - listitem [ref=f4e87]:
+                  - generic [ref=f4e88]: "1"
+                  - generic [ref=f4e89]: Choose or drop a PNG, JPG, JPEG, or WebP image.
+                - listitem [ref=f4e90]:
+                  - generic [ref=f4e91]: "2"
+                  - generic [ref=f4e92]: Select a supported output format and adjust quality when available.
+                - listitem [ref=f4e93]:
+                  - generic [ref=f4e94]: "3"
+                  - generic [ref=f4e95]: Convert, review the result, and download the new image.
+            - region [ref=f4e96]:
+              - heading "Examples" [level=2] [ref=f4e97]
+              - article [ref=f4e99]:
+                - heading "Convert PNG to JPG" [level=3] [ref=f4e100]
+                - generic [ref=f4e101]:
+                  - generic [ref=f4e102]:
+                    - term [ref=f4e103]: Input
+                    - definition [ref=f4e104]: A transparent logo PNG with a white background selected
+                  - generic [ref=f4e105]:
+                    - term [ref=f4e106]: Output
+                    - definition [ref=f4e107]: A JPG using the same pixel dimensions
+            - region [ref=f4e108]:
+              - heading "Frequently asked questions" [level=2] [ref=f4e109]
+              - generic [ref=f4e110]:
+                - group [ref=f4e111]:
+                  - generic "Are my images uploaded?" [ref=f4e112] [cursor=pointer]
+                - group [ref=f4e115]:
+                  - generic "What happens to transparency in JPG?" [ref=f4e116] [cursor=pointer]
+                - group [ref=f4e119]:
+                  - generic "Will conversion resize my image?" [ref=f4e120] [cursor=pointer]
+            - region [ref=f4e123]:
+              - heading "Related tools" [level=2] [ref=f4e124]
+              - paragraph [ref=f4e125]: Continue with another tool that fits the same workflow.
+              - generic [ref=f4e126]:
+                - link "Runs locally Image Compressor Compress PNG, JPG, and WebP images locally." [ref=f4e128] [cursor=pointer]:
+                  - /url: /tools/image-compressor
+                  - generic [ref=f4e129]: Runs locally
+                  - heading "Image Compressor" [level=3] [ref=f4e136]
+                  - paragraph [ref=f4e137]: Compress PNG, JPG, and WebP images locally.
+                - link "Runs locally QR Code Generator Create and download a QR code entirely in your browser." [ref=f4e139] [cursor=pointer]:
+                  - /url: /tools/qr-code-generator
+                  - generic [ref=f4e140]: Runs locally
+                  - heading "QR Code Generator" [level=3] [ref=f4e149]
+                  - paragraph [ref=f4e150]: Create and download a QR code entirely in your browser.
+                - 'link "Runs locally Color Converter: HEX, RGB and HSL Convert HEX, RGB, and HSL colors with optional alpha." [ref=f4e152] [cursor=pointer]':
+                  - /url: /tools/color-converter
+                  - generic [ref=f4e153]: Runs locally
+                  - 'heading "Color Converter: HEX, RGB and HSL" [level=3] [ref=f4e162]'
+                  - paragraph [ref=f4e163]: Convert HEX, RGB, and HSL colors with optional alpha.
+            - region [ref=f4e328]:
+              - generic [ref=f4e329]:
+                - generic [ref=f4e330]:
+                  - heading "Activity on this device" [level=2] [ref=f4e331]
+                  - paragraph [ref=f4e332]: Latest 20 actions at most. Tool content is never stored.
+                - button "Clear history" [ref=f4e333]
+              - list "Recent activity" [ref=f4e337]:
+                - listitem [ref=f4e338]:
+                  - generic [ref=f4e339]: Processed input
+                  - time [ref=f4e340]: Aug 10, 2026, 7:00 PM
+    - contentinfo [ref=f4e164]:
+      - generic [ref=f4e165]:
+        - generic [ref=f4e166]:
+          - link "PixelUtils home" [ref=f4e167] [cursor=pointer]:
+            - /url: /
+            - generic [ref=f4e172]: PixelUtils
+          - paragraph [ref=f4e173]: Thoughtful browser tools that put speed, clarity, and privacy first.
+          - paragraph [ref=f4e174]: Fast / Private / No account
+        - navigation [ref=f4e175]:
+          - heading "Explore" [level=2] [ref=f4e176]
+          - list [ref=f4e177]:
+            - listitem [ref=f4e178]:
+              - link "Find a tool" [ref=f4e179] [cursor=pointer]:
+                - /url: /#find-a-tool
+            - listitem [ref=f4e180]:
+              - link "Browse categories" [ref=f4e181] [cursor=pointer]:
+                - /url: /#categories
+            - listitem [ref=f4e182]:
+              - link "Guides" [ref=f4e183] [cursor=pointer]:
+                - /url: /guides
+            - listitem [ref=f4e184]:
+              - link "About PixelUtils" [ref=f4e185] [cursor=pointer]:
+                - /url: /about
+        - navigation [ref=f4e186]:
+          - heading "Categories" [level=2] [ref=f4e187]
+          - list [ref=f4e188]:
+            - listitem [ref=f4e189]:
+              - link "Developer tools" [ref=f4e190] [cursor=pointer]:
+                - /url: /categories/developer
+            - listitem [ref=f4e191]:
+              - link "Text tools" [ref=f4e192] [cursor=pointer]:
+                - /url: /categories/text
+            - listitem [ref=f4e193]:
+              - link "Encoding tools" [ref=f4e194] [cursor=pointer]:
+                - /url: /categories/encoding
+            - listitem [ref=f4e195]:
+              - link "Web tools" [ref=f4e196] [cursor=pointer]:
+                - /url: /categories/web
+            - listitem [ref=f4e197]:
+              - link "Image & Conversion tools" [ref=f4e198] [cursor=pointer]:
+                - /url: /categories/image-conversion
+            - listitem [ref=f4e199]:
+              - link "Security tools" [ref=f4e200] [cursor=pointer]:
+                - /url: /categories/security
+            - listitem [ref=f4e201]:
+              - link "Date & Time tools" [ref=f4e202] [cursor=pointer]:
+                - /url: /categories/date-time
+            - listitem [ref=f4e203]:
+              - link "Calculators tools" [ref=f4e204] [cursor=pointer]:
+                - /url: /categories/calculators
+            - listitem [ref=f4e205]:
+              - link "Color & Design tools" [ref=f4e206] [cursor=pointer]:
+                - /url: /categories/color-design
+        - navigation [ref=f4e207]:
+          - heading "Trust & legal" [level=2] [ref=f4e208]
+          - list [ref=f4e209]:
+            - listitem [ref=f4e210]:
+              - link "Privacy" [ref=f4e211] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=f4e212]:
+              - link "Terms" [ref=f4e213] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=f4e214]:
+              - link "Contact" [ref=f4e215] [cursor=pointer]:
+                - /url: /contact
+      - generic [ref=f4e217]:
+        - paragraph [ref=f4e218]: © 2026 PixelUtils.
+        - paragraph [ref=f4e219]: Each tool states clearly where processing happens.
+  - alert [ref=f4e220]

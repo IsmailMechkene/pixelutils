@@ -1,0 +1,232 @@
+- generic [ref=f3e1]:
+  - link "Skip to main content" [ref=f3e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=f3e3]:
+    - banner [ref=f3e4]:
+      - generic [ref=f3e5]:
+        - link "PixelUtils home" [ref=f3e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=f3e11]: PixelUtils
+        - generic [ref=f3e12]:
+          - button "Search tools" [ref=f3e13]
+          - 'button "Theme: system. Switch to light." [ref=f3e17]'
+          - button "Open navigation" [ref=f3e21]
+    - main [ref=f3e23]:
+      - generic [ref=f3e24]:
+        - navigation "Breadcrumb" [ref=f3e25]:
+          - list [ref=f3e26]:
+            - listitem [ref=f3e27]:
+              - link "Home" [ref=f3e28] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=f3e29]:
+              - link "Image & Conversion" [ref=f3e32] [cursor=pointer]:
+                - /url: /categories/image-conversion
+            - listitem [ref=f3e33]:
+              - generic [ref=f3e36]: Image Compressor
+        - generic [ref=f3e45]:
+          - generic [ref=f3e46]:
+            - paragraph [ref=f3e47]: Tool / local browser processing
+            - button "Add to favorites" [ref=f3e48]
+          - heading "Image Compressor" [level=1] [ref=f3e51]
+          - paragraph [ref=f3e52]: Reduce JPG and WebP file sizes with a simple quality control, or re-encode transparent PNG files locally without changing image dimensions.
+        - generic [ref=f3e54]:
+          - generic [ref=f3e55]: Runs in your browser
+          - paragraph [ref=f3e59]: Your image never leaves your device. Processing happens locally in your browser.
+        - generic [ref=f3e60]:
+          - region [ref=f3e61]:
+            - heading "Workspace" [level=2] [ref=f3e62]
+            - generic [ref=f3e64]:
+              - generic [ref=f3e65]:
+                - generic [ref=f3e66]:
+                  - button "Choose an image or drop it here PNG, JPG, JPEG, or WebP up to 25 MB." [ref=f3e67]
+                  - generic [ref=f3e68] [cursor=pointer]:
+                    - generic [ref=f3e74]: Choose an image or drop it here
+                    - generic [ref=f3e75]: PNG, JPG, JPEG, or WebP up to 25 MB.
+                - list [ref=f3e223]:
+                  - listitem [ref=f3e224]:
+                    - generic [ref=f3e229]:
+                      - paragraph [ref=f3e230]: favicon.png
+                      - paragraph [ref=f3e231]: image/png · 445 B
+                    - button "Remove favicon.png" [ref=f3e262]: Remove
+              - complementary [ref=f3e77]:
+                - generic [ref=f3e80]:
+                  - paragraph [ref=f3e81]: Metadata
+                  - generic [ref=f3e82]: Re-encoding may remove optional metadata, such as camera details and location.
+              - status [ref=f3e236]:
+                - generic [ref=f3e239]: Processing complete.
+              - generic [ref=f3e240]:
+                - region [ref=f3e241]:
+                  - generic [ref=f3e242]:
+                    - heading "Original image" [level=2] [ref=f3e243]
+                    - paragraph [ref=f3e244]: 16 × 16 px · 445 B
+                  - img "Original preview of favicon.png" [ref=f3e246]
+                - region [ref=f3e247]:
+                  - heading "Compression" [level=2] [ref=f3e248]
+                  - paragraph [ref=f3e249]: PNG keeps transparency. Browser PNG compression is lossless, so its size may not always decrease.
+                  - group "Image compression actions" [ref=f3e251]:
+                    - button "Compress image" [active] [ref=f3e252]
+                    - button "Clear" [ref=f3e258]
+              - region [ref=f3e274]:
+                - heading "Compressed preview" [level=2] [ref=f3e275]
+                - img "Compressed preview" [ref=f3e277]
+              - region [ref=f3e278]:
+                - generic [ref=f3e279]:
+                  - generic [ref=f3e280]:
+                    - heading "Result ready" [level=2] [ref=f3e281]
+                    - paragraph [ref=f3e282]: Compressed image is 31% larger.
+                  - group "Result actions" [ref=f3e283]:
+                    - button "Download result" [ref=f3e284]
+                    - button "Clear result" [ref=f3e288]
+                - generic [ref=f3e292]:
+                  - region "Before" [ref=f3e293]:
+                    - heading "Before" [level=3] [ref=f3e294]
+                    - generic [ref=f3e295]:
+                      - generic [ref=f3e296]:
+                        - term [ref=f3e297]: Dimensions
+                        - definition [ref=f3e298]: 16 × 16 px
+                      - generic [ref=f3e299]:
+                        - term [ref=f3e300]: File size
+                        - definition [ref=f3e301]: 445 B
+                  - region "After" [ref=f3e302]:
+                    - heading "After" [level=3] [ref=f3e303]
+                    - generic [ref=f3e304]:
+                      - generic [ref=f3e305]:
+                        - term [ref=f3e306]: Dimensions
+                        - definition [ref=f3e307]: 16 × 16 px
+                      - generic [ref=f3e308]:
+                        - term [ref=f3e309]: File size
+                        - definition [ref=f3e310]: 585 B
+                      - generic [ref=f3e311]:
+                        - term [ref=f3e312]: Change
+                        - definition [ref=f3e313]: 31% larger
+          - generic [ref=f3e83]:
+            - region [ref=f3e84]:
+              - heading "How to use Image Compressor" [level=2] [ref=f3e85]
+              - list [ref=f3e86]:
+                - listitem [ref=f3e87]:
+                  - generic [ref=f3e88]: "1"
+                  - generic [ref=f3e89]: Choose or drop a PNG, JPG, JPEG, or WebP image.
+                - listitem [ref=f3e90]:
+                  - generic [ref=f3e91]: "2"
+                  - generic [ref=f3e92]: For JPG and WebP, set the quality level you want.
+                - listitem [ref=f3e93]:
+                  - generic [ref=f3e94]: "3"
+                  - generic [ref=f3e95]: Compress the image, compare the sizes, and download the result.
+            - region [ref=f3e96]:
+              - heading "Examples" [level=2] [ref=f3e97]
+              - article [ref=f3e99]:
+                - heading "Compress a JPG photo" [level=3] [ref=f3e100]
+                - generic [ref=f3e101]:
+                  - generic [ref=f3e102]:
+                    - term [ref=f3e103]: Input
+                    - definition [ref=f3e104]: A 4.2 MB JPG at quality 82
+                  - generic [ref=f3e105]:
+                    - term [ref=f3e106]: Output
+                    - definition [ref=f3e107]: A smaller JPG with the same pixel dimensions
+            - region [ref=f3e108]:
+              - heading "Frequently asked questions" [level=2] [ref=f3e109]
+              - generic [ref=f3e110]:
+                - group [ref=f3e111]:
+                  - generic "Are my images uploaded?" [ref=f3e112] [cursor=pointer]
+                - group [ref=f3e115]:
+                  - generic "Will this resize my image?" [ref=f3e116] [cursor=pointer]
+                - group [ref=f3e119]:
+                  - generic "Does PNG transparency stay intact?" [ref=f3e120] [cursor=pointer]
+            - region [ref=f3e123]:
+              - heading "Related tools" [level=2] [ref=f3e124]
+              - paragraph [ref=f3e125]: Continue with another tool that fits the same workflow.
+              - generic [ref=f3e126]:
+                - link "Runs locally QR Code Generator Create and download a QR code entirely in your browser." [ref=f3e128] [cursor=pointer]:
+                  - /url: /tools/qr-code-generator
+                  - generic [ref=f3e129]: Runs locally
+                  - heading "QR Code Generator" [level=3] [ref=f3e138]
+                  - paragraph [ref=f3e139]: Create and download a QR code entirely in your browser.
+                - 'link "Runs locally Color Converter: HEX, RGB and HSL Convert HEX, RGB, and HSL colors with optional alpha." [ref=f3e141] [cursor=pointer]':
+                  - /url: /tools/color-converter
+                  - generic [ref=f3e142]: Runs locally
+                  - 'heading "Color Converter: HEX, RGB and HSL" [level=3] [ref=f3e151]'
+                  - paragraph [ref=f3e152]: Convert HEX, RGB, and HSL colors with optional alpha.
+                - link "Runs locally WCAG Color Contrast Checker Check foreground and background colors against WCAG AA contrast." [ref=f3e154] [cursor=pointer]:
+                  - /url: /tools/color-contrast-checker
+                  - generic [ref=f3e155]: Runs locally
+                  - heading "WCAG Color Contrast Checker" [level=3] [ref=f3e164]
+                  - paragraph [ref=f3e165]: Check foreground and background colors against WCAG AA contrast.
+            - region [ref=f3e314]:
+              - generic [ref=f3e315]:
+                - generic [ref=f3e316]:
+                  - heading "Activity on this device" [level=2] [ref=f3e317]
+                  - paragraph [ref=f3e318]: Latest 20 actions at most. Tool content is never stored.
+                - button "Clear history" [ref=f3e319]
+              - list "Recent activity" [ref=f3e323]:
+                - listitem [ref=f3e324]:
+                  - generic [ref=f3e325]: Processed input
+                  - time [ref=f3e326]: Aug 10, 2026, 7:00 PM
+    - contentinfo [ref=f3e166]:
+      - generic [ref=f3e167]:
+        - generic [ref=f3e168]:
+          - link "PixelUtils home" [ref=f3e169] [cursor=pointer]:
+            - /url: /
+            - generic [ref=f3e174]: PixelUtils
+          - paragraph [ref=f3e175]: Thoughtful browser tools that put speed, clarity, and privacy first.
+          - paragraph [ref=f3e176]: Fast / Private / No account
+        - navigation [ref=f3e177]:
+          - heading "Explore" [level=2] [ref=f3e178]
+          - list [ref=f3e179]:
+            - listitem [ref=f3e180]:
+              - link "Find a tool" [ref=f3e181] [cursor=pointer]:
+                - /url: /#find-a-tool
+            - listitem [ref=f3e182]:
+              - link "Browse categories" [ref=f3e183] [cursor=pointer]:
+                - /url: /#categories
+            - listitem [ref=f3e184]:
+              - link "Guides" [ref=f3e185] [cursor=pointer]:
+                - /url: /guides
+            - listitem [ref=f3e186]:
+              - link "About PixelUtils" [ref=f3e187] [cursor=pointer]:
+                - /url: /about
+        - navigation [ref=f3e188]:
+          - heading "Categories" [level=2] [ref=f3e189]
+          - list [ref=f3e190]:
+            - listitem [ref=f3e191]:
+              - link "Developer tools" [ref=f3e192] [cursor=pointer]:
+                - /url: /categories/developer
+            - listitem [ref=f3e193]:
+              - link "Text tools" [ref=f3e194] [cursor=pointer]:
+                - /url: /categories/text
+            - listitem [ref=f3e195]:
+              - link "Encoding tools" [ref=f3e196] [cursor=pointer]:
+                - /url: /categories/encoding
+            - listitem [ref=f3e197]:
+              - link "Web tools" [ref=f3e198] [cursor=pointer]:
+                - /url: /categories/web
+            - listitem [ref=f3e199]:
+              - link "Image & Conversion tools" [ref=f3e200] [cursor=pointer]:
+                - /url: /categories/image-conversion
+            - listitem [ref=f3e201]:
+              - link "Security tools" [ref=f3e202] [cursor=pointer]:
+                - /url: /categories/security
+            - listitem [ref=f3e203]:
+              - link "Date & Time tools" [ref=f3e204] [cursor=pointer]:
+                - /url: /categories/date-time
+            - listitem [ref=f3e205]:
+              - link "Calculators tools" [ref=f3e206] [cursor=pointer]:
+                - /url: /categories/calculators
+            - listitem [ref=f3e207]:
+              - link "Color & Design tools" [ref=f3e208] [cursor=pointer]:
+                - /url: /categories/color-design
+        - navigation [ref=f3e209]:
+          - heading "Trust & legal" [level=2] [ref=f3e210]
+          - list [ref=f3e211]:
+            - listitem [ref=f3e212]:
+              - link "Privacy" [ref=f3e213] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=f3e214]:
+              - link "Terms" [ref=f3e215] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=f3e216]:
+              - link "Contact" [ref=f3e217] [cursor=pointer]:
+                - /url: /contact
+      - generic [ref=f3e219]:
+        - paragraph [ref=f3e220]: © 2026 PixelUtils.
+        - paragraph [ref=f3e221]: Each tool states clearly where processing happens.
+  - alert [ref=f3e222]
