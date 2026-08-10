@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.2",
+    "@xmldom/xmldom": "^0.9.10",
     "he": "^1.2.0",
     "lucide-react": "^1.30.0",
     "marked": "^18.0.9",
