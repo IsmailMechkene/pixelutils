@@ -2,6 +2,63 @@ import type { ToolDefinition } from "./types";
 const date = "2026-08-10";
 export const phaseFourTools = [
   {
+    slug: "image-cropper",
+    name: "Image Cropper",
+    shortDescription: "Crop PNG, JPG, and WebP images locally.",
+    longDescription:
+      "Crop PNG, JPG, JPEG, and WebP images entirely in your browser. Move and resize the crop area, choose a common aspect ratio, and download the result without uploading.",
+    category: "image-conversion",
+    keywords: ["image cropper", "crop image", "crop PNG", "crop JPG"],
+    aliases: ["photo cropper", "image cutter", "crop WebP"],
+    icon: "image",
+    relatedTools: ["image-resizer", "image-converter", "image-compressor"],
+    featured: true,
+    searchWeight: 91,
+    privacyNote:
+      "Your image never leaves your device. Processing happens locally in your browser.",
+    browserProcessing: true,
+    sensitive: false,
+    inputType: "image",
+    outputType: "image",
+    usageSteps: [
+      "Choose or drop a PNG, JPG, JPEG, or WebP image.",
+      "Move or resize the crop area, then choose an aspect ratio if needed.",
+      "Crop the image, review the output dimensions, and download it.",
+    ],
+    examples: [
+      {
+        name: "Crop a photo for a square profile image",
+        input: "A 1600 × 900 JPG cropped with the 1:1 preset",
+        output: "A square JPG containing the selected area",
+      },
+    ],
+    faqs: [
+      {
+        question: "Are my images uploaded?",
+        answer:
+          "No. Cropping happens locally in your browser and your image never leaves your device.",
+      },
+      {
+        question: "Can I crop without a fixed aspect ratio?",
+        answer:
+          "Yes. Choose Free to move and resize the crop area to any shape, or select a preset such as 1:1 or 16:9.",
+      },
+      {
+        question: "Will PNG or WebP transparency remain?",
+        answer:
+          "Yes. The cropper keeps the original PNG or WebP format, so transparent pixels remain transparent where the browser supports that format.",
+      },
+    ],
+    publishedAt: date,
+    updatedAt: date,
+    seo: {
+      title: "Image Cropper - Crop PNG, JPG and WebP Locally",
+      description:
+        "Crop PNG, JPG and WebP images locally in your browser. Move and resize the crop area, choose an aspect ratio, and download without uploading.",
+    },
+    status: "published",
+  },
+  {
     slug: "image-resizer",
     name: "Image Resizer",
     shortDescription: "Resize PNG, JPG, and WebP images locally.",
@@ -11,7 +68,7 @@ export const phaseFourTools = [
     keywords: ["image resizer", "resize image", "change image dimensions"],
     aliases: ["resize PNG", "resize JPG", "resize WebP"],
     icon: "image",
-    relatedTools: ["image-converter", "image-compressor", "png-to-webp"],
+    relatedTools: ["image-cropper", "image-converter", "image-compressor"],
     featured: true,
     searchWeight: 91,
     privacyNote:

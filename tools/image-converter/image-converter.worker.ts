@@ -32,7 +32,17 @@ type ResizeRequest = {
   readonly height: number;
 };
 
-type WorkerRequest = InspectRequest | ConvertRequest | ResizeRequest;
+type CropRequest = {
+  readonly type: "crop";
+  readonly id: number;
+  readonly file: File;
+  readonly outputType: SupportedImageMime;
+  readonly quality: number;
+  readonly background: string;
+  readonly crop: { readonly x: number; readonly y: number; readonly width: number; readonly height: number };
+};
+
+type WorkerRequest = InspectRequest | ConvertRequest | ResizeRequest | CropRequest;
 
 function send(message: object) {
   postMessage(message);
@@ -104,7 +114,7 @@ async function inspect(request: InspectRequest) {
 }
 
 async function render(
-  request: ConvertRequest | ResizeRequest,
+  request: ConvertRequest | ResizeRequest | CropRequest,
   targetWidth?: number,
   targetHeight?: number,
 ) {
@@ -122,22 +132,40 @@ async function render(
     bitmap = await createImageBitmap(request.file, {
       imageOrientation: "from-image",
     });
-    const canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+    const crop = request.type === "crop" ? request.crop : undefined;
+    const canvas = new OffscreenCanvas(
+      targetWidth ?? crop?.width ?? bitmap.width,
+      targetHeight ?? crop?.height ?? bitmap.height,
+    );
     const context = canvas.getContext("2d", {
       alpha: request.outputType !== "image/jpeg",
     });
     if (!context) throw new Error();
     if (request.outputType === "image/jpeg") {
       context.fillStyle = request.background;
-      context.fillRect(0, 0, bitmap.width, bitmap.height);
+      context.fillRect(0, 0, canvas.width, canvas.height);
     }
-    context.drawImage(
-      bitmap,
-      0,
-      0,
-      targetWidth ?? bitmap.width,
-      targetHeight ?? bitmap.height,
-    );
+    if (crop) {
+      context.drawImage(
+        bitmap,
+        crop.x,
+        crop.y,
+        crop.width,
+        crop.height,
+        0,
+        0,
+        canvas.width,
+        canvas.height,
+      );
+    } else {
+      context.drawImage(
+        bitmap,
+        0,
+        0,
+        targetWidth ?? bitmap.width,
+        targetHeight ?? bitmap.height,
+      );
+    }
     const blob = await canvas.convertToBlob({
       type: request.outputType,
       quality:

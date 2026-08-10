@@ -13,6 +13,7 @@ export type ToolWorkspaceModule = {
 // Each entry must use a direct dynamic import so Next.js creates one isolated
 // chunk per tool. Add a loader in the same change that publishes the tool.
 export const toolWorkspaceLoaders = {
+  "image-cropper": () => import("./image-cropper/workspace"),
   "image-converter": () => import("./image-converter/workspace"),
   "image-resizer": () => import("./image-resizer/workspace"),
   "png-to-jpg": () => import("./image-converter/workspace"),

@@ -1,0 +1,225 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e5]:
+        - link "PixelUtils home" [ref=e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e11]: PixelUtils
+        - navigation "Primary navigation" [ref=e217]:
+          - list [ref=e218]:
+            - listitem [ref=e219]:
+              - link "Tools" [ref=e220] [cursor=pointer]:
+                - /url: /#find-a-tool
+            - listitem [ref=e221]:
+              - link "Categories" [ref=e222] [cursor=pointer]:
+                - /url: /#categories
+            - listitem [ref=e223]:
+              - link "Guides" [ref=e224] [cursor=pointer]:
+                - /url: /guides
+            - listitem [ref=e225]:
+              - link "About" [ref=e226] [cursor=pointer]:
+                - /url: /about
+        - generic [ref=e12]:
+          - button "Search tools Ctrl K" [ref=e227]:
+            - text: Search tools
+            - generic [ref=e228]: Ctrl K
+          - 'button "Theme: system. Switch to light." [ref=e17]'
+    - main [ref=e23]:
+      - generic [ref=e24]:
+        - navigation "Breadcrumb" [ref=e25]:
+          - list [ref=e26]:
+            - listitem [ref=e27]:
+              - link "Home" [ref=e28] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e29]:
+              - link "Image & Conversion" [ref=e32] [cursor=pointer]:
+                - /url: /categories/image-conversion
+            - listitem [ref=e33]:
+              - generic [ref=e36]: Image Cropper
+        - generic [ref=e45]:
+          - generic [ref=e46]:
+            - paragraph [ref=e47]: Tool / local browser processing
+            - button "Add to favorites" [ref=e48]
+          - heading "Image Cropper" [level=1] [ref=e51]
+          - paragraph [ref=e52]: Crop PNG, JPG, JPEG, and WebP images entirely in your browser. Move and resize the crop area, choose a common aspect ratio, and download the result without uploading.
+        - generic [ref=e54]:
+          - generic [ref=e55]: Runs in your browser
+          - paragraph [ref=e59]: Your image never leaves your device. Processing happens locally in your browser.
+        - generic [ref=e60]:
+          - region [ref=e61]:
+            - heading "Workspace" [level=2] [ref=e62]
+            - generic [ref=e64]:
+              - generic [ref=e65]:
+                - generic [ref=e66]:
+                  - button "Choose an image or drop it here PNG, JPG, JPEG, or WebP up to 25 MB." [ref=e67]
+                  - generic [ref=e68] [cursor=pointer]:
+                    - generic [ref=e74]: Choose an image or drop it here
+                    - generic [ref=e75]: PNG, JPG, JPEG, or WebP up to 25 MB.
+                - list [ref=e229]:
+                  - listitem [ref=e230]:
+                    - generic [ref=e235]:
+                      - paragraph [ref=e236]: favicon.png
+                      - paragraph [ref=e237]: image/png · 445 B
+                    - button "Remove favicon.png" [ref=e238]: Remove
+              - complementary [ref=e77]:
+                - generic [ref=e80]:
+                  - paragraph [ref=e81]: Metadata
+                  - generic [ref=e82]: Cropping re-encodes the image and may remove optional metadata, such as camera details and location.
+              - status [ref=e242]:
+                - generic [ref=e245]: Your files are ready to process locally.
+              - generic [ref=e246]:
+                - region [ref=e247]:
+                  - generic [ref=e248]:
+                    - generic [ref=e249]:
+                      - heading "Crop image" [level=2] [ref=e250]
+                      - paragraph [ref=e251]: 16 × 16 px · 445 B
+                    - paragraph [ref=e252]: "Output: 14.4 × 14.4 px"
+                  - generic [ref=e254]:
+                    - img "Crop preview of favicon.png" [ref=e256]
+                    - group "Use the arrow keys to move the crop selection area" [ref=e257]:
+                      - generic:
+                        - button "Use the arrow keys to move the north west drag handle to change the crop selection area" [ref=e262]
+                        - button "Use the up and down arrow keys to move the north drag handle to change the crop selection area" [ref=e263]
+                        - button "Use the arrow keys to move the north east drag handle to change the crop selection area" [ref=e264]
+                        - button "Use the up and down arrow keys to move the east drag handle to change the crop selection area" [ref=e265]
+                        - button "Use the arrow keys to move the south east drag handle to change the crop selection area" [ref=e266]
+                        - button "Use the up and down arrow keys to move the south drag handle to change the crop selection area" [ref=e267]
+                        - button "Use the arrow keys to move the south west drag handle to change the crop selection area" [ref=e268]
+                        - button "Use the up and down arrow keys to move the west drag handle to change the crop selection area" [ref=e269]
+                  - paragraph [ref=e270]: Drag the crop area to move it, or drag its handles to resize it. The crop library also supports keyboard adjustments when the crop area is focused.
+                - region [ref=e271]:
+                  - heading "Crop settings" [level=2] [ref=e272]
+                  - group "Aspect ratio" [ref=e273]:
+                    - group "Aspect ratio presets" [ref=e275]:
+                      - button "Free" [pressed] [ref=e276]
+                      - button "1:1" [ref=e277]
+                      - button "4:3" [ref=e278]
+                      - button "16:9" [ref=e279]
+                      - button "3:2" [ref=e280]
+                  - group "Crop actions" [ref=e282]:
+                    - button "Crop image" [ref=e283]
+                    - button "Reset crop" [ref=e284]
+                    - button "Clear" [ref=e290]
+          - generic [ref=e83]:
+            - region [ref=e84]:
+              - heading "How to use Image Cropper" [level=2] [ref=e85]
+              - list [ref=e86]:
+                - listitem [ref=e87]:
+                  - generic [ref=e88]: "1"
+                  - generic [ref=e89]: Choose or drop a PNG, JPG, JPEG, or WebP image.
+                - listitem [ref=e90]:
+                  - generic [ref=e91]: "2"
+                  - generic [ref=e92]: Move or resize the crop area, then choose an aspect ratio if needed.
+                - listitem [ref=e93]:
+                  - generic [ref=e94]: "3"
+                  - generic [ref=e95]: Crop the image, review the output dimensions, and download it.
+            - region [ref=e96]:
+              - heading "Examples" [level=2] [ref=e97]
+              - article [ref=e99]:
+                - heading "Crop a photo for a square profile image" [level=3] [ref=e100]
+                - generic [ref=e101]:
+                  - generic [ref=e102]:
+                    - term [ref=e103]: Input
+                    - definition [ref=e104]: A 1600 × 900 JPG cropped with the 1:1 preset
+                  - generic [ref=e105]:
+                    - term [ref=e106]: Output
+                    - definition [ref=e107]: A square JPG containing the selected area
+            - region [ref=e108]:
+              - heading "Frequently asked questions" [level=2] [ref=e109]
+              - generic [ref=e110]:
+                - group [ref=e111]:
+                  - generic "Are my images uploaded?" [ref=e112] [cursor=pointer]
+                - group [ref=e115]:
+                  - generic "Can I crop without a fixed aspect ratio?" [ref=e116] [cursor=pointer]
+                - group [ref=e119]:
+                  - generic "Will PNG or WebP transparency remain?" [ref=e120] [cursor=pointer]
+            - region [ref=e123]:
+              - heading "Related tools" [level=2] [ref=e124]
+              - paragraph [ref=e125]: Continue with another tool that fits the same workflow.
+              - generic [ref=e126]:
+                - link "Runs locally Image Resizer Resize PNG, JPG, and WebP images locally." [ref=e128] [cursor=pointer]:
+                  - /url: /tools/image-resizer
+                  - generic [ref=e129]: Runs locally
+                  - heading "Image Resizer" [level=3] [ref=e136]
+                  - paragraph [ref=e137]: Resize PNG, JPG, and WebP images locally.
+                - link "Runs locally Image Converter Convert PNG, JPG, and WebP images locally." [ref=e139] [cursor=pointer]:
+                  - /url: /tools/image-converter
+                  - generic [ref=e140]: Runs locally
+                  - heading "Image Converter" [level=3] [ref=e147]
+                  - paragraph [ref=e148]: Convert PNG, JPG, and WebP images locally.
+                - link "Runs locally Image Compressor Compress PNG, JPG, and WebP images locally." [ref=e150] [cursor=pointer]:
+                  - /url: /tools/image-compressor
+                  - generic [ref=e151]: Runs locally
+                  - heading "Image Compressor" [level=3] [ref=e158]
+                  - paragraph [ref=e159]: Compress PNG, JPG, and WebP images locally.
+    - contentinfo [ref=e160]:
+      - generic [ref=e161]:
+        - generic [ref=e162]:
+          - link "PixelUtils home" [ref=e163] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e168]: PixelUtils
+          - paragraph [ref=e169]: Thoughtful browser tools that put speed, clarity, and privacy first.
+          - paragraph [ref=e170]: Fast / Private / No account
+        - navigation [ref=e171]:
+          - heading "Explore" [level=2] [ref=e172]
+          - list [ref=e173]:
+            - listitem [ref=e174]:
+              - link "Find a tool" [ref=e175] [cursor=pointer]:
+                - /url: /#find-a-tool
+            - listitem [ref=e176]:
+              - link "Browse categories" [ref=e177] [cursor=pointer]:
+                - /url: /#categories
+            - listitem [ref=e178]:
+              - link "Guides" [ref=e179] [cursor=pointer]:
+                - /url: /guides
+            - listitem [ref=e180]:
+              - link "About PixelUtils" [ref=e181] [cursor=pointer]:
+                - /url: /about
+        - navigation [ref=e182]:
+          - heading "Categories" [level=2] [ref=e183]
+          - list [ref=e184]:
+            - listitem [ref=e185]:
+              - link "Developer tools" [ref=e186] [cursor=pointer]:
+                - /url: /categories/developer
+            - listitem [ref=e187]:
+              - link "Text tools" [ref=e188] [cursor=pointer]:
+                - /url: /categories/text
+            - listitem [ref=e189]:
+              - link "Encoding tools" [ref=e190] [cursor=pointer]:
+                - /url: /categories/encoding
+            - listitem [ref=e191]:
+              - link "Web tools" [ref=e192] [cursor=pointer]:
+                - /url: /categories/web
+            - listitem [ref=e193]:
+              - link "Image & Conversion tools" [ref=e194] [cursor=pointer]:
+                - /url: /categories/image-conversion
+            - listitem [ref=e195]:
+              - link "Security tools" [ref=e196] [cursor=pointer]:
+                - /url: /categories/security
+            - listitem [ref=e197]:
+              - link "Date & Time tools" [ref=e198] [cursor=pointer]:
+                - /url: /categories/date-time
+            - listitem [ref=e199]:
+              - link "Calculators tools" [ref=e200] [cursor=pointer]:
+                - /url: /categories/calculators
+            - listitem [ref=e201]:
+              - link "Color & Design tools" [ref=e202] [cursor=pointer]:
+                - /url: /categories/color-design
+        - navigation [ref=e203]:
+          - heading "Trust & legal" [level=2] [ref=e204]
+          - list [ref=e205]:
+            - listitem [ref=e206]:
+              - link "Privacy" [ref=e207] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=e208]:
+              - link "Terms" [ref=e209] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=e210]:
+              - link "Contact" [ref=e211] [cursor=pointer]:
+                - /url: /contact
+      - generic [ref=e213]:
+        - paragraph [ref=e214]: © 2026 PixelUtils.
+        - paragraph [ref=e215]: Each tool states clearly where processing happens.
+  - alert [ref=e216]
