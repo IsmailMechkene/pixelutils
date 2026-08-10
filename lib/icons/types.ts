@@ -21,6 +21,7 @@ export const toolIconIds = [
   "calendar-days",
   "file-spreadsheet",
   "wand-sparkles",
+  "image",
 ] as const;
 
 export type ToolIconId = (typeof toolIconIds)[number];

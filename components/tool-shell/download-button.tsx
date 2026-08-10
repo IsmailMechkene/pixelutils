@@ -13,6 +13,7 @@ interface DownloadButtonProps {
   label?: string;
   analyticsKind?: AnalyticsDownloadKind;
   onDownloaded?: () => void;
+  tone?: "default" | "primary" | "quiet";
 }
 
 export function DownloadButton({
@@ -23,6 +24,7 @@ export function DownloadButton({
   label = "Download",
   analyticsKind = "text",
   onDownloaded,
+  tone = "quiet",
 }: DownloadButtonProps) {
   const analytics = useToolAnalytics();
   function download() {
@@ -49,7 +51,7 @@ export function DownloadButton({
       disabled={disabled || empty}
       icon="download"
       onClick={download}
-      tone="quiet"
+      tone={tone}
     >
       {label}
     </ActionButton>

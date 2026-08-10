@@ -13,6 +13,7 @@ export type ToolWorkspaceModule = {
 // Each entry must use a direct dynamic import so Next.js creates one isolated
 // chunk per tool. Add a loader in the same change that publishes the tool.
 export const toolWorkspaceLoaders = {
+  "image-compressor": () => import("./image-compressor/workspace"),
   "json-formatter": () => import("./json-formatter/workspace"),
   "json-minifier": () => import("./json-minifier/workspace"),
   "base64-encoder-decoder": () => import("./base64/workspace"),
@@ -40,7 +41,8 @@ export const toolWorkspaceLoaders = {
   "slug-generator": () => import("./slug-generator/workspace"),
   "color-contrast-checker": () => import("./color-contrast-checker/workspace"),
   "discount-calculator": () => import("./discount-calculator/workspace"),
-  "date-difference-calculator": () => import("./date-difference-calculator/workspace"),
+  "date-difference-calculator": () =>
+    import("./date-difference-calculator/workspace"),
 } satisfies Record<ToolSlug, () => Promise<ToolWorkspaceModule>>;
 
 export const toolWorkspaceSlugs = Object.freeze(

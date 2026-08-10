@@ -10,6 +10,8 @@ interface FileResultProps {
   result: FileToolResult;
   onClear?: () => void;
   analyticsKind?: AnalyticsDownloadKind;
+  downloadTone?: "default" | "primary" | "quiet";
+  onDownloaded?: () => void;
 }
 
 function InformationList({
@@ -43,6 +45,8 @@ export function FileResult({
   result,
   onClear,
   analyticsKind = "document",
+  downloadTone = "quiet",
+  onDownloaded,
 }: FileResultProps) {
   const hasComparison = Boolean(result.before?.length || result.after?.length);
 
@@ -69,6 +73,8 @@ export function FileResult({
             filename={result.filename}
             label="Download result"
             mimeType={result.mimeType}
+            onDownloaded={onDownloaded}
+            tone={downloadTone}
           />
           {onClear ? (
             <ClearButton label="Clear result" onClear={onClear} />
