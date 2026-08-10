@@ -34,3 +34,33 @@ export async function mergePdfFiles(
 
   return merged.save();
 }
+
+export async function extractPdfPages(
+  file: Pick<File, "arrayBuffer">,
+  pageNumbers: readonly number[],
+) {
+  const { PDFDocument } = await loadPdfLib();
+  const source = await PDFDocument.load(await file.arrayBuffer());
+  const extracted = await PDFDocument.create();
+  const pages = await extracted.copyPages(
+    source,
+    pageNumbers.map((page) => page - 1),
+  );
+  for (const page of pages) extracted.addPage(page);
+  return extracted.save();
+}
+
+export async function splitPdfIntoPages(file: Pick<File, "arrayBuffer">) {
+  const { PDFDocument } = await loadPdfLib();
+  const source = await PDFDocument.load(await file.arrayBuffer());
+  const outputs = [];
+
+  for (const sourcePageIndex of source.getPageIndices()) {
+    const document = await PDFDocument.create();
+    const [page] = await document.copyPages(source, [sourcePageIndex]);
+    document.addPage(page);
+    outputs.push(await document.save());
+  }
+
+  return outputs;
+}

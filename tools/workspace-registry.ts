@@ -14,6 +14,9 @@ export type ToolWorkspaceModule = {
 // chunk per tool. Add a loader in the same change that publishes the tool.
 export const toolWorkspaceLoaders = {
   "merge-pdf": () => import("./merge-pdf/workspace"),
+  "split-pdf": () => import("./split-pdf/workspace"),
+  "images-to-pdf": () => import("./images-to-pdf/workspace"),
+  "pdf-to-images": () => import("./pdf-to-images/workspace"),
   "remove-image-metadata": () =>
     import("./image-metadata-remover/workspace"),
   "image-cropper": () => import("./image-cropper/workspace"),

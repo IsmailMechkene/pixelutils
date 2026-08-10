@@ -2,6 +2,177 @@ import type { ToolDefinition } from "./types";
 const date = "2026-08-10";
 export const phaseFourTools = [
   {
+    slug: "pdf-to-images",
+    name: "PDF to Images",
+    shortDescription: "Render PDF pages as local PNG or JPEG images.",
+    longDescription:
+      "Convert PDF pages to PNG or JPEG images entirely in your browser. Select all pages or a range, choose resolution and JPEG quality, preview a few pages, and download each image without uploading your PDF.",
+    category: "pdf",
+    keywords: ["PDF to images", "PDF to PNG", "PDF to JPG", "convert PDF pages to images"],
+    aliases: ["PDF to JPEG", "PDF page to image", "PDF image converter"],
+    icon: "file-text",
+    relatedTools: ["split-pdf", "images-to-pdf", "image-converter"],
+    featured: true,
+    searchWeight: 92,
+    privacyNote:
+      "Your PDF is rendered locally in your browser and never uploaded.",
+    browserProcessing: true,
+    sensitive: false,
+    inputType: "file",
+    outputType: "image",
+    usageSteps: [
+      "Choose or drop one PDF file.",
+      "Select all pages or a page range, then choose format and resolution.",
+      "Convert pages and download the generated images individually.",
+    ],
+    examples: [
+      {
+        name: "Save selected report pages as PNG",
+        input: "A 12-page PDF with pages 3 through 5 selected at High resolution",
+        output: "Three PNG files named report-page-3.png through report-page-5.png",
+      },
+    ],
+    faqs: [
+      {
+        question: "Are my PDF pages uploaded?",
+        answer:
+          "No. PDF rendering and image creation take place locally in your browser.",
+      },
+      {
+        question: "Should I choose PNG or JPEG?",
+        answer:
+          "PNG is lossless and suits text, diagrams, and transparent content. JPEG is usually smaller for photographic pages and includes a quality control.",
+      },
+      {
+        question: "Why is the number of pages limited?",
+        answer:
+          "Rendering many high-resolution pages can use substantial browser memory. The tool converts up to 50 pages at once so it remains reliable on mobile devices.",
+      },
+    ],
+    publishedAt: date,
+    updatedAt: date,
+    seo: {
+      title: "PDF to Images - Convert PDF Pages to PNG or JPEG Locally",
+      description:
+        "Convert PDF pages to PNG or JPEG images locally in your browser. Select pages, set resolution and JPEG quality, then download without uploading.",
+    },
+    status: "published",
+  },
+  {
+    slug: "images-to-pdf",
+    name: "Images to PDF",
+    shortDescription: "Turn JPG, PNG, and WebP images into one local PDF.",
+    longDescription:
+      "Create one PDF from JPG, JPEG, PNG, and WebP images entirely in your browser. Reorder images, choose page size, orientation, and margins, then download the finished PDF without uploading your files.",
+    category: "pdf",
+    keywords: ["images to PDF", "JPG to PDF", "PNG to PDF", "WebP to PDF"],
+    aliases: ["image to PDF", "photo to PDF", "convert images to PDF"],
+    icon: "file-text",
+    relatedTools: ["merge-pdf", "image-converter", "image-compressor"],
+    featured: true,
+    searchWeight: 93,
+    privacyNote:
+      "Your images are turned into a PDF locally in your browser and never uploaded.",
+    browserProcessing: true,
+    sensitive: false,
+    inputType: "image",
+    outputType: "file",
+    usageSteps: [
+      "Choose or drop JPG, PNG, or WebP images.",
+      "Set their PDF order and choose page size, orientation, and margins.",
+      "Create the PDF and download it locally.",
+    ],
+    examples: [
+      {
+        name: "Create a PDF from phone photos",
+        input: "Three JPG images ordered from cover to final page",
+        output: "One three-page PDF named images.pdf",
+      },
+    ],
+    faqs: [
+      {
+        question: "Are my images uploaded?",
+        answer:
+          "No. The PDF is created locally in your browser and your images never leave your device.",
+      },
+      {
+        question: "Will my images be stretched?",
+        answer:
+          "No. Each image keeps its original aspect ratio and is centered within the selected page and margin area.",
+      },
+      {
+        question: "Can I use transparent PNG images?",
+        answer:
+          "Yes. PNG transparency is retained in the PDF where the browser and PDF viewer support it.",
+      },
+    ],
+    publishedAt: date,
+    updatedAt: date,
+    seo: {
+      title: "Images to PDF - JPG, PNG and WebP to PDF Locally",
+      description:
+        "Convert JPG, PNG and WebP images to one PDF locally in your browser. Reorder pages, choose paper size and margins, then download without uploading.",
+    },
+    status: "published",
+  },
+  {
+    slug: "split-pdf",
+    name: "Split PDF",
+    shortDescription: "Extract or split PDF pages locally in your browser.",
+    longDescription:
+      "Split one PDF locally in your browser. Extract a page range or specific pages into a new PDF, or create a separate PDF for every page without uploading or rasterizing the document.",
+    category: "pdf",
+    keywords: ["split PDF", "extract PDF pages", "PDF page splitter"],
+    aliases: ["PDF splitter", "separate PDF pages", "extract pages from PDF"],
+    icon: "file-text",
+    relatedTools: ["merge-pdf", "images-to-pdf"],
+    featured: true,
+    searchWeight: 93,
+    privacyNote:
+      "Your PDF is split locally in your browser and never uploaded.",
+    browserProcessing: true,
+    sensitive: false,
+    inputType: "file",
+    outputType: "file",
+    usageSteps: [
+      "Choose or drop one PDF file.",
+      "Select a range, specific pages, or one PDF per page.",
+      "Create and download the generated PDF or PDFs.",
+    ],
+    examples: [
+      {
+        name: "Extract selected report pages",
+        input: "A 10-page PDF with pages 1-3,6,8-10 selected",
+        output: "One PDF containing pages 1, 2, 3, 6, 8, 9, and 10",
+      },
+    ],
+    faqs: [
+      {
+        question: "Are my PDFs uploaded?",
+        answer:
+          "No. The selected PDF stays on your device and is processed in your browser.",
+      },
+      {
+        question: "Can I extract non-consecutive pages?",
+        answer:
+          "Yes. Enter a list such as 1-3,6,8-10 to create one PDF containing those pages in that order.",
+      },
+      {
+        question: "Does splitting reduce page quality?",
+        answer:
+          "No. The tool copies PDF page objects into new PDFs and does not convert pages to images.",
+      },
+    ],
+    publishedAt: date,
+    updatedAt: date,
+    seo: {
+      title: "Split PDF - Extract PDF Pages Locally",
+      description:
+        "Split a PDF locally in your browser. Extract page ranges or specific pages, or save every page as its own PDF without uploading or rasterizing.",
+    },
+    status: "published",
+  },
+  {
     slug: "merge-pdf",
     name: "Merge PDF",
     shortDescription: "Combine multiple PDF files locally in your chosen order.",
@@ -11,7 +182,7 @@ export const phaseFourTools = [
     keywords: ["merge PDF", "combine PDF", "join PDF files"],
     aliases: ["PDF merger", "combine PDFs", "join PDFs"],
     icon: "file-text",
-    relatedTools: [],
+    relatedTools: ["split-pdf", "images-to-pdf"],
     featured: true,
     searchWeight: 94,
     privacyNote:
