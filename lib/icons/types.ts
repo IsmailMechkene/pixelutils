@@ -22,6 +22,7 @@ export const toolIconIds = [
   "file-spreadsheet",
   "wand-sparkles",
   "image",
+  "video",
 ] as const;
 
 export type ToolIconId = (typeof toolIconIds)[number];
@@ -37,6 +38,7 @@ export const categoryIconIds = [
   "calculator",
   "palette",
   "file-text",
+  "video",
 ] as const;
 
 export type CategoryIconId = (typeof categoryIconIds)[number];

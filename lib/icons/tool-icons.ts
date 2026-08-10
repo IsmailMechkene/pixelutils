@@ -12,6 +12,7 @@ import {
   Fingerprint,
   Hash,
   Image,
+  Video,
   KeyRound,
   LetterText,
   Link,
@@ -51,4 +52,5 @@ export const toolIcons = {
   "file-spreadsheet": FileSpreadsheet,
   "wand-sparkles": WandSparkles,
   image: Image,
+  video: Video,
 } satisfies Record<ToolIconId, LucideIcon>;

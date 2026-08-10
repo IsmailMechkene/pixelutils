@@ -5,12 +5,13 @@ export const categorySlugs = [
   "text",
   "encoding",
   "web",
-  "image-conversion",
+  "image",
   "security",
   "date-time",
   "calculators",
   "color-design",
   "pdf",
+  "video",
 ] as const;
 
 export type CategorySlug = (typeof categorySlugs)[number];

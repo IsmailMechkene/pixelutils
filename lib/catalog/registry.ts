@@ -2,6 +2,7 @@ import { phaseTwoTools } from "./phase-two-tools";
 import { phaseThreeTools } from "./phase-three-tools";
 import { phaseFourTools } from "./phase-four-tools";
 import { imageConversionTools } from "./image-conversion-tools";
+import { videoTools } from "./video-tools";
 import type { CategoryDefinition, ToolDefinition } from "./types";
 import { assertValidRegistry } from "./validation";
 
@@ -51,11 +52,11 @@ export const categoryRegistry = [
     order: 4,
   },
   {
-    slug: "image-conversion",
-    name: "Image & Conversion",
-    shortDescription: "Generate visual outputs directly in your browser.",
+    slug: "image",
+    name: "Image",
+    shortDescription: "Convert, resize, and prepare images locally.",
     description:
-      "Practical visual conversion tools that keep source content and generated files on your device.",
+      "Practical image tools that keep source files and generated exports on your device.",
     selectionGuide:
       "Start with the result you need: create a QR code, convert or resize an image, crop it for a layout, compress its file size, or create a new export without copying its original metadata containers.",
     icon: "image",
@@ -107,7 +108,7 @@ export const categoryRegistry = [
   },
   {
     slug: "pdf",
-    name: "PDF Tools",
+    name: "PDF",
     shortDescription: "Combine and prepare PDFs locally in your browser.",
     description:
       "Private PDF utilities for combining and reorganizing documents without uploading them to a server.",
@@ -115,6 +116,17 @@ export const categoryRegistry = [
       "Choose Merge PDF to combine documents in a specific order. Future PDF tools will split, rotate, reorder, and create PDFs from images using the same local document engine.",
     icon: "file-text",
     order: 10,
+  },
+  {
+    slug: "video",
+    name: "Video",
+    shortDescription: "Convert compatible videos locally in your browser.",
+    description:
+      "Private browser-based video tools for common file conversions, with clear compatibility and size limits.",
+    selectionGuide:
+      "Start with MKV to MP4 when you need a more widely supported container. The tool first preserves compatible audio and video streams, then only offers re-encoding when it is needed.",
+    icon: "video",
+    order: 11,
   },
 ] as const satisfies readonly CategoryDefinition[];
 
@@ -708,6 +720,7 @@ export const toolRegistry = [
   ...phaseThreeTools,
   ...phaseFourTools,
   ...imageConversionTools,
+  ...videoTools,
 ] as const satisfies readonly ToolDefinition[];
 
 export type ToolSlug = (typeof toolRegistry)[number]["slug"];

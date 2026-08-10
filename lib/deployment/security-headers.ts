@@ -26,6 +26,13 @@ export const contentSecurityPolicy = [
   "upgrade-insecure-requests",
 ].join("; ");
 
+// The FFmpeg core compiles WASM in its own same-origin worker. Keep this
+// exception route-scoped instead of weakening the site-wide policy.
+export const ffmpegContentSecurityPolicy = contentSecurityPolicy.replace(
+  "script-src 'self' 'unsafe-inline'",
+  "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'",
+);
+
 export const permissionsPolicy = [
   "accelerometer=()",
   "autoplay=()",
@@ -67,4 +74,14 @@ export function createSecurityHeaders(isProduction: boolean): ResponseHeader[] {
   }
 
   return headers;
+}
+
+export function createFfmpegSecurityHeaders(
+  isProduction: boolean,
+): ResponseHeader[] {
+  return createSecurityHeaders(isProduction).map((header) =>
+    header.key === "Content-Security-Policy"
+      ? { ...header, value: ffmpegContentSecurityPolicy }
+      : header,
+  );
 }

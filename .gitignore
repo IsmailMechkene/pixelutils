@@ -11,6 +11,7 @@ node_modules-partial-install*/
 .next/
 .open-next/
 out/
+public/wasm/media/ffmpeg/
 
 # Tests and generated output
 coverage/

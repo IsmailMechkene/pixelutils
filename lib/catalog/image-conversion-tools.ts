@@ -11,7 +11,7 @@ export const imageConversionTools = [
     shortDescription: "Turn PNG images into smaller JPG files locally.",
     longDescription:
       "Convert PNG images to JPG when you need broad compatibility or a smaller photographic file. Choose the background color used where the PNG is transparent.",
-    category: "image-conversion",
+    category: "image",
     keywords: ["PNG to JPG", "convert PNG to JPG", "PNG to JPEG"],
     aliases: ["PNG to JPEG", "convert PNG image"],
     icon: "image",
@@ -62,7 +62,7 @@ export const imageConversionTools = [
     shortDescription: "Convert JPG photos to lossless PNG files locally.",
     longDescription:
       "Convert a JPG or JPEG image to PNG when you need lossless PNG output for a workflow, annotation, or further editing. The conversion keeps the original dimensions.",
-    category: "image-conversion",
+    category: "image",
     keywords: ["JPG to PNG", "JPEG to PNG", "convert JPG to PNG"],
     aliases: ["JPEG to PNG converter", "convert JPEG image"],
     icon: "image",
@@ -113,7 +113,7 @@ export const imageConversionTools = [
     shortDescription: "Convert PNG images to modern WebP files locally.",
     longDescription:
       "Convert PNG to WebP for a modern web image format that can keep transparent pixels while often reducing transfer size. Adjust the quality before converting.",
-    category: "image-conversion",
+    category: "image",
     keywords: ["PNG to WebP", "convert PNG to WebP", "WebP converter"],
     aliases: ["PNG WebP converter", "convert transparent PNG"],
     icon: "image",
@@ -164,7 +164,7 @@ export const imageConversionTools = [
     shortDescription: "Convert JPG photos to efficient WebP images locally.",
     longDescription:
       "Convert JPG or JPEG images to WebP for a modern web format with a straightforward quality control. Dimensions stay the same and the image remains on your device.",
-    category: "image-conversion",
+    category: "image",
     keywords: ["JPG to WebP", "JPEG to WebP", "convert JPG to WebP"],
     aliases: ["JPEG WebP converter", "photo to WebP"],
     icon: "image",
@@ -215,7 +215,7 @@ export const imageConversionTools = [
       "Convert WebP images to transparent-capable PNG files locally.",
     longDescription:
       "Convert WebP to PNG when a tool or workflow needs PNG. PNG supports transparency and provides lossless output, though photographic files may become larger.",
-    category: "image-conversion",
+    category: "image",
     keywords: ["WebP to PNG", "convert WebP to PNG", "WebP converter"],
     aliases: ["WebP PNG converter", "download WebP as PNG"],
     icon: "image",
@@ -266,7 +266,7 @@ export const imageConversionTools = [
     shortDescription: "Convert WebP images to compatible JPG files locally.",
     longDescription:
       "Convert WebP to JPG when you need a widely supported format for sharing or an older workflow. Pick the background color that replaces any transparent areas.",
-    category: "image-conversion",
+    category: "image",
     keywords: ["WebP to JPG", "WebP to JPEG", "convert WebP to JPG"],
     aliases: ["WebP JPEG converter", "convert WebP image"],
     icon: "image",

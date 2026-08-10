@@ -48,6 +48,7 @@ const openNext = join(
 );
 
 await run(process.execPath, [join(root, "scripts", "clean-production-build.mjs")]);
+await run(process.execPath, [join(root, "scripts", "prepare-ffmpeg-assets.mjs")]);
 await run(process.execPath, [openNext, "build"], {
   ...process.env,
   SITE_URL: siteUrl,

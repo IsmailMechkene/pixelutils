@@ -5,6 +5,7 @@ import {
   Code2,
   Globe2,
   Image,
+  Video,
   FileText,
   Palette,
   ShieldCheck,
@@ -25,4 +26,5 @@ export const categoryIcons = {
   calculator: Calculator,
   palette: Palette,
   "file-text": FileText,
+  video: Video,
 } satisfies Record<CategoryIconId, LucideIcon>;

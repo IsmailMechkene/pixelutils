@@ -235,7 +235,7 @@ export const phaseFourTools = [
     shortDescription: "Create a local image export without copied source metadata.",
     longDescription:
       "Recreate PNG, JPG, JPEG, and supported WebP images locally from decoded pixels. The new export does not copy the original metadata containers, while keeping the displayed image orientation intact.",
-    category: "image-conversion",
+    category: "image",
     keywords: ["remove image metadata", "remove EXIF", "strip image metadata"],
     aliases: ["EXIF remover", "image privacy cleaner", "remove photo data"],
     icon: "image",
@@ -292,7 +292,7 @@ export const phaseFourTools = [
     shortDescription: "Crop PNG, JPG, and WebP images locally.",
     longDescription:
       "Crop PNG, JPG, JPEG, and WebP images entirely in your browser. Move and resize the crop area, choose a common aspect ratio, and download the result without uploading.",
-    category: "image-conversion",
+    category: "image",
     keywords: ["image cropper", "crop image", "crop PNG", "crop JPG"],
     aliases: ["photo cropper", "image cutter", "crop WebP"],
     icon: "image",
@@ -349,7 +349,7 @@ export const phaseFourTools = [
     shortDescription: "Resize PNG, JPG, and WebP images locally.",
     longDescription:
       "Resize PNG, JPG, JPEG, and WebP images to exact dimensions in your browser. Keep the aspect ratio by default, choose an output format, and download locally.",
-    category: "image-conversion",
+    category: "image",
     keywords: ["image resizer", "resize image", "change image dimensions"],
     aliases: ["resize PNG", "resize JPG", "resize WebP"],
     icon: "image",
@@ -406,7 +406,7 @@ export const phaseFourTools = [
     shortDescription: "Convert PNG, JPG, and WebP images locally.",
     longDescription:
       "Convert PNG, JPG, JPEG, and WebP images in your browser with clear output choices, local previews, and no uploads.",
-    category: "image-conversion",
+    category: "image",
     keywords: ["image converter", "png to jpg", "jpg to png", "webp converter"],
     aliases: ["convert image format", "PNG converter", "JPG converter"],
     icon: "image",
@@ -462,7 +462,7 @@ export const phaseFourTools = [
     shortDescription: "Compress PNG, JPG, and WebP images locally.",
     longDescription:
       "Reduce JPG and WebP file sizes with a simple quality control, or re-encode transparent PNG files locally without changing image dimensions.",
-    category: "image-conversion",
+    category: "image",
     keywords: ["image compressor", "compress image", "reduce image size"],
     aliases: ["photo compressor", "image size reducer", "compress jpg"],
     icon: "image",

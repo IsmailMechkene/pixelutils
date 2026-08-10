@@ -231,7 +231,7 @@ export const phaseTwoTools = [
     shortDescription: "Create and download a QR code entirely in your browser.",
     longDescription:
       "Generate a customizable PNG QR code from text or a URL with selectable size, margin, colors, and error correction. Scan the preview before sharing to confirm the encoded content.",
-    category: "image-conversion",
+    category: "image",
     keywords: ["QR code", "generator", "PNG", "error correction"],
     aliases: ["create QR", "URL QR code", "QR image maker"],
     icon: "qr-code",

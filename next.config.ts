@@ -1,9 +1,15 @@
 import type { NextConfig } from "next";
 
-import { createSecurityHeaders } from "./lib/deployment/security-headers";
+import {
+  createFfmpegSecurityHeaders,
+  createSecurityHeaders,
+} from "./lib/deployment/security-headers";
 
 const isProduction = process.env.NODE_ENV === "production";
 const securityHeaders = createSecurityHeaders(isProduction);
+const ffmpegSecurityHeaders = createFfmpegSecurityHeaders(isProduction);
+const internalFfmpegPrototypeEnabled =
+  process.env.NEXT_PUBLIC_ENABLE_INTERNAL_FFMPEG_PROTOTYPE === "true";
 
 const nextConfig: NextConfig = {
   trailingSlash: false,
@@ -16,11 +22,36 @@ const nextConfig: NextConfig = {
   productionBrowserSourceMaps:
     process.env.ENABLE_BROWSER_SOURCE_MAPS === "true",
   reactStrictMode: true,
+  env: {
+    NEXT_PUBLIC_ENABLE_INTERNAL_FFMPEG_PROTOTYPE:
+      internalFfmpegPrototypeEnabled ? "true" : "false",
+  },
   async headers() {
     return [
       {
         source: "/:path*",
         headers: securityHeaders,
+      },
+      {
+        source: "/internal/ffmpeg-prototype/:path*",
+        headers: ffmpegSecurityHeaders,
+      },
+      {
+        source: "/tools/mkv-to-mp4/:path*",
+        headers: ffmpegSecurityHeaders,
+      },
+      {
+        source: "/wasm/media/ffmpeg/:path*",
+        headers: ffmpegSecurityHeaders,
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      {
+        source: "/categories/image-conversion",
+        destination: "/categories/image",
+        permanent: true,
       },
     ];
   },

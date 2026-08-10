@@ -9,6 +9,8 @@
     "node": ">=20.9.0"
   },
   "scripts": {
+    "prepare:ffmpeg-assets": "node scripts/prepare-ffmpeg-assets.mjs",
+    "prebuild": "npm run prepare:ffmpeg-assets",
     "dev": "next dev",
     "build": "next build --webpack",
     "clean:production": "node scripts/clean-production-build.mjs",
@@ -29,6 +31,8 @@
     "validate": "npm run validate:full"
   },
   "dependencies": {
+    "@ffmpeg/core": "0.12.10",
+    "@ffmpeg/ffmpeg": "0.12.15",
     "@opennextjs/cloudflare": "^1.20.2",
     "@xmldom/xmldom": "^0.9.10",
     "he": "^1.2.0",

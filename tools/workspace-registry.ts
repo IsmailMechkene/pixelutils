@@ -13,6 +13,8 @@ export type ToolWorkspaceModule = {
 // Each entry must use a direct dynamic import so Next.js creates one isolated
 // chunk per tool. Add a loader in the same change that publishes the tool.
 export const toolWorkspaceLoaders = {
+  "video-compressor": () => import("./video-compressor/workspace"),
+  "mkv-to-mp4": () => import("./mkv-to-mp4/workspace"),
   "merge-pdf": () => import("./merge-pdf/workspace"),
   "split-pdf": () => import("./split-pdf/workspace"),
   "images-to-pdf": () => import("./images-to-pdf/workspace"),

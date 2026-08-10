@@ -16,6 +16,10 @@ export default defineConfig([
     ".wrangler/**",
     "coverage/**",
     "out/**",
+    // Generated, gitignored Emscripten runtime copied only for the opt-in
+    // FFmpeg core and its ESM worker are copied from the pinned package at build
+    // time. They are third-party distributable code, not application source.
+    "public/wasm/media/ffmpeg/**",
     "node_modules-partial-install*/**",
   ]),
 ]);

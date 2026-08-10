@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest";
 
 import {
   contentSecurityPolicy,
+  createFfmpegSecurityHeaders,
   createSecurityHeaders,
+  ffmpegContentSecurityPolicy,
   permissionsPolicy,
 } from "./security-headers";
 
@@ -37,5 +39,22 @@ describe("production security headers", () => {
     expect(contentSecurityPolicy).toContain("media-src 'self' blob:");
     expect(contentSecurityPolicy).toContain("frame-ancestors 'none'");
     expect(contentSecurityPolicy).toContain("script-src-attr 'none'");
+  });
+
+  it("scopes WASM compilation permission to FFmpeg routes and assets", () => {
+    const headers = new Map(
+      createFfmpegSecurityHeaders(true).map(({ key, value }) => [
+        key,
+        value,
+      ]),
+    );
+
+    expect(contentSecurityPolicy).not.toContain("wasm-unsafe-eval");
+    expect(ffmpegContentSecurityPolicy).toContain(
+      "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'",
+    );
+    expect(headers.get("Content-Security-Policy")).toBe(
+      ffmpegContentSecurityPolicy,
+    );
   });
 });
