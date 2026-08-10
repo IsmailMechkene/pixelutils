@@ -12,15 +12,15 @@ interface InspectRequest {
   readonly mimeType: SupportedImageMime;
 }
 
-interface CompressionRequest {
-  readonly type: "compress";
+interface ReencodeRequest {
+  readonly type: "compress" | "reencode";
   readonly id: number;
   readonly file: File;
   readonly mimeType: SupportedImageMime;
   readonly quality: number;
 }
 
-type WorkerRequest = InspectRequest | CompressionRequest;
+type WorkerRequest = InspectRequest | ReencodeRequest;
 
 interface InspectionResult {
   readonly type: "inspected";
@@ -112,7 +112,7 @@ async function inspect(request: InspectRequest) {
   }
 }
 
-async function compress(request: CompressionRequest) {
+async function reencode(request: ReencodeRequest) {
   if (!supportsNativeImagePipeline()) {
     send({
       type: "error",
@@ -151,7 +151,9 @@ async function compress(request: CompressionRequest) {
       type: "error",
       id: request.id,
       message:
-        "The image could not be compressed. It may be corrupted or unsupported.",
+        request.type === "compress"
+          ? "The image could not be compressed. It may be corrupted or unsupported."
+          : "The image could not be exported. It may be corrupted or unsupported.",
     });
   } finally {
     bitmap?.close();
@@ -163,5 +165,5 @@ addEventListener("message", (event: MessageEvent<WorkerRequest>) => {
     void inspect(event.data);
     return;
   }
-  void compress(event.data);
+  void reencode(event.data);
 });

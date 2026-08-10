@@ -189,7 +189,7 @@ export default function ImageMetadataRemoverWorkspace({
         setStatus("error");
       };
       worker.postMessage({
-        type: "compress",
+        type: "reencode",
         id,
         file,
         mimeType: details.mimeType,
