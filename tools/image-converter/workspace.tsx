@@ -30,6 +30,7 @@ import {
 import {
   getAvailableOutputFormats,
   getConvertedFilename,
+  getImageConverterPreset,
   getInitialOutputFormat,
   getOutputFormatDescription,
   imageFormatLabels,
@@ -423,5 +424,10 @@ export function ImageConverterWorkspace({
 }
 
 export default function Workspace({ slug }: { slug: string }) {
-  return <ImageConverterWorkspace slug={slug} />;
+  return (
+    <ImageConverterWorkspace
+      preset={getImageConverterPreset(slug)}
+      slug={slug}
+    />
+  );
 }

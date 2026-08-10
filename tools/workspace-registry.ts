@@ -14,6 +14,12 @@ export type ToolWorkspaceModule = {
 // chunk per tool. Add a loader in the same change that publishes the tool.
 export const toolWorkspaceLoaders = {
   "image-converter": () => import("./image-converter/workspace"),
+  "png-to-jpg": () => import("./image-converter/workspace"),
+  "jpg-to-png": () => import("./image-converter/workspace"),
+  "png-to-webp": () => import("./image-converter/workspace"),
+  "jpg-to-webp": () => import("./image-converter/workspace"),
+  "webp-to-png": () => import("./image-converter/workspace"),
+  "webp-to-jpg": () => import("./image-converter/workspace"),
   "image-compressor": () => import("./image-compressor/workspace"),
   "json-formatter": () => import("./json-formatter/workspace"),
   "json-minifier": () => import("./json-minifier/workspace"),

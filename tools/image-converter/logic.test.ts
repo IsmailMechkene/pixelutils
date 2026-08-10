@@ -4,6 +4,7 @@ import {
   getAvailableOutputFormats,
   getConvertedFilename,
   getInitialOutputFormat,
+  getImageConverterPreset,
   isPresetCompatible,
 } from "./logic";
 
@@ -17,6 +18,17 @@ describe("image converter options", () => {
       "image/png",
       "image/webp",
     ]);
+  });
+
+  it("provides fixed source and output presets for dedicated routes", () => {
+    expect(getImageConverterPreset("png-to-jpg")).toEqual({
+      input: "image/png",
+      output: "image/jpeg",
+    });
+    expect(getImageConverterPreset("webp-to-png")).toEqual({
+      input: "image/webp",
+      output: "image/png",
+    });
   });
 
   it("uses compatible presets and a filename with the requested extension", () => {

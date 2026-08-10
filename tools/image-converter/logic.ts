@@ -5,6 +5,15 @@ export type ImageConverterPreset = {
   readonly output?: SupportedImageMime;
 };
 
+export const imageConverterPresets = {
+  "png-to-jpg": { input: "image/png", output: "image/jpeg" },
+  "jpg-to-png": { input: "image/jpeg", output: "image/png" },
+  "png-to-webp": { input: "image/png", output: "image/webp" },
+  "jpg-to-webp": { input: "image/jpeg", output: "image/webp" },
+  "webp-to-png": { input: "image/webp", output: "image/png" },
+  "webp-to-jpg": { input: "image/webp", output: "image/jpeg" },
+} as const satisfies Record<string, Required<ImageConverterPreset>>;
+
 const outputFormats: Record<SupportedImageMime, readonly SupportedImageMime[]> =
   {
     "image/png": ["image/jpeg", "image/webp"],
@@ -37,6 +46,10 @@ export function isPresetCompatible(
   preset?: ImageConverterPreset,
 ) {
   return !preset?.input || preset.input === source;
+}
+
+export function getImageConverterPreset(slug: string) {
+  return imageConverterPresets[slug as keyof typeof imageConverterPresets];
 }
 
 export function getConvertedFilename(
