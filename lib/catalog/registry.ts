@@ -57,7 +57,7 @@ export const categoryRegistry = [
     description:
       "Practical visual conversion tools that keep source content and generated files on your device.",
     selectionGuide:
-      "Start with the output you need: QR tools create downloadable codes, while future converters in this category will focus on explicit browser-supported formats.",
+      "Start with the result you need: create a QR code, convert or resize an image, crop it for a layout, compress its file size, or create a new export without copying its original metadata containers.",
     icon: "image",
     order: 5,
   },

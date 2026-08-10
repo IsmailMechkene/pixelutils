@@ -1,0 +1,234 @@
+- generic [ref=f1e1]:
+  - link "Skip to main content" [ref=f1e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - generic [ref=f1e3]:
+    - banner [ref=f1e4]:
+      - generic [ref=f1e5]:
+        - link "PixelUtils home" [ref=f1e6] [cursor=pointer]:
+          - /url: /
+          - generic [ref=f1e11]: PixelUtils
+        - generic [ref=f1e12]:
+          - button "Search tools" [ref=f1e13]
+          - 'button "Theme: system. Switch to light." [ref=f1e17]'
+          - button "Open navigation" [ref=f1e21]
+    - main [ref=f1e23]:
+      - generic [ref=f1e24]:
+        - navigation "Breadcrumb" [ref=f1e25]:
+          - list [ref=f1e26]:
+            - listitem [ref=f1e27]:
+              - link "Home" [ref=f1e28] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=f1e29]:
+              - link "Image & Conversion" [ref=f1e32] [cursor=pointer]:
+                - /url: /categories/image-conversion
+            - listitem [ref=f1e33]:
+              - generic [ref=f1e36]: Image Metadata Remover
+        - generic [ref=f1e45]:
+          - generic [ref=f1e46]:
+            - paragraph [ref=f1e47]: Tool / local browser processing
+            - button "Add to favorites" [ref=f1e48]
+          - heading "Image Metadata Remover" [level=1] [ref=f1e51]
+          - paragraph [ref=f1e52]: Recreate PNG, JPG, JPEG, and supported WebP images locally from decoded pixels. The new export does not copy the original metadata containers, while keeping the displayed image orientation intact.
+        - generic [ref=f1e54]:
+          - generic [ref=f1e55]: Runs in your browser
+          - paragraph [ref=f1e59]: Your image never leaves your device. Processing happens locally in your browser.
+        - generic [ref=f1e60]:
+          - region [ref=f1e61]:
+            - heading "Workspace" [level=2] [ref=f1e62]
+            - generic [ref=f1e64]:
+              - generic [ref=f1e65]:
+                - generic [ref=f1e66]:
+                  - button "Choose an image or drop it here PNG, JPG, JPEG, or WebP up to 25 MB." [ref=f1e67]
+                  - generic [ref=f1e68] [cursor=pointer]:
+                    - generic [ref=f1e74]: Choose an image or drop it here
+                    - generic [ref=f1e75]: PNG, JPG, JPEG, or WebP up to 25 MB.
+                - list [ref=f1e217]:
+                  - listitem [ref=f1e218]:
+                    - generic [ref=f1e223]:
+                      - paragraph [ref=f1e224]: favicon.png
+                      - paragraph [ref=f1e225]: image/png · 445 B
+                    - button "Remove favicon.png" [ref=f1e255]: Remove
+              - complementary [ref=f1e77]:
+                - generic [ref=f1e80]:
+                  - paragraph [ref=f1e81]: How this works
+                  - generic [ref=f1e82]: Your image is decoded and exported as a new file in this browser. Its original metadata containers are not copied. This tool does not inspect the output or guarantee removal of every possible browser-generated field.
+              - status [ref=f1e230]:
+                - generic [ref=f1e233]: Processing complete.
+              - generic [ref=f1e234]:
+                - region [ref=f1e235]:
+                  - heading "Source image" [level=2] [ref=f1e236]
+                  - paragraph [ref=f1e237]: favicon.png · 16 × 16 px · 445 B
+                  - img "Source preview of favicon.png" [ref=f1e239]
+                - region [ref=f1e240]:
+                  - heading "Export" [level=2] [ref=f1e241]
+                  - paragraph [ref=f1e242]: The output keeps the displayed pixel orientation and the original file format. Re-encoding can change file size.
+                  - group "Metadata removal actions" [ref=f1e244]:
+                    - button "Create sanitized image" [active] [ref=f1e245]
+                    - button "Clear" [ref=f1e251]
+              - region [ref=f1e267]:
+                - heading "Sanitized preview" [level=2] [ref=f1e268]
+                - img "Sanitized export preview" [ref=f1e270]
+              - region [ref=f1e271]:
+                - generic [ref=f1e272]:
+                  - generic [ref=f1e273]:
+                    - heading "Result ready" [level=2] [ref=f1e274]
+                    - paragraph [ref=f1e275]: A new image file was created from decoded pixels. The original metadata containers were not copied.
+                  - group "Result actions" [ref=f1e276]:
+                    - button "Download result" [ref=f1e277]
+                    - button "Clear result" [ref=f1e281]
+                - generic [ref=f1e285]:
+                  - region "Before" [ref=f1e286]:
+                    - heading "Before" [level=3] [ref=f1e287]
+                    - generic [ref=f1e288]:
+                      - generic [ref=f1e289]:
+                        - term [ref=f1e290]: Filename
+                        - definition [ref=f1e291]: favicon.png
+                      - generic [ref=f1e292]:
+                        - term [ref=f1e293]: Dimensions
+                        - definition [ref=f1e294]: 16 × 16 px
+                      - generic [ref=f1e295]:
+                        - term [ref=f1e296]: File size
+                        - definition [ref=f1e297]: 445 B
+                  - region "After" [ref=f1e298]:
+                    - heading "After" [level=3] [ref=f1e299]
+                    - generic [ref=f1e300]:
+                      - generic [ref=f1e301]:
+                        - term [ref=f1e302]: Dimensions
+                        - definition [ref=f1e303]: 16 × 16 px
+                      - generic [ref=f1e304]:
+                        - term [ref=f1e305]: File size
+                        - definition [ref=f1e306]: 585 B
+                      - generic [ref=f1e307]:
+                        - term [ref=f1e308]: Format
+                        - definition [ref=f1e309]: PNG
+          - generic [ref=f1e83]:
+            - region [ref=f1e84]:
+              - heading "How to use Image Metadata Remover" [level=2] [ref=f1e85]
+              - list [ref=f1e86]:
+                - listitem [ref=f1e87]:
+                  - generic [ref=f1e88]: "1"
+                  - generic [ref=f1e89]: Choose or drop a PNG, JPG, JPEG, or WebP image.
+                - listitem [ref=f1e90]:
+                  - generic [ref=f1e91]: "2"
+                  - generic [ref=f1e92]: For JPG and WebP, keep the high quality setting or adjust it if needed.
+                - listitem [ref=f1e93]:
+                  - generic [ref=f1e94]: "3"
+                  - generic [ref=f1e95]: Create the new image, review its size, and download it.
+            - region [ref=f1e96]:
+              - heading "Examples" [level=2] [ref=f1e97]
+              - article [ref=f1e99]:
+                - heading "Create a clean JPG export" [level=3] [ref=f1e100]
+                - generic [ref=f1e101]:
+                  - generic [ref=f1e102]:
+                    - term [ref=f1e103]: Input
+                    - definition [ref=f1e104]: A phone photo JPG selected at quality 92
+                  - generic [ref=f1e105]:
+                    - term [ref=f1e106]: Output
+                    - definition [ref=f1e107]: A new JPG export with the displayed orientation preserved
+            - region [ref=f1e108]:
+              - heading "Frequently asked questions" [level=2] [ref=f1e109]
+              - generic [ref=f1e110]:
+                - group [ref=f1e111]:
+                  - generic "Are my images uploaded?" [ref=f1e112] [cursor=pointer]
+                - group [ref=f1e115]:
+                  - generic "Does this guarantee every metadata field is removed?" [ref=f1e116] [cursor=pointer]
+                - group [ref=f1e119]:
+                  - generic "Will a phone photo rotate unexpectedly?" [ref=f1e120] [cursor=pointer]
+            - region [ref=f1e123]:
+              - heading "Related tools" [level=2] [ref=f1e124]
+              - paragraph [ref=f1e125]: Continue with another tool that fits the same workflow.
+              - generic [ref=f1e126]:
+                - link "Runs locally Image Compressor Compress PNG, JPG, and WebP images locally." [ref=f1e128] [cursor=pointer]:
+                  - /url: /tools/image-compressor
+                  - generic [ref=f1e129]: Runs locally
+                  - heading "Image Compressor" [level=3] [ref=f1e136]
+                  - paragraph [ref=f1e137]: Compress PNG, JPG, and WebP images locally.
+                - link "Runs locally Image Cropper Crop PNG, JPG, and WebP images locally." [ref=f1e139] [cursor=pointer]:
+                  - /url: /tools/image-cropper
+                  - generic [ref=f1e140]: Runs locally
+                  - heading "Image Cropper" [level=3] [ref=f1e147]
+                  - paragraph [ref=f1e148]: Crop PNG, JPG, and WebP images locally.
+                - link "Runs locally Image Converter Convert PNG, JPG, and WebP images locally." [ref=f1e150] [cursor=pointer]:
+                  - /url: /tools/image-converter
+                  - generic [ref=f1e151]: Runs locally
+                  - heading "Image Converter" [level=3] [ref=f1e158]
+                  - paragraph [ref=f1e159]: Convert PNG, JPG, and WebP images locally.
+            - region [ref=f1e310]:
+              - generic [ref=f1e311]:
+                - generic [ref=f1e312]:
+                  - heading "Activity on this device" [level=2] [ref=f1e313]
+                  - paragraph [ref=f1e314]: Latest 20 actions at most. Tool content is never stored.
+                - button "Clear history" [ref=f1e315]
+              - list "Recent activity" [ref=f1e319]:
+                - listitem [ref=f1e320]:
+                  - generic [ref=f1e321]: Processed input
+                  - time [ref=f1e322]: Aug 10, 2026, 7:49 PM
+    - contentinfo [ref=f1e160]:
+      - generic [ref=f1e161]:
+        - generic [ref=f1e162]:
+          - link "PixelUtils home" [ref=f1e163] [cursor=pointer]:
+            - /url: /
+            - generic [ref=f1e168]: PixelUtils
+          - paragraph [ref=f1e169]: Thoughtful browser tools that put speed, clarity, and privacy first.
+          - paragraph [ref=f1e170]: Fast / Private / No account
+        - navigation [ref=f1e171]:
+          - heading "Explore" [level=2] [ref=f1e172]
+          - list [ref=f1e173]:
+            - listitem [ref=f1e174]:
+              - link "Find a tool" [ref=f1e175] [cursor=pointer]:
+                - /url: /#find-a-tool
+            - listitem [ref=f1e176]:
+              - link "Browse categories" [ref=f1e177] [cursor=pointer]:
+                - /url: /#categories
+            - listitem [ref=f1e178]:
+              - link "Guides" [ref=f1e179] [cursor=pointer]:
+                - /url: /guides
+            - listitem [ref=f1e180]:
+              - link "About PixelUtils" [ref=f1e181] [cursor=pointer]:
+                - /url: /about
+        - navigation [ref=f1e182]:
+          - heading "Categories" [level=2] [ref=f1e183]
+          - list [ref=f1e184]:
+            - listitem [ref=f1e185]:
+              - link "Developer tools" [ref=f1e186] [cursor=pointer]:
+                - /url: /categories/developer
+            - listitem [ref=f1e187]:
+              - link "Text tools" [ref=f1e188] [cursor=pointer]:
+                - /url: /categories/text
+            - listitem [ref=f1e189]:
+              - link "Encoding tools" [ref=f1e190] [cursor=pointer]:
+                - /url: /categories/encoding
+            - listitem [ref=f1e191]:
+              - link "Web tools" [ref=f1e192] [cursor=pointer]:
+                - /url: /categories/web
+            - listitem [ref=f1e193]:
+              - link "Image & Conversion tools" [ref=f1e194] [cursor=pointer]:
+                - /url: /categories/image-conversion
+            - listitem [ref=f1e195]:
+              - link "Security tools" [ref=f1e196] [cursor=pointer]:
+                - /url: /categories/security
+            - listitem [ref=f1e197]:
+              - link "Date & Time tools" [ref=f1e198] [cursor=pointer]:
+                - /url: /categories/date-time
+            - listitem [ref=f1e199]:
+              - link "Calculators tools" [ref=f1e200] [cursor=pointer]:
+                - /url: /categories/calculators
+            - listitem [ref=f1e201]:
+              - link "Color & Design tools" [ref=f1e202] [cursor=pointer]:
+                - /url: /categories/color-design
+        - navigation [ref=f1e203]:
+          - heading "Trust & legal" [level=2] [ref=f1e204]
+          - list [ref=f1e205]:
+            - listitem [ref=f1e206]:
+              - link "Privacy" [ref=f1e207] [cursor=pointer]:
+                - /url: /privacy
+            - listitem [ref=f1e208]:
+              - link "Terms" [ref=f1e209] [cursor=pointer]:
+                - /url: /terms
+            - listitem [ref=f1e210]:
+              - link "Contact" [ref=f1e211] [cursor=pointer]:
+                - /url: /contact
+      - generic [ref=f1e213]:
+        - paragraph [ref=f1e214]: © 2026 PixelUtils.
+        - paragraph [ref=f1e215]: Each tool states clearly where processing happens.
+  - alert [ref=f1e216]

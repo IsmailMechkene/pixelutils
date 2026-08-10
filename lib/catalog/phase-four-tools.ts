@@ -2,6 +2,63 @@ import type { ToolDefinition } from "./types";
 const date = "2026-08-10";
 export const phaseFourTools = [
   {
+    slug: "remove-image-metadata",
+    name: "Image Metadata Remover",
+    shortDescription: "Create a local image export without copied source metadata.",
+    longDescription:
+      "Recreate PNG, JPG, JPEG, and supported WebP images locally from decoded pixels. The new export does not copy the original metadata containers, while keeping the displayed image orientation intact.",
+    category: "image-conversion",
+    keywords: ["remove image metadata", "remove EXIF", "strip image metadata"],
+    aliases: ["EXIF remover", "image privacy cleaner", "remove photo data"],
+    icon: "image",
+    relatedTools: ["image-compressor", "image-cropper", "image-converter"],
+    featured: false,
+    searchWeight: 88,
+    privacyNote:
+      "Your image never leaves your device. Processing happens locally in your browser.",
+    browserProcessing: true,
+    sensitive: false,
+    inputType: "image",
+    outputType: "image",
+    usageSteps: [
+      "Choose or drop a PNG, JPG, JPEG, or WebP image.",
+      "For JPG and WebP, keep the high quality setting or adjust it if needed.",
+      "Create the new image, review its size, and download it.",
+    ],
+    examples: [
+      {
+        name: "Create a clean JPG export",
+        input: "A phone photo JPG selected at quality 92",
+        output: "A new JPG export with the displayed orientation preserved",
+      },
+    ],
+    faqs: [
+      {
+        question: "Are my images uploaded?",
+        answer:
+          "No. The image is decoded and exported locally in your browser, and never leaves your device.",
+      },
+      {
+        question: "Does this guarantee every metadata field is removed?",
+        answer:
+          "No. The tool creates a new pixel-based export without copying the original metadata containers, but it does not inspect the output or guarantee removal of every possible browser-generated field.",
+      },
+      {
+        question: "Will a phone photo rotate unexpectedly?",
+        answer:
+          "The local decoder applies the image orientation before export, so the new file keeps the image's displayed orientation in browsers that support the native image pipeline.",
+      },
+    ],
+    publishedAt: date,
+    updatedAt: date,
+    seo: {
+      title: "Image Metadata Remover - Private Local Re-Export",
+      description:
+        "Create a new PNG, JPG or WebP image locally without copying original metadata containers. Keep displayed orientation and download without uploading.",
+    },
+    status: "published",
+  },
+  {
     slug: "image-cropper",
     name: "Image Cropper",
     shortDescription: "Crop PNG, JPG, and WebP images locally.",
