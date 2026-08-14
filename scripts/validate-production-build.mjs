@@ -5,6 +5,7 @@ const outputRoot = join(process.cwd(), ".open-next");
 const nextRoot = join(process.cwd(), ".next");
 const workerPath = join(outputRoot, "worker.js");
 const assetsPath = join(outputRoot, "assets");
+const maximumWorkerAssetBytes = 25 * 1024 * 1024;
 
 async function collectFiles(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -72,6 +73,22 @@ try {
   const assetFiles = await collectFiles(assetsPath);
   if (assetFiles.length === 0) {
     throw new Error("Cloudflare static asset output is empty.");
+  }
+
+  const oversizedAssets = (
+    await Promise.all(
+      assetFiles.map(async (path) => ({ path, size: (await stat(path)).size })),
+    )
+  ).filter((asset) => asset.size > maximumWorkerAssetBytes);
+  if (oversizedAssets.length > 0) {
+    throw new Error(
+      `Cloudflare Worker assets exceed the 25 MiB per-file limit:\n${oversizedAssets
+        .map(
+          (asset) =>
+            `${relative(process.cwd(), asset.path)} (${asset.size} bytes)`,
+        )
+        .join("\n")}`,
+    );
   }
 
   const publicSourceMaps = assetFiles.filter((path) => path.endsWith(".map"));
