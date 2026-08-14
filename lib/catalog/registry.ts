@@ -787,7 +787,19 @@ export const publishedToolCards = publishedTools.map(
   }),
 );
 
-export const popularTools = publishedTools.toSorted(compareToolsByImportance);
+const homepageQuickStartToolSlugs = [
+  "json-formatter",
+  "image-converter",
+  "merge-pdf",
+  "png-to-jpg",
+  "base64-encoder-decoder",
+  "word-character-counter",
+] as const satisfies readonly ToolSlug[];
+
+export const popularTools = homepageQuickStartToolSlugs.flatMap((slug) => {
+  const tool = publishedToolsBySlug.get(slug);
+  return tool ? [tool] : [];
+});
 
 export function findCategory(slug: string) {
   return categoriesBySlug.get(

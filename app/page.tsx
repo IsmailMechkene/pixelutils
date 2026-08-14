@@ -181,9 +181,9 @@ export default function HomePage() {
               </h2>
             </div>
             <p className="max-w-2xl text-base leading-7 text-ink-muted">
-              Jump directly into developer, text, encoding, security, date, or
-              design work. Every published category leads to a crawlable list
-              of its real tools.
+              Jump directly into image, PDF, developer, text, video, encoding,
+              security, date, or design work. Every published category leads to
+              a crawlable list of its real tools.
             </p>
           </div>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

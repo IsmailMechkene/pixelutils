@@ -90,7 +90,20 @@ export function TextTransformWorkspace({
         void run();
       }}
     >
-      <div className="border-b border-line pb-4">
+      <TextInputPanel
+        description={inputDescription}
+        error={error}
+        disabled={processing}
+        id={`${slug}-input`}
+        label={inputLabel}
+        onChange={(value) => {
+          setInput(value);
+          if (error) setError("");
+        }}
+        placeholder={placeholder}
+        value={input}
+      />
+      <div className="mt-5 border-y border-line py-4">
         <p className="mono-label mb-3">Workspace controls</p>
         <ToolActions>
           <ActionButton
@@ -116,20 +129,7 @@ export function TextTransformWorkspace({
           />
         </ToolActions>
       </div>
-      <div className="mt-5 grid gap-4 lg:grid-cols-2">
-        <TextInputPanel
-          description={inputDescription}
-          error={error}
-          disabled={processing}
-          id={`${slug}-input`}
-          label={inputLabel}
-          onChange={(value) => {
-            setInput(value);
-            if (error) setError("");
-          }}
-          placeholder={placeholder}
-          value={input}
-        />
+      <div className="mt-6">
         <TextOutputPanel
           actions={
             <ToolActions label="Output actions">

@@ -84,7 +84,15 @@ export default function DuplicateLineRemoverWorkspace({
           </label>
         </div>
       </fieldset>
-      <div className="mt-4 border-t border-line pt-4">
+      <TextInputPanel
+        description="The first occurrence stays in its original position."
+        id="duplicate-lines-input"
+        label="Lines to clean"
+        onChange={setInput}
+        placeholder={"alpha\nbeta\nalpha"}
+        value={input}
+      />
+      <div className="mt-5 border-y border-line py-4">
         <ToolActions label="Cleanup actions">
           <ActionButton
             disabled={!input}
@@ -113,15 +121,7 @@ export default function DuplicateLineRemoverWorkspace({
           />
         </ToolActions>
       </div>
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
-        <TextInputPanel
-          description="The first occurrence stays in its original position."
-          id="duplicate-lines-input"
-          label="Lines to clean"
-          onChange={setInput}
-          placeholder={"alpha\nbeta\nalpha"}
-          value={input}
-        />
+      <div className="mt-6">
         <TextOutputPanel
           actions={
             <ToolActions label="Output actions">

@@ -63,7 +63,20 @@ export default function MarkdownPreviewerWorkspace({ slug }: { slug: string }) {
         void preview();
       }}
     >
-      <div className="border-b border-line pb-4">
+      <TextInputPanel
+        id="markdown-input"
+        label="Markdown input"
+        description="Raw HTML is sanitized; scripts, event handlers, remote images, and unsafe links are removed."
+        disabled={loading}
+        error={error}
+        onChange={(value) => {
+          setInput(value);
+          setError("");
+        }}
+        placeholder="# Heading"
+        value={input}
+      />
+      <div className="mt-5 border-y border-line py-4">
         <ToolActions>
           <ActionButton
             disabled={loading}
@@ -93,20 +106,7 @@ export default function MarkdownPreviewerWorkspace({ slug }: { slug: string }) {
           />
         </ToolActions>
       </div>
-      <div className="mt-5 grid gap-6 lg:grid-cols-2">
-        <TextInputPanel
-          id="markdown-input"
-          label="Markdown input"
-          description="Raw HTML is sanitized; scripts, event handlers, remote images, and unsafe links are removed."
-          disabled={loading}
-          error={error}
-          onChange={(value) => {
-            setInput(value);
-            setError("");
-          }}
-          placeholder="# Heading"
-          value={input}
-        />
+      <div className="mt-6">
         <section aria-labelledby="markdown-preview-label" className="min-w-0">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>

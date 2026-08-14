@@ -67,8 +67,16 @@ describe("catalog registry", () => {
     ]);
     expect(popularTools.slice(0, 3).map((tool) => tool.slug)).toEqual([
       "json-formatter",
+      "image-converter",
+      "merge-pdf",
+    ]);
+    expect(popularTools.map((tool) => tool.slug)).toEqual([
+      "json-formatter",
+      "image-converter",
+      "merge-pdf",
+      "png-to-jpg",
       "base64-encoder-decoder",
-      "video-compressor",
+      "word-character-counter",
     ]);
     expect(getToolsForCategory("image").slice(0, 3).map((tool) => tool.slug)).toEqual([
       "image-converter",

@@ -96,7 +96,21 @@ export default function HashGeneratorWorkspace() {
           value={encoding}
         />
       </div>
-      <div className="mt-5 border-t border-line pt-4">
+      <div className="mt-5">
+        <TextInputPanel
+          id="hash-input"
+          label="Text to hash"
+          description="Text is encoded as UTF-8 and never stored in tool history."
+          disabled={loading}
+          error={error}
+          onChange={(value) => {
+            setInput(value);
+            setError("");
+          }}
+          value={input}
+        />
+      </div>
+      <div className="mt-5 border-y border-line py-4">
         <ToolActions>
           <ActionButton
             disabled={loading}
@@ -123,19 +137,7 @@ export default function HashGeneratorWorkspace() {
           />
         </ToolActions>
       </div>
-      <div className="mt-5 grid gap-6 lg:grid-cols-2">
-        <TextInputPanel
-          id="hash-input"
-          label="Text to hash"
-          description="Text is encoded as UTF-8 and never stored in tool history."
-          disabled={loading}
-          error={error}
-          onChange={(value) => {
-            setInput(value);
-            setError("");
-          }}
-          value={input}
-        />
+      <div className="mt-6">
         <TextOutputPanel
           id="hash-output"
           label={`${algorithm} digest`}
