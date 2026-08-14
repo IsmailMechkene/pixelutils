@@ -12,14 +12,14 @@ export function ToolExamples({ examples }: ToolExamplesProps) {
       <h2 className="content-title" id="tool-examples-title">
         Examples
       </h2>
-      <div className="mt-5 grid gap-4 md:grid-cols-2">
+      <div className="mt-5 grid grid-cols-[minmax(0,1fr)] gap-4 md:grid-cols-2">
         {examples.map((example) => (
           <article
-            className="rounded-card border border-line bg-panel p-5"
+            className="min-w-0 rounded-card border border-line bg-panel p-5"
             key={example.name}
           >
             <h3 className="text-base font-semibold text-ink">{example.name}</h3>
-            <dl className="mt-4 grid gap-4 text-sm">
+            <dl className="mt-4 grid grid-cols-[minmax(0,1fr)] gap-4 text-sm [&>div]:min-w-0">
               <div>
                 <dt className="text-xs font-semibold uppercase tracking-wider text-ink-subtle">
                   Input

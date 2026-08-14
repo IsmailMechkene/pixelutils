@@ -67,7 +67,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
           </Suspense>
         </ToolWorkspace>
 
-        <div className="mt-14 grid gap-14">
+        <div className="mt-14 grid grid-cols-[minmax(0,1fr)] gap-14 [&>*]:min-w-0">
           <ToolInstructions steps={tool.usageSteps} toolName={tool.name} />
           <ToolExamples examples={tool.examples} />
           <ToolFAQ entries={tool.faqs} />
