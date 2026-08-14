@@ -174,7 +174,7 @@ export default function MkvToMp4Workspace() {
 
   return (
     <div>
-      <FilePicker accept={mkvToMp4Accept} description="MKV only, up to 100 MB." disabled={isProcessing} files={file ? [file] : []} label="Choose an MKV video or drop it here" maxSizeBytes={maxMkvToMp4Bytes} onFilesChange={selectFile} />
+      <FilePicker accept={mkvToMp4Accept} description="MKV videos." disabled={isProcessing} expectedOutput="An MP4 that preserves compatible streams when possible; otherwise, you can choose re-encoding." files={file ? [file] : []} label="Choose an MKV video or drop it here" maxSizeBytes={maxMkvToMp4Bytes} onFilesChange={selectFile} />
       <div className="mt-4"><ToolNotice title="Private by design" tone="info">Your video never leaves your device. Processing happens locally in your browser after you start it.</ToolNotice></div>
       {showLargeWarning ? <div className="mt-4"><ToolNotice title="Large video" tone="warning">This file may take time and needs substantial browser memory. Keep this tab open and avoid starting other heavy tasks.</ToolNotice></div> : null}
       <ProcessingStatus message={isProcessing && progress !== undefined ? `${message} ${progress}%` : message || undefined} status={status} />

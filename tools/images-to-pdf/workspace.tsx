@@ -150,13 +150,14 @@ export default function ImagesToPdfWorkspace({ slug }: { slug: string }) {
     <div>
       <FilePicker
         accept={imageToPdfAccept}
-        description="Choose JPG, PNG, or WebP images, up to 25 MB each."
+        description="JPG, PNG, or WebP images."
         disabled={isBusy}
         files={files}
         label="Choose images or drop them here"
         maxSizeBytes={maxImagesToPdfFileBytes}
         multiple
         onFilesChange={changeFiles}
+        expectedOutput="One PDF containing your selected images."
         showList={false}
       />
       <div className="mt-4">

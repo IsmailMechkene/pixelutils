@@ -256,12 +256,13 @@ export function ImageConverterWorkspace({
     <div>
       <FilePicker
         accept={acceptedInput}
-        description="PNG, JPG, JPEG, or WebP up to 25 MB."
+        description="PNG, JPG, JPEG, or WebP images."
         disabled={status === "processing"}
         files={file ? [file] : []}
         label="Choose an image or drop it here"
         maxSizeBytes={maxImageCompressorBytes}
         onFilesChange={selectFile}
+        expectedOutput="A converted image in the format you select."
       />
       <div className="mt-4">
         <ToolNotice title="Metadata" tone="info">

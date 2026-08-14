@@ -81,7 +81,7 @@ export default function MergePdfWorkspace({ slug }: { slug: string }) {
 
   return (
     <div>
-      <FilePicker accept={pdfAccept} description="Choose two or more PDF files, up to 50 MB each." disabled={status === "processing"} files={files} label="Choose PDFs or drop them here" maxSizeBytes={maxPdfFileBytes} multiple onFilesChange={changeFiles} showList={false} />
+      <FilePicker accept={pdfAccept} description="PDF files." disabled={status === "processing"} expectedOutput="One merged PDF in the order you choose." files={files} label="Choose PDFs or drop them here" maxSizeBytes={maxPdfFileBytes} multiple onFilesChange={changeFiles} showList={false} />
       <div className="mt-4">
         <ToolNotice title="Private by design" tone="info">Your PDFs stay on your device. Pages are copied directly into a new PDF and are not converted to images.</ToolNotice>
       </div>

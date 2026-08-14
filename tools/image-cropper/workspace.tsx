@@ -256,12 +256,13 @@ export default function ImageCropperWorkspace({ slug }: { slug: string }) {
     <div>
       <FilePicker
         accept={imageCompressorAccept}
-        description="PNG, JPG, JPEG, or WebP up to 25 MB."
+        description="PNG, JPG, JPEG, or WebP images."
         disabled={status === "processing"}
         files={file ? [file] : []}
         label="Choose an image or drop it here"
         maxSizeBytes={maxImageCompressorBytes}
         onFilesChange={selectFile}
+        expectedOutput="A cropped image in your selected format."
       />
       <div className="mt-4">
         <ToolNotice title="Metadata" tone="info">

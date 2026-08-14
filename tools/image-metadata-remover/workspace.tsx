@@ -207,12 +207,13 @@ export default function ImageMetadataRemoverWorkspace({
     <div>
       <FilePicker
         accept={imageCompressorAccept}
-        description="PNG, JPG, JPEG, or WebP up to 25 MB."
+        description="PNG, JPG, JPEG, or WebP images."
         disabled={status === "processing"}
         files={file ? [file] : []}
         label="Choose an image or drop it here"
         maxSizeBytes={maxImageCompressorBytes}
         onFilesChange={selectFile}
+        expectedOutput="A newly exported image without copied original metadata containers."
       />
       <div className="mt-4">
         <ToolNotice title="How this works" tone="info">

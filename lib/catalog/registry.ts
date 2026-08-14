@@ -796,6 +796,11 @@ const homepageQuickStartToolSlugs = [
   "word-character-counter",
 ] as const satisfies readonly ToolSlug[];
 
+const categoryPopularTaskSlugs = {
+  image: ["image-converter", "image-compressor", "image-resizer"],
+  pdf: ["merge-pdf", "split-pdf", "pdf-to-images"],
+} as const satisfies Partial<Record<CategoryDefinition["slug"], readonly ToolSlug[]>>;
+
 export const popularTools = homepageQuickStartToolSlugs.flatMap((slug) => {
   const tool = publishedToolsBySlug.get(slug);
   return tool ? [tool] : [];
@@ -816,6 +821,22 @@ export function getToolsForCategory(categorySlug: string) {
     publishedToolsByCategory.get(categorySlug as RegisteredTool["category"]) ??
     []
   ).toSorted(compareToolsByImportance);
+}
+
+export function getPopularTasksForCategory(categorySlug: string) {
+  const curatedSlugs =
+    categoryPopularTaskSlugs[
+      categorySlug as keyof typeof categoryPopularTaskSlugs
+    ];
+
+  if (curatedSlugs) {
+    return curatedSlugs.flatMap((slug) => {
+      const tool = publishedToolsBySlug.get(slug);
+      return tool?.category === categorySlug ? [tool] : [];
+    });
+  }
+
+  return getToolsForCategory(categorySlug).slice(0, 3);
 }
 
 export function getRelatedTools(tool: ToolDefinition) {

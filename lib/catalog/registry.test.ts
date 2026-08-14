@@ -5,6 +5,7 @@ import { toolWorkspaceSlugs } from "@/tools/workspace-registry";
 import {
   categoryRegistry,
   getToolsForCategory,
+  getPopularTasksForCategory,
   popularTools,
   publishedCategories,
   toolRegistry,
@@ -82,6 +83,16 @@ describe("catalog registry", () => {
       "image-converter",
       "image-compressor",
       "image-cropper",
+    ]);
+    expect(getPopularTasksForCategory("image").map((tool) => tool.slug)).toEqual([
+      "image-converter",
+      "image-compressor",
+      "image-resizer",
+    ]);
+    expect(getPopularTasksForCategory("pdf").map((tool) => tool.slug)).toEqual([
+      "merge-pdf",
+      "split-pdf",
+      "pdf-to-images",
     ]);
   });
 

@@ -4,11 +4,13 @@ import { notFound } from "next/navigation";
 import { AdSlot } from "@/components/ads/ad-slot";
 import { ToolCard } from "@/components/catalog/tool-card";
 import { CatalogSidebar } from "@/components/catalog/catalog-sidebar";
+import { PopularTasks } from "@/components/catalog/popular-tasks";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/tool-shell/breadcrumbs";
 import { CategoryIcon } from "@/components/ui/icon";
 import {
   findCategory,
+  getPopularTasksForCategory,
   getToolsForCategory,
   publishedCategories,
 } from "@/lib/catalog/registry";
@@ -45,6 +47,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   if (!category) notFound();
 
   const tools = getToolsForCategory(category.slug);
+  const popularTasks = getPopularTasksForCategory(category.slug);
   if (tools.length === 0) notFound();
 
   return (
@@ -68,11 +71,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </p>
             </header>
 
+            <PopularTasks tools={popularTasks} />
+
             <section className="mt-10 border-t border-line pt-6" aria-labelledby="category-tools-title">
-              <h2 className="sr-only" id="category-tools-title">
-                Available {category.name.toLocaleLowerCase()} tools
+              <h2 className="content-title" id="category-tools-title">
+                All {category.name.toLocaleLowerCase()} tools
               </h2>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {tools.map((tool) => (
                   <ToolCard key={tool.slug} tool={tool} />
                 ))}

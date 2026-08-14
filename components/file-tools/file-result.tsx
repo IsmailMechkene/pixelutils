@@ -3,7 +3,9 @@
 import { DownloadButton } from "@/components/tool-shell/download-button";
 import { ClearButton } from "@/components/tool-shell/clear-button";
 import { ToolActions } from "@/components/tool-shell/tool-actions";
+import { Icon } from "@/components/ui/icon";
 import type { AnalyticsDownloadKind } from "@/lib/analytics/schema";
+import { formatFileSize } from "@/lib/file-tools/format";
 import type { FileToolInfoRow, FileToolResult } from "@/lib/file-tools/types";
 
 interface FileResultProps {
@@ -12,6 +14,17 @@ interface FileResultProps {
   analyticsKind?: AnalyticsDownloadKind;
   downloadTone?: "default" | "primary" | "quiet";
   onDownloaded?: () => void;
+}
+
+function formatOutputType(mimeType: string) {
+  if (mimeType === "application/pdf") return "PDF";
+  if (mimeType.startsWith("image/")) {
+    return mimeType.slice("image/".length).toUpperCase().replace("JPEG", "JPG");
+  }
+  if (mimeType.startsWith("video/")) {
+    return mimeType.slice("video/".length).toUpperCase();
+  }
+  return mimeType;
 }
 
 function InformationList({
@@ -45,20 +58,33 @@ export function FileResult({
   result,
   onClear,
   analyticsKind = "document",
-  downloadTone = "quiet",
+  downloadTone = "primary",
   onDownloaded,
 }: FileResultProps) {
-  const hasComparison = Boolean(result.before?.length || result.after?.length);
+  const hasOutputSize = result.after?.some((row) =>
+    row.label.toLowerCase().includes("size"),
+  );
+  const outputRows: readonly FileToolInfoRow[] = [
+    { label: "Format", value: formatOutputType(result.mimeType) },
+    ...(result.after ?? []),
+    ...(hasOutputSize
+      ? []
+      : [{ label: "File size", value: formatFileSize(result.blob.size) }]),
+  ];
 
   return (
     <section
       aria-labelledby="file-result-title"
-      className="mt-6 border-t border-line pt-5"
+      className="mt-6 rounded-card border border-success/30 bg-success-soft p-4 sm:p-5"
     >
-      <div className="flex flex-wrap items-end justify-between gap-3">
+      <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h2 className="text-base font-bold text-ink" id="file-result-title">
-            Result ready
+          <p className="flex items-center gap-2 text-sm font-bold text-success">
+            <Icon className="size-5" name="circle-check" />
+            Complete
+          </p>
+          <h2 className="mt-1 text-lg font-bold text-ink" id="file-result-title">
+            Your output is ready
           </h2>
           {result.summary ? (
             <p className="mt-1 text-sm leading-6 text-ink-muted">
@@ -71,7 +97,7 @@ export function FileResult({
             analyticsKind={analyticsKind}
             data={result.blob}
             filename={result.filename}
-            label="Download result"
+            label={`Download ${formatOutputType(result.mimeType)}`}
             mimeType={result.mimeType}
             onDownloaded={onDownloaded}
             tone={downloadTone}
@@ -81,16 +107,12 @@ export function FileResult({
           ) : null}
         </ToolActions>
       </div>
-      {hasComparison ? (
-        <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          {result.before?.length ? (
-            <InformationList heading="Before" rows={result.before} />
-          ) : null}
-          {result.after?.length ? (
-            <InformationList heading="After" rows={result.after} />
-          ) : null}
-        </div>
-      ) : null}
+      <div className="mt-5 grid gap-3 sm:grid-cols-2">
+        <InformationList heading="Output" rows={outputRows} />
+        {result.before?.length ? (
+          <InformationList heading="Source" rows={result.before} />
+        ) : null}
+      </div>
     </section>
   );
 }

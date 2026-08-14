@@ -168,12 +168,13 @@ export default function SplitPdfWorkspace({ slug }: { slug: string }) {
     <div>
       <FilePicker
         accept={pdfAccept}
-        description="Choose one PDF file, up to 50 MB."
+        description="PDF files."
         disabled={isBusy}
         files={file ? [file] : []}
         label="Choose a PDF or drop it here"
         maxSizeBytes={maxPdfFileBytes}
         onFilesChange={changeFiles}
+        expectedOutput="One or more new PDFs containing the pages you select."
       />
       <div className="mt-4">
         <ToolNotice title="Private by design" tone="info">
@@ -254,10 +255,11 @@ export default function SplitPdfWorkspace({ slug }: { slug: string }) {
       ) : null}
 
       {outputs.length ? (
-        <section aria-labelledby="split-results-title" className="mt-6 border-t border-line pt-5">
-          <h2 className="text-base font-bold text-ink" id="split-results-title">{outputs.length === 1 ? "Result ready" : `${outputs.length} PDFs ready`}</h2>
+        <section aria-labelledby="split-results-title" className="mt-6 rounded-card border border-success/30 bg-success-soft p-4 sm:p-5">
+          <p className="text-sm font-bold text-success">Complete</p>
+          <h2 className="mt-1 text-lg font-bold text-ink" id="split-results-title">{outputs.length === 1 ? "Your PDF is ready to download" : `${outputs.length} PDFs are ready to download`}</h2>
           <p className="mt-1 text-sm leading-6 text-ink-muted">Download each generated PDF separately. No files were uploaded or rasterized.</p>
-          <ol className="mt-4 divide-y divide-line rounded-card border border-line bg-panel-muted">
+          <ol className="mt-4 divide-y divide-line rounded-card border border-line bg-panel">
             {outputs.map((output) => (
               <li className="flex flex-wrap items-center justify-between gap-3 px-3.5 py-3 sm:px-4" key={output.filename}>
                 <div className="min-w-0">

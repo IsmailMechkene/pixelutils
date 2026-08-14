@@ -69,7 +69,7 @@ export default function VideoCompressorWorkspace() {
   function cancel() { jobIdRef.current += 1; engineRef.current?.terminate(); engineRef.current = undefined; setProgress(undefined); setMessage("Compression cancelled. Your selected video is still ready."); setStatus(file ? "ready" : "idle"); }
   const processing = status === "processing";
   return <div>
-    <FilePicker accept={videoCompressorAccept} description="Video files up to 100 MB." disabled={processing} files={file ? [file] : []} label="Choose a video or drop it here" maxSizeBytes={maxVideoCompressorBytes} onFilesChange={selectFiles} />
+    <FilePicker accept={videoCompressorAccept} description="MP4, WebM, MKV, MOV, AVI, or M4V videos." disabled={processing} expectedOutput="A smaller MP4 video using your selected quality and resolution." files={file ? [file] : []} label="Choose a video or drop it here" maxSizeBytes={maxVideoCompressorBytes} onFilesChange={selectFiles} />
     <div className="mt-4"><ToolNotice title="Private by design" tone="info">Your video never leaves your device. Compression happens locally in your browser.</ToolNotice></div>
     {file && file.size >= largeVideoCompressorBytes ? <div className="mt-4"><ToolNotice title="Large video" tone="warning">Large videos can be slower and need more memory, especially on mobile devices. Keep this tab open while processing.</ToolNotice></div> : null}
     <ProcessingStatus message={processing && progress !== undefined ? `${message} ${progress}%` : message || undefined} status={status} />

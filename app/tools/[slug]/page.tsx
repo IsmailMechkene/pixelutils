@@ -4,6 +4,7 @@ import { Suspense } from "react";
 
 import { AdSlot } from "@/components/ads/ad-slot";
 import { JsonLd } from "@/components/seo/json-ld";
+import { MobileMoreDetails } from "@/components/tool-shell/mobile-more-details";
 import { RelatedTools } from "@/components/tool-shell/related-tools";
 import { ToolExamples } from "@/components/tool-shell/tool-examples";
 import { ToolFAQ } from "@/components/tool-shell/tool-faq";
@@ -69,12 +70,14 @@ export default async function ToolPage({ params }: ToolPageProps) {
 
         <div className="mt-14 grid grid-cols-[minmax(0,1fr)] gap-14 [&>*]:min-w-0">
           <ToolInstructions steps={tool.usageSteps} toolName={tool.name} />
+        </div>
+        <MobileMoreDetails>
           <ToolExamples examples={tool.examples} />
           <ToolFAQ entries={tool.faqs} />
           <RelatedTools tools={relatedTools} />
           <ToolHistory tool={tool} />
           <AdSlot placement="tool-after-content" />
-        </div>
+        </MobileMoreDetails>
       </ToolPageLayout>
     </>
   );
