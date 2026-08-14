@@ -2,7 +2,13 @@ import { describe, expect, it } from "vitest";
 
 import { toolWorkspaceSlugs } from "@/tools/workspace-registry";
 
-import { categoryRegistry, toolRegistry } from "./registry";
+import {
+  categoryRegistry,
+  getToolsForCategory,
+  popularTools,
+  publishedCategories,
+  toolRegistry,
+} from "./registry";
 import type { ToolDefinition } from "./types";
 import { validateRegistry } from "./validation";
 
@@ -49,6 +55,26 @@ describe("catalog registry", () => {
     expect(
       validateRegistry(categoryRegistry, toolRegistry, toolWorkspaceSlugs),
     ).toEqual([]);
+  });
+
+  it("puts the highest-priority categories and tools first", () => {
+    expect(publishedCategories.slice(0, 5).map((category) => category.slug)).toEqual([
+      "image",
+      "pdf",
+      "developer",
+      "text",
+      "video",
+    ]);
+    expect(popularTools.slice(0, 3).map((tool) => tool.slug)).toEqual([
+      "json-formatter",
+      "base64-encoder-decoder",
+      "video-compressor",
+    ]);
+    expect(getToolsForCategory("image").slice(0, 3).map((tool) => tool.slug)).toEqual([
+      "image-converter",
+      "image-compressor",
+      "image-cropper",
+    ]);
   });
 
   it("fails a broken related-tool reference", () => {

@@ -9,11 +9,11 @@ import { ToolCard } from "@/components/catalog/tool-card";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Icon, ToolIcon } from "@/components/ui/icon";
 import {
-  categoryRegistry,
   featuredTools,
   getCategoryToolCounts,
   popularTools,
   publishedToolCards,
+  publishedCategories,
   publishedTools,
 } from "@/lib/catalog/registry";
 import { createToolSearchItems } from "@/lib/catalog/search";
@@ -187,7 +187,7 @@ export default function HomePage() {
             </p>
           </div>
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {categoryRegistry.map((category) => (
+            {publishedCategories.map((category) => (
               <CategoryCard
                 category={category}
                 compact

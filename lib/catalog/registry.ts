@@ -16,7 +16,7 @@ export const categoryRegistry = [
     selectionGuide:
       "Use formatters when you need readable structure, minifiers when payload size matters, and generators when you need standards-compliant values for development or testing.",
     icon: "code-2",
-    order: 1,
+    order: 3,
   },
   {
     slug: "text",
@@ -27,7 +27,7 @@ export const categoryRegistry = [
     selectionGuide:
       "Choose a counter to measure existing copy, a converter to reshape capitalization, or a cleanup tool to normalize lists without uploading the text.",
     icon: "type",
-    order: 2,
+    order: 4,
   },
   {
     slug: "encoding",
@@ -38,7 +38,7 @@ export const categoryRegistry = [
     selectionGuide:
       "Base64 is useful for representing binary-safe text, while URL encoding is designed for query values, path segments, and complete web addresses.",
     icon: "binary",
-    order: 3,
+    order: 9,
   },
   {
     slug: "web",
@@ -49,7 +49,7 @@ export const categoryRegistry = [
     selectionGuide:
       "Use escaping for literal HTML characters, formatting for readable markup, and the sanitized previewer when you need to review Markdown output safely.",
     icon: "globe-2",
-    order: 4,
+    order: 10,
   },
   {
     slug: "image",
@@ -60,7 +60,7 @@ export const categoryRegistry = [
     selectionGuide:
       "Start with the result you need: create a QR code, convert or resize an image, crop it for a layout, compress its file size, or create a new export without copying its original metadata containers.",
     icon: "image",
-    order: 5,
+    order: 1,
   },
   {
     slug: "security",
@@ -71,7 +71,7 @@ export const categoryRegistry = [
     selectionGuide:
       "Generate new secrets with cryptographic browser APIs, create one-way digests with the hash tool, and treat decoded tokens as unverified data until a trusted system checks them.",
     icon: "shield-check",
-    order: 6,
+    order: 8,
   },
   {
     slug: "date-time",
@@ -82,7 +82,7 @@ export const categoryRegistry = [
     selectionGuide:
       "Use timestamp conversion for exact instants and units; use calendar-based calculators when years, months, leap days, and date-only comparisons matter.",
     icon: "clock-3",
-    order: 7,
+    order: 11,
   },
   {
     slug: "calculators",
@@ -93,7 +93,7 @@ export const categoryRegistry = [
     selectionGuide:
       "Pick the calculator that matches the question rather than adapting your numbers to a generic form. Each tool labels its assumptions and invalid cases.",
     icon: "calculator",
-    order: 8,
+    order: 6,
   },
   {
     slug: "color-design",
@@ -104,7 +104,7 @@ export const categoryRegistry = [
     selectionGuide:
       "Use color conversion to move between HEX, RGB, and HSL while keeping the same visual color, including supported alpha values.",
     icon: "palette",
-    order: 9,
+    order: 7,
   },
   {
     slug: "pdf",
@@ -115,7 +115,7 @@ export const categoryRegistry = [
     selectionGuide:
       "Choose Merge PDF to combine documents in a specific order. Future PDF tools will split, rotate, reorder, and create PDFs from images using the same local document engine.",
     icon: "file-text",
-    order: 10,
+    order: 2,
   },
   {
     slug: "video",
@@ -126,7 +126,7 @@ export const categoryRegistry = [
     selectionGuide:
       "Start with MKV to MP4 when you need a more widely supported container. The tool first preserves compatible audio and video streams, then only offers re-encoding when it is needed.",
     icon: "video",
-    order: 11,
+    order: 5,
   },
 ] as const satisfies readonly CategoryDefinition[];
 
@@ -744,6 +744,17 @@ const categoriesBySlug = new Map(
 export const publishedTools = allTools.filter(
   (tool) => tool.status === "published",
 );
+
+function compareToolsByImportance(
+  left: RegisteredTool,
+  right: RegisteredTool,
+) {
+  return (
+    right.searchWeight - left.searchWeight ||
+    Number(right.featured) - Number(left.featured) ||
+    left.name.localeCompare(right.name)
+  );
+}
 const publishedToolsBySlug = new Map(
   publishedTools.map((tool) => [tool.slug, tool]),
 );
@@ -759,9 +770,11 @@ for (const tool of publishedTools) {
 
 export const publishedCategories = categoryRegistry.filter((category) =>
   publishedTools.some((tool) => tool.category === category.slug),
-);
+).toSorted((left, right) => left.order - right.order);
 
-export const featuredTools = publishedTools.filter((tool) => tool.featured);
+export const featuredTools = publishedTools
+  .filter((tool) => tool.featured)
+  .toSorted(compareToolsByImportance);
 
 export const publishedToolCards = publishedTools.map(
   ({ slug, name, shortDescription, category, icon, browserProcessing }) => ({
@@ -774,12 +787,7 @@ export const publishedToolCards = publishedTools.map(
   }),
 );
 
-export const popularTools = publishedTools
-  .filter(
-    (tool): tool is RegisteredTool & { readonly popularRank: number } =>
-      "popularRank" in tool && tool.popularRank !== undefined,
-  )
-  .toSorted((left, right) => left.popularRank - right.popularRank);
+export const popularTools = publishedTools.toSorted(compareToolsByImportance);
 
 export function findCategory(slug: string) {
   return categoriesBySlug.get(
@@ -795,7 +803,7 @@ export function getToolsForCategory(categorySlug: string) {
   return (
     publishedToolsByCategory.get(categorySlug as RegisteredTool["category"]) ??
     []
-  );
+  ).toSorted(compareToolsByImportance);
 }
 
 export function getRelatedTools(tool: ToolDefinition) {
