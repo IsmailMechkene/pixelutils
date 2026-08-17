@@ -132,6 +132,279 @@ export const guideRegistry: readonly GuideDefinition[] = [
       },
     ],
   },
+  {
+    slug: "reduce-image-file-size-without-losing-quality",
+    title: "How to reduce image file size without losing quality",
+    description:
+      "Reduce image file size with practical quality, dimensions, and format choices while keeping the result useful for its destination.",
+    summary:
+      "The quickest way to make an image smaller is usually to remove pixels you do not need, then choose a format and quality level that suit where the image will be used.",
+    category: "Image guide",
+    readingTime: "5 min read",
+    byline: "PixelUtils editorial team",
+    publishedAt: "2026-08-17",
+    updatedAt: "2026-08-17",
+    primaryToolSlug: "image-compressor",
+    relatedToolSlugs: ["image-resizer", "image-converter", "png-to-webp"],
+    relatedGuideSlugs: ["png-vs-jpg-vs-webp"],
+    sections: [
+      {
+        id: "start-with-the-destination",
+        heading: "Start with where the image will be used",
+        paragraphs: [
+          "A smaller file is only useful if the image still works at its final size. A large product photo for a full-width page needs more pixels than a thumbnail in a message or a profile image.",
+          "Before changing anything, decide the largest display size, whether transparency is required, and whether a recipient needs a particular format. Those three constraints prevent unnecessary trial and error.",
+        ],
+      },
+      {
+        id: "reduce-pixels-first",
+        heading: "Reduce dimensions before lowering quality",
+        paragraphs: [
+          "Pixel dimensions often have a bigger effect on file size than a small quality adjustment. An image that is 4000 pixels wide still carries far more visual data than a 1600-pixel version, even if both look similar on a phone.",
+          "Resize a copy to the largest dimensions the destination can display. Keep the original separately so you can make a different export later without repeatedly compressing an already compressed file.",
+        ],
+        steps: [
+          "Open the image in a resizer and enter the maximum width or height you actually need.",
+          "Keep the aspect ratio locked unless you intend to change the composition.",
+          "Export the resized copy, then use compression only if its file size still needs to be lower.",
+        ],
+      },
+      {
+        id: "choose-a-quality-level",
+        heading: "Use the lowest quality that still looks right",
+        paragraphs: [
+          "Lossy formats such as JPG and WebP trade some image detail for a smaller file. The right setting is not a universal percentage: photographs, text in screenshots, gradients, and illustrations react differently.",
+          "Compare the compressed export at the size people will actually see. Check sharp edges, readable text, faces, and smooth colour areas. If you notice artifacts there, use a higher-quality preset or reduce the dimensions less aggressively.",
+        ],
+      },
+      {
+        id: "avoid-repeat-compression",
+        heading: "Avoid compressing the same file repeatedly",
+        paragraphs: [
+          "Each lossy re-export can discard more detail. Work from the original whenever possible, and make separate exports for different destinations instead of compressing yesterday's compressed version again.",
+          "For sensitive images, also check the tool's metadata policy. A new export can omit metadata containers, but that is a separate decision from reducing file size.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "png-vs-jpg-vs-webp",
+    title: "PNG vs JPG vs WebP: which image format should you use?",
+    description:
+      "Choose PNG, JPG, or WebP based on transparency, image content, file size, and compatibility instead of relying on a single format for every image.",
+    summary:
+      "PNG is best when you need transparency or crisp graphics, JPG is widely compatible for photographs, and WebP often makes smaller web exports when the receiving service supports it.",
+    category: "Image guide",
+    readingTime: "5 min read",
+    byline: "PixelUtils editorial team",
+    publishedAt: "2026-08-17",
+    updatedAt: "2026-08-17",
+    primaryToolSlug: "image-converter",
+    relatedToolSlugs: ["png-to-jpg", "png-to-webp", "jpg-to-png"],
+    relatedGuideSlugs: ["reduce-image-file-size-without-losing-quality"],
+    sections: [
+      {
+        id: "the-short-answer",
+        heading: "The short answer",
+        paragraphs: [
+          "Choose PNG for transparent logos, icons, screenshots with sharp text, and graphics that need exact edges. Choose JPG for photographs when broad compatibility matters. Choose WebP for web images when you want a smaller modern export and the destination accepts it.",
+          "There is no quality upgrade hidden in conversion. Changing a JPG into PNG does not restore detail that JPG compression already removed; it only creates a new file in a different container.",
+        ],
+      },
+      {
+        id: "when-png-is-right",
+        heading: "Use PNG for transparency and crisp graphics",
+        paragraphs: [
+          "PNG supports transparent pixels, making it a good choice for logos placed over different backgrounds. It also handles hard edges, flat colours, and screenshot text well without the blocky artifacts that can appear in lossy formats.",
+          "Its tradeoff is size. A detailed photo stored as PNG can be much larger than a visually similar JPG or WebP, so PNG is rarely the efficient default for camera images.",
+        ],
+      },
+      {
+        id: "when-jpg-is-right",
+        heading: "Use JPG when compatibility matters for photos",
+        paragraphs: [
+          "JPG is accepted by almost every service, app, and device. It is a reliable choice for a photograph that will be shared, uploaded, or attached where you cannot control the recipient's software.",
+          "JPG does not preserve transparency. Transparent areas must be placed on a solid background during export, so use PNG or WebP when the alpha channel is important.",
+        ],
+      },
+      {
+        id: "when-webp-is-right",
+        heading: "Use WebP for smaller web-ready exports",
+        paragraphs: [
+          "WebP can support transparency and often reaches a lower file size than older formats for comparable web use. It is useful when you control the website or platform and have confirmed that it accepts WebP uploads.",
+          "Keep a compatible JPG or PNG source when sending files to an unknown system. Conversion should serve a concrete destination, not replace your only original copy.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "how-to-merge-pdf-files-in-order",
+    title: "How to merge PDF files in the right order",
+    description:
+      "Combine PDF files in a deliberate order, verify the result, and avoid common problems with pages, passwords, and uploads.",
+    summary:
+      "Merging PDFs is straightforward once the files are in the intended sequence. Check the order before creating the final document, then review the first and last pages after download.",
+    category: "PDF guide",
+    readingTime: "4 min read",
+    byline: "PixelUtils editorial team",
+    publishedAt: "2026-08-17",
+    updatedAt: "2026-08-17",
+    primaryToolSlug: "merge-pdf",
+    relatedToolSlugs: ["split-pdf", "pdf-to-images", "images-to-pdf"],
+    relatedGuideSlugs: ["how-to-split-pdf-pages"],
+    sections: [
+      {
+        id: "prepare-the-files",
+        heading: "Prepare the files before merging",
+        paragraphs: [
+          "Name or group the documents so their intended order is obvious. A cover page, a main document, and appendices are easier to arrange when you decide the sequence before opening a merge tool.",
+          "If a PDF is password protected, corrupted, or has restrictions that prevent it from being read, resolve that issue with an authorized copy first. A merger should not be used to bypass document permissions.",
+        ],
+      },
+      {
+        id: "set-the-order",
+        heading: "Put documents in their final reading order",
+        paragraphs: [
+          "Add all files, then inspect their order carefully. The output follows that order, so move an appendix or cover document before generating the final PDF rather than trying to correct it afterward.",
+          "For a large pack, combine logical groups first only if that helps you review them. Keep a clear source copy of each original document in case you need to change one section later.",
+        ],
+        steps: [
+          "Choose the PDFs you are authorized to combine.",
+          "Arrange them from first page to last page.",
+          "Create the merged PDF and download it locally.",
+          "Open the downloaded file and confirm the transitions between documents.",
+        ],
+      },
+      {
+        id: "check-the-output",
+        heading: "Check the output before sharing it",
+        paragraphs: [
+          "Open the merged PDF and review the first page, the last page, and every point where one source document joins the next. This quickly catches a missing file or an accidental ordering mistake.",
+          "A merge combines pages; it does not rewrite a document as images. That means the result can preserve the source pages' document structure, but you should still verify it in the viewer your recipient will use.",
+        ],
+      },
+      {
+        id: "keep-documents-private",
+        heading: "Choose a workflow that fits the document's sensitivity",
+        paragraphs: [
+          "PDFs often contain invoices, contracts, personal records, or internal material. If you use a browser-based merger, check whether it uploads documents to a server before selecting files.",
+          "PixelUtils processes selected PDFs in the browser, so the files are not sent to a processing server. That does not change any sharing or retention obligations you have for the finished document.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "how-to-split-pdf-pages",
+    title: "How to split PDF pages safely",
+    description:
+      "Split a PDF into individual pages or selected page ranges, verify the output, and keep the original document intact.",
+    summary:
+      "Decide whether you need every page separately or only a selected range, then verify the page numbers before creating new PDFs. Splitting creates copies; it does not alter the original file.",
+    category: "PDF guide",
+    readingTime: "4 min read",
+    byline: "PixelUtils editorial team",
+    publishedAt: "2026-08-17",
+    updatedAt: "2026-08-17",
+    primaryToolSlug: "split-pdf",
+    relatedToolSlugs: ["merge-pdf", "pdf-to-images", "images-to-pdf"],
+    relatedGuideSlugs: ["how-to-merge-pdf-files-in-order"],
+    sections: [
+      {
+        id: "choose-the-split-type",
+        heading: "Choose between individual pages and page ranges",
+        paragraphs: [
+          "Split into individual pages when each page needs to be sent or reviewed separately. Extract a page range when you need one section, such as pages 4 through 9, to remain together in a new PDF.",
+          "Write down the page numbers before you start, especially when a PDF has a printed page number that differs from the viewer's page count because of covers or inserts.",
+        ],
+      },
+      {
+        id: "confirm-page-numbers",
+        heading: "Confirm the pages before creating output",
+        paragraphs: [
+          "Preview or count the document pages, then enter the exact selection. A small off-by-one mistake can remove a signature page, a supporting table, or the first page of a section.",
+          "Keep the source PDF unchanged. Splitting should create new files while leaving the original available for comparison or a revised selection.",
+        ],
+        steps: [
+          "Choose the PDF and wait for its page count to be read.",
+          "Select individual pages or enter the range you need.",
+          "Create the new PDF files and download each result.",
+          "Open a result to confirm its first and last pages before sharing it.",
+        ],
+      },
+      {
+        id: "name-outputs-clearly",
+        heading: "Name outputs so they remain understandable",
+        paragraphs: [
+          "A meaningful filename helps when several extracted pages are downloaded at once. Add a page range or a short section name after download if the default name will not be clear to the recipient.",
+          "Avoid replacing the original PDF with an extracted copy. Keeping both prevents confusion when someone later asks for a page that was not included in the selected range.",
+        ],
+      },
+      {
+        id: "consider-the-document",
+        heading: "Consider the document before you split it",
+        paragraphs: [
+          "Some documents should remain complete for legal, operational, or contextual reasons. Confirm that extracting a section is appropriate before sending it independently of the rest of the file.",
+          "For confidential files, use a workflow that is clear about where processing happens. PixelUtils performs the page work in the browser rather than sending the PDF to a processing server.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "mkv-vs-mp4-compatibility-and-conversion",
+    title: "MKV vs MP4: compatibility and conversion choices",
+    description:
+      "Understand the difference between MKV and MP4 containers, when remuxing is enough, and when video re-encoding is necessary for compatibility.",
+    summary:
+      "MKV and MP4 are containers, not guarantees about the audio or video inside. A fast conversion can copy compatible streams, while incompatible codecs require slower re-encoding.",
+    category: "Video guide",
+    readingTime: "5 min read",
+    byline: "PixelUtils editorial team",
+    publishedAt: "2026-08-17",
+    updatedAt: "2026-08-17",
+    primaryToolSlug: "mkv-to-mp4",
+    relatedToolSlugs: ["video-compressor"],
+    relatedGuideSlugs: [],
+    sections: [
+      {
+        id: "containers-and-codecs",
+        heading: "MKV and MP4 are containers, not codecs",
+        paragraphs: [
+          "A container is the file wrapper that holds video, audio, subtitles, chapters, and metadata. The codec is the method used to encode each audio or video stream inside that wrapper.",
+          "That distinction explains why changing a file extension is not a real conversion. A player may support MP4 files but still reject an MP4 that contains an unsupported stream.",
+        ],
+      },
+      {
+        id: "when-stream-copy-works",
+        heading: "Use stream copy when the tracks are already compatible",
+        paragraphs: [
+          "If the existing video and audio streams are valid in an MP4 container, a tool can remux them: it writes the same streams into a new wrapper without re-encoding. This is usually much faster and avoids a second lossy video encode.",
+          "Compatibility depends on the exact tracks, not just the MKV filename. A conversion tool should inspect the file first and explain whether direct stream copy is possible.",
+        ],
+      },
+      {
+        id: "when-reencoding-is-needed",
+        heading: "Re-encode only when compatibility requires it",
+        paragraphs: [
+          "When a stream cannot be placed in a broadly compatible MP4 file, re-encoding creates a new stream in a supported codec. It takes longer, uses more device resources, and can change output size or visual quality.",
+          "Keep the original MKV until the MP4 plays correctly in the target device or service. The original may preserve subtitle tracks, chapters, or formats that a compatible MP4 export does not carry over.",
+        ],
+      },
+      {
+        id: "choose-the-right-workflow",
+        heading: "Choose the right workflow for the destination",
+        paragraphs: [
+          "For a file that only needs a more widely accepted container, try compatibility-preserving conversion first. For a file that needs to be smaller, use compression after confirming the output format and resolution you need.",
+          "Video work can require substantial memory and time in a browser. Keep the tab open during processing and choose a smaller source or a desktop device when a large file cannot complete reliably.",
+        ],
+        steps: [
+          "Choose the MKV file and review the compatibility result.",
+          "Create an MP4 with stream copy when the tracks are compatible.",
+          "Use re-encoding only when the tool reports that it is required.",
+          "Download and play the MP4 in the device or service that needs it.",
+        ],
+      },
+    ],
+  },
 ];
 
 assertValidGuideRegistry(guideRegistry);
