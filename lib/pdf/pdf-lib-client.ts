@@ -64,3 +64,39 @@ export async function splitPdfIntoPages(file: Pick<File, "arrayBuffer">) {
 
   return outputs;
 }
+
+export async function reorderAndRotatePdfPages(
+  file: Pick<File, "arrayBuffer">,
+  pages: readonly {
+    readonly sourceIndex: number;
+    readonly rotation: 0 | 90 | 180 | 270;
+  }[],
+) {
+  const { PDFDocument, degrees } = await loadPdfLib();
+  const source = await PDFDocument.load(await file.arrayBuffer());
+  const sourcePageCount = source.getPageCount();
+  if (
+    pages.length !== sourcePageCount ||
+    pages.some(
+      (page) =>
+        !Number.isInteger(page.sourceIndex) ||
+        page.sourceIndex < 0 ||
+        page.sourceIndex >= sourcePageCount ||
+        ![0, 90, 180, 270].includes(page.rotation),
+    ) ||
+    new Set(pages.map((page) => page.sourceIndex)).size !== sourcePageCount
+  )
+    throw new Error("Invalid PDF page edits.");
+  const edited = await PDFDocument.create();
+  const copiedPages = await edited.copyPages(
+    source,
+    pages.map((page) => page.sourceIndex),
+  );
+  copiedPages.forEach((page, index) => {
+    page.setRotation(
+      degrees((page.getRotation().angle + pages[index].rotation) % 360),
+    );
+    edited.addPage(page);
+  });
+  return edited.save();
+}

@@ -312,7 +312,11 @@ export const toolRegistry = [
     keywords: ["URL", "percent encoding", "encode", "decode"],
     aliases: ["URL escape", "URL unescape", "encodeURIComponent"],
     icon: "link",
-    relatedTools: ["base64-encoder-decoder", "json-formatter", "json-minifier"],
+    relatedTools: [
+      "url-parser-query-editor",
+      "base64-encoder-decoder",
+      "json-formatter",
+    ],
     featured: false,
     searchWeight: 74,
     popularRank: 7,
@@ -745,10 +749,7 @@ export const publishedTools = allTools.filter(
   (tool) => tool.status === "published",
 );
 
-function compareToolsByImportance(
-  left: RegisteredTool,
-  right: RegisteredTool,
-) {
+function compareToolsByImportance(left: RegisteredTool, right: RegisteredTool) {
   return (
     right.searchWeight - left.searchWeight ||
     Number(right.featured) - Number(left.featured) ||
@@ -768,9 +769,11 @@ for (const tool of publishedTools) {
   publishedToolsByCategory.set(tool.category, categoryTools);
 }
 
-export const publishedCategories = categoryRegistry.filter((category) =>
-  publishedTools.some((tool) => tool.category === category.slug),
-).toSorted((left, right) => left.order - right.order);
+export const publishedCategories = categoryRegistry
+  .filter((category) =>
+    publishedTools.some((tool) => tool.category === category.slug),
+  )
+  .toSorted((left, right) => left.order - right.order);
 
 export const featuredTools = publishedTools
   .filter((tool) => tool.featured)
@@ -799,7 +802,9 @@ const homepageQuickStartToolSlugs = [
 const categoryPopularTaskSlugs = {
   image: ["image-converter", "image-compressor", "image-resizer"],
   pdf: ["merge-pdf", "split-pdf", "pdf-to-images"],
-} as const satisfies Partial<Record<CategoryDefinition["slug"], readonly ToolSlug[]>>;
+} as const satisfies Partial<
+  Record<CategoryDefinition["slug"], readonly ToolSlug[]>
+>;
 
 export const popularTools = homepageQuickStartToolSlugs.flatMap((slug) => {
   const tool = publishedToolsBySlug.get(slug);

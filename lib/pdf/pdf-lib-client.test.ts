@@ -4,6 +4,7 @@ import {
   extractPdfPages,
   loadPdfLib,
   mergePdfFiles,
+  reorderAndRotatePdfPages,
   splitPdfIntoPages,
 } from "./pdf-lib-client";
 
@@ -15,6 +16,26 @@ it("loads the PDF engine lazily and can create a local document", async () => {
   const bytes = await document.save();
 
   expect(bytes.byteLength).toBeGreaterThan(0);
+});
+
+it("reorders and rotates PDF pages without rendering them", async () => {
+  const { PDFDocument } = await loadPdfLib();
+  const source = await PDFDocument.create();
+  source.addPage([100, 200]);
+  source.addPage([300, 400]);
+  const sourceBytes = await source.save();
+  const file = { arrayBuffer: async () => Uint8Array.from(sourceBytes).buffer };
+  const edited = await PDFDocument.load(
+    await reorderAndRotatePdfPages(file, [
+      { sourceIndex: 1, rotation: 90 },
+      { sourceIndex: 0, rotation: 0 },
+    ]),
+  );
+
+  expect(edited.getPageCount()).toBe(2);
+  expect(edited.getPage(0).getWidth()).toBe(300);
+  expect(edited.getPage(0).getRotation().angle).toBe(90);
+  expect(edited.getPage(1).getWidth()).toBe(100);
 });
 
 it("merges PDF page objects without rendering them to an image", async () => {

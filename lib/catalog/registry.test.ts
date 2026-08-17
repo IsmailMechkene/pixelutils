@@ -59,13 +59,9 @@ describe("catalog registry", () => {
   });
 
   it("puts the highest-priority categories and tools first", () => {
-    expect(publishedCategories.slice(0, 5).map((category) => category.slug)).toEqual([
-      "image",
-      "pdf",
-      "developer",
-      "text",
-      "video",
-    ]);
+    expect(
+      publishedCategories.slice(0, 5).map((category) => category.slug),
+    ).toEqual(["image", "pdf", "developer", "text", "video"]);
     expect(popularTools.slice(0, 3).map((tool) => tool.slug)).toEqual([
       "json-formatter",
       "image-converter",
@@ -79,21 +75,34 @@ describe("catalog registry", () => {
       "base64-encoder-decoder",
       "word-character-counter",
     ]);
-    expect(getToolsForCategory("image").slice(0, 3).map((tool) => tool.slug)).toEqual([
-      "image-converter",
-      "image-compressor",
-      "image-cropper",
-    ]);
-    expect(getPopularTasksForCategory("image").map((tool) => tool.slug)).toEqual([
-      "image-converter",
-      "image-compressor",
-      "image-resizer",
-    ]);
+    expect(
+      getToolsForCategory("image")
+        .slice(0, 3)
+        .map((tool) => tool.slug),
+    ).toEqual(["image-converter", "image-compressor", "image-cropper"]);
+    expect(
+      getPopularTasksForCategory("image").map((tool) => tool.slug),
+    ).toEqual(["image-converter", "image-compressor", "image-resizer"]);
     expect(getPopularTasksForCategory("pdf").map((tool) => tool.slug)).toEqual([
       "merge-pdf",
       "split-pdf",
       "pdf-to-images",
     ]);
+    expect(getToolsForCategory("image").map((tool) => tool.slug)).toContain(
+      "rotate-flip-image",
+    );
+    expect(getToolsForCategory("image").map((tool) => tool.slug)).toContain(
+      "favicon-generator",
+    );
+    expect(getToolsForCategory("image").map((tool) => tool.slug)).toContain(
+      "image-metadata-viewer",
+    );
+    expect(getToolsForCategory("pdf").map((tool) => tool.slug)).toContain(
+      "pdf-reorder-rotate-pages",
+    );
+    expect(getToolsForCategory("web").map((tool) => tool.slug)).toContain(
+      "url-parser-query-editor",
+    );
   });
 
   it("fails a broken related-tool reference", () => {

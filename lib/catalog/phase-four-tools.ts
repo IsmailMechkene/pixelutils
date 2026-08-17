@@ -2,16 +2,95 @@ import type { ToolDefinition } from "./types";
 const date = "2026-08-10";
 export const phaseFourTools = [
   {
+    slug: "url-parser-query-editor",
+    name: "URL Parser and Query String Editor",
+    shortDescription:
+      "Parse URLs and edit query parameters locally in your browser.",
+    longDescription:
+      "Break down a full URL into its protocol, host, path, fragment, and query parameters. Edit, add, remove, or reorder query values, then rebuild a correctly encoded URL without uploading it.",
+    category: "web",
+    keywords: [
+      "URL parser",
+      "query string editor",
+      "URL query parameters",
+      "parse URL",
+    ],
+    aliases: [
+      "query parameter editor",
+      "URL breakdown",
+      "URL builder",
+      "edit URL parameters",
+    ],
+    icon: "link",
+    relatedTools: [
+      "url-encoder-decoder",
+      "json-formatter",
+      "base64-encoder-decoder",
+    ],
+    featured: false,
+    searchWeight: 88,
+    privacyNote:
+      "URLs are parsed and rebuilt locally in your browser without being uploaded or saved.",
+    browserProcessing: true,
+    sensitive: false,
+    inputType: "text",
+    outputType: "structured-data",
+    usageSteps: [
+      "Paste a complete URL and select Parse URL.",
+      "Review its components, then edit, add, remove, or reorder query parameters.",
+      "Rebuild the URL and copy the correctly encoded result.",
+    ],
+    examples: [
+      {
+        name: "Edit repeated URL filters",
+        input: "https://example.com/search?tag=design&tag=tools&q=coffee",
+        output:
+          "A component breakdown and an editable query list that keeps both tag parameters",
+      },
+    ],
+    faqs: [
+      {
+        question: "Are my URLs uploaded?",
+        answer:
+          "No. Parsing and query editing happen only in your browser. URLs are never uploaded, logged, or saved.",
+      },
+      {
+        question: "Are duplicate query parameters preserved?",
+        answer:
+          "Yes. Repeated keys such as tag=design and tag=tools stay separate and keep their order unless you edit them.",
+      },
+      {
+        question:
+          "Why does the rebuilt URL use plus signs for spaces in query values?",
+        answer:
+          "The browser uses standard form-style URL encoding for query strings, where a plus sign represents a space.",
+      },
+    ],
+    publishedAt: "2026-08-17",
+    updatedAt: "2026-08-17",
+    seo: {
+      title: "URL Parser and Query String Editor - Edit URLs Locally",
+      description:
+        "Parse a URL and edit query parameters locally in your browser. View URL components, keep duplicate keys, rebuild encoded queries, and copy the result.",
+    },
+    status: "published",
+  },
+  {
     slug: "pdf-to-images",
     name: "PDF to Images",
     shortDescription: "Render PDF pages as local PNG or JPEG images.",
     longDescription:
       "Convert PDF pages to PNG or JPEG images entirely in your browser. Select all pages or a range, choose resolution and JPEG quality, preview a few pages, and download each image without uploading your PDF.",
     category: "pdf",
-    keywords: ["PDF to images", "PDF to PNG", "PDF to JPG", "convert PDF pages to images"],
+    keywords: [
+      "PDF to images",
+      "PDF to PNG",
+      "PDF to JPG",
+      "convert PDF pages to images",
+    ],
     aliases: ["PDF to JPEG", "PDF page to image", "PDF image converter"],
     icon: "file-text",
-    relatedTools: ["split-pdf", "images-to-pdf", "image-converter"],
+    relatedTools: ["split-pdf", "pdf-reorder-rotate-pages", "images-to-pdf"],
     featured: true,
     searchWeight: 92,
     privacyNote:
@@ -28,8 +107,10 @@ export const phaseFourTools = [
     examples: [
       {
         name: "Save selected report pages as PNG",
-        input: "A 12-page PDF with pages 3 through 5 selected at High resolution",
-        output: "Three PNG files named report-page-3.png through report-page-5.png",
+        input:
+          "A 12-page PDF with pages 3 through 5 selected at High resolution",
+        output:
+          "Three PNG files named report-page-3.png through report-page-5.png",
       },
     ],
     faqs: [
@@ -125,7 +206,7 @@ export const phaseFourTools = [
     keywords: ["split PDF", "extract PDF pages", "PDF page splitter"],
     aliases: ["PDF splitter", "separate PDF pages", "extract pages from PDF"],
     icon: "file-text",
-    relatedTools: ["merge-pdf", "images-to-pdf"],
+    relatedTools: ["merge-pdf", "pdf-reorder-rotate-pages", "images-to-pdf"],
     featured: true,
     searchWeight: 93,
     privacyNote:
@@ -175,7 +256,8 @@ export const phaseFourTools = [
   {
     slug: "merge-pdf",
     name: "Merge PDF",
-    shortDescription: "Combine multiple PDF files locally in your chosen order.",
+    shortDescription:
+      "Combine multiple PDF files locally in your chosen order.",
     longDescription:
       "Merge PDF documents directly in your browser. Reorder files, remove any you do not need, and download one PDF without uploading or rasterizing pages.",
     category: "pdf",
@@ -230,16 +312,89 @@ export const phaseFourTools = [
     status: "published",
   },
   {
+    slug: "pdf-reorder-rotate-pages",
+    name: "PDF Reorder and Rotate Pages",
+    shortDescription: "Reorder and rotate PDF pages locally in your browser.",
+    longDescription:
+      "Reorder PDF pages and rotate individual pages in 90-degree steps without uploading your document. Pages are copied directly into a new PDF, preserving their original quality.",
+    category: "pdf",
+    keywords: [
+      "reorder PDF pages",
+      "rotate PDF pages",
+      "PDF page editor",
+      "rearrange PDF pages",
+    ],
+    aliases: [
+      "PDF reorder",
+      "rotate PDF",
+      "move PDF pages",
+      "organize PDF pages",
+    ],
+    icon: "file-text",
+    relatedTools: ["merge-pdf", "split-pdf", "pdf-to-images"],
+    featured: true,
+    searchWeight: 92,
+    privacyNote:
+      "Your PDF never leaves your device. Page editing happens locally in your browser.",
+    browserProcessing: true,
+    sensitive: false,
+    inputType: "file",
+    outputType: "file",
+    usageSteps: [
+      "Choose or drop one PDF file.",
+      "Drag pages into order or use the move buttons, then rotate any page in 90-degree steps.",
+      "Save and download the new PDF with your chosen page order and rotations.",
+    ],
+    examples: [
+      {
+        name: "Put a scanned report in reading order",
+        input:
+          "A four-page PDF with page 4 moved first and page 2 rotated 90 degrees",
+        output: "A four-page PDF in the new order with page 2 rotated",
+      },
+    ],
+    faqs: [
+      {
+        question: "Are my PDFs uploaded?",
+        answer:
+          "No. The PDF is edited locally in your browser and never leaves your device.",
+      },
+      {
+        question: "Will reordering or rotating reduce page quality?",
+        answer:
+          "No. The tool copies PDF page objects into a new document instead of converting pages into images.",
+      },
+      {
+        question: "Can I rotate more than one page?",
+        answer:
+          "Yes. Rotate any number of pages. Each press turns that page 90 degrees clockwise.",
+      },
+    ],
+    publishedAt: "2026-08-17",
+    updatedAt: "2026-08-17",
+    seo: {
+      title: "PDF Reorder and Rotate Pages - Edit PDF Locally",
+      description:
+        "Reorder and rotate PDF pages locally in your browser. Move pages, turn individual pages in 90-degree steps, and download a new PDF without uploading.",
+    },
+    status: "published",
+  },
+  {
     slug: "remove-image-metadata",
     name: "Image Metadata Remover",
-    shortDescription: "Create a local image export without copied source metadata.",
+    shortDescription:
+      "Create a local image export without copied source metadata.",
     longDescription:
       "Recreate PNG, JPG, JPEG, and supported WebP images locally from decoded pixels. The new export does not copy the original metadata containers, while keeping the displayed image orientation intact.",
     category: "image",
     keywords: ["remove image metadata", "remove EXIF", "strip image metadata"],
     aliases: ["EXIF remover", "image privacy cleaner", "remove photo data"],
     icon: "image",
-    relatedTools: ["image-compressor", "image-cropper", "image-converter"],
+    relatedTools: [
+      "image-metadata-viewer",
+      "image-compressor",
+      "image-cropper",
+    ],
     featured: false,
     searchWeight: 88,
     privacyNote:
@@ -287,6 +442,79 @@ export const phaseFourTools = [
     status: "published",
   },
   {
+    slug: "image-metadata-viewer",
+    name: "Image Metadata Viewer",
+    shortDescription:
+      "View readable image metadata locally before sharing or exporting.",
+    longDescription:
+      "Inspect readable metadata in PNG, JPG, JPEG, and WebP images without uploading them. See common camera, date, orientation, location, XMP, IPTC, and PNG text fields, then open Metadata Remover when you want a new sanitized export.",
+    category: "image",
+    keywords: [
+      "image metadata viewer",
+      "view EXIF data",
+      "photo metadata viewer",
+      "image GPS metadata",
+    ],
+    aliases: [
+      "EXIF viewer",
+      "photo details viewer",
+      "check image metadata",
+      "view image location",
+    ],
+    icon: "image",
+    relatedTools: [
+      "remove-image-metadata",
+      "image-converter",
+      "rotate-flip-image",
+    ],
+    featured: false,
+    searchWeight: 88,
+    privacyNote:
+      "Your image and its metadata stay on your device. Inspection happens locally in your browser.",
+    browserProcessing: true,
+    sensitive: false,
+    inputType: "image",
+    outputType: "structured-data",
+    usageSteps: [
+      "Choose or drop a PNG, JPG, JPEG, or WebP image.",
+      "Review locally readable camera, date, orientation, location, and other metadata fields.",
+      "Open Image Metadata Remover if you want a new export without copied original metadata containers.",
+    ],
+    examples: [
+      {
+        name: "Check a photo before sharing",
+        input: "A JPG phone photo with EXIF camera and GPS fields",
+        output:
+          "A local report listing readable camera details, date, orientation, and location fields",
+      },
+    ],
+    faqs: [
+      {
+        question: "Are my images or metadata uploaded?",
+        answer:
+          "No. Inspection happens locally in your browser and neither the image nor its metadata leaves your device.",
+      },
+      {
+        question: "Does this show every possible metadata field?",
+        answer:
+          "No. The viewer reports common readable EXIF, GPS, XMP, IPTC, PNG text, and color-profile fields. Some proprietary or malformed fields may not be shown.",
+      },
+      {
+        question: "Can I remove the metadata I find?",
+        answer:
+          "Yes. Open Image Metadata Remover to create a new image export without copying the original metadata containers.",
+      },
+    ],
+    publishedAt: "2026-08-17",
+    updatedAt: "2026-08-17",
+    seo: {
+      title: "Image Metadata Viewer - View EXIF and Photo Details Locally",
+      description:
+        "View readable EXIF, camera, date, location, XMP, and image metadata locally in your browser. Check a photo before sharing without uploading it.",
+    },
+    status: "published",
+  },
+  {
     slug: "image-cropper",
     name: "Image Cropper",
     shortDescription: "Crop PNG, JPG, and WebP images locally.",
@@ -296,7 +524,7 @@ export const phaseFourTools = [
     keywords: ["image cropper", "crop image", "crop PNG", "crop JPG"],
     aliases: ["photo cropper", "image cutter", "crop WebP"],
     icon: "image",
-    relatedTools: ["image-resizer", "image-converter", "image-compressor"],
+    relatedTools: ["image-resizer", "rotate-flip-image", "image-converter"],
     featured: true,
     searchWeight: 91,
     privacyNote:
@@ -344,6 +572,136 @@ export const phaseFourTools = [
     status: "published",
   },
   {
+    slug: "rotate-flip-image",
+    name: "Rotate and Flip Image",
+    shortDescription: "Rotate or mirror PNG, JPG, and WebP images locally.",
+    longDescription:
+      "Rotate PNG, JPG, JPEG, and WebP images by 90, 180, or 270 degrees, or mirror them horizontally or vertically. Review the new dimensions and download the transformed image without uploading it.",
+    category: "image",
+    keywords: ["rotate image", "flip image", "mirror image", "rotate JPG"],
+    aliases: [
+      "rotate photo",
+      "mirror photo",
+      "flip PNG",
+      "fix image orientation",
+    ],
+    icon: "image",
+    relatedTools: ["image-resizer", "image-cropper", "image-converter"],
+    featured: true,
+    searchWeight: 90,
+    privacyNote:
+      "Your image never leaves your device. Processing happens locally in your browser.",
+    browserProcessing: true,
+    sensitive: false,
+    inputType: "image",
+    outputType: "image",
+    usageSteps: [
+      "Choose or drop a PNG, JPG, JPEG, or WebP image.",
+      "Choose a rotation and optional horizontal or vertical flip.",
+      "Apply the transform, review the output dimensions, and download the new image.",
+    ],
+    examples: [
+      {
+        name: "Fix a sideways phone photo",
+        input: "A 3024 × 4032 JPG rotated 90° clockwise",
+        output: "A 4032 × 3024 JPG with the image pixels turned upright",
+      },
+    ],
+    faqs: [
+      {
+        question: "Are my images uploaded?",
+        answer:
+          "No. Rotation and flipping happen locally in your browser, and your image never leaves your device.",
+      },
+      {
+        question: "Why do the dimensions swap after a 90° rotation?",
+        answer:
+          "A quarter turn changes a landscape image into a portrait image or the reverse, so its width and height switch places.",
+      },
+      {
+        question: "Will rotating preserve the original metadata?",
+        answer:
+          "The tool creates a new browser-rendered image export. Optional original metadata containers, such as camera details and location, may not be copied.",
+      },
+    ],
+    publishedAt: "2026-08-17",
+    updatedAt: "2026-08-17",
+    seo: {
+      title: "Rotate and Flip Image - PNG, JPG and WebP Locally",
+      description:
+        "Rotate or flip PNG, JPG and WebP images locally in your browser. Fix image orientation, mirror photos, review dimensions, and download without uploading.",
+    },
+    status: "published",
+  },
+  {
+    slug: "favicon-generator",
+    name: "Favicon Generator",
+    shortDescription: "Create a browser-ready favicon package from one image.",
+    longDescription:
+      "Turn one PNG, JPG, JPEG, or WebP image into a complete favicon package locally in your browser. Download favicon.ico, standard PNG icon sizes, a web manifest, and installation markup in one ZIP file.",
+    category: "image",
+    keywords: [
+      "favicon generator",
+      "create favicon",
+      "favicon.ico generator",
+      "website icon generator",
+    ],
+    aliases: [
+      "make favicon",
+      "favicon creator",
+      "generate favicon.ico",
+      "app icon generator",
+    ],
+    icon: "image",
+    relatedTools: ["image-resizer", "image-converter", "rotate-flip-image"],
+    featured: true,
+    searchWeight: 89,
+    privacyNote:
+      "Your image never leaves your device. The favicon package is created locally in your browser.",
+    browserProcessing: true,
+    sensitive: false,
+    inputType: "image",
+    outputType: "file",
+    usageSteps: [
+      "Choose or drop one PNG, JPG, JPEG, or WebP image.",
+      "Create the package; square images work best, but any image is fitted inside each icon.",
+      "Download the ZIP and place its files in your site root using the included installation snippet.",
+    ],
+    examples: [
+      {
+        name: "Create website icons from a logo",
+        input: "A transparent 1024 × 1024 PNG logo",
+        output:
+          "A ZIP with favicon.ico, PNG icons, site.webmanifest, and favicon markup",
+      },
+    ],
+    faqs: [
+      {
+        question: "Are my images uploaded?",
+        answer:
+          "No. The favicon files are generated locally in your browser and your image never leaves your device.",
+      },
+      {
+        question: "What files are in the package?",
+        answer:
+          "The ZIP contains favicon.ico, 16, 32, and 48 pixel PNG favicons, Apple and Android PNG icons, site.webmanifest, and an installation snippet.",
+      },
+      {
+        question: "Does my source image need to be square?",
+        answer:
+          "No. Square artwork gives the most predictable result. Other images are scaled to fit inside the square icon without cropping.",
+      },
+    ],
+    publishedAt: "2026-08-17",
+    updatedAt: "2026-08-17",
+    seo: {
+      title: "Favicon Generator - Create favicon.ico and Icon Package",
+      description:
+        "Create a browser-ready favicon package from one image. Download favicon.ico, PNG icon sizes, a web manifest, and install markup locally in your browser.",
+    },
+    status: "published",
+  },
+  {
     slug: "image-resizer",
     name: "Image Resizer",
     shortDescription: "Resize PNG, JPG, and WebP images locally.",
@@ -353,7 +711,7 @@ export const phaseFourTools = [
     keywords: ["image resizer", "resize image", "change image dimensions"],
     aliases: ["resize PNG", "resize JPG", "resize WebP"],
     icon: "image",
-    relatedTools: ["image-cropper", "image-converter", "image-compressor"],
+    relatedTools: ["image-cropper", "rotate-flip-image", "favicon-generator"],
     featured: true,
     searchWeight: 91,
     privacyNote:
