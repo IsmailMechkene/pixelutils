@@ -5,6 +5,7 @@ import { AdSlot } from "@/components/ads/ad-slot";
 import { ToolCard } from "@/components/catalog/tool-card";
 import { CatalogSidebar } from "@/components/catalog/catalog-sidebar";
 import { PopularTasks } from "@/components/catalog/popular-tasks";
+import { GuideCard } from "@/components/content/guide-card";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Breadcrumbs } from "@/components/tool-shell/breadcrumbs";
 import { CategoryIcon } from "@/components/ui/icon";
@@ -14,6 +15,7 @@ import {
   getToolsForCategory,
   publishedCategories,
 } from "@/lib/catalog/registry";
+import { getGuidesForCategory } from "@/lib/guides/registry";
 import { createCategoryMetadata } from "@/lib/seo/metadata";
 import {
   createCategoryBreadcrumbData,
@@ -48,6 +50,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const tools = getToolsForCategory(category.slug);
   const popularTasks = getPopularTasksForCategory(category.slug);
+  const relatedGuides = getGuidesForCategory(category.slug);
   if (tools.length === 0) notFound();
 
   return (
@@ -83,6 +86,23 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 ))}
               </div>
             </section>
+
+            {relatedGuides.length > 0 ? (
+              <section className="mt-12 border-t border-line pt-10" aria-labelledby="category-guides-title">
+                <p className="section-eyebrow">Helpful context</p>
+                <h2 className="content-title mt-3" id="category-guides-title">
+                  {category.name} guides
+                </h2>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-ink-muted">
+                  Practical decisions and workflows for the tools in this category.
+                </p>
+                <div className="mt-5 grid gap-4 lg:grid-cols-2">
+                  {relatedGuides.map((guide) => (
+                    <GuideCard guide={guide} key={guide.slug} />
+                  ))}
+                </div>
+              </section>
+            ) : null}
 
             <div className="mt-12">
               <AdSlot placement="category-content" />

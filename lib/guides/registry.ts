@@ -1,3 +1,5 @@
+import { findTool } from "@/lib/catalog/registry";
+
 import type { GuideDefinition } from "./types";
 import { assertValidGuideRegistry } from "./validation";
 
@@ -134,55 +136,114 @@ export const guideRegistry: readonly GuideDefinition[] = [
   },
   {
     slug: "reduce-image-file-size-without-losing-quality",
-    title: "How to reduce image file size without losing quality",
+    title: "How to compress an image for email without uploading it",
     description:
-      "Reduce image file size with practical quality, dimensions, and format choices while keeping the result useful for its destination.",
+      "Make an image small enough for email by reducing dimensions, choosing a suitable format, and exporting locally in your browser.",
     summary:
-      "The quickest way to make an image smaller is usually to remove pixels you do not need, then choose a format and quality level that suit where the image will be used.",
+      "For an email attachment, reduce dimensions before quality, compare the result at normal viewing size, and keep the original separate.",
     category: "Image guide",
     readingTime: "5 min read",
     byline: "PixelUtils editorial team",
     publishedAt: "2026-08-17",
-    updatedAt: "2026-08-17",
+    updatedAt: "2026-08-23",
     primaryToolSlug: "image-compressor",
     relatedToolSlugs: ["image-resizer", "image-converter", "png-to-webp"],
     relatedGuideSlugs: ["png-vs-jpg-vs-webp"],
     sections: [
       {
-        id: "start-with-the-destination",
-        heading: "Start with where the image will be used",
+        id: "choose-an-email-target",
+        heading: "Choose an email-appropriate target first",
         paragraphs: [
-          "A smaller file is only useful if the image still works at its final size. A large product photo for a full-width page needs more pixels than a thumbnail in a message or a profile image.",
-          "Before changing anything, decide the largest display size, whether transparency is required, and whether a recipient needs a particular format. Those three constraints prevent unnecessary trial and error.",
+          "Email providers and recipients can impose different attachment limits, and a large attachment can be inconvenient even when it is accepted. Aim for the smallest version that still lets the recipient read or view what matters.",
+          "Decide the largest display size, whether the image needs transparency, and whether the recipient requires a particular format. Those constraints make the export choice clearer than chasing a single file-size number.",
         ],
       },
       {
         id: "reduce-pixels-first",
-        heading: "Reduce dimensions before lowering quality",
+        heading: "Resize before lowering image quality",
         paragraphs: [
-          "Pixel dimensions often have a bigger effect on file size than a small quality adjustment. An image that is 4000 pixels wide still carries far more visual data than a 1600-pixel version, even if both look similar on a phone.",
-          "Resize a copy to the largest dimensions the destination can display. Keep the original separately so you can make a different export later without repeatedly compressing an already compressed file.",
+          "Pixel dimensions often affect file size more than a small quality adjustment. An image that is 4000 pixels wide carries far more visual data than a 1600-pixel version, even when both look similar in an email preview.",
+          "Resize a copy to the largest dimensions the recipient needs. Keep the original separately so you can make a different export later without repeatedly compressing an already compressed file.",
         ],
         steps: [
-          "Open the image in a resizer and enter the maximum width or height you actually need.",
+          "Open the image in the Image Resizer and enter the maximum width or height you actually need.",
           "Keep the aspect ratio locked unless you intend to change the composition.",
           "Export the resized copy, then use compression only if its file size still needs to be lower.",
         ],
       },
       {
-        id: "choose-a-quality-level",
-        heading: "Use the lowest quality that still looks right",
+        id: "choose-a-format-and-quality",
+        heading: "Choose a suitable format, then use the lowest acceptable quality",
         paragraphs: [
-          "Lossy formats such as JPG and WebP trade some image detail for a smaller file. The right setting is not a universal percentage: photographs, text in screenshots, gradients, and illustrations react differently.",
-          "Compare the compressed export at the size people will actually see. Check sharp edges, readable text, faces, and smooth colour areas. If you notice artifacts there, use a higher-quality preset or reduce the dimensions less aggressively.",
+          "JPG and WebP are lossy formats that trade some detail for a smaller file. PNG is often better when transparency or crisp screenshot text matters, but it can be larger. The best choice depends on the image and what the recipient can open.",
+          "Compare the compressed export at the size people will actually see. Check sharp edges, readable text, faces, and smooth colour areas. If you notice artifacts, use a higher-quality setting or reduce the dimensions less aggressively.",
         ],
       },
       {
-        id: "avoid-repeat-compression",
-        heading: "Avoid compressing the same file repeatedly",
+        id: "export-locally-and-check",
+        heading: "Export locally and check the attachment copy",
         paragraphs: [
+          "PixelUtils compresses the selected image in your browser, so you can create the email copy without sending the image to a processing server. Download the result, open it once, and check both its file size and the details that need to remain legible.",
           "Each lossy re-export can discard more detail. Work from the original whenever possible, and make separate exports for different destinations instead of compressing yesterday's compressed version again.",
-          "For sensitive images, also check the tool's metadata policy. A new export can omit metadata containers, but that is a separate decision from reducing file size.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "remove-image-metadata-before-sharing",
+    title: "How to remove image metadata before sharing",
+    description:
+      "Create a local image export without copying original metadata containers, then review what that new file can and cannot guarantee.",
+    summary:
+      "A new pixel-based export can omit copied source metadata containers. It is useful before sharing, but it cannot guarantee the removal of every possible field.",
+    category: "Image guide",
+    readingTime: "5 min read",
+    byline: "PixelUtils editorial team",
+    publishedAt: "2026-08-23",
+    updatedAt: "2026-08-23",
+    primaryToolSlug: "remove-image-metadata",
+    relatedToolSlugs: ["image-metadata-viewer", "image-compressor", "image-resizer"],
+    relatedGuideSlugs: [
+      "reduce-image-file-size-without-losing-quality",
+      "png-vs-jpg-vs-webp",
+    ],
+    sections: [
+      {
+        id: "check-what-you-are-sharing",
+        heading: "Check what the image may contain before you share it",
+        paragraphs: [
+          "An image file can include more than visible pixels. Depending on its format and source, readable metadata may describe the camera, capture date, orientation, location, or editing details. Not every image has all of these fields.",
+          "Use the Image Metadata Viewer to inspect the readable fields in a copy before deciding what to share. Metadata is only one part of privacy: the visible image itself, its filename, and the place where you publish it can also reveal information.",
+        ],
+      },
+      {
+        id: "create-a-new-local-export",
+        heading: "Create a new local export instead of editing the original",
+        paragraphs: [
+          "The Image Metadata Remover decodes a supported PNG, JPG, JPEG, or WebP image in your browser and creates a new pixel-based export. It does not copy the original metadata containers into that new file.",
+          "Keep the original image unchanged and treat the download as a separate sharing copy. This gives you a source file if you later need a different format, a higher-quality export, or the original metadata for your own records.",
+        ],
+        steps: [
+          "Choose a copy of the image you are allowed to share.",
+          "For JPG or WebP, keep the high-quality setting unless you intentionally want a smaller file.",
+          "Create the new image, download it, and keep it separate from the original.",
+          "Open the downloaded copy and confirm that its visible orientation and content are right for the recipient.",
+        ],
+      },
+      {
+        id: "understand-the-limits",
+        heading: "Understand what metadata removal does not prove",
+        paragraphs: [
+          "A new export without copied source metadata containers is not a guarantee that every possible field is absent. Browser-generated fields and format-specific details can vary, so do not treat a metadata-removal export as proof that a file meets a legal, contractual, or safety requirement.",
+          "Removing metadata also cannot remove information visible in the pixels, such as an address on a sign, a recognizable person, or a location in the background. Review the whole image and consider the sharing channel before sending it.",
+        ],
+      },
+      {
+        id: "separate-file-size-from-privacy",
+        heading: "Handle file size as a separate choice",
+        paragraphs: [
+          "Re-exporting an image can change its file size, but metadata removal is not a substitute for intentional compression. If an attachment also needs to be smaller, resize the new copy first and then use the Image Compressor with a quality level you have reviewed.",
+          "Choose the output format for the recipient's needs. JPG is broadly compatible for photos, while PNG or WebP can be better for certain images and destinations. Keep the original until you know the sharing copy is suitable.",
         ],
       },
     ],
@@ -239,34 +300,42 @@ export const guideRegistry: readonly GuideDefinition[] = [
   },
   {
     slug: "how-to-merge-pdf-files-in-order",
-    title: "How to merge PDF files in the right order",
+    title: "How to merge PDF files without uploading them",
     description:
-      "Combine PDF files in a deliberate order, verify the result, and avoid common problems with pages, passwords, and uploads.",
+      "Combine PDF files in a chosen order directly in your browser, then verify the downloaded document before sharing it.",
     summary:
-      "Merging PDFs is straightforward once the files are in the intended sequence. Check the order before creating the final document, then review the first and last pages after download.",
+      "Choose authorized files, set their order, create a new local download, and check the result without sending PDFs to a processing server.",
     category: "PDF guide",
-    readingTime: "4 min read",
+    readingTime: "5 min read",
     byline: "PixelUtils editorial team",
     publishedAt: "2026-08-17",
-    updatedAt: "2026-08-17",
+    updatedAt: "2026-08-23",
     primaryToolSlug: "merge-pdf",
     relatedToolSlugs: ["split-pdf", "pdf-to-images", "images-to-pdf"],
     relatedGuideSlugs: ["how-to-split-pdf-pages"],
     sections: [
       {
-        id: "prepare-the-files",
-        heading: "Prepare the files before merging",
+        id: "what-without-upload-means",
+        heading: "What merging without uploading means",
         paragraphs: [
-          "Name or group the documents so their intended order is obvious. A cover page, a main document, and appendices are easier to arrange when you decide the sequence before opening a merge tool.",
-          "If a PDF is password protected, corrupted, or has restrictions that prevent it from being read, resolve that issue with an authorized copy first. A merger should not be used to bypass document permissions.",
+          "A browser-based PDF merger can create the finished file on your device instead of sending the selected documents to a processing server. PixelUtils merges selected PDFs locally in the browser, so the documents stay on your device during the merge.",
+          "The page still needs to load in your browser, and you remain responsible for how the downloaded document is stored or shared. Use files you are authorized to combine and keep the originals until you have checked the result.",
         ],
       },
       {
-        id: "set-the-order",
-        heading: "Put documents in their final reading order",
+        id: "prepare-authorized-files",
+        heading: "Prepare authorized, readable PDF files",
+        paragraphs: [
+          "Name or group the documents so their intended order is obvious. A cover page, a main document, and appendices are easier to arrange when you decide the sequence before opening the tool.",
+          "If a PDF is password protected, corrupted, or cannot be read, resolve that issue with an authorized unprotected copy first. A merger should not be used to bypass document permissions.",
+        ],
+      },
+      {
+        id: "set-and-check-order",
+        heading: "Set the order before you create the merged file",
         paragraphs: [
           "Add all files, then inspect their order carefully. The output follows that order, so move an appendix or cover document before generating the final PDF rather than trying to correct it afterward.",
-          "For a large pack, combine logical groups first only if that helps you review them. Keep a clear source copy of each original document in case you need to change one section later.",
+          "For a large pack, keep a clear source copy of each original document. If you need to change one section later, you can create a new merge from the originals instead of altering the finished file.",
         ],
         steps: [
           "Choose the PDFs you are authorized to combine.",
@@ -276,19 +345,11 @@ export const guideRegistry: readonly GuideDefinition[] = [
         ],
       },
       {
-        id: "check-the-output",
-        heading: "Check the output before sharing it",
+        id: "download-and-verify",
+        heading: "Download and verify the new document",
         paragraphs: [
           "Open the merged PDF and review the first page, the last page, and every point where one source document joins the next. This quickly catches a missing file or an accidental ordering mistake.",
-          "A merge combines pages; it does not rewrite a document as images. That means the result can preserve the source pages' document structure, but you should still verify it in the viewer your recipient will use.",
-        ],
-      },
-      {
-        id: "keep-documents-private",
-        heading: "Choose a workflow that fits the document's sensitivity",
-        paragraphs: [
-          "PDFs often contain invoices, contracts, personal records, or internal material. If you use a browser-based merger, check whether it uploads documents to a server before selecting files.",
-          "PixelUtils processes selected PDFs in the browser, so the files are not sent to a processing server. That does not change any sharing or retention obligations you have for the finished document.",
+          "PixelUtils copies PDF pages into a new document rather than converting them to images. You should still open the finished PDF in the viewer your recipient will use, especially when the source contains forms, signatures, or complex layouts.",
         ],
       },
     ],
@@ -425,4 +486,17 @@ export function getRelatedGuides(guide: GuideDefinition) {
     .filter(
       (relatedGuide): relatedGuide is GuideDefinition => relatedGuide !== undefined,
     );
+}
+
+export function getGuidesForTool(toolSlug: string) {
+  return publishedGuides.filter(
+    (guide) =>
+      guide.primaryToolSlug === toolSlug || guide.relatedToolSlugs.includes(toolSlug),
+  );
+}
+
+export function getGuidesForCategory(categorySlug: string) {
+  return publishedGuides.filter(
+    (guide) => findTool(guide.primaryToolSlug)?.category === categorySlug,
+  );
 }

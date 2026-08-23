@@ -70,7 +70,7 @@ export const videoTools = [
     keywords: ["MKV to MP4", "convert MKV to MP4", "MKV converter"],
     aliases: ["MKV converter", "Matroska to MP4", "change MKV to MP4"],
     icon: "video",
-    relatedTools: [],
+    relatedTools: ["video-compressor"],
     featured: true,
     searchWeight: 94,
     privacyNote:

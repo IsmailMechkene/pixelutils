@@ -46,9 +46,13 @@ export function validateGuideRegistry(guides: readonly GuideDefinition[]) {
     }
     if (guide.sections.length === 0)
       issues.push(`Guide "${guide.slug}" has no editorial sections.`);
+    const sectionIds = new Set<string>();
     for (const section of guide.sections) {
       if (!isValidSlug(section.id) || !section.heading.trim() || section.paragraphs.length === 0)
         issues.push(`Guide "${guide.slug}" has an incomplete section.`);
+      if (sectionIds.has(section.id))
+        issues.push(`Guide "${guide.slug}" has a duplicate section id "${section.id}".`);
+      sectionIds.add(section.id);
     }
   }
 

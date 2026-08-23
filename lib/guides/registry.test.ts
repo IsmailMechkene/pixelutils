@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { guideRegistry } from "./registry";
+import {
+  getGuidesForCategory,
+  getGuidesForTool,
+  guideRegistry,
+} from "./registry";
+import { findTool } from "@/lib/catalog/registry";
 import type { GuideDefinition } from "./types";
 import { validateGuideRegistry } from "./validation";
 
@@ -38,5 +43,33 @@ describe("guide registry", () => {
     expect(validateGuideRegistry([incompleteGuide])).toEqual(
       expect.arrayContaining([expect.stringMatching(/no editorial sections/)]),
     );
+  });
+
+  it("rejects duplicate section identifiers", () => {
+    const duplicateSectionGuide: GuideDefinition = {
+      ...guideRegistry[0],
+      slug: "duplicate-section-guide",
+      title: "Duplicate section guide",
+      description: "A distinct guide description for duplicate-section validation.",
+      sections: [guideRegistry[0].sections[0], guideRegistry[0].sections[0]],
+    };
+
+    expect(validateGuideRegistry([duplicateSectionGuide])).toEqual(
+      expect.arrayContaining([expect.stringMatching(/duplicate section id/)]),
+    );
+  });
+
+  it("keeps every guide reachable from its explicit tool and primary category", () => {
+    for (const guide of guideRegistry) {
+      const primaryTool = findTool(guide.primaryToolSlug);
+
+      expect(primaryTool).toBeDefined();
+      expect(getGuidesForTool(guide.primaryToolSlug)).toContainEqual(guide);
+      expect(getGuidesForCategory(primaryTool!.category)).toContainEqual(guide);
+
+      for (const toolSlug of guide.relatedToolSlugs) {
+        expect(getGuidesForTool(toolSlug)).toContainEqual(guide);
+      }
+    }
   });
 });

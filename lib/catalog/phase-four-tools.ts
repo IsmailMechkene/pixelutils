@@ -825,9 +825,9 @@ export const phaseFourTools = [
     aliases: ["photo compressor", "image size reducer", "compress jpg"],
     icon: "image",
     relatedTools: [
-      "qr-code-generator",
-      "color-converter",
-      "color-contrast-checker",
+      "image-resizer",
+      "image-converter",
+      "remove-image-metadata",
     ],
     featured: true,
     searchWeight: 91,

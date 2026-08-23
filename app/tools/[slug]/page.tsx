@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { AdSlot } from "@/components/ads/ad-slot";
 import { JsonLd } from "@/components/seo/json-ld";
 import { MobileMoreDetails } from "@/components/tool-shell/mobile-more-details";
+import { RelatedGuides } from "@/components/tool-shell/related-guides";
 import { RelatedTools } from "@/components/tool-shell/related-tools";
 import { ToolExamples } from "@/components/tool-shell/tool-examples";
 import { ToolFAQ } from "@/components/tool-shell/tool-faq";
@@ -20,6 +21,7 @@ import {
   getRelatedTools,
   publishedTools,
 } from "@/lib/catalog/registry";
+import { getGuidesForTool } from "@/lib/guides/registry";
 import { createToolMetadata } from "@/lib/seo/metadata";
 import {
   createToolApplicationData,
@@ -54,6 +56,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
   if (!category) notFound();
 
   const relatedTools = getRelatedTools(tool);
+  const relatedGuides = getGuidesForTool(tool.slug);
   const faqData = createToolFaqData(tool);
 
   return (
@@ -74,6 +77,7 @@ export default async function ToolPage({ params }: ToolPageProps) {
         <MobileMoreDetails>
           <ToolExamples examples={tool.examples} />
           <ToolFAQ entries={tool.faqs} />
+          <RelatedGuides guides={relatedGuides} />
           <RelatedTools tools={relatedTools} />
           <ToolHistory tool={tool} />
           <AdSlot placement="tool-after-content" />
