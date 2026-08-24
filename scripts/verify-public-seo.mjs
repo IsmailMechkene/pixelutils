@@ -73,8 +73,14 @@ for (const url of sitemapUrls) {
 }
 for (const path of samplePaths) {
   const html = await fetchRequired(path, "text/html");
-  const canonical = new URL(path, origin).toString();
-  if (!html.includes(`rel="canonical" href="${canonical}"`)) {
+  const canonical = new URL(path, origin);
+  const canonicalMatch = html.match(
+    /<link\b[^>]*\brel=["']canonical["'][^>]*\bhref=["']([^"']+)["'][^>]*>/i,
+  );
+  if (
+    !canonicalMatch ||
+    new URL(canonicalMatch[1], origin).href !== canonical.href
+  ) {
     throw new Error(`${path} is missing the expected canonical URL.`);
   }
   if (!/<h1[\s>]/i.test(html)) {
