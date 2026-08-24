@@ -22,7 +22,10 @@ export const guideRegistry: readonly GuideDefinition[] = [
       "base64-encoder-decoder",
       "jwt-decoder",
     ],
-    relatedGuideSlugs: ["json-formatter-vs-json-minifier"],
+    relatedGuideSlugs: [
+      "json-formatter-vs-json-minifier",
+      "convert-csv-to-json-without-uploading",
+    ],
     sections: [
       {
         id: "what-formatting-does",
@@ -130,6 +133,75 @@ export const guideRegistry: readonly GuideDefinition[] = [
         paragraphs: [
           "Validate first, then choose the representation that suits the next task. Keep the readable formatted copy while you are reviewing or editing; create a minified copy only when you specifically need compact output.",
           "If the source may contain private data, choose a tool that processes it locally and avoid pasting it into issue trackers, chat messages, or public examples.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "convert-csv-to-json-without-uploading",
+    title: "How to convert CSV to JSON without uploading data",
+    description:
+      "Turn header-based CSV into a readable JSON array locally, handle quoted values correctly, and check the result before you reuse it.",
+    summary:
+      "Start with a clear, unique header row, preserve quoted cells as text, and validate the generated JSON before it enters an application or workflow.",
+    category: "Developer guide",
+    readingTime: "5 min read",
+    byline: "PixelUtils editorial team",
+    publishedAt: "2026-08-24",
+    updatedAt: "2026-08-24",
+    primaryToolSlug: "csv-to-json-converter",
+    relatedToolSlugs: [
+      "json-formatter",
+      "yaml-formatter-validator",
+      "xml-formatter-validator",
+    ],
+    relatedGuideSlugs: [
+      "format-and-validate-json-safely",
+      "json-formatter-vs-json-minifier",
+    ],
+    sections: [
+      {
+        id: "start-with-a-header-row",
+        heading: "Start with one clear header row",
+        paragraphs: [
+          "A CSV-to-JSON conversion needs column names because those names become property keys in every JSON object. Put the headers in the first row, keep them non-empty, and make each one unique before converting.",
+          "For example, the headers `name,email` produce objects with `name` and `email` keys. If two columns use the same name, there is no unambiguous way to represent both values as properties in one object, so fix the source header first.",
+        ],
+        codeExample: {
+          label: "A header-based CSV becomes an array of objects",
+          language: "csv / json",
+          value:
+            'name,role\\nAda,Engineer\\nLin,Designer\\n\\nbecomes\\n\\n[\\n  {\\n    "name": "Ada",\\n    "role": "Engineer"\\n  },\\n  {\\n    "name": "Lin",\\n    "role": "Designer"\\n  }\\n]',
+        },
+      },
+      {
+        id: "keep-quoted-cells-intact",
+        heading: "Keep commas and quotes inside quoted cells intact",
+        paragraphs: [
+          "A comma normally separates CSV cells, but a comma inside a quoted cell belongs to the value. For example, `\"Paris, France\"` is one location value, not two columns. A double quote inside a quoted cell is written as two double quotes, such as `\"She said \"\"hello\"\"\"`.",
+          "Check the row shape if conversion reports a different number of values from the header. That usually means a missing comma, a stray quote, or a quoted value that has not been closed—not a JSON problem.",
+        ],
+      },
+      {
+        id: "understand-json-value-types",
+        heading: "Understand how CSV values become JSON",
+        paragraphs: [
+          "CSV does not have built-in number, boolean, date, or null types. The converter preserves each CSV cell as text, so `42`, `true`, and `2026-08-24` become JSON strings unless you deliberately transform them in a later step.",
+          "This is usually safer for an initial conversion because it avoids guessing what a value means. If your destination requires typed fields, document the conversion rules—for example, which empty values become null and which columns must be numbers—then validate the result against that destination's requirements.",
+        ],
+      },
+      {
+        id: "convert-locally-and-validate-output",
+        heading: "Convert locally, then validate the output",
+        paragraphs: [
+          "Paste the CSV into the CSV to JSON Converter, create the JSON array, and inspect the first and last objects before copying or downloading it. PixelUtils performs the parsing and JSON creation in the browser, which avoids sending pasted data to a conversion server.",
+          "Use the JSON Formatter to check the final structure if you edit the output or need to investigate an error. Local processing does not change your responsibility to handle sensitive exports carefully after you copy, download, or share them.",
+        ],
+        steps: [
+          "Confirm that the first CSV row contains unique, meaningful headers.",
+          "Check quoted cells for commas or double quotes that must stay within one value.",
+          "Convert the CSV and inspect a few generated objects.",
+          "Format and validate the JSON before importing it into another system.",
         ],
       },
     ],
