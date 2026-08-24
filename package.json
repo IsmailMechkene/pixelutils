@@ -27,6 +27,7 @@
     "validate:registry": "vitest run lib/catalog/registry.test.ts",
     "validate:deployment": "vitest run lib/deployment/security-headers.test.ts lib/ads/config.test.ts lib/analytics/analytics.test.ts",
     "validate:build-output": "node scripts/validate-production-build.mjs",
+    "verify:public-seo": "node scripts/verify-public-seo.mjs",
     "validate:full": "npm run lint && npm run typecheck && npm run test && npm run validate:registry && npm run validate:metadata && npm run validate:deployment && npm run build:production",
     "validate": "npm run validate:full"
   },
