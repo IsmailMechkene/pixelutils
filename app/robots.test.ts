@@ -37,6 +37,10 @@ describe("robots.txt policy", () => {
   });
 
   it("publishes the configured sitemap URL", () => {
-    expect(robots().sitemap).toBe("http://localhost:3000/sitemap.xml");
+    const siteUrl = process.env.SITE_URL ?? "http://localhost:3000";
+
+    expect(robots().sitemap).toBe(
+      new URL("/sitemap.xml", siteUrl).toString(),
+    );
   });
 });
