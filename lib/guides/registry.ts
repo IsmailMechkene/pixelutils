@@ -355,6 +355,65 @@ export const guideRegistry: readonly GuideDefinition[] = [
     ],
   },
   {
+    slug: "rotate-pdf-pages-without-uploading",
+    title: "How to rotate PDF pages without uploading them",
+    description:
+      "Fix sideways PDF pages in 90-degree steps, keep the original document, and create a new local download in your browser.",
+    summary:
+      "Rotate only the pages that need correction, check their reading order, and download a separate PDF without sending the document to a processing server.",
+    category: "PDF guide",
+    readingTime: "4 min read",
+    byline: "PixelUtils editorial team",
+    publishedAt: "2026-08-24",
+    updatedAt: "2026-08-24",
+    primaryToolSlug: "pdf-reorder-rotate-pages",
+    relatedToolSlugs: ["merge-pdf", "split-pdf", "pdf-to-images"],
+    relatedGuideSlugs: [
+      "how-to-merge-pdf-files-in-order",
+      "how-to-split-pdf-pages",
+    ],
+    sections: [
+      {
+        id: "decide-which-pages-need-rotation",
+        heading: "Decide which pages need to turn",
+        paragraphs: [
+          "A sideways scan does not always mean that every page is wrong. Open the original PDF first and note the exact page positions that need attention. This avoids rotating a cover, landscape diagram, or already-correct page by mistake.",
+          "PDF page rotation is normally done in 90-degree steps. It is suitable for a page that was scanned or exported sideways, but it cannot straighten a page that is only slightly tilted. Keep the original until the replacement file has been checked.",
+        ],
+      },
+      {
+        id: "rotate-pages-in-a-local-copy",
+        heading: "Rotate the required pages in a local copy",
+        paragraphs: [
+          "PixelUtils lets you rotate individual pages and arrange their order in the browser. The selected PDF stays on your device while you work, and the saved result is a separate PDF rather than a change to the source file.",
+          "Use one 90-degree turn at a time, then check the page thumbnail or preview before moving on. A page can need two turns for a 180-degree correction, while a landscape page may already be intended to display sideways.",
+        ],
+        steps: [
+          "Choose the PDF file you are authorized to edit.",
+          "Identify the page or pages that are not in their intended reading orientation.",
+          "Rotate each affected page in 90-degree steps and review the result.",
+          "Save the new PDF and download it separately from the original.",
+        ],
+      },
+      {
+        id: "check-reading-order-and-content",
+        heading: "Check reading order and content before sharing",
+        paragraphs: [
+          "Open the downloaded file in a PDF viewer and inspect the corrected pages at normal size. Confirm that text, tables, signatures, and diagrams can be read in the intended direction, particularly where pages switch between portrait and landscape layouts.",
+          "If you also need to move a page, set the order before saving the new file. Rotating a page changes its display orientation; it does not decide where that page belongs in the document.",
+        ],
+      },
+      {
+        id: "know-when-rotation-is-not-enough",
+        heading: "Know when rotation is not enough",
+        paragraphs: [
+          "Page rotation will not repair a skewed scan, missing content, a corrupt PDF, or a password-protected document you are not authorized to edit. Resolve those issues with an appropriate authorized workflow instead of trying to force a page-rotation tool to bypass a restriction.",
+          "For confidential documents, consider where processing occurs before choosing a service. PixelUtils handles page rotation locally in the browser, but you are still responsible for storing and sharing the downloaded copy safely.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "how-to-split-pdf-pages",
     title: "How to split PDF pages safely",
     description:
@@ -368,7 +427,10 @@ export const guideRegistry: readonly GuideDefinition[] = [
     updatedAt: "2026-08-17",
     primaryToolSlug: "split-pdf",
     relatedToolSlugs: ["merge-pdf", "pdf-to-images", "images-to-pdf"],
-    relatedGuideSlugs: ["how-to-merge-pdf-files-in-order"],
+    relatedGuideSlugs: [
+      "how-to-merge-pdf-files-in-order",
+      "rotate-pdf-pages-without-uploading",
+    ],
     sections: [
       {
         id: "choose-the-split-type",
