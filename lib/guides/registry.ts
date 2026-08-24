@@ -220,7 +220,10 @@ export const guideRegistry: readonly GuideDefinition[] = [
     updatedAt: "2026-08-23",
     primaryToolSlug: "image-compressor",
     relatedToolSlugs: ["image-resizer", "image-converter", "png-to-webp"],
-    relatedGuideSlugs: ["png-vs-jpg-vs-webp"],
+    relatedGuideSlugs: [
+      "png-vs-jpg-vs-webp",
+      "resize-image-for-the-web-without-distortion",
+    ],
     sections: [
       {
         id: "choose-an-email-target",
@@ -257,6 +260,65 @@ export const guideRegistry: readonly GuideDefinition[] = [
         paragraphs: [
           "PixelUtils compresses the selected image in your browser, so you can create the email copy without sending the image to a processing server. Download the result, open it once, and check both its file size and the details that need to remain legible.",
           "Each lossy re-export can discard more detail. Work from the original whenever possible, and make separate exports for different destinations instead of compressing yesterday's compressed version again.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "resize-image-for-the-web-without-distortion",
+    title: "How to resize an image for the web without distortion",
+    description:
+      "Resize an image to the dimensions your page needs, preserve its aspect ratio, and avoid unnecessary quality loss or oversized downloads.",
+    summary:
+      "Start with the largest display size the image needs, scale down rather than up where possible, keep proportions locked, and choose an export format for the destination.",
+    category: "Image guide",
+    readingTime: "5 min read",
+    byline: "PixelUtils editorial team",
+    publishedAt: "2026-08-24",
+    updatedAt: "2026-08-24",
+    primaryToolSlug: "image-resizer",
+    relatedToolSlugs: ["image-compressor", "image-converter", "image-cropper"],
+    relatedGuideSlugs: [
+      "reduce-image-file-size-without-losing-quality",
+      "png-vs-jpg-vs-webp",
+    ],
+    sections: [
+      {
+        id: "choose-the-display-size",
+        heading: "Choose the largest display size your page needs",
+        paragraphs: [
+          "Start with the image's actual role on the page. A thumbnail, card image, article image, and full-width banner do not need the same pixel dimensions. Exporting an image close to its largest intended display size avoids asking visitors to download far more pixels than they can see.",
+          "Do not rely on a single fixed size for every screen. Your site layout can make an image responsive, while the source image should still be large enough for its largest useful display. Keep the original so you can make another export for a different placement later.",
+        ],
+      },
+      {
+        id: "preserve-the-aspect-ratio",
+        heading: "Keep the aspect ratio locked to avoid distortion",
+        paragraphs: [
+          "An image's aspect ratio is the relationship between its width and height. When you change only one dimension with the ratio locked, the other dimension adjusts automatically. This keeps circles round and prevents people, products, or logos from looking stretched.",
+          "Unlock the ratio only when you deliberately need exact independent dimensions. If the image must fit a different shape, cropping is often a better choice than squeezing it into that shape because a crop removes unwanted edges instead of distorting every pixel.",
+        ],
+        steps: [
+          "Find the maximum width or height the image needs in its destination layout.",
+          "Open the image in the Image Resizer and keep the aspect ratio locked.",
+          "Enter the one dimension you need, then review the automatically calculated other dimension.",
+          "Download the resized copy and compare it at the size visitors will see.",
+        ],
+      },
+      {
+        id: "scale-down-before-upscaling",
+        heading: "Scale down before you consider upscaling",
+        paragraphs: [
+          "Making an image smaller usually gives the browser fewer pixels to represent, which is useful for web delivery and can still look sharp at the smaller display size. Making it substantially larger cannot create missing original detail and can make blur or compression artifacts more visible.",
+          "If an image is too small for its intended space, use a better source image when possible. PixelUtils warns before an upward resize, so you can decide whether a modest enlargement is acceptable rather than treating it as a quality upgrade.",
+        ],
+      },
+      {
+        id: "choose-format-and-review-export",
+        heading: "Choose an export format and review the result",
+        paragraphs: [
+          "Resizing and compression are related but separate choices. Resize first to remove unneeded pixels, then use compression only if the resized file is still larger than the destination needs. Repeatedly exporting a lossy JPG or WebP can gradually discard detail, so begin each new version from the original whenever possible.",
+          "Keep PNG when transparency or crisp graphic edges are important. Use JPG for broadly compatible photographs, or WebP where the receiving website supports it and a smaller export is useful. PixelUtils processes supported image resizing locally in the browser, so the selected image is not sent to a processing server.",
         ],
       },
     ],
