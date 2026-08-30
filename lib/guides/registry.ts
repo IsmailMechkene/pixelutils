@@ -499,7 +499,7 @@ export const guideRegistry: readonly GuideDefinition[] = [
     readingTime: "4 min read",
     byline: "PixelUtils editorial team",
     publishedAt: "2026-08-24",
-    updatedAt: "2026-08-24",
+    updatedAt: "2026-08-30",
     primaryToolSlug: "pdf-reorder-rotate-pages",
     relatedToolSlugs: ["merge-pdf", "split-pdf", "pdf-to-images"],
     relatedGuideSlugs: [
@@ -509,7 +509,7 @@ export const guideRegistry: readonly GuideDefinition[] = [
     sections: [
       {
         id: "decide-which-pages-need-rotation",
-        heading: "Decide which pages need to turn",
+        heading: "Decide which PDF pages need to rotate",
         paragraphs: [
           "A sideways scan does not always mean that every page is wrong. Open the original PDF first and note the exact page positions that need attention. This avoids rotating a cover, landscape diagram, or already-correct page by mistake.",
           "PDF page rotation is normally done in 90-degree steps. It is suitable for a page that was scanned or exported sideways, but it cannot straighten a page that is only slightly tilted. Keep the original until the replacement file has been checked.",
@@ -517,7 +517,7 @@ export const guideRegistry: readonly GuideDefinition[] = [
       },
       {
         id: "rotate-pages-in-a-local-copy",
-        heading: "Rotate the required pages in a local copy",
+        heading: "Rotate one or all PDF pages in a local copy",
         paragraphs: [
           "PixelUtils lets you rotate individual pages and arrange their order in the browser. The selected PDF stays on your device while you work, and the saved result is a separate PDF rather than a change to the source file.",
           "Use one 90-degree turn at a time, then check the page thumbnail or preview before moving on. A page can need two turns for a 180-degree correction, while a landscape page may already be intended to display sideways.",

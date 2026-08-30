@@ -313,7 +313,7 @@ export const phaseFourTools = [
   },
   {
     slug: "pdf-reorder-rotate-pages",
-    name: "PDF Reorder and Rotate Pages",
+    name: "Rotate and Reorder PDF Pages",
     shortDescription: "Reorder and rotate PDF pages locally in your browser.",
     longDescription:
       "Reorder PDF pages and rotate individual pages in 90-degree steps without uploading your document. Pages are copied directly into a new PDF, preserving their original quality.",
@@ -365,15 +365,20 @@ export const phaseFourTools = [
           "No. The tool copies PDF page objects into a new document instead of converting pages into images.",
       },
       {
-        question: "Can I rotate more than one page?",
+        question: "Can I rotate one PDF page or all of them?",
         answer:
-          "Yes. Rotate any number of pages. Each press turns that page 90 degrees clockwise.",
+          "Yes. Rotate only the page that needs correcting or any number of pages. Each press turns the selected page 90 degrees clockwise.",
+      },
+      {
+        question: "How do I rotate a PDF page 180 degrees?",
+        answer:
+          "Rotate the selected page twice. Each turn is 90 degrees clockwise, so two turns make a 180-degree correction.",
       },
     ],
     publishedAt: "2026-08-17",
-    updatedAt: "2026-08-17",
+    updatedAt: "2026-08-30",
     seo: {
-      title: "PDF Reorder and Rotate Pages - Edit PDF Locally",
+      title: "Rotate PDF Pages - Free, Private Browser Tool",
       description:
         "Reorder and rotate PDF pages locally in your browser. Move pages, turn individual pages in 90-degree steps, and download a new PDF without uploading.",
     },

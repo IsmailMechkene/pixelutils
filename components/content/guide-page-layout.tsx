@@ -46,6 +46,13 @@ export function GuidePageLayout({
               <span aria-hidden="true">/</span>
               <span>{guide.readingTime}</span>
             </div>
+            <Link
+              className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-control bg-accent px-4 font-mono text-xs font-semibold uppercase tracking-wider text-accent-ink hover:bg-accent-hover"
+              href={`/tools/${primaryTool.slug}`}
+            >
+              Open {primaryTool.name}
+              <Icon className="size-4" name="arrow-right" />
+            </Link>
           </header>
 
           <div className="guide-content mt-10 grid gap-10 text-base leading-7 text-ink-muted">
